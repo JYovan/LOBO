@@ -64,11 +64,11 @@
 
                 <div class="row">
 
-                    <div class="col">
+                     <div class="col-sm">
                         <label for="Estatus">Usuario*</label>  
                         <input type="text" class="form-control" id="Usuario" name="Usuario" required >
                     </div>
-                    <div class="col">
+                     <div class="col-sm">
                         <label for="Estatus">Contraseña*</label>  
                         <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
                     </div>
@@ -76,7 +76,7 @@
                 <div class="row"> 
 
 
-                    <div class="col-6">
+                     <div class="col-sm">
                         <label for="Tipo">Tipo</label>
                         <select class="form-control form-control-lg" name="Tipo">
                             <option value=""></option>  
@@ -88,7 +88,7 @@
                             <option value="CAPTURA">CONTABILIDAD</option>
                         </select>
                     </div>
-                    <div class="col-6">
+                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-lg"  name="Estatus"> 
                             <option value=""></option>  
@@ -134,11 +134,11 @@
                     </div>
                     <div class="row">
 
-                        <div class="col">
+                         <div class="col-sm">
                             <label for="Estatus">Usuario*</label>  
                             <input type="text" class="form-control" id="Usuario" name="Usuario" required >
                         </div>
-                        <div class="col">
+                         <div class="col-sm">
                             <label for="Estatus">Contraseña*</label>  
                             <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
                         </div>
@@ -146,7 +146,7 @@
                     <div class="row"> 
 
 
-                        <div class="col-6">
+                         <div class="col-sm">
                             <label for="Tipo">Tipo</label>
                             <select class="form-control form-control-lg" id="Tipo" name="Tipo">
                                 <option value=""></option>  
@@ -158,7 +158,7 @@
                                 <option value="CAPTURA">CONTABILIDAD</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                         <div class="col-sm">
                             <label for="Estatus">Estatus*</label>
                             <select class="form-control form-control-lg" id="Estatus"  name="Estatus"> 
                                 <option value=""></option>  
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"> 
+                         <div class="col-sm">
                             <label for="Estatus">Correo*</label> 
                             <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
                         </div>  
