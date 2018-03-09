@@ -65,8 +65,6 @@ class CtrlUsuarios extends CI_Controller {
             $DATA = array(
                 'Usuario' => ($Usuario !== NULL) ? $Usuario : NULL,
                 'Contrasena' => ($Contrasena !== NULL) ? $Contrasena : NULL,
-                'Nombre' => ($Nombre !== NULL) ? $Nombre : NULL,
-                'Apellidos' => ($Apellidos !== NULL) ? $Apellidos : NULL,
                 'Tipo' => ($Tipo !== NULL) ? $Tipo : NULL,
                 'Estatus' => ($Estatus !== NULL) ? $Estatus : NULL
             );
