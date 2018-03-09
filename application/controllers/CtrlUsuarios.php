@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CtrlUsuarios extends CI_Controller {
 
-
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
@@ -34,8 +33,6 @@ class CtrlUsuarios extends CI_Controller {
         }
     }
 
-
-
     public function getUsuarioByID() {
         try {
             extract($this->input->post());
@@ -48,7 +45,15 @@ class CtrlUsuarios extends CI_Controller {
 
     public function onAgregar() {
         try {
-            $this->usuario_model->onAgregar($this->input->post());
+            $data = array(
+                'Usuario' => ($this->input->post('Usuario') !== NULL) ? $this->input->post('Usuario') : NULL,
+                'Contrasena' => ($this->input->post('Contrasena') !== NULL) ? $this->input->post('Contrasena') : NULL,
+                'Tipo' => ($this->input->post('Tipo') !== NULL) ? $this->input->post('Tipo') : NULL,
+                'Correo' => ($this->input->post('Correo') !== NULL) ? $this->input->post('Correo') : NULL,
+                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
+                'Registro' => Date('d/m/Y h:i:s a')
+            ); 
+            $this->usuario_model->onAgregar($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -63,7 +68,7 @@ class CtrlUsuarios extends CI_Controller {
                 'Nombre' => ($Nombre !== NULL) ? $Nombre : NULL,
                 'Apellidos' => ($Apellidos !== NULL) ? $Apellidos : NULL,
                 'Tipo' => ($Tipo !== NULL) ? $Tipo : NULL,
-                'Estatus'=>($Estatus !== NULL) ? $Estatus : NULL
+                'Estatus' => ($Estatus !== NULL) ? $Estatus : NULL
             );
             $this->usuario_model->onModificar($ID, $DATA);
         } catch (Exception $exc) {

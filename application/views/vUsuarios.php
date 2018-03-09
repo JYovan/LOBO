@@ -1,8 +1,12 @@
 
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <h5 class="card-title">Gestión de Usuario</h5>
-
+        <h5 class="card-title">Gestión de Usuarios</h5>
+        <div align="right">
+            <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
+            <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
+            <button type="button" class="btn btn-dark" id="btnEliminar"><span class="fa fa-trash"></span><br>ELIMINAR</button>
+        </div>
 
         <div class="card-block">
             <div id="tblRegistros"></div>
@@ -30,163 +34,117 @@
         </div>
     </div>
 </div>
-<!--MODALES-->
-<div class="col-md-12">
-    <!--GUARDAR-->
-    <div id="pnlNuevo" class="panel panel-default hide animated slideInRight">
-        <div class="Custompanel-heading" >
-            <div class="Custompanel-heading clearfix">
-                <div class="panel-title pull-left cursor-hand" >
-                    <button type="button" class="btn btn-default " id="btnCancelar" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Regresar">
-                        <span class="fa fa-arrow-left CustomColorIcon" ></span>
-                    </button>
-                    Nuevo Usuario
-                </div>
-                <div class="input-group pull-right">
-                    <button type="button" class="btn btn-raised btn-primary" id="btnGuardar">GUARDAR</button>
-                </div>
-            </div>
-        </div>
-        <div class="panel-body">
+<!--MODALES--> 
+<!--GUARDAR-->
+
+<div id="" class="container-fluid">
+    <div class="card border-dark  d-none" id="pnlNuevo">
+        <div class="card-body text-dark"> 
             <form id="frmNuevo">
-                <fieldset>
-                    <div class="col-6 col-md-3">
-                        <div class="form-group label-static">
-                            <label for="Usuario" class="control-label">Usuario*</label>    
-                            <input type="text" class="form-control" id="Usuario" name="Usuario" required >
-                        </div>
+                <div class="row">
+                    <legend class="display-4" align="center">Nuevo Usuario</legend>
+                    <div class="col">
+                        <h4 class="card-title">Usuario*</h4>  
+                        <input type="text" class="form-control" id="Usuario" name="Usuario" required >
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="form-group label-static">
-                            <label for="Contrasena" class="control-label">Contraseña*</label>    
-                            <input type="password" class="form-control" id="Contrasena" name="Contrasena" required>
-                        </div>
+                    <div class="col">
+                        <h4 class="card-title">CONTRASEÑA*</h4>  
+                        <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group label-static">
-                            <label for="" class="control-label">Tipo Acceso*</label>
-                            <select id="Tipo" name="Tipo" class="form-control" >
-                                <option value=""></option>  
-                                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                <option value="ADMINISTRADOR">COMPRAS</option>
-                                <option value="ADMINISTRADOR">VENTAS</option>
-                                <option value="ADMINISTRADOR">PRODUCCION</option>
-                                <option value="ADMINISTRADOR">ALMACEN</option> 
-                                <option value="CAPTURA">CONTABILIDAD</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="row"> 
+                    <div class="col-6">
+                        <label for="Tipo">TIPO</label><BR>
+                        <select class="form-control form-control-lg" id="Tipo" name="Tipo">
+                            <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                            <option value="COMPRAS">COMPRAS</option>
+                            <option value="VENTAS">VENTAS</option>
+                            <option value="PRODUCCION">PRODUCCION</option>
+                            <option value="ALMACEN">ALMACEN</option> 
+                            <option value="CAPTURA">CONTABILIDAD</option>
+                        </select>
                     </div>
-                    <div class="col-3 col-md-3">
-                        <div class="form-group label-static">
-                            <label for="" class="control-label">Estatus*</label>
-                            <select id="Estatus" name="Estatus" class="form-control" >
-                                <option value=""></option> 
-                                <option value="ACTIVO">ACTIVO</option> 
-                                <option value="INACTIVO">INACTIVO</option> 
-                            </select>
-                        </div>
+                    <div class="col-6">
+                        <label for="Estatus">ESTATUS*</label>
+                        <select class="form-control-lg" id="Estatus" name="Estatus"> 
+                            <option>ACTIVO</option>
+                            <option>INACTIVO</option> 
+                        </select>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group label-static">
-                            <label for="Nombre" class="control-label">Nombre*</label>
-                            <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group label-static">
-                            <label for="Apellidos" class="control-label">Apellidos*</label>
-                            <input type="text" id="Apellidos" name="Apellidos" class="form-control" placeholder="" required>
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="col-md-12">
+                </div>
+                <div class="row">
+                    <div class="col"> 
+                        <h4 class="card-title">Correo*</h4>
+                        <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
+                    </div>  
+                </div> 
+                <div class="col-12" align="right">  
                     <br>
-                    <h6>Los campos con * son obligatorios</h6>    
-                </div>
+                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                </div>    
             </form>
-        </div>
-    </div>
+        </div> 
+    </div> 
 </div>
-<div class="col-md-12">
-    <!--GUARDAR-->
-    <div id="pnlEditar" class="panel panel-default hide animated slideInRight">
-        <div class="Custompanel-heading " >
-            <div class="Custompanel-heading clearfix">
-                <div class="panel-title pull-left cursor-hand" >
-                    <button type="button" class="btn btn-default " id="btnCancelar" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Regresar">
-                        <span class="fa fa-arrow-left CustomColorIcon" ></span>
-                    </button>
-                    Editar Usuario
-                </div>
-                <div class="input-group pull-right">
-                    <button type="button" class="btn btn-default CustomColorEliminarRegistro" id="btnConfirmarEliminar" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Eliminar"><span class="fa fa-trash fa-1x"></span><br></button>
-                    <button type="button" class="btn btn-raised btn-primary" id="btnModificar">GUARDAR</button>
-                </div>
-            </div>
-        </div>
-        <div class="panel-body">
-            <form id="frmEditar">
-                <fieldset>
-                    <div class="col-md-12 hide">
+
+
+<!--GUARDAR-->
+
+
+<div id="" class="container-fluid">
+    <div class="card border-dark  d-none" id="pnlEditar">
+        <div class="card-body text-dark"> 
+            <form id="frmNuevo">
+                <div class="row">
+                    <legend class="display-4" align="center">Editar Usuario</legend>
+
+                    <div class="col d-none">
                         <input type="text" id="ID" name="ID" class="form-control" >
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="form-group label-static">
-                            <label for="Usuario" class="control-label">Usuario*</label>    
-                            <input type="text" class="form-control" id="Usuario" name="Usuario" required >
-                        </div>
+                    <div class="col">
+                        <h4 class="card-title">Usuario*</h4>  
+                        <input type="text" class="form-control" id="Usuario" name="Usuario" required >
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="form-group label-static">
-                            <label for="Contrasena" class="control-label">Contraseña*</label>    
-                            <input type="password" class="form-control" id="Contrasena" name="Contrasena" required>
-                        </div>
+                    <div class="col">
+                        <h4 class="card-title">CONTRASEÑA*</h4>  
+                        <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group label-static">
-                            <label for="" class="control-label">Tipo Acceso*</label>
-                            <select id="Tipo" name="Tipo" class="form-control" >
-                                <option value=""></option> 
-                                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                <option value="ADMINISTRADOR">COMPRAS</option>
-                                <option value="ADMINISTRADOR">VENTAS</option>
-                                <option value="ADMINISTRADOR">PRODUCCION</option>
-                                <option value="ADMINISTRADOR">ALMACEN</option> 
-                                <option value="CAPTURA">CONTABILIDAD</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-3 col-md-3">
-                        <div class="form-group label-static">
-                            <label for="" class="control-label">Estatus*</label>
-                            <select id="Estatus" name="Estatus" class="form-control" >
-                                <option value=""></option> 
-                                <option value="ACTIVO">ACTIVO</option> 
-                                <option value="INACTIVO">INACTIVO</option> 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group label-static">
-                            <label for="Nombre" class="control-label">Nombre*</label>
-                            <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group label-static">
-                            <label for="Apellidos" class="control-label">Apellidos*</label>
-                            <input type="text" id="Apellidos" name="Apellidos" class="form-control" placeholder="" required>
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="col-md-12">
-                    <br>
-                    <h6>Los campos con * son obligatorios</h6>    
                 </div>
+                <div class="row"> 
+                    <div class="col-6">
+                        <label for="Tipo">TIPO</label><BR>
+                        <select class="form-control form-control-lg" id="Tipo" name="Tipo">
+                            <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                            <option value="COMPRAS">COMPRAS</option>
+                            <option value="VENTAS">VENTAS</option>
+                            <option value="PRODUCCION">PRODUCCION</option>
+                            <option value="ALMACEN">ALMACEN</option> 
+                            <option value="CAPTURA">CONTABILIDAD</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="Estatus">ESTATUS*</label>
+                        <select class="form-control-lg" id="Estatus" name="Estatus"> 
+                            <option>ACTIVO</option>
+                            <option>INACTIVO</option> 
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"> 
+                        <h4 class="card-title">Correo*</h4>
+                        <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
+                    </div>  
+                </div> 
+                <div class="col-12" align="right">  
+                    <br>
+                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                </div>    
             </form>
-        </div>
-    </div>
+        </div> 
+    </div> 
 </div>
+
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/CtrlUsuarios/';
@@ -228,10 +186,10 @@
                     }
                 }).done(function (data, x, jq) {
                     console.log(data);
-                    mdlConfirmar.modal('hide');
+                    mdlConfirmar.modal('d-none');
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'USUARIO ELIMINADO', 'danger');
-                    pnlEditar.addClass("hide");
-                    pnlTablero.removeClass("hide");
+                    pnlEditar.addClass("d-none");
+                    pnlTablero.removeClass("d-none");
                     btnRefrescar.trigger('click');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -281,8 +239,8 @@
                 }).done(function (data, x, jq) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO UN USUARIO', 'success');
                     btnRefrescar.trigger('click');
-                    pnlEditar.addClass('hide');
-                    pnlTablero.removeClass('hide');
+                    pnlEditar.addClass('d-none');
+                    pnlTablero.removeClass('d-none');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -330,8 +288,8 @@
                 }).done(function (data, x, jq) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO USUARIO', 'success');
                     getRecords();
-                    pnlTablero.removeClass("hide");
-                    pnlNuevo.addClass('hide');
+                    pnlTablero.removeClass("d-none");
+                    pnlNuevo.addClass('d-none');
                     console.log(data, x, jq);
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -342,22 +300,21 @@
         });
         btnRefrescar.click(function () {
             getRecords();
-            getEmpresas();
         });
         btnNuevo.click(function () {
-            pnlTablero.addClass("hide");
-            pnlNuevo.removeClass('hide');
+            pnlTablero.addClass("d-none");
+            pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").select2("val", "");
         });
         btnCancelar.click(function () {
-            pnlTablero.removeClass("hide");
-            pnlNuevo.addClass('hide');
+            pnlTablero.removeClass("d-none");
+            pnlNuevo.addClass('d-none');
             btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
-            pnlEditar.addClass("hide");
-            pnlTablero.removeClass("hide");
+            pnlEditar.addClass("d-none");
+            pnlTablero.removeClass("d-none");
             btnRefrescar.trigger('click');
         });
         /*CALLS*/
@@ -410,12 +367,11 @@
 
                         pnlEditar.find("input").val("");
                         pnlEditar.find("select").select2("val", "");
-                        $.each(data[0], function (k, v) {
-                            pnlEditar.find("#" + k).val(v);
-                            pnlEditar.find("#" + k).select2("val", v);
-                        });
-                        pnlTablero.addClass("hide");
-                        pnlEditar.removeClass('hide');
+                        pnlEditar.find("#Estatus").val("");
+                        pnlEditar.find("#Estatus").val("");
+                        pnlEditar.find("#" + k).select2("val", v);
+                        pnlTablero.addClass("d-none");
+                        pnlEditar.removeClass('d-none');
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
