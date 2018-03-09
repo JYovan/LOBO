@@ -13,10 +13,11 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="<?php print base_url(); ?>js/jquery-3.2.1.min.js"></script>
         <!-- Bootstrap CSS -->
-         <link href="<?php print base_url('css/bootstrap_cosmo.css') ?>" rel="stylesheet"> 
+        <link href="<?php print base_url('css/bootstrap_cosmo.css') ?>" rel="stylesheet"> 
         <!--DataTables Plugin-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.css">
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.js"></script>
+<<<<<<< HEAD
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.js"></script>
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/JSZip-3.1.3/jszip.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/Buttons-1.5.1/js/buttons.html5.min.js" type="text/javascript"></script>
@@ -25,6 +26,12 @@
         <script src="<?php echo base_url(); ?>js/select2/select2.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+=======
+        <!--select2 control-->         
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+>>>>>>> 165f236d8e2fbe849d1fd1f7f864a61d19b6bc30
         <!-- Validacion forms -->
         <script rel="javascript" type="text/javascript" href="<?php echo base_url(); ?>js/additional-methods.min.js"></script>
         <script src="<?php echo base_url(); ?>js/jquery.validate.min.js"></script>
@@ -53,7 +60,7 @@
 
         <!-- Custom styles for this template -->
         <link href="<?php print base_url('css/style.css') ?>" rel="stylesheet"> 
-       
+
         <!-- Custom scripts for this template -->
         <script src="<?php echo base_url(); ?>js/scripts.js"></script>
     </head> 
@@ -72,10 +79,10 @@
             $('a[data-toggle="collapse"]').on('shown.bs.tab', function (e) {
                 $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
             });
-            $("select").select2({
-                placeholder: "Selecciona una opción",
-                allowClear: true,
-                autofocusInputOnOpen: false
+            $("select").select2({ 
+                width: '100%',
+                placeholder: "SELECCIONE UNA OPCIÓN",
+                allowClear: true
             });
 
             $(document).on('touchend', function () {
