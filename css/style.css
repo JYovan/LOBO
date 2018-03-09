@@ -1,4 +1,52 @@
 
+
+/*Tablas*/
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: middle !important;
+}
+
+@media screen and (max-width: 767px){
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 0px solid #ddd;
+    }
+}
+
+table tbody tr{
+    cursor: pointer;
+   
+}
+table thead tr{
+    cursor: pointer;
+}
+
+.table tr:hover{
+    background-color: #eee !important;
+}
+
+.table-hover>tbody>tr.success:hover>td,
+.table-hover>tbody>tr.success:hover>th,
+.table-hover>tbody>tr:hover>.success,
+.table-hover>tbody>tr>td.success:hover,
+.table-hover>tbody>tr>th.success:hover {
+    background-color: #eee;
+}
+
+.table>tbody>tr>td.success,
+.table>tfoot>tr>td.success,
+.table>tbody>tr>th.success,
+.table>tfoot>tr>th.success,
+.table>tbody>tr.success>td,
+.table>tfoot>tr.success>td,
+.table>tbody>tr.success>th,
+.table>tfoot>tr.success>th {
+    background-color: #eee;
+    color: #000;
+}
+
 /*DropDown Submenu*/
 .navbar-nav li:hover > ul.dropdown-menu {
     display: block;

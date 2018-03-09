@@ -203,7 +203,7 @@
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
     $(document).ready(function () {
-
+        
 
         //Evento clic del boton confirmar borrar
         btnConfirmarEliminar.click(function () {

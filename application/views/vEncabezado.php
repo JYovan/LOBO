@@ -17,6 +17,10 @@
         <!--DataTables Plugin-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.css">
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.js"></script>
+        <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.js"></script>
+        <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/JSZip-3.1.3/jszip.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/Buttons-1.5.1/js/buttons.html5.min.js" type="text/javascript"></script>
+        
         <!--select2 control-->
         <script src="<?php echo base_url(); ?>js/select2/select2.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />

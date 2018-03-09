@@ -17,20 +17,20 @@ var selected = [];
 var tableOptions = {
     "dom": 'Bfrtip',
     buttons: [
-//        {
-//            extend: 'excelHtml5',
-//            text: '<span  data-tooltip="Exportar a Excel"><span class="fa fa-file-excel-o CustomIconsForDataTable"></span></span>',
-//            exportOptions: {
-//                columns: ':visible'
-//            }
-//        },
         {
             extend: 'colvis',
-            text: '<span  data-tooltip="Columnas"><span class="fa fa-columns CustomIconsForDataTable"></span></span>',
+            text: '<span  data-tooltip="Columnas"><span class="fa fa-columns"></span></span>',
             exportOptions: {
                 modifier: {
                     page: 'current'
                 },
+                columns: ':visible'
+            }
+        },
+        {
+            extend: 'excelHtml5',
+            text: '<span  data-tooltip="Exportar a Excel"><span class="fa fa-file-excel-o"></span></span>',
+            exportOptions: {
                 columns: ':visible'
             }
         }
@@ -88,8 +88,8 @@ var tableOptions = {
 function getTable(tblname, data) {
     var column = '';
     var i = 0;
-    var div = "<div class=\" table-responsive  \">";
-    div = "<table id=\"" + tblname + "\" class=\"col-md-12 table table-sm  \"  width=\"100%\">";
+    var div = "<div class=\"  \">";
+    div = "<table id=\"" + tblname + "\" class=\" table table-sm  \"  width=\"100%\">";
     //Create header
     div += "<thead>";
     div += "<tr class=\"\" >";
@@ -118,39 +118,6 @@ function getTable(tblname, data) {
     return div;
 }
 
-
-function getTableCustom(tblname, data) {
-    var column = '';
-    var i = 0;
-    var div = "<div class=\" \">";
-    div = "<table id=\"" + tblname + "\" class=\"table table-striped table-hover customTable\"  width=\"100%\">";
-    //Create header
-    div += "<thead>";
-    div += "<tr class=\"\" >";
-    for (var key in data[i]) {
-        column += "<th>" + key + "</th>";
-    }
-    div += column;
-    div += "</tr></thead>";
-    //Create Rows
-    div += "<tbody>";
-    $.each(data, function (key, value) {
-        div += "<tr data-toggle='tooltip' title='Haga clic para editar' >";
-        $.each(value, function (key, value) {
-            div += "<td>" + value + "</td>";
-        });
-        div += "</tr>";
-    });
-    div += "</tbody>";
-    //Create Footer
-    div += "<tfoot>";
-    div += "<tr class=\"\">";
-    div += column;
-    div += "</tr></tfoot>";
-    div += "</table>";
-    div += "</div>";
-    return div;
-}
 
 
 function getExt(filename) {

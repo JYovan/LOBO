@@ -56,7 +56,7 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <!--<li><a class="dropdown-item" href="#">Action</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Generales</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="<?php print base_url('Sistema') ?>">Generales</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Unidades</a></li>
                             <li><a class="dropdown-item" href="#">Monedas</a></li>
