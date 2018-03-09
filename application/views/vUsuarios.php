@@ -19,23 +19,23 @@
 <!--MODALES--> 
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirmar</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            Deseas eliminar el registro?
-        </div>
-      <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
-            <button type="button" class="btn btn-raised btn-primary" id="btnEliminar">ACEPTAR</button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Deseas eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
+                <button type="button" class="btn btn-raised btn-primary" id="btnEliminar">ACEPTAR</button>
+            </div>
         </div>
     </div>
-  </div>
 </div>
 
 
@@ -102,12 +102,7 @@
                         <label for="Estatus">Correo*</label> 
                         <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
                     </div>  
-                </div> 
-                <div class="col-12" align="right">  
-                    <br>
-                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                </div>    
+                </div>   
             </form>
         </div> 
     </div> 
@@ -134,8 +129,11 @@
                             <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
                         </div>
                     </div>
-
+                    <div class="d-none">
+                        <input type="text" class="form-control" id="ID" name="ID" required >
+                    </div>
                     <div class="row">
+
                         <div class="col">
                             <label for="Estatus">Usuario*</label>  
                             <input type="text" class="form-control" id="Usuario" name="Usuario" required >
