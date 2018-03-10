@@ -12,14 +12,38 @@ class permisos_model extends CI_Model {
             $this->db->select("P.ID AS ID, 
                 P.UsuarioT AS USUARIO, 
                 P.ModuloT AS MODULO, 
-                P.Ver AS VER, 
-                P.Crear AS CREAR, 
-                P.Modificar AS MODIFICAR, 
-                P.Eliminar AS ELIMINAR, 
-                P.Consultar AS CONSULTAR, 
-                P.Reportes AS REPORTES, 
-                P.Buscar AS BUSCAR, 
-                P.Estatus  AS ESTATUS, 
+                CASE 
+                WHEN P.Ver = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END AS VER,
+                CASE 
+                WHEN P.Crear = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END AS CREAR, 
+                CASE 
+                WHEN P.Modificar = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END  AS MODIFICAR, 
+                CASE 
+                WHEN P.Eliminar = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END AS ELIMINAR,
+                CASE 
+                WHEN P.Consultar = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END  AS CONSULTAR, 
+                CASE 
+                WHEN P.Reportes = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END  AS REPORTES, 
+                CASE 
+                WHEN P.Buscar = 1 THEN '<span class=\"badge badge-success\">SI</span>' 
+                ELSE '<span class=\"badge badge-danger\">NO</span>'
+                END AS BUSCAR, 
+                CASE 
+                WHEN P.Estatus = 'ACTIVO' THEN '<span class=\"badge badge-success\">ACTIVO</span>' 
+                ELSE '<span class=\"badge badge-danger\">INACTIVO</span>' 
+                END  AS ESTATUS, 
                 P.Registro AS REGISTRO ", false);
             $this->db->from('Permisos AS P');
             $this->db->where_in('P.Estatus', array('ACTIVO'));

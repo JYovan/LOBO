@@ -244,7 +244,7 @@
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
     $(document).ready(function () {
-        handleEnter(); 
+        handleEnter();
         //Evento clic del boton confirmar borrar
         btnConfirmarEliminar.click(function () {
             if (temp !== 0 && temp !== undefined && temp > 0) {
@@ -267,7 +267,7 @@
                         ID: temp
                     }
                 }).done(function (data, x, jq) {
-                    console.log(data);
+
                     mdlConfirmar.modal('hide');
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'PERMISO ELIMINADO', 'danger');
                     pnlEditar.addClass("d-none");
@@ -356,7 +356,7 @@
                 }).always(function () {
                     HoldOn.close();
                 });
-            } 
+            }
         });
         btnGuardar.click(function () {
             $.validator.setDefaults({
@@ -371,7 +371,7 @@
                 rules: {
                     IdModulo: 'required',
                     IdUsuario: 'required'
-                },  
+                },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
                 highlight: function (element, errorClass, validClass) {
@@ -468,7 +468,6 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            console.log(data);
             if (data.length > 0) {
                 $("#tblRegistros").html(getTable('tblUsuarios', data));
 
@@ -549,6 +548,8 @@
                         }
                     });
                 });
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO SE ENCONTRARON REGISTROS', 'danger');
             }
 
         }).fail(function (x, y, z) {
@@ -561,7 +562,7 @@
     function getModulos() {
         $.getJSON(master_url + 'getModulos').done(function (data, x, jq) {
             console.log('MODULOS');
-            console.log(data);
+
 
             var options = '<option></option>';
             $.each(data, function (k, v) {
@@ -577,12 +578,11 @@
     }
     function getUsuarios() {
         $.getJSON(master_url + 'getUsuarios').done(function (data, x, jq) {
-            console.log(data);
+
             var options = '<option></option>';
             $.each(data, function (k, v) {
                 options += '<option value="' + v.ID + '">' + v.USUARIO + '</option>';
             });
-            console.log(options);
             $("#pnlNuevo").find("#IdUsuario").html(options);
             $("#pnlEditar").find("#IdUsuario").html(options);
         }).fail(function (x, y, z) {
