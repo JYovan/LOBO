@@ -84,7 +84,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php print base_url('CtrlUsuarios') ?>">Usuarios</a></li>
                             <div class="dropdown-divider" ></div>
-                            <li><a class="dropdown-item" href="#">Permisos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Permisos') ?>">Permisos</a></li>
                             <li><a class="dropdown-item" href="#">Módulo</a></li>
                        
                         </ul>
