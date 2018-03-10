@@ -2,12 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sistema extends CI_Controller {
+class Generales extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('usuario_model');
+        $this->load->model('generales_model');
+        
     }
 
     public function index() {
@@ -15,7 +17,7 @@ class Sistema extends CI_Controller {
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
             $this->load->view('vEncabezado');
             $this->load->view('vNavegacion');
-            $this->load->view('vSistema');
+            $this->load->view('vGenerales');
             $this->load->view('vFooter');
         } else {
             $this->load->view('vEncabezado');
@@ -26,7 +28,10 @@ class Sistema extends CI_Controller {
 
     public function getRecords() {
         try {
-            $data = $this->usuario_model->getRecords();
+            extract($this->input->post());
+
+
+            $data = $this->generales_model->getRecords($fieldId);
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
