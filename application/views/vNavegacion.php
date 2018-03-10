@@ -82,7 +82,7 @@
                     </li>
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Usuarios</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="<?php print base_url('CtrlUsuarios') ?>">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Usuarios') ?>">Usuarios</a></li>
                             <div class="dropdown-divider" ></div>
                             <li><a class="dropdown-item" href="<?php print base_url('Permisos') ?>">Permisos</a></li>
                             <li><a class="dropdown-item" href="#">Módulo</a></li>
@@ -104,7 +104,7 @@
                     <a class="dropdown-item" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
                     <a class="dropdown-item" >Reportar un problema</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?php print base_url('CtrlLogin/onSalir'); ?>">Salir</a>
+                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
                 </div>
 
             </li>

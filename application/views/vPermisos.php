@@ -55,13 +55,13 @@
                 <div class="row">  
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
-                        <select class="form-control form-control-lg" id="IdModulo" name="IdModulo">
+                        <select class="form-control form-control-lg"  name="IdModulo">
                             <option value=""></option>   
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="IdUsuario">USUARIO*</label>
-                        <select class="form-control form-control-lg" id="IdUsuario"  name="IdUsuario"> 
+                        <select class="form-control form-control-lg"   name="IdUsuario"> 
                             <option value=""></option>   
                         </select>
                     </div>
@@ -119,7 +119,7 @@
                 <div class="row">  
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="Estatus" name="Estatus"> 
+                        <select class="form-control form-control-lg"  name="Estatus"> 
                             <option value="ACTIVO">ACTIVO</option>   
                             <option value="INACTIVO">INACTIVO</option>   
                         </select>

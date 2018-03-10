@@ -43,7 +43,7 @@
 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Nuevo Usuario</legend>
+                        <legend class="float-left">Nuevo</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -57,32 +57,40 @@
 
 
                 <div class="row">
-
-                     <div class="col-sm">
-                        <label for="Estatus">Usuario*</label>  
-                        <input type="text" class="form-control" id="Usuario" name="Usuario" required >
+                    <div class="d-none">
+                        <input type="text" class="form-control" id="FieldId" name="FieldId" >
                     </div>
-                     <div class="col-sm">
-                        <label for="Estatus">Contraseña*</label>  
-                        <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
+
+                    <div class="col-sm">
+                        <label for="IValue">Clave/Orden*</label>  
+                        <input type="number" class="form-control" id="IValue" name="IValue" required >
+                    </div>
+                    <div class="col-sm">
+                        <label for="SValue">Nombre Corto*</label>  
+                        <input type="text" class="form-control" id="SValue" name="SValue" required >
                     </div>
                 </div>
-                <div class="row"> 
-
-
-                     <div class="col-sm">
-                        <label for="Tipo">Tipo</label>
-                        <select class="form-control form-control-lg" name="Tipo">
-                            <option value=""></option>  
-                            <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                            <option value="COMPRAS">COMPRAS</option>
-                            <option value="VENTAS">VENTAS</option>
-                            <option value="PRODUCCION">PRODUCCION</option>
-                            <option value="ALMACEN">ALMACEN</option> 
-                            <option value="CAPTURA">CONTABILIDAD</option>
-                        </select>
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="Valor_Text">Descripción</label>  
+                        <input type="text" class="form-control" id="Valor_Text" name="Valor_Text"  >
                     </div>
-                     <div class="col-sm">
+                    <div class="col-sm">
+                        <label for="Valor_Num">Valor</label>  
+                        <input type="number" class="form-control" id="SValue" name="SValue" >
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="Special">Extra</label>  
+                        <input type="text" class="form-control" id="Special" name="Special"  >
+                    </div>
+
+                </div>
+                <div class="row"> 
+                    <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-lg"  name="Estatus"> 
                             <option value=""></option>  
@@ -90,13 +98,7 @@
                             <option>INACTIVO</option> 
                         </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col"> 
-                        <label for="Estatus">Correo*</label> 
-                        <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
-                    </div>  
-                </div>   
+                </div> 
             </form>
         </div> 
     </div> 
@@ -123,46 +125,48 @@
                         <input type="text" class="form-control" id="ID" name="ID" required >
                     </div>
                     <div class="row">
-
-                         <div class="col-sm">
-                            <label for="Estatus">Usuario*</label>  
-                            <input type="text" class="form-control" id="Usuario" name="Usuario" required >
+                        <div class="d-none">
+                            <input type="text" class="form-control" id="FieldId" name="FieldId" >
                         </div>
-                         <div class="col-sm">
-                            <label for="Estatus">Contraseña*</label>  
-                            <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
+
+                        <div class="col-sm">
+                            <label for="IValue">Clave/Orden*</label>  
+                            <input type="number" class="form-control" id="IValue" name="IValue" required >
+                        </div>
+                        <div class="col-sm">
+                            <label for="SValue">Nombre Corto*</label>  
+                            <input type="text" class="form-control" id="SValue" name="SValue" required >
                         </div>
                     </div>
-                    <div class="row"> 
-
-
-                         <div class="col-sm">
-                            <label for="Tipo">Tipo</label>
-                            <select class="form-control form-control-lg" id="Tipo" name="Tipo">
-                                <option value=""></option>  
-                                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                <option value="COMPRAS">COMPRAS</option>
-                                <option value="VENTAS">VENTAS</option>
-                                <option value="PRODUCCION">PRODUCCION</option>
-                                <option value="ALMACEN">ALMACEN</option> 
-                                <option value="CAPTURA">CONTABILIDAD</option>
-                            </select>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="Valor_Text">Descripción</label>  
+                            <input type="text" class="form-control" id="Valor_Text" name="Valor_Text"  >
                         </div>
-                         <div class="col-sm">
+                        <div class="col-sm">
+                            <label for="Valor_Num">Valor</label>  
+                            <input type="number" class="form-control" id="Valor_Num" name="Valor_Num" >
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="Special">Extra</label>  
+                            <input type="text" class="form-control" id="Special" name="Special"  >
+                        </div>
+
+                    </div>
+                    <div class="row"> 
+                        <div class="col-sm">
                             <label for="Estatus">Estatus*</label>
-                            <select class="form-control form-control-lg" id="Estatus"  name="Estatus"> 
+                            <select class="form-control form-control-lg" id="Estatus" name="Estatus"> 
                                 <option value=""></option>  
                                 <option>ACTIVO</option>
                                 <option>INACTIVO</option> 
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
-                         <div class="col-sm">
-                            <label for="Estatus">Correo*</label> 
-                            <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
-                        </div>  
-                    </div>   
+                    </div> 
                 </form>
             </div> 
         </div> 
@@ -172,8 +176,41 @@
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/Generales/';
+    var pnlNuevo = $("#pnlNuevo");
+    var pnlTablero = $("#pnlTablero");
+    var btnNuevo = $("#btnNuevo");
+    var btnGuardar = pnlNuevo.find("#btnGuardar");
+    var btnCancelar = pnlNuevo.find("#btnCancelar");
+    var pnlEditar = $("#pnlEditar");
+    var btnModificar = pnlEditar.find("#btnModificar");
+    var btnCancelarModificar = pnlEditar.find("#btnCancelar");
+    var btnRefrescar = $("#btnRefrescar");
+    var btnEliminar = $("#btnEliminar");
+    var btnConfirmarEliminar = $("#btnConfirmarEliminar");
+    var mdlConfirmar = $("#mdlConfirmar");
 
     $(document).ready(function () {
+        
+        
+        btnRefrescar.click(function () {
+            getRecords();
+        });
+        btnNuevo.click(function () {
+            pnlTablero.addClass("d-none");
+            pnlNuevo.removeClass('d-none');
+            pnlNuevo.find("input").val("");
+            pnlNuevo.find("select").select2("val", "");
+        });
+        btnCancelar.click(function () {
+            pnlTablero.removeClass("d-none");
+            pnlNuevo.addClass('d-none');
+            btnRefrescar.trigger('click');
+        });
+        btnCancelarModificar.click(function () {
+            pnlEditar.addClass("d-none");
+            pnlTablero.removeClass("d-none");
+            btnRefrescar.trigger('click');
+        });
 
         getRecords();
         handleEnter();

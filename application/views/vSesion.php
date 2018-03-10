@@ -22,7 +22,7 @@
 </div>
 
 <script>
-    var master_url = base_url + "CtrlLogin/";
+    var master_url = base_url + "Login/";
     var btnIngresar = $("#btnIngresar");
     var Usuario = $("#Usuario");
     var Contrasena = $("#Contrasena");
