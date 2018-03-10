@@ -58,20 +58,20 @@
                     <li><a class="dropdown-item" href="#">Another action</a></li>-->
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="<?php print base_url('Sistema') ?>">Generales</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Unidades</a></li>
-                            <li><a class="dropdown-item" href="#">Monedas</a></li>
-                            <li><a class="dropdown-item" href="#">Métodos de Pago</a></li>
-                            <li><a class="dropdown-item" href="#">Condiciones de Pago</a></li>
-                            <li><a class="dropdown-item" href="#">Bancos</a></li>
-                            <li><a class="dropdown-item" href="#">Familias</a></li>
-                            <li><a class="dropdown-item" href="#">Departamentos</a></li>
-                            <li><a class="dropdown-item" href="#">Trasnportes</a></li>
-                            <li><a class="dropdown-item" href="#">Rutas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES PAGO') ?>">Condiciones de Pago</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=BANCOS') ?>">Bancos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=FAMILIAS') ?>">Familias</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Trasnportes</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=RUTAS') ?>">Rutas</a></li>
                             <div class="dropdown-divider" href="#"></div>
-                            <li><a class="dropdown-item" href="#">Piezas</a></li>
-                            <li><a class="dropdown-item" href="#">Temporadas</a></li>
-                            <li><a class="dropdown-item" href="#">Hormas</a></li>
-                            <li><a class="dropdown-item" href="#">Tipos de Estilo</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PIEZAS') ?>">Piezas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TEMPORADAS') ?>">Temporadas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=HORMAS') ?>">Hormas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TIPOS ESTILO') ?>">Tipos de Estilo</a></li>
                             <!--<li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 1</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>

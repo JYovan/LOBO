@@ -1,7 +1,7 @@
 
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Usuarios</legend>
+        <legend class="float-left">Catálogos del sistema</legend>
         <div align="right">
             <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
             <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
@@ -13,9 +13,6 @@
         </div>
     </div>
 </div>
-
-
-
 <!--MODALES--> 
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
@@ -37,8 +34,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!--GUARDAR-->
 <div id="" class="container-fluid">
@@ -176,210 +171,23 @@
 
 <!--SCRIPT-->
 <script>
-    var master_url = base_url + 'index.php/CtrlUsuarios/';
-    var pnlNuevo = $("#pnlNuevo");
-    var pnlTablero = $("#pnlTablero");
-    var btnNuevo = $("#btnNuevo");
-    var btnGuardar = pnlNuevo.find("#btnGuardar");
-    var btnCancelar = pnlNuevo.find("#btnCancelar");
-    var pnlEditar = $("#pnlEditar");
-    var btnModificar = pnlEditar.find("#btnModificar");
-    var btnCancelarModificar = pnlEditar.find("#btnCancelar");
-    var btnRefrescar = $("#btnRefrescar");
-    var btnEliminar = $("#btnEliminar");
-    var btnConfirmarEliminar = $("#btnConfirmarEliminar");
-    var mdlConfirmar = $("#mdlConfirmar");
+    var master_url = base_url + 'index.php/Generales/';
+
     $(document).ready(function () {
-        handleEnter();
 
-
-        //Evento clic del boton confirmar borrar
-        btnConfirmarEliminar.click(function () {
-            if (temp !== 0 && temp !== undefined && temp > 0) {
-                //Muestra el modal
-                mdlConfirmar.modal('show');
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-            }
-        });
-        btnEliminar.click(function () {
-            if (temp !== 0 && temp !== undefined && temp > 0) {
-                HoldOn.open({
-                    theme: "sk-bounce",
-                    message: "CARGANDO DATOS..."
-                });
-                $.ajax({
-                    url: master_url + 'onEliminar',
-                    type: "POST",
-                    data: {
-                        ID: temp
-                    }
-                }).done(function (data, x, jq) {
-                    console.log(data);
-                    mdlConfirmar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'USUARIO ELIMINADO', 'danger');
-                    pnlEditar.addClass("d-none");
-                    pnlTablero.removeClass("d-none");
-                    btnRefrescar.trigger('click');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-            }
-        });
-        btnModificar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmEditar').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Usuario: 'required',
-                    Contrasena: 'required',
-                    Estatus: 'required',
-                    Tipo: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Si es verdadero que hacer
-            if ($('#frmEditar').valid()) {
-                var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
-                $.ajax({
-                    url: master_url + 'onModificar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO UN USUARIO', 'success');
-                    btnRefrescar.trigger('click');
-                    pnlEditar.addClass('d-none');
-                    pnlTablero.removeClass('d-none');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
-            }
-        });
-        btnGuardar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmNuevo').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Usuario: 'required',
-                    Contrasena: 'required',
-                    Estatus: 'required',
-                    Tipo: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-            //Si es verdadero que hacer
-            if ($('#frmNuevo').valid()) {
-                var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
-                $.ajax({
-                    url: master_url + 'onAgregar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO USUARIO', 'success');
-                    getRecords();
-                    pnlTablero.removeClass("d-none");
-                    pnlNuevo.addClass('d-none');
-                    console.log(data, x, jq);
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
-            }
-        });
-        btnRefrescar.click(function () {
-            getRecords();
-        });
-        btnNuevo.click(function () {
-            pnlTablero.addClass("d-none");
-            pnlNuevo.removeClass('d-none');
-            pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").select2("val", "");
-        });
-        btnCancelar.click(function () {
-            pnlTablero.removeClass("d-none");
-            pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
-        });
-        btnCancelarModificar.click(function () {
-            pnlEditar.addClass("d-none");
-            pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
-        });
-        /*CALLS*/
         getRecords();
+        handleEnter();
     });
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+
+    }
+
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -389,29 +197,29 @@
         $.ajax({
             url: master_url + 'getRecords',
             type: "POST",
-            dataType: "JSON"
+            dataType: "JSON",
+            data: {
+                fieldId: getParameterByName('modulo')
+            }
         }).done(function (data, x, jq) {
             console.log(data);
-            $("#tblRegistros").html(getTable('tblUsuarios', data));
-//            $('#tblUsuarios tfoot th').each(function () {
-//                var title = $(this).text();
-//                $(this).html('<div  style="overflow-x:auto; "><div class="form-group "><input type="text" placeholder="Buscar por ' + title + '" class="form-control" style="width: 100%;"/></div></div>');
-//            });
-            $('#tblUsuarios tfoot th').each(function () {
+            $("#tblRegistros").html(getTable('tblCatalogos', data));
+
+            $('#tblCatalogos tfoot th').each(function () {
                 $(this).html('');
             });
-            var tblSelected = $('#tblUsuarios').DataTable(tableOptions);
-            $('#tblUsuarios_filter input[type=search]').focus();
+            var tblSelected = $('#tblCatalogos').DataTable(tableOptions);
+            $('#tblCatalogos_filter input[type=search]').focus();
 
-            $('#tblUsuarios tbody').on('click', 'tr', function () {
+            $('#tblCatalogos tbody').on('click', 'tr', function () {
 
-                $("#tblUsuarios tbody tr").removeClass("success");
+                $("#tblCatalogos tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var dtm = tblSelected.row(this).data();
                 temp = parseInt(dtm[0]);
             });
 
-            $('#tblUsuarios tbody').on('dblclick', 'tr', function () {
+            $('#tblCatalogos tbody').on('dblclick', 'tr', function () {
                 $("#tblCatalogos tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var id = this.id;
@@ -428,7 +236,7 @@
                         message: "CARGANDO DATOS..."
                     });
                     $.ajax({
-                        url: master_url + 'getUsuarioByID',
+                        url: master_url + 'getCatalogoByID',
                         type: "POST",
                         dataType: "JSON",
                         data: {
@@ -468,4 +276,6 @@
             HoldOn.close();
         });
     }
+
+
 </script>
