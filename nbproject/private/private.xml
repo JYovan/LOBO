@@ -4,12 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp64/www/LOBO/application/views/vUsuarios.php</file>
-            <file>file:/C:/wamp64/www/LOBO/application/controllers/Generales.php</file>
-            <file>file:/C:/wamp64/www/LOBO/application/views/vSesion.php</file>
-            <file>file:/C:/wamp64/www/LOBO/application/views/vGenerales.php</file>
-            <file>file:/C:/wamp64/www/LOBO/application/models/generales_model.php</file>
-            <file>file:/C:/wamp64/www/LOBO/application/controllers/Usuarios.php</file>
-            <file>file:/C:/wamp64/www/LOBO/application/models/usuario_model.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/models/permisos_model.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/controllers/Permisos.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/views/vPermisos.php</file>
         </group>
     </open-files>
 </project-private>
