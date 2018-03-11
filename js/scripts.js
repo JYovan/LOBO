@@ -72,7 +72,7 @@ var tableOptions = {
     "bLengthChange": false,
     "deferRender": true,
 //    "scrollY": false,
-//    "scrollX": true,
+    "scrollX": true,
     "scrollCollapse": false,
     "bSort": true,
     "aaSorting": [

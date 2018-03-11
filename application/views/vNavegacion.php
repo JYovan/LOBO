@@ -35,7 +35,7 @@
                     <a class="dropdown-item" href="#">Clientes</a>
                     <a class="dropdown-item" href="#">Proveedores</a>
                     <a class="dropdown-item" href="#">Almacenes</a>
-                    <a class="dropdown-item" href="#">Maquilas</a>
+                    <a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Lineas</a>
                     <a class="dropdown-item" href="<?php print base_url('Estilos') ?>">Estilos</a>

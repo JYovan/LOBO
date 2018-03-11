@@ -1,7 +1,7 @@
 
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Catálogos del sistema</legend>
+        <legend class="float-left">Gestión de Maquilas</legend>
         <div align="right">
             <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
             <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
@@ -53,40 +53,34 @@
                         <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
                     </div>
                 </div>
-
-
-
                 <div class="row">
 
                     <div class="col-sm">
-                        <label for="IValue">Clave/Orden*</label>  
-                        <input type="number" class="form-control" id="IValue" name="IValue" required >
+                        <label for="Clave">Clave*</label>  
+                        <input type="number" class="form-control" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="SValue">Nombre Corto*</label>  
-                        <input type="text" class="form-control" id="SValue" name="SValue" required >
+                        <label for="Nombre">Nombre*</label>  
+                        <input type="text" class="form-control" id="Nombre" name="Nombre" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Valor_Text">Descripción</label>  
-                        <input type="text" class="form-control" id="Valor_Text" name="Valor_Text"  >
+                        <label for="Direccion">Dirección</label>  
+                        <input type="text" class="form-control" id="Direccion" name="Direccion"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Valor_Num">Valor</label>  
-                        <input type="number" class="form-control" id="Valor_Num" name="Valor_Num" >
+                        <label for="Telefono">Teléfono</label>  
+                        <input type="text" class="form-control" id="Telefono" name="Telefono" >
                     </div>
 
 
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Special">Extra</label>  
-                        <input type="text" class="form-control" id="Special" name="Special"  >
+                        <label for="Contacto">Contacto</label>  
+                        <input type="text" class="form-control" id="Contacto" name="Contacto"  >
                     </div>
-
-                </div>
-                <div class="row"> 
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-lg"  name="Estatus"> 
@@ -122,39 +116,33 @@
                         <input type="text" class="form-control" id="ID" name="ID" required >
                     </div>
                     <div class="row">
-                        <div class="d-none">
-                            <input type="text" class="form-control" id="FieldId" name="FieldId" >
-                        </div>
 
                         <div class="col-sm">
-                            <label for="IValue">Clave/Orden*</label>  
-                            <input type="number" class="form-control" id="IValue" name="IValue" required >
+                            <label for="Clave">Clave*</label>  
+                            <input type="number" class="form-control" id="Clave" name="Clave" required >
                         </div>
                         <div class="col-sm">
-                            <label for="SValue">Nombre Corto*</label>  
-                            <input type="text" class="form-control" id="SValue" name="SValue" required >
+                            <label for="Nombre">Nombre*</label>  
+                            <input type="text" class="form-control" id="Nombre" name="Nombre" required >
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="Valor_Text">Descripción</label>  
-                            <input type="text" class="form-control" id="Valor_Text" name="Valor_Text"  >
+                            <label for="Direccion">Dirección</label>  
+                            <input type="text" class="form-control" id="Direccion" name="Direccion"  >
                         </div>
                         <div class="col-sm">
-                            <label for="Valor_Num">Valor</label>  
-                            <input type="number" class="form-control" id="Valor_Num" name="Valor_Num" >
+                            <label for="Telefono">Teléfono</label>  
+                            <input type="text" class="form-control" id="Telefono" name="Telefono" >
                         </div>
 
 
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="Special">Extra</label>  
-                            <input type="text" class="form-control" id="Special" name="Special"  >
+                            <label for="Contacto">Contacto</label>  
+                            <input type="text" class="form-control" id="Contacto" name="Contacto"  >
                         </div>
-
-                    </div>
-                    <div class="row"> 
                         <div class="col-sm">
                             <label for="Estatus">Estatus*</label>
                             <select class="form-control form-control-lg" id="Estatus" name="Estatus"> 
@@ -163,7 +151,7 @@
                                 <option>INACTIVO</option> 
                             </select>
                         </div>
-                    </div> 
+                    </div>  
                 </form>
             </div> 
         </div> 
@@ -172,7 +160,7 @@
 
 <!--SCRIPT-->
 <script>
-    var master_url = base_url + 'index.php/Generales/';
+    var master_url = base_url + 'index.php/Maquilas/';
     var pnlNuevo = $("#pnlNuevo");
     var pnlTablero = $("#pnlTablero");
     var btnNuevo = $("#btnNuevo");
@@ -198,8 +186,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IValue: 'required',
-                    SValue: 'required'
+                    Clave: 'required',
+                    Nombre: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -259,8 +247,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IValue: 'required',
-                    SValue: 'required'
+                    Clave: 'required',
+                    Nombre: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -291,7 +279,6 @@
             //Si es verdadero que hacer
             if ($('#frmNuevo').valid()) {
                 var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
-                frm.append('FieldId', getParameterByName('modulo'));
 
                 $.ajax({
                     url: master_url + 'onAgregar',
@@ -393,39 +380,27 @@
         $.ajax({
             url: master_url + 'getRecords',
             type: "POST",
-            dataType: "JSON",
-            data: {
-                fieldId: getParameterByName('modulo')
-            }
+            dataType: "JSON"
         }).done(function (data, x, jq) {
             console.log(data);
-            $("#tblRegistros").html(getTable('tblCatalogos', data));
+            $("#tblRegistros").html(getTable('tblMaquilas', data));
 
-            var thead = $('#tblRegistros thead th');
-            var tfoot = $('#tblRegistros tfoot th');
-            thead.eq(0).addClass("d-none");
-            tfoot.eq(0).addClass("d-none");
-            $.each($.find('#tblRegistros tbody tr'), function (k, v) {
-                var td = $(v).find("td");
-                td.eq(0).addClass("d-none");
-            });
-
-            $('#tblCatalogos tfoot th').each(function () {
+            $('#tblMaquilas tfoot th').each(function () {
                 $(this).html('');
             });
-            var tblSelected = $('#tblCatalogos').DataTable(tableOptions);
-            $('#tblCatalogos_filter input[type=search]').focus();
+            var tblSelected = $('#tblMaquilas').DataTable(tableOptions);
+            $('#tblMaquilas_filter input[type=search]').focus();
 
-            $('#tblCatalogos tbody').on('click', 'tr', function () {
+            $('#tblMaquilas tbody').on('click', 'tr', function () {
 
-                $("#tblCatalogos tbody tr").removeClass("success");
+                $("#tblMaquilas tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var dtm = tblSelected.row(this).data();
                 temp = parseInt(dtm[0]);
             });
 
-            $('#tblCatalogos tbody').on('dblclick', 'tr', function () {
-                $("#tblCatalogos tbody tr").removeClass("success");
+            $('#tblMaquilas tbody').on('dblclick', 'tr', function () {
+                $("#tblMaquilas tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var id = this.id;
                 var index = $.inArray(id, selected);
@@ -441,7 +416,7 @@
                         message: "CARGANDO DATOS..."
                     });
                     $.ajax({
-                        url: master_url + 'getCatalogoByID',
+                        url: master_url + 'getMaquilaByID',
                         type: "POST",
                         dataType: "JSON",
                         data: {
