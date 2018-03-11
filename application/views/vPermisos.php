@@ -55,13 +55,13 @@
                 <div class="row">  
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
-                        <select class="form-control form-control-lg"  name="IdModulo">
+                        <select class="form-control form-control-lg" id="IdModulo" name="IdModulo">
                             <option value=""></option>   
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="IdUsuario">USUARIO*</label>
-                        <select class="form-control form-control-lg"   name="IdUsuario"> 
+                        <select class="form-control form-control-lg" id="IdUsuario"  name="IdUsuario"> 
                             <option value=""></option>   
                         </select>
                     </div>
@@ -119,7 +119,7 @@
                 <div class="row">  
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg"  name="Estatus"> 
+                        <select class="form-control form-control-lg" id="Estatus"  name="Estatus"> 
                             <option value="ACTIVO">ACTIVO</option>   
                             <option value="INACTIVO">INACTIVO</option>   
                         </select>
@@ -153,13 +153,13 @@
                 <div class="row">  
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
-                        <select class="form-control form-control-lg" id="IdModulo" name="IdModulo">
+                        <select class="form-control form-control-lg" id="IdModuloE" name="IdModuloE">
                             <option value=""></option>   
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="IdUsuario">USUARIO*</label>
-                        <select class="form-control form-control-lg" id="IdUsuario"  name="IdUsuario"> 
+                        <select class="form-control form-control-lg" id="IdUsuarioE"  name="IdUsuarioE"> 
                             <option value=""></option>   
                         </select>
                     </div>
@@ -217,7 +217,7 @@
                 <div class="row">  
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="Estatus" name="Estatus"> 
+                        <select class="form-control form-control-lg" id="EstatusE" name="EstatusE"> 
                             <option value="ACTIVO">ACTIVO</option>   
                             <option value="INACTIVO">INACTIVO</option>   
                         </select>
@@ -326,10 +326,10 @@
             if (pnlEditar.find('#frmEditar').valid()) {
                 var f = new FormData();
                 f.append('ID', pnlEditar.find("#ID").val());
-                f.append('IdUsuario', pnlEditar.find("#IdUsuario").val());
-                f.append('UsuarioT', pnlEditar.find("#IdUsuario option:selected").text());
-                f.append('IdModulo', pnlEditar.find("#IdModulo").val());
-                f.append('ModuloT', pnlEditar.find("#IdModulo option:selected").text());
+                f.append('IdUsuario', pnlEditar.find("#IdUsuarioE").val());
+                f.append('UsuarioT', pnlEditar.find("#IdUsuarioE option:selected").text());
+                f.append('IdModulo', pnlEditar.find("#IdModuloE").val());
+                f.append('ModuloT', pnlEditar.find("#IdModuloE option:selected").text());
                 f.append('Ver', pnlEditar.find("#VerE")[0].checked ? 1 : 0);
                 f.append('Crear', pnlEditar.find("#CrearE")[0].checked ? 1 : 0);
                 f.append('Modificar', pnlEditar.find("#ModificarE")[0].checked ? 1 : 0);
@@ -337,7 +337,7 @@
                 f.append('Consultar', pnlEditar.find("#ConsultarE")[0].checked ? 1 : 0);
                 f.append('Reportes', pnlEditar.find("#ReportesE")[0].checked ? 1 : 0);
                 f.append('Buscar', pnlEditar.find("#BuscarE")[0].checked ? 1 : 0);
-                f.append('Estatus', pnlEditar.find("#Estatus option:selected").text());
+                f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
                 $.ajax({
                     url: master_url + 'onModificar',
                     type: "POST",
@@ -514,12 +514,9 @@
                                 pnlEditar.find("input").val("");
                                 pnlEditar.find("select").select2("val", "");
                                 pnlEditar.find("#ID").val(dtm.ID);
-                                pnlEditar.find("#IdModulo").val(dtm.IdModulo).trigger('change');
-                                ;
-                                pnlEditar.find("#IdUsuario").val(dtm.IdUsuario).trigger('change');
-                                ;
-                                pnlEditar.find("#Estatus").val(dtm.Estatus).trigger('change');
-                                ;
+                                pnlEditar.find("#IdModuloE").val(dtm.IdModulo).trigger('change'); 
+                                pnlEditar.find("#IdUsuarioE").val(dtm.IdUsuario).trigger('change'); 
+                                pnlEditar.find("#EstatusE").val(dtm.Estatus).trigger('change'); 
                                 pnlEditar.find("#VerE")[0].checked = parseInt(dtm.Ver);
                                 pnlEditar.find("#CrearE")[0].checked = parseInt(dtm.Crear);
                                 pnlEditar.find("#ModificarE")[0].checked = parseInt(dtm.Modificar);
@@ -569,7 +566,7 @@
                 options += '<option value="' + v.ID + '">' + v.MODULO + '</option>';
             });
             $("#pnlNuevo").find("#IdModulo").html(options);
-            $("#pnlEditar").find("#IdModulo").html(options);
+            $("#pnlEditar").find("#IdModuloE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -584,7 +581,7 @@
                 options += '<option value="' + v.ID + '">' + v.USUARIO + '</option>';
             });
             $("#pnlNuevo").find("#IdUsuario").html(options);
-            $("#pnlEditar").find("#IdUsuario").html(options);
+            $("#pnlEditar").find("#IdUsuarioE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
