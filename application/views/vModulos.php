@@ -1,6 +1,6 @@
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Permisos</legend>
+        <legend class="float-left">Gestión de Modulos</legend>
         <div align="right">
             <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
             <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
@@ -42,7 +42,7 @@
             <form id="frmNuevo"> 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Nuevo Permiso</legend>
+                        <legend class="float-left">Nuevo Modulo</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -52,71 +52,11 @@
                         <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
                     </div>
                 </div>  
-                <div class="row">  
+                <div class="row">
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
-                        <select class="form-control form-control-lg" id="IdModulo" name="IdModulo">
-                            <option value=""></option>   
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="IdUsuario">USUARIO*</label>
-                        <select class="form-control form-control-lg" id="IdUsuario"  name="IdUsuario"> 
-                            <option value=""></option>   
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-body"> 
-                        <div class="row">
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Ver" name="Ver" checked="">
-                                    <label class="custom-control-label" for="Ver">VER</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Crear" name="Crear" checked="">
-                                    <label class="custom-control-label" for="Crear">CREAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Modificar" name="Modificar" checked="">
-                                    <label class="custom-control-label" for="Modificar">MODIFICAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Eliminar" name="Eliminar" checked="">
-                                    <label class="custom-control-label" for="Eliminar">ELIMINAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Consultar" name="Consultar" checked="">
-                                    <label class="custom-control-label" for="Consultar">CONSULTAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Reportes" name="Reportes" checked="">
-                                    <label class="custom-control-label" for="Reportes">REPORTES</label>
-                                </div>
-                            </div> 
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Buscar" name="Buscar" checked="">
-                                    <label class="custom-control-label" for="Buscar">BUSCAR</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!--FIN CARD-->
-
-                <div class="row">  
+                        <input type="text" id="Modulo" name="Modulo" class="form-control" placeholder="NOMBRE DEL MODULO...">
+                    </div>  
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
                         <select class="form-control form-control-lg" id="Estatus"  name="Estatus"> 
@@ -137,7 +77,7 @@
             <form id="frmEditar"> 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Editar Permiso</legend>
+                        <legend class="float-left">Editar Modulo</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -150,79 +90,20 @@
                 <div class="d-none">
                     <input type="text" class="form-control" id="ID" name="ID" required >
                 </div>
-                <div class="row">  
+                  
+                <div class="row">
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
-                        <select class="form-control form-control-lg" id="IdModuloE" name="IdModuloE">
-                            <option value=""></option>   
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="IdUsuario">USUARIO*</label>
-                        <select class="form-control form-control-lg" id="IdUsuarioE"  name="IdUsuarioE"> 
-                            <option value=""></option>   
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-body"> 
-                        <div class="row">
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="VerE" name="VerE" checked="">
-                                    <label class="custom-control-label" for="VerE">VER</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="CrearE" name="CrearE" checked="">
-                                    <label class="custom-control-label" for="CrearE">CREAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="ModificarE" name="ModificarE" checked="">
-                                    <label class="custom-control-label" for="ModificarE">MODIFICAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="EliminarE" name="EliminarE" checked="">
-                                    <label class="custom-control-label" for="EliminarE">ELIMINAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="ConsultarE" name="ConsultarE" checked="">
-                                    <label class="custom-control-label" for="ConsultarE">CONSULTAR</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="ReportesE" name="ReportesE" checked="">
-                                    <label class="custom-control-label" for="ReportesE">REPORTES</label>
-                                </div>
-                            </div> 
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="BuscarE" name="BuscarE" checked="">
-                                    <label class="custom-control-label" for="BuscarE">BUSCAR</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!--FIN CARD-->
-
-                <div class="row">  
+                        <input type="text" id="ModuloE" name="ModuloE" class="form-control" placeholder="NOMBRE DEL MODULO...">
+                    </div>  
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="EstatusE" name="EstatusE"> 
+                        <select class="form-control form-control-lg" id="EstatusE"  name="EstatusE"> 
                             <option value="ACTIVO">ACTIVO</option>   
                             <option value="INACTIVO">INACTIVO</option>   
                         </select>
                     </div> 
-                </div>
+                </div> 
             </form>
         </div> 
     </div> 
@@ -230,7 +111,7 @@
 
 <!--SCRIPT-->
 <script>
-    var master_url = base_url + 'index.php/Permisos/';
+    var master_url = base_url + 'index.php/Modulos/';
     var pnlNuevo = $("#pnlNuevo");
     var pnlTablero = $("#pnlTablero");
     var btnNuevo = $("#btnNuevo");
@@ -326,17 +207,7 @@
             if (pnlEditar.find('#frmEditar').valid()) {
                 var f = new FormData();
                 f.append('ID', pnlEditar.find("#ID").val());
-                f.append('IdUsuario', pnlEditar.find("#IdUsuarioE").val());
-                f.append('UsuarioT', pnlEditar.find("#IdUsuarioE option:selected").text());
-                f.append('IdModulo', pnlEditar.find("#IdModuloE").val());
-                f.append('ModuloT', pnlEditar.find("#IdModuloE option:selected").text());
-                f.append('Ver', pnlEditar.find("#VerE")[0].checked ? 1 : 0);
-                f.append('Crear', pnlEditar.find("#CrearE")[0].checked ? 1 : 0);
-                f.append('Modificar', pnlEditar.find("#ModificarE")[0].checked ? 1 : 0);
-                f.append('Eliminar', pnlEditar.find("#EliminarE")[0].checked ? 1 : 0);
-                f.append('Consultar', pnlEditar.find("#ConsultarE")[0].checked ? 1 : 0);
-                f.append('Reportes', pnlEditar.find("#ReportesE")[0].checked ? 1 : 0);
-                f.append('Buscar', pnlEditar.find("#BuscarE")[0].checked ? 1 : 0);
+                f.append('Modulo', pnlEditar.find("#ModuloE").val()); 
                 f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
                 $.ajax({
                     url: master_url + 'onModificar',
@@ -346,7 +217,7 @@
                     processData: false,
                     data: f
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HAN MODIFICADO LOS PERMISOS', 'success');
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL MODULO', 'success');
                     getRecords();
                     pnlTablero.removeClass("d-none");
                     pnlEditar.addClass('d-none');
@@ -400,18 +271,8 @@
             //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
             //Si es verdadero que hacer
             if (pnlNuevo.find('#frmNuevo').valid()) {
-                var f = new FormData();
-                f.append('IdUsuario', pnlNuevo.find("#IdUsuario").val());
-                f.append('UsuarioT', pnlNuevo.find("#IdUsuario option:selected").text());
-                f.append('IdModulo', pnlNuevo.find("#IdModulo").val());
-                f.append('ModuloT', pnlNuevo.find("#IdModulo option:selected").text());
-                f.append('Ver', pnlNuevo.find("#Ver")[0].checked ? 1 : 0);
-                f.append('Crear', pnlNuevo.find("#Crear")[0].checked ? 1 : 0);
-                f.append('Modificar', pnlNuevo.find("#Modificar")[0].checked ? 1 : 0);
-                f.append('Eliminar', pnlNuevo.find("#Eliminar")[0].checked ? 1 : 0);
-                f.append('Consultar', pnlNuevo.find("#Consultar")[0].checked ? 1 : 0);
-                f.append('Reportes', pnlNuevo.find("#Reportes")[0].checked ? 1 : 0);
-                f.append('Buscar', pnlNuevo.find("#Buscar")[0].checked ? 1 : 0);
+                var f = new FormData(); 
+                f.append('Modulo', pnlNuevo.find("#Modulo").val()); 
                 f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
                 $.ajax({
                     url: master_url + 'onAgregar',
@@ -421,7 +282,7 @@
                     processData: false,
                     data: f
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO PERMISO', 'success');
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO MODULO', 'success');
                     getRecords();
                     pnlTablero.removeClass("d-none");
                     pnlNuevo.addClass('d-none');
@@ -434,9 +295,7 @@
             }
         });
         btnRefrescar.click(function () {
-            getRecords();
-            getModulos();
-            getUsuarios();
+            getRecords(); 
         });
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
@@ -469,24 +328,24 @@
             dataType: "JSON"
         }).done(function (data, x, jq) {
             if (data.length > 0) {
-                $("#tblRegistros").html(getTable('tblUsuarios', data));
+                $("#tblRegistros").html(getTable('tblModulos', data));
 
-                $('#tblUsuarios tfoot th').each(function () {
+                $('#tblModulos tfoot th').each(function () {
                     $(this).html('');
                 });
-                var tblSelected = $('#tblUsuarios').DataTable(tableOptions);
-                $('#tblUsuarios_filter input[type=search]').focus();
+                var tblSelected = $('#tblModulos').DataTable(tableOptions);
+                $('#tblModulos_filter input[type=search]').focus();
 
-                $('#tblUsuarios tbody').on('click', 'tr', function () {
+                $('#tblModulos tbody').on('click', 'tr', function () {
 
-                    $("#tblUsuarios tbody tr").removeClass("success");
+                    $("#tblModulos tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var dtm = tblSelected.row(this).data();
                     temp = parseInt(dtm[0]);
                 });
 
-                $('#tblUsuarios tbody').on('dblclick', 'tr', function () {
-                    $("#tblTramiteDeFacturas tbody tr").removeClass("success");
+                $('#tblModulos tbody').on('dblclick', 'tr', function () {
+                    $("#tblModulos tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var id = this.id;
                     var index = $.inArray(id, selected);
@@ -502,7 +361,7 @@
                             message: "CARGANDO DATOS..."
                         });
                         $.ajax({
-                            url: master_url + 'getPermisoByID',
+                            url: master_url + 'getModuloByID',
                             type: "POST",
                             dataType: "JSON",
                             data: {
@@ -514,16 +373,8 @@
                                 pnlEditar.find("input").val("");
                                 pnlEditar.find("select").select2("val", "");
                                 pnlEditar.find("#ID").val(dtm.ID);
-                                pnlEditar.find("#IdModuloE").val(dtm.IdModulo).trigger('change'); 
-                                pnlEditar.find("#IdUsuarioE").val(dtm.IdUsuario).trigger('change'); 
-                                pnlEditar.find("#EstatusE").val(dtm.Estatus).trigger('change'); 
-                                pnlEditar.find("#VerE")[0].checked = parseInt(dtm.Ver);
-                                pnlEditar.find("#CrearE")[0].checked = parseInt(dtm.Crear);
-                                pnlEditar.find("#ModificarE")[0].checked = parseInt(dtm.Modificar);
-                                pnlEditar.find("#EliminarE")[0].checked = parseInt(dtm.Eliminar);
-                                pnlEditar.find("#ConsultarE")[0].checked = parseInt(dtm.Consultar);
-                                pnlEditar.find("#ReportesE")[0].checked = parseInt(dtm.Reportes);
-                                pnlEditar.find("#BuscarE")[0].checked = parseInt(dtm.Buscar);
+                                pnlEditar.find("#ModuloE").val(dtm.Modulo);  
+                                pnlEditar.find("#EstatusE").val(dtm.Estatus).trigger('change');  
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
                             }
@@ -555,37 +406,5 @@
             HoldOn.close();
         });
     }
-
-    function getModulos() {
-        $.getJSON(master_url + 'getModulos').done(function (data, x, jq) {
-            console.log('MODULOS');
-
-
-            var options = '<option></option>';
-            $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.MODULO + '</option>';
-            });
-            $("#pnlNuevo").find("#IdModulo").html(options);
-            $("#pnlEditar").find("#IdModuloE").html(options);
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
-    function getUsuarios() {
-        $.getJSON(master_url + 'getUsuarios').done(function (data, x, jq) {
-
-            var options = '<option></option>';
-            $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.USUARIO + '</option>';
-            });
-            $("#pnlNuevo").find("#IdUsuario").html(options);
-            $("#pnlEditar").find("#IdUsuarioE").html(options);
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
+ 
 </script>
