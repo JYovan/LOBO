@@ -38,7 +38,7 @@
                     <a class="dropdown-item" href="#">Maquilas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Lineas</a>
-                    <a class="dropdown-item" href="#">Estilos</a>
+                    <a class="dropdown-item" href="<?php print base_url('Estilos') ?>">Estilos</a>
                     <a class="dropdown-item" href="#">Combinaciones</a>
                     <a class="dropdown-item" href="#">Series</a>
                     <div class="dropdown-divider"></div>

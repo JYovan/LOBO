@@ -128,3 +128,6 @@ input {
   max-width: 600px;
   padding: 30px;
 }
+.cursor-hand{
+    cursor: pointer;
+}
