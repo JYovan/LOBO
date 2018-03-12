@@ -16,7 +16,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Fichas Técnicas</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Materiales por Combinación</a>
+                    <a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a>
                     <a class="dropdown-item" href="#">Fracciones por Estilo</a>
                     <a class="dropdown-item" href="#">Partes y Materiales</a>
                 </div>
