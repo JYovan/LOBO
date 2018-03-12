@@ -25,7 +25,7 @@
         <!--select2 control--> 
         <link href="<?php echo base_url(); ?>js/select2/select2.min.css" rel="stylesheet" />
         <script src="<?php echo base_url(); ?>js/select2/select2.min.js"></script>
-
+<!--        <script src="<?php echo base_url(); ?>js/select2/select2-tab-fix.js"></script>-->
         <!-- Validacion forms -->
         <script rel="javascript" type="text/javascript" href="<?php echo base_url(); ?>js/additional-methods.min.js"></script>
         <script src="<?php echo base_url(); ?>js/jquery.validate.min.js"></script>
