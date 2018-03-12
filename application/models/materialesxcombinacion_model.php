@@ -1,12 +1,15 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
+
 class materialesxcombinacion_model extends CI_Model {
+
     public function __construct() {
         parent::__construct();
     }
-   
+
     public function getRecords() {
         try {
             $this->db->select("MXC.[ID]
@@ -14,8 +17,8 @@ class materialesxcombinacion_model extends CI_Model {
       ,C.Descripcion AS COMBINACION
       ,MXC.Registro AS REGISTRO ", false);
             $this->db->from('MaterialesXCombinacion AS MXC ');
-            $this->db->join('Estilos AS E','MXC.Estilo = E.ID');
-            $this->db->join('Combinaciones AS C','MXC.Combinacion = C.ID');
+            $this->db->join('Estilos AS E', 'MXC.Estilo = E.ID');
+            $this->db->join('Combinaciones AS C', 'MXC.Combinacion = C.ID');
             $this->db->where_in('MXC.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -28,14 +31,15 @@ class materialesxcombinacion_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
+    }
+
     public function getMaterialesRequeridos() {
         try {
             $this->db->select('M.[ID] ,M.[Material] AS MATERIAL,M.Descripcion AS "DESCRIPCIÓN",  C.SValue AS "U.M", M.[PrecioLista] AS PRECIO', false);
             $this->db->from('Materiales AS M ');
-            $this->db->join('Catalogos AS C','M.UnidadConsumo = C.ID');
-            $this->db->like('C.FieldId','UNIDADES');
-            $this->db->like('C.Estatus','ACTIVO');
+            $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
+            $this->db->like('C.FieldId', 'UNIDADES');
+            $this->db->like('C.Estatus', 'ACTIVO');
             $this->db->where_in('M.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -48,7 +52,8 @@ class materialesxcombinacion_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
+    }
+
     public function onAgregar($array) {
         try {
             $this->db->insert("MaterialesXCombinacion", $array);
@@ -60,6 +65,7 @@ class materialesxcombinacion_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onAgregarDetalle($array) {
         try {
             $this->db->insert("MaterialesXCombinacionDetalle", $array);
@@ -67,6 +73,7 @@ class materialesxcombinacion_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
@@ -76,6 +83,7 @@ class materialesxcombinacion_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onEliminar($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');
@@ -86,11 +94,11 @@ class materialesxcombinacion_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function getMaterialesXCombinacionByID($ID) {
         try {
-            $this->db->select('MXCD.*', false);
-            $this->db->from('MaterialesXCombinacion AS MXC ');
-            $this->db->join('MaterialesXCombinacionDetalle AS MXCD','MXC.ID = MXCD.MaterialXCombinacion');
+            $this->db->select('M.ID AS ID, M.Estilo AS ESTILO, M.Combinacion AS COMBINACION', false);
+            $this->db->from('MaterialesXCombinacion AS M');
             $this->db->where('M.ID', $ID);
             $this->db->where_in('M.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -105,12 +113,42 @@ class materialesxcombinacion_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-     
-    
+
+    public function getMaterialesXCombinacionDetalleByID($ID) {
+        try {
+            $this->db->select('MXCD.Material ID, M.Material AS MATERIAL, 
+                C.SValue AS "U.M", 
+                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS PRECIO, 
+                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS CONSUMO,
+	   CONCAT(\'<strong><span class="text-info">\',(CASE 
+	  WHEN MXCD.Tipo = 1 THEN
+		\'DIR\'
+		ELSE \'IND\' 
+	  END),\'</span></strong>\') AS TIPO,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS IMPORTE', false);
+            $this->db->from('MaterialesXCombinacionDetalle AS MXCD ');  
+            $this->db->join('Materiales AS M','MXCD.Material = M.ID');
+            $this->db->join('Catalogos AS C','M.UnidadConsumo = C.ID');
+            $this->db->like('C.FieldId', 'UNIDADES');
+            $this->db->like('C.Estatus', 'ACTIVO');
+            $this->db->where('MXCD.MaterialXCombinacion', $ID);
+            $this->db->where_in('MXCD.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getCombinaciones() {
         try {
             $this->db->select('C.ID AS ID, C.Descripcion AS COMBINACION', false);
-            $this->db->from('Combinaciones AS C');  
+            $this->db->from('Combinaciones AS C');
             $this->db->where_in('C.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -123,11 +161,12 @@ class materialesxcombinacion_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
+    }
+
     public function getEstilos() {
         try {
             $this->db->select('E.ID AS ID, E.Descripcion AS ESTILO', false);
-            $this->db->from('Estilos AS E');  
+            $this->db->from('Estilos AS E');
             $this->db->where_in('E.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -140,5 +179,6 @@ class materialesxcombinacion_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
+    }
+
 }
