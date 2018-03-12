@@ -301,7 +301,7 @@
             pnlTablero.addClass("d-none");
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").select2("val", "");
+            pnlNuevo.find("select").val("").trigger('change');
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -371,7 +371,7 @@
                             if (data.length > 0) {
                                 var dtm = data[0];
                                 pnlEditar.find("input").val("");
-                                pnlEditar.find("select").select2("val", "");
+                                pnlEditar.find("select").val("").trigger('change');
                                 pnlEditar.find("#ID").val(dtm.ID);
                                 pnlEditar.find("#ModuloE").val(dtm.Modulo);  
                                 pnlEditar.find("#EstatusE").val(dtm.Estatus).trigger('change');  

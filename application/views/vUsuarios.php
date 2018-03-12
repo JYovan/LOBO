@@ -365,7 +365,7 @@
             pnlTablero.addClass("d-none");
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").select2("val", "");
+            pnlNuevo.find("select").val("").trigger('change');
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -437,7 +437,7 @@
                     }).done(function (data, x, jq) {
 
                         pnlEditar.find("input").val("");
-                        pnlEditar.find("select").select2("val", "");
+                        pnlEditar.find("select").val("").trigger('change');
                         $.each(data[0], function (k, v) {
                             pnlEditar.find("#" + k).val(v);
                             pnlEditar.find("#" + k).val(v).trigger('change');

@@ -77,6 +77,25 @@ class generales_model extends CI_Model {
         }
     }
     
+    public function getCatalogosByFielID($FieldId) {
+        try {
+            $this->db->select('U.*', false);
+            $this->db->from('Catalogos AS U');
+            $this->db->where('U.FieldId', $FieldId);
+            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->order_by("U.IValue", "ASC");
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
     
 
 }

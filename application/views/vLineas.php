@@ -1,7 +1,7 @@
 
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Catálogos del sistema</legend>
+        <legend class="float-left">Gestión de Lineas</legend>
         <div align="right">
             <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
             <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
@@ -53,43 +53,41 @@
                         <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
                     </div>
                 </div>
-
-
-
                 <div class="row">
 
                     <div class="col-sm">
-                        <label for="IValue">Clave/Orden*</label>  
-                        <input type="number" class="form-control" id="IValue" name="IValue" required >
+                        <label for="Clave">Clave*</label>  
+                        <input type="number" class="form-control" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="SValue">Nombre Corto*</label>  
-                        <input type="text" class="form-control" id="SValue" name="SValue" required >
+                        <label for="Descripcion">Descripción*</label>  
+                        <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Valor_Text">Descripción</label>  
-                        <input type="text" class="form-control" id="Valor_Text" name="Valor_Text"  >
+                        <label for="Ano">Año</label>  
+                        <input type="number" class="form-control" id="Ano" name="Ano"  >
                     </div>
-                    <div class="col-sm">
-                        <label for="Valor_Num">Valor</label>  
-                        <input type="number" class="form-control" id="Valor_Num" name="Valor_Num" >
-                    </div>
-
-
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Special">Extra</label>  
-                        <input type="text" class="form-control" id="Special" name="Special"  >
+                        <label for="TemporadaCat">Temporada*</label>
+                        <select class="form-control form-control-lg"  name="TemporadaCat" required=""> 
+                            <option value=""></option>  
+                        </select>
                     </div>
-
-                </div>
-                <div class="row"> 
+                    <div class="col-sm">
+                        <label for="TipoEstiloCat">Tipo Estilo*</label>
+                        <select class="form-control form-control-lg"  name="TipoEstiloCat" required=""> 
+                            <option value=""></option>  
+                        </select>
+                    </div>
+                </div> 
+                <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-lg"  name="Estatus"> 
+                        <select class="form-control form-control-lg"  name="Estatus" required=""> 
                             <option value=""></option>  
                             <option>ACTIVO</option>
                             <option>INACTIVO</option> 
@@ -108,7 +106,7 @@
                 <form id="frmEditar">
                     <div class="row">
                         <div class="col-md-2 float-left">
-                            <legend class="float-left">Editar</legend>
+                            <legend class="float-left">Editar </legend>
                         </div>
                         <div class="col-md-7 float-right">
 
@@ -122,42 +120,40 @@
                         <input type="text" class="form-control" id="ID" name="ID" required >
                     </div>
                     <div class="row">
-                        <div class="d-none">
-                            <input type="text" class="form-control" id="FieldId" name="FieldId" >
-                        </div>
 
                         <div class="col-sm">
-                            <label for="IValue">Clave/Orden*</label>  
-                            <input type="number" class="form-control" id="IValue" name="IValue" required >
+                            <label for="Clave">Clave*</label>  
+                            <input type="number" class="form-control" id="Clave" name="Clave" required >
                         </div>
                         <div class="col-sm">
-                            <label for="SValue">Nombre Corto*</label>  
-                            <input type="text" class="form-control" id="SValue" name="SValue" required >
+                            <label for="Descripcion">Descripción*</label>  
+                            <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="Valor_Text">Descripción</label>  
-                            <input type="text" class="form-control" id="Valor_Text" name="Valor_Text"  >
+                            <label for="Ano">Año</label>  
+                            <input type="number" class="form-control" id="Ano" name="Ano"  >
                         </div>
-                        <div class="col-sm">
-                            <label for="Valor_Num">Valor</label>  
-                            <input type="number" class="form-control" id="Valor_Num" name="Valor_Num" >
-                        </div>
-
-
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="Special">Extra</label>  
-                            <input type="text" class="form-control" id="Special" name="Special"  >
+                            <label for="TemporadaCat">Temporada*</label>
+                            <select class="form-control form-control-lg"  name="TemporadaCat"> 
+                                <option value=""></option>  
+                            </select>
                         </div>
-
-                    </div>
-                    <div class="row"> 
+                        <div class="col-sm">
+                            <label for="TipoEstiloCat">Tipo Estilo*</label>
+                            <select class="form-control form-control-lg"  name="TipoEstiloCat"> 
+                                <option value=""></option>  
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="row">
                         <div class="col-sm">
                             <label for="Estatus">Estatus*</label>
-                            <select class="form-control form-control-lg" id="Estatus" name="Estatus"> 
+                            <select class="form-control form-control-lg"  name="Estatus"> 
                                 <option value=""></option>  
                                 <option>ACTIVO</option>
                                 <option>INACTIVO</option> 
@@ -172,7 +168,7 @@
 
 <!--SCRIPT-->
 <script>
-    var master_url = base_url + 'index.php/Generales/';
+    var master_url = base_url + 'index.php/Lineas/';
     var pnlNuevo = $("#pnlNuevo");
     var pnlTablero = $("#pnlTablero");
     var btnNuevo = $("#btnNuevo");
@@ -198,8 +194,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IValue: 'required',
-                    SValue: 'required'
+                    Clave: 'required',
+                    Descripcion: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -259,8 +255,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IValue: 'required',
-                    SValue: 'required'
+                    Clave: 'required',
+                    Nombre: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -291,7 +287,6 @@
             //Si es verdadero que hacer
             if ($('#frmNuevo').valid()) {
                 var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
-                frm.append('FieldId', getParameterByName('modulo'));
 
                 $.ajax({
                     url: master_url + 'onAgregar',
@@ -372,17 +367,10 @@
         });
 
         getRecords();
+        getTemporadas();
+        getTiposEstilo();
         handleEnter();
     });
-
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-
-    }
 
     function getRecords() {
         temp = 0;
@@ -393,39 +381,27 @@
         $.ajax({
             url: master_url + 'getRecords',
             type: "POST",
-            dataType: "JSON",
-            data: {
-                fieldId: getParameterByName('modulo')
-            }
+            dataType: "JSON"
         }).done(function (data, x, jq) {
             console.log(data);
-            $("#tblRegistros").html(getTable('tblCatalogos', data));
+            $("#tblRegistros").html(getTable('tblLineas', data));
 
-            var thead = $('#tblRegistros thead th');
-            var tfoot = $('#tblRegistros tfoot th');
-            thead.eq(0).addClass("d-none");
-            tfoot.eq(0).addClass("d-none");
-            $.each($.find('#tblRegistros tbody tr'), function (k, v) {
-                var td = $(v).find("td");
-                td.eq(0).addClass("d-none");
-            });
-
-            $('#tblCatalogos tfoot th').each(function () {
+            $('#tblLineas tfoot th').each(function () {
                 $(this).html('');
             });
-            var tblSelected = $('#tblCatalogos').DataTable(tableOptions);
-            $('#tblCatalogos_filter input[type=search]').focus();
+            var tblSelected = $('#tblLineas').DataTable(tableOptions);
+            $('#tblLineas_filter input[type=search]').focus();
 
-            $('#tblCatalogos tbody').on('click', 'tr', function () {
+            $('#tblLineas tbody').on('click', 'tr', function () {
 
-                $("#tblCatalogos tbody tr").removeClass("success");
+                $("#tblLineas tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var dtm = tblSelected.row(this).data();
                 temp = parseInt(dtm[0]);
             });
 
-            $('#tblCatalogos tbody').on('dblclick', 'tr', function () {
-                $("#tblCatalogos tbody tr").removeClass("success");
+            $('#tblLineas tbody').on('dblclick', 'tr', function () {
+                $("#tblLineas tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var id = this.id;
                 var index = $.inArray(id, selected);
@@ -441,7 +417,7 @@
                         message: "CARGANDO DATOS..."
                     });
                     $.ajax({
-                        url: master_url + 'getCatalogoByID',
+                        url: master_url + 'getLineaByID',
                         type: "POST",
                         dataType: "JSON",
                         data: {
@@ -453,7 +429,8 @@
                         pnlEditar.find("select").val("").trigger('change');
                         $.each(data[0], function (k, v) {
                             pnlEditar.find("#" + k).val(v);
-                            pnlEditar.find("#" + k).val(v).trigger('change');
+                            //pnlEditar.find("#" + k).val(v).trigger('change');
+                            pnlEditar.find("[name='"+k+"']").val(v).trigger('change');
                         });
                         pnlTablero.addClass("d-none");
                         pnlEditar.removeClass('d-none');
@@ -481,6 +458,43 @@
             HoldOn.close();
         });
     }
-
+    function getTemporadas() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getTemporadas',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+            });
+            pnlNuevo.find("[name='TemporadaCat']").html(options);
+            pnlEditar.find("[name='TemporadaCat']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getTiposEstilo() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getTiposEstilo',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+            });
+            pnlNuevo.find("[name='TipoEstiloCat']").html(options);
+            pnlEditar.find("[name='TipoEstiloCat']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
 
 </script>

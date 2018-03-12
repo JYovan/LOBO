@@ -442,7 +442,7 @@
             pnlTablero.addClass("d-none");
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").select2("val", "");
+            pnlNuevo.find("select").val("").trigger('change');
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -512,7 +512,7 @@
                             if (data.length > 0) {
                                 var dtm = data[0];
                                 pnlEditar.find("input").val("");
-                                pnlEditar.find("select").select2("val", "");
+                                pnlEditar.find("select").val("").trigger('change');
                                 pnlEditar.find("#ID").val(dtm.ID);
                                 pnlEditar.find("#IdModuloE").val(dtm.IdModulo).trigger('change'); 
                                 pnlEditar.find("#IdUsuarioE").val(dtm.IdUsuario).trigger('change'); 

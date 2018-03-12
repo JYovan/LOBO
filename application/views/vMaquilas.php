@@ -102,7 +102,7 @@
                 <form id="frmEditar">
                     <div class="row">
                         <div class="col-md-2 float-left">
-                            <legend class="float-left">Editar Usuario</legend>
+                            <legend class="float-left">Editar</legend>
                         </div>
                         <div class="col-md-7 float-right">
 
@@ -345,7 +345,7 @@
             pnlTablero.addClass("d-none");
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").select2("val", "");
+            pnlNuevo.find("select").val("").trigger('change');
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -361,15 +361,6 @@
         getRecords();
         handleEnter();
     });
-
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-
-    }
 
     function getRecords() {
         temp = 0;
@@ -425,7 +416,7 @@
                     }).done(function (data, x, jq) {
 
                         pnlEditar.find("input").val("");
-                        pnlEditar.find("select").select2("val", "");
+                        pnlEditar.find("select").val("").trigger('change');
                         $.each(data[0], function (k, v) {
                             pnlEditar.find("#" + k).val(v);
                             pnlEditar.find("#" + k).val(v).trigger('change');
