@@ -431,12 +431,10 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
 
         pnlNuevo.find("#btnEliminarMaterial").on('click', function () {
@@ -546,8 +544,8 @@
 
         /*CALLS*/
         btnRefrescar.trigger('click');
-        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptions);
-        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptions);
+        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsDetalle);
+        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsDetalle);
 
         pnlNuevo.find('#tblMaterialesRequeridos tbody').on('click', 'tr', function () {
             pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("success");
@@ -575,6 +573,15 @@
                 $('#tblMaterialesXCombinacion tfoot th').each(function () {
                     $(this).html('');
                 });
+                var thead = $('#tblMaterialesXCombinacion thead th');
+                var tfoot = $('#tblMaterialesXCombinacion tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblMaterialesXCombinacion tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
+
                 var tblSelected = $('#tblMaterialesXCombinacion').DataTable(tableOptions);
                 $('#tblMaterialesXCombinacion_filter input[type=search]').focus();
 
@@ -674,7 +681,7 @@
                 $('#tblMateriales tfoot th').each(function () {
                     $(this).html('');
                 });
-                var tblSelected = $('#tblMateriales').DataTable(tableOptions);
+                var tblSelected = $('#tblMateriales').DataTable(tableOptionsDetalle);
                 $('#tblMateriales_filter input[type=search]').focus();
 
                 $('#tblMateriales tbody').on('click', 'tr', function () {
@@ -735,7 +742,7 @@
                 $('#tblMaterialesE tfoot th').each(function () {
                     $(this).html('');
                 });
-                var tblSelected = $('#tblMaterialesE').DataTable(tableOptions);
+                var tblSelected = $('#tblMaterialesE').DataTable(tableOptionsDetalle);
                 $('#tblMaterialesE_filter input[type=search]').focus();
 
                 $('#tblMaterialesE tbody').on('click', 'tr', function () {
@@ -802,16 +809,16 @@
                 $('#tblMaterialesRequeridosE tfoot th').each(function () {
                     $(this).html('');
                 });
-                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptions);
+                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalle);
                 $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
 
-                $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () { 
+                $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () {
                     pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("success");
                     pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("row_for_delete");
                     $(this).addClass("success");
                     $(this).addClass("row_for_delete");
                 });
- 
+
 
                 $('#tblMaterialesRequeridosE tbody').on('dblclick', 'tr', function () {
                     $("#tblMaterialesRequeridosE tbody tr").removeClass("success");
@@ -840,7 +847,7 @@
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
-            HoldOn.close(); 
+            HoldOn.close();
             /*CALCULAR SUPER TOTAL*/
             super_total = 0.0;
             $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {

@@ -171,12 +171,12 @@
     var mdlConfirmar = $("#mdlConfirmar");
 
     $(document).ready(function () {
+        $("#frmNuevo input:text, #frmNuevo textarea").first().focus();
+        $("#frmEditar input:text, #frmNuevo textarea").first().focus();
 
         $(".select2-selection").on("focus", function () {
             $(this).parent().parent().prev().select2("open");
         });
-
-
         btnModificar.click(function () {
             $.validator.setDefaults({
                 ignore: []
@@ -352,12 +352,10 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
 
         getRecords();
@@ -382,6 +380,14 @@
 
             $('#tblCombinaciones tfoot th').each(function () {
                 $(this).html('');
+            });
+            var thead = $('#tblCombinaciones thead th');
+            var tfoot = $('#tblCombinaciones tfoot th');
+            thead.eq(0).addClass("d-none");
+            tfoot.eq(0).addClass("d-none");
+            $.each($.find('#tblCombinaciones tbody tr'), function (k, v) {
+                var td = $(v).find("td");
+                td.eq(0).addClass("d-none");
             });
             var tblSelected = $('#tblCombinaciones').DataTable(tableOptions);
             $('#tblCombinaciones_filter input[type=search]').focus();

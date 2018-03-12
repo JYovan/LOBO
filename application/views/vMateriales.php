@@ -458,12 +458,10 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
 
         getRecords();
@@ -489,6 +487,14 @@
 
             $('#tblMateriales tfoot th').each(function () {
                 $(this).html('');
+            });
+            var thead = $('#tblMateriales thead th');
+            var tfoot = $('#tblMateriales tfoot th');
+            thead.eq(0).addClass("d-none");
+            tfoot.eq(0).addClass("d-none");
+            $.each($.find('#tblMateriales tbody tr'), function (k, v) {
+                var td = $(v).find("td");
+                td.eq(0).addClass("d-none");
             });
             var tblSelected = $('#tblMateriales').DataTable(tableOptions);
             $('#tblMateriales_filter input[type=search]').focus();

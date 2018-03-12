@@ -350,12 +350,10 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
 
         getRecords();
@@ -378,6 +376,14 @@
 
             $('#tblMaquilas tfoot th').each(function () {
                 $(this).html('');
+            });
+            var thead = $('#tblMaquilas thead th');
+            var tfoot = $('#tblMaquilas tfoot th');
+            thead.eq(0).addClass("d-none");
+            tfoot.eq(0).addClass("d-none");
+            $.each($.find('#tblMaquilas tbody tr'), function (k, v) {
+                var td = $(v).find("td");
+                td.eq(0).addClass("d-none");
             });
             var tblSelected = $('#tblMaquilas').DataTable(tableOptions);
             $('#tblMaquilas_filter input[type=search]').focus();

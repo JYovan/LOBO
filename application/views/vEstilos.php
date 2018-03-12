@@ -384,7 +384,7 @@
                     reader.readAsDataURL(Archivo[0].files[0]);
                 } else {
                     if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match('application/pdf')) {
-                        
+
                         var readerpdf = new FileReader();
                         readerpdf.onload = function (e) {
                             VistaPrevia.html('<div><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br> <embed src="' + readerpdf.result + '" type="application/pdf" width="90%" height="800px"' +
@@ -507,7 +507,7 @@
 
             if (pnlEditar.find('#frmEditar').valid()) {
                 var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
-               
+
                 $.ajax({
                     url: master_url + 'onModificar',
                     type: "POST",
@@ -606,12 +606,10 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
         /*CALLS*/
         handleEnter();
@@ -641,11 +639,17 @@
                 $('#tblEstilos tfoot th').each(function () {
                     $(this).html('');
                 });
+                var thead = $('#tblEstilos thead th');
+                var tfoot = $('#tblEstilos tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblEstilos tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
                 var tblSelected = $('#tblEstilos').DataTable(tableOptions);
                 $('#tblEstilos_filter input[type=search]').focus();
-
                 $('#tblEstilos tbody').on('click', 'tr', function () {
-
                     $("#tblEstilos tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var dtm = tblSelected.row(this).data();
@@ -877,7 +881,7 @@
             $('#Foto').val('');
         });
     }
-    
+
     function printImg(url) {
         var win = window.open('');
         win.document.write('<img src="' + url + '" onload="window.print();window.close()" />');

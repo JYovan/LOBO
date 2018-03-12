@@ -13,9 +13,6 @@
         </div>
     </div>
 </div>
-
-
-
 <!--MODALES--> 
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
@@ -37,15 +34,11 @@
         </div>
     </div>
 </div>
-
-
-
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlNuevo">
         <div class="card-body text-dark"> 
             <form id="frmNuevo">
-
                 <div class="row">
                     <div class="col-md-2 float-left">
                         <legend class="float-left">Nuevo Usuario</legend>
@@ -58,16 +51,12 @@
                         <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
                     </div>
                 </div>
-
-
-
                 <div class="row">
-
-                     <div class="col-sm">
-                        <label for="Estatus">Usuario*</label>  
+                    <div class="col-sm">
+                        <label for="Usuario">Usuario*</label>  
                         <input type="text" class="form-control" id="Usuario" name="Usuario" required >
                     </div>
-                     <div class="col-sm">
+                    <div class="col-sm">
                         <label for="Estatus">Contraseña*</label>  
                         <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
                     </div>
@@ -75,7 +64,7 @@
                 <div class="row"> 
 
 
-                     <div class="col-sm">
+                    <div class="col-sm">
                         <label for="Tipo">Tipo</label>
                         <select class="form-control form-control-lg" name="Tipo">
                             <option value=""></option>  
@@ -87,7 +76,7 @@
                             <option value="CAPTURA">CONTABILIDAD</option>
                         </select>
                     </div>
-                     <div class="col-sm">
+                    <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-lg"  name="Estatus"> 
                             <option value=""></option>  
@@ -129,11 +118,11 @@
                     </div>
                     <div class="row">
 
-                         <div class="col-sm">
+                        <div class="col-sm">
                             <label for="Estatus">Usuario*</label>  
                             <input type="text" class="form-control" id="Usuario" name="Usuario" required >
                         </div>
-                         <div class="col-sm">
+                        <div class="col-sm">
                             <label for="Estatus">Contraseña*</label>  
                             <input type="password" class="form-control" id="Contrasena" name="Contrasena" required >
                         </div>
@@ -141,7 +130,7 @@
                     <div class="row"> 
 
 
-                         <div class="col-sm">
+                        <div class="col-sm">
                             <label for="Tipo">Tipo</label>
                             <select class="form-control form-control-lg" id="Tipo" name="Tipo">
                                 <option value=""></option>  
@@ -153,7 +142,7 @@
                                 <option value="CAPTURA">CONTABILIDAD</option>
                             </select>
                         </div>
-                         <div class="col-sm">
+                        <div class="col-sm">
                             <label for="Estatus">Estatus*</label>
                             <select class="form-control form-control-lg" id="Estatus"  name="Estatus"> 
                                 <option value=""></option>  
@@ -163,7 +152,7 @@
                         </div>
                     </div>
                     <div class="row">
-                         <div class="col-sm">
+                        <div class="col-sm">
                             <label for="Estatus">Correo*</label> 
                             <input type="email" id="Correo" name="Correo" class="form-control" placeholder="lobo@lobo.com.mx" required>
                         </div>  
@@ -189,8 +178,17 @@
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
+
+
+
+
+
     $(document).ready(function () {
-        handleEnter();
+
+
+
+        $("#frmNuevo input:text").first().focus();
+        $("#frmEditar input:text").first().focus();
 
 
         //Evento clic del boton confirmar borrar
@@ -366,19 +364,22 @@
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").val("").trigger('change');
+            
+
         });
+
+
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
         /*CALLS*/
         getRecords();
+        handleEnter();
     });
     function getRecords() {
         temp = 0;
@@ -397,6 +398,15 @@
 //                var title = $(this).text();
 //                $(this).html('<div  style="overflow-x:auto; "><div class="form-group "><input type="text" placeholder="Buscar por ' + title + '" class="form-control" style="width: 100%;"/></div></div>');
 //            });
+
+            var thead = $('#tblUsuarios thead th');
+            var tfoot = $('#tblUsuarios tfoot th');
+            thead.eq(0).addClass("d-none");
+            tfoot.eq(0).addClass("d-none");
+            $.each($.find('#tblUsuarios tbody tr'), function (k, v) {
+                var td = $(v).find("td");
+                td.eq(0).addClass("d-none");
+            });
             $('#tblUsuarios tfoot th').each(function () {
                 $(this).html('');
             });
@@ -435,7 +445,7 @@
                             ID: temp
                         }
                     }).done(function (data, x, jq) {
-
+                        
                         pnlEditar.find("input").val("");
                         pnlEditar.find("select").val("").trigger('change');
                         $.each(data[0], function (k, v) {
@@ -444,6 +454,7 @@
                         });
                         pnlTablero.addClass("d-none");
                         pnlEditar.removeClass('d-none');
+                        
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {

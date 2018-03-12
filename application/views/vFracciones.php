@@ -330,12 +330,10 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            btnRefrescar.trigger('click');
         });
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
-            btnRefrescar.trigger('click');
         });
 
         getRecords();
@@ -359,6 +357,14 @@
 
             $('#tblFracciones tfoot th').each(function () {
                 $(this).html('');
+            });
+            var thead = $('#tblFracciones thead th');
+            var tfoot = $('#tblFracciones tfoot th');
+            thead.eq(0).addClass("d-none");
+            tfoot.eq(0).addClass("d-none");
+            $.each($.find('#tblFracciones tbody tr'), function (k, v) {
+                var td = $(v).find("td");
+                td.eq(0).addClass("d-none");
             });
             var tblSelected = $('#tblFracciones').DataTable(tableOptions);
             $('#tblFracciones_filter input[type=search]').focus();

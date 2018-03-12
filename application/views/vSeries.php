@@ -410,6 +410,16 @@
             $('#tblSeries tfoot th').each(function () {
                 $(this).html('');
             });
+
+            var thead = $('#tblSeries thead th');
+            var tfoot = $('#tblSeries tfoot th');
+            thead.eq(0).addClass("d-none");
+            tfoot.eq(0).addClass("d-none");
+            $.each($.find('#tblSeries tbody tr'), function (k, v) {
+                var td = $(v).find("td");
+                td.eq(0).addClass("d-none");
+            });
+
             var tblSelected = $('#tblSeries').DataTable(tableOptions);
             $('#tblSeries_filter input[type=search]').focus();
 
