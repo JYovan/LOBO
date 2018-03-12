@@ -56,9 +56,16 @@ class MaterialesXCombinacion extends CI_Controller {
         }
     }
 
-    public function getModuloByID() {
+    public function getMaterialesXCombinacionByID() {
         try {
-            print json_encode($this->materialesxcombinacion_model->getModuloByID($this->input->post('ID')));
+            print json_encode($this->materialesxcombinacion_model->getMaterialesXCombinacionByID($this->input->post('ID')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    public function getMaterialesXCombinacionDetalleByID() {
+        try {
+            print json_encode($this->materialesxcombinacion_model->getMaterialesXCombinacionDetalleByID($this->input->post('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

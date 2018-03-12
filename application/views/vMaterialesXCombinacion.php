@@ -39,7 +39,7 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlNuevo">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo"> 
                 <div class="row">
                     <div class="col-md-4 float-left">
@@ -51,7 +51,7 @@
                         <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
                         <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
                     </div>
-                </div>  
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estilo">Estilo*</label>
@@ -117,11 +117,8 @@
                                 </div>
                             </div>
                         </div><!--FIN CARD-->
-                    </div>
-
-
-
-                </div>
+                    </div> 
+                </div><!--FIN ROW-->
             </form>
         </div> 
     </div> 
@@ -130,13 +127,13 @@
 <!--EDITAR--> 
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlEditar">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmEditar"> 
                 <div class="row">
-                    <div class="col-md-2 float-left">
-                        <legend class="float-left">Editar Modulo</legend>
+                    <div class="col-md-4 float-left">
+                        <legend class="float-left">Editar Material Por Combinación</legend>
                     </div>
-                    <div class="col-md-7 float-right">
+                    <div class="col-md-5 float-right">
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
@@ -150,17 +147,72 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        <label for="IdModulo">MODULO*</label>
-                        <input type="text" id="ModuloE" name="ModuloE" class="form-control" placeholder="NOMBRE DEL MODULO...">
-                    </div>  
-                    <div class="col-sm">
-                        <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="EstatusE"  name="EstatusE"> 
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
+                        <label for="Estilo">Estilo*</label>
+                        <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
                         </select>
+                    </div>
+                    <div class="col-sm">
+                        <label for="Combinacion">Combinación*</label>
+                        <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
+                        </select>
+                    </div>
+                    <div class="w-100"></div>
+                    <br>
+                    <div class="col w-100">
+                        <div class="card border-success">
+                            <div class="card-header text-center">
+                                <strong>DETALLE</strong>
+                            </div>
+                            <div class="card-body row"> 
+                                <div id="SuperTotalE" class="col-12 text-center">
+                                    <h1 class="text-success"><strong>$ 0.0</strong></h1>
+                                </div>
+                                <div class="col-6">
+                                    <label for="Consumo">Consumo*</label>
+                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
+                                </div>
+                                <div class="col-6">
+                                    <label for="Tipo">Tipo*</label>
+                                    <select class="form-control form-control-lg" id="TipoE"  name="TipoE">  
+                                        <option value="DIR">DIR</option>
+                                        <option value="IND">IND</option>
+                                    </select>
+                                </div> 
+                                <div class="w-100"></div> 
+                                <br>
+                                <div id="MaterialesE" class="col-5">
+                                </div>
+                                <div class="col-1"><br>
+                                    <button type="button" class="btn btn-dark" id="btnAgregarMaterialE"><span class="fa fa-arrow-right"></span></button>
+                                    <div class="w-100"></div>
+                                    <br>
+                                    <button type="button" class="btn btn-dark" id="btnRefrescarMaterialesE" onclick="getMaterialesRequeridosE()"><span class="fa fa-refresh"></span></button>
+                                    <div class="w-100"></div>
+                                    <br>
+                                    <button type="button" class="btn btn-dark" id="btnEliminarMaterialE"><span class="fa fa-minus"></span></button>
+                                </div> 
+                                <div id="MaterialesRequeridosE" class="col-6">
+                                    <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">MATERIAL</th>
+                                                <th scope="col">U.M</th>
+                                                <th scope="col">PRECIO</th>
+                                                <th scope="col">CONSUMO</th>
+                                                <th scope="col">TIPO</th>
+                                                <th scope="col">IMPORTE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!--FIN CARD-->
                     </div> 
-                </div> 
+                </div><!--FIN ROW-->
+
             </form>
         </div> 
     </div> 
@@ -408,6 +460,28 @@
             });
         });
 
+
+        pnlEditar.find("#btnEliminarMaterialE").on('click', function () {
+            $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                if ($(this).hasClass("row_for_delete")) {
+                    tblMaterialesRequeridosE.row().remove().draw();
+                    /*CALCULAR SUPER TOTAL*/
+                    super_total = 0.0;
+                    $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                        var sub = parseFloat($(this).find("td").eq(6).text());
+                        super_total += sub;
+                    });
+                    pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                    /*FIN CALCULAR SUPER TOTAL*/
+                    onEffect(1);
+                } else {
+                    onEffect(2);
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
+                    return false;
+                }
+            });
+        });
+
         pnlNuevo.find("#btnAgregarMaterial").on('click', function () {
             var Consumo = pnlNuevo.find("#Consumo").val();
             var Tipo = pnlNuevo.find("#Tipo option:selected").text().replace(/\s+/g, '');
@@ -473,6 +547,7 @@
         /*CALLS*/
         btnRefrescar.trigger('click');
         tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptions);
+        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptions);
 
         pnlNuevo.find('#tblMaterialesRequeridos tbody').on('click', 'tr', function () {
             pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("success");
@@ -481,7 +556,7 @@
             $(this).addClass("row_for_delete");
         });
     });
-    var tblMaterialesRequeridos;
+    var tblMaterialesRequeridos, tblMaterialesRequeridosE;
     var super_total = 0.0;
     function getRecords() {
         temp = 0;
@@ -523,12 +598,13 @@
                     }
                     var dtm = tblSelected.row(this).data();
                     if (temp !== 0 && temp !== undefined && temp > 0) {
+                        console.log(temp)
                         HoldOn.open({
                             theme: "sk-bounce",
                             message: "CARGANDO DATOS..."
                         });
                         $.ajax({
-                            url: master_url + 'getModuloByID',
+                            url: master_url + 'getMaterialesXCombinacionByID',
                             type: "POST",
                             dataType: "JSON",
                             data: {
@@ -540,10 +616,17 @@
                                 pnlEditar.find("input").val("");
                                 pnlEditar.find("select").val("").trigger('change');
                                 pnlEditar.find("#ID").val(dtm.ID);
-                                pnlEditar.find("#ModuloE").val(dtm.Modulo);
-                                pnlEditar.find("#EstatusE").val(dtm.Estatus).trigger('change');
+                                pnlEditar.find("#EstiloE").val(dtm.ESTILO).trigger('change');
+                                pnlEditar.find("#CombinacionE").val(dtm.COMBINACION).trigger('change');
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
+                                getMaterialesRequeridosE();
+                                /*OBTENER LOS MATERIALES AGREGADOS*/
+                                getMaterialesXCombinacionDetalleByID(dtm.ID);
+                                /*FIN OBTENER MATERIALES AGREGADOS*/
+
+
+
                             }
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
@@ -573,7 +656,6 @@
             HoldOn.close();
         });
     }
-
 
     function getMaterialesRequeridos() {
         temp = 0;
@@ -615,11 +697,6 @@
                     } else {
                         selected.splice(index, 1);
                     }
-                    var dtm = tblSelected.row(this).data();
-
-                    /*AGREGAR Y VALIDAR*/
-
-                    pnlNuevo.find("#tblMaterialesRequeridos tbody").append($(this));
                 });
                 // Apply the search
                 tblSelected.columns().every(function () {
@@ -638,6 +715,141 @@
             console.log(x, y, z);
         }).always(function () {
             HoldOn.close();
+        });
+    }
+
+    function getMaterialesRequeridosE() {
+        temp = 0;
+        HoldOn.open({
+            theme: "sk-bounce",
+            message: "CARGANDO DATOS..."
+        });
+        $.ajax({
+            url: master_url + 'getMaterialesRequeridos',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            if (data.length > 0) {
+                $("#MaterialesE").html(getTable('tblMaterialesE', data));
+
+                $('#tblMaterialesE tfoot th').each(function () {
+                    $(this).html('');
+                });
+                var tblSelected = $('#tblMaterialesE').DataTable(tableOptions);
+                $('#tblMaterialesE_filter input[type=search]').focus();
+
+                $('#tblMaterialesE tbody').on('click', 'tr', function () {
+
+                    $("#tblMaterialesE tbody tr").removeClass("success");
+                    $("#tblMaterialesE tbody tr").removeClass("selected_row");
+                    $(this).addClass("success selected_row");
+                    var dtm = tblSelected.row(this).data();
+
+                    temp = parseInt(dtm[0]);
+                });
+
+                $('#tblMaterialesE tbody').on('dblclick', 'tr', function () {
+                    $("#tblMaterialesE tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var id = this.id;
+                    var index = $.inArray(id, selected);
+                    if (index === -1) {
+                        selected.push(id);
+                    } else {
+                        selected.splice(index, 1);
+                    }
+                });
+                // Apply the search
+                tblSelected.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO SE ENCONTRARON REGISTROS', 'danger');
+            }
+
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+
+    function getMaterialesXCombinacionDetalleByID(IDX) {
+        temp = 0;
+        HoldOn.open({
+            theme: "sk-bounce",
+            message: "CARGANDO DATOS..."
+        });
+        $.ajax({
+            url: master_url + 'getMaterialesXCombinacionDetalleByID',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                ID: IDX
+            }
+        }).done(function (data, x, jq) {
+            console.log('* * * MAT AGREGADOS * * *');
+            console.log(data);
+            if (data.length > 0) {
+                $("#MaterialesRequeridosE").html(getTable('tblMaterialesRequeridosE', data));
+
+                $('#tblMaterialesRequeridosE tfoot th').each(function () {
+                    $(this).html('');
+                });
+                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptions);
+                $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
+
+                $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () { 
+                    pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("success");
+                    pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("row_for_delete");
+                    $(this).addClass("success");
+                    $(this).addClass("row_for_delete");
+                });
+ 
+
+                $('#tblMaterialesRequeridosE tbody').on('dblclick', 'tr', function () {
+                    $("#tblMaterialesRequeridosE tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var id = this.id;
+                    var index = $.inArray(id, selected);
+                    if (index === -1) {
+                        selected.push(id);
+                    } else {
+                        selected.splice(index, 1);
+                    }
+                });
+                // Apply the search
+                tblMaterialesRequeridosE.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO SE ENCONTRARON REGISTROS', 'danger');
+            }
+
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close(); 
+            /*CALCULAR SUPER TOTAL*/
+            super_total = 0.0;
+            $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                console.log($(this).find("td"));
+                var sub = parseFloat($(this).find("td").eq(6).text());
+                super_total += sub;
+            });
+            pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+            /*FIN CALCULAR SUPER TOTAL*/
         });
     }
     function getEstilos() {
