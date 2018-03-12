@@ -62,7 +62,7 @@ class materialesxcombinacion_model extends CI_Model {
     }
     public function onAgregarDetalle($array) {
         try {
-            $this->db->insert("MaterialesXCombinacionDetalle", $array); 
+            $this->db->insert("MaterialesXCombinacionDetalle", $array);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -70,7 +70,7 @@ class materialesxcombinacion_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Modulos", $DATA);
+            $this->db->update("MaterialesXCombinacion", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -80,16 +80,17 @@ class materialesxcombinacion_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Modulos");
+            $this->db->update("MaterialesXCombinacion");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    public function getModuloByID($ID) {
+    public function getMaterialesXCombinacionByID($ID) {
         try {
-            $this->db->select('M.*', false);
-            $this->db->from('[MaterialesXCombinacion] AS MXC ');
+            $this->db->select('MXCD.*', false);
+            $this->db->from('MaterialesXCombinacion AS MXC ');
+            $this->db->join('MaterialesXCombinacionDetalle AS MXCD','MXC.ID = MXCD.MaterialXCombinacion');
             $this->db->where('M.ID', $ID);
             $this->db->where_in('M.Estatus', 'ACTIVO');
             $query = $this->db->get();
