@@ -38,6 +38,7 @@
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlNuevo">
         <div class="card-body text-dark"> 
+
             <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-2 float-left">
@@ -179,16 +180,8 @@
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
 
-
-
-
-
     $(document).ready(function () {
 
-
-
-        $("#frmNuevo input:text").first().focus();
-        $("#frmEditar input:text").first().focus();
 
 
         //Evento clic del boton confirmar borrar
@@ -364,8 +357,7 @@
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").val("").trigger('change');
-            
-
+            $(':input:text:enabled:visible:first').focus();
         });
 
 
@@ -445,7 +437,7 @@
                             ID: temp
                         }
                     }).done(function (data, x, jq) {
-                        
+
                         pnlEditar.find("input").val("");
                         pnlEditar.find("select").val("").trigger('change');
                         $.each(data[0], function (k, v) {
@@ -454,7 +446,7 @@
                         });
                         pnlTablero.addClass("d-none");
                         pnlEditar.removeClass('d-none');
-                        
+                        $(':input:text:enabled:visible:first').focus();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {

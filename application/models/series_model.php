@@ -12,7 +12,7 @@ class series_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("U.ID, U.Descripcion", false);
+            $this->db->select("U.ID, U.Descripcion, U.PuntoInicial AS 'Punto Inicial', U.PuntoFinal AS 'Punto Final' ", false);
             $this->db->from('Series AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

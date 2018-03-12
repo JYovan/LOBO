@@ -171,8 +171,6 @@
     var mdlConfirmar = $("#mdlConfirmar");
 
     $(document).ready(function () {
-        $("#frmNuevo input:text, #frmNuevo textarea").first().focus();
-        $("#frmEditar input:text, #frmNuevo textarea").first().focus();
 
         $(".select2-selection").on("focus", function () {
             $(this).parent().parent().prev().select2("open");
@@ -348,6 +346,7 @@
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").val("").trigger('change');
+            $(':input:text:enabled:visible:first').focus();
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -434,6 +433,7 @@
                         });
                         pnlTablero.addClass("d-none");
                         pnlEditar.removeClass('d-none');
+                        $(':input:text:enabled:visible:first').focus();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {

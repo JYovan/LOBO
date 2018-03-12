@@ -427,6 +427,7 @@
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").val("").trigger('change');
+            $('#Estilo').select2('open').select2('close');
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -627,6 +628,8 @@
                                 pnlEditar.find("#CombinacionE").val(dtm.COMBINACION).trigger('change');
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
+                                
+                                $('#EstiloE').select2('open').select2('close');
                                 getMaterialesRequeridosE();
                                 /*OBTENER LOS MATERIALES AGREGADOS*/
                                 getMaterialesXCombinacionDetalleByID(dtm.ID);

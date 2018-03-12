@@ -602,6 +602,7 @@
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").select2("val", "");
             pnlNuevo.find("#Clave").focus();
+            $(':input:text:enabled:visible:first').focus();
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -684,7 +685,6 @@
                                 var dtm = data[0];
                                 pnlEditar.find("input").val("");
                                 pnlEditar.find("select").select2("val", "");
-
                                 $.each(data[0], function (k, v) {
                                     if (k !== 'Foto') {
                                         pnlEditar.find("#" + k).val(v);
@@ -693,7 +693,6 @@
                                     }
 
                                 });
-
                                 if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
                                     var ext = getExt(dtm.Foto);
                                     if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
@@ -708,9 +707,9 @@
                                 } else {
                                     pnlEditar.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
                                 }
-
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
+                                $(':input:text:enabled:visible:first').focus();
                             }
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
