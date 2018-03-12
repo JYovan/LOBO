@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 
-class lineas_model extends CI_Model {
+class combinaciones_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
@@ -13,24 +13,7 @@ class lineas_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("U.ID, U.Clave, U.Descripcion", false);
-            $this->db->from('Lineas AS U');
-            $this->db->where_in('U.Estatus', 'ACTIVO');
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function getLineas() {
-        try {
-            $this->db->select("U.ID, U.Clave, U.Descripcion", false);
-            $this->db->from('Lineas AS U');
+            $this->db->from('Combinaciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -46,7 +29,7 @@ class lineas_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("Lineas", $array);
+            $this->db->insert("Combinaciones", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -59,7 +42,7 @@ class lineas_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Lineas", $DATA);
+            $this->db->update("Combinaciones", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -70,17 +53,17 @@ class lineas_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Lineas");
+            $this->db->update("Combinaciones");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getLineaByID($ID) {
+    public function getCombinacionByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Lineas AS U');
+            $this->db->from('Combinaciones AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

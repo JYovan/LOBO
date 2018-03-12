@@ -27,6 +27,24 @@ class estilos_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     } 
+    
+     public function getEstilos() {
+        try {
+            $this->db->select("U.ID, U.Clave, U.Descripcion", false);
+            $this->db->from('Estilos AS U');
+            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
     public function onAgregar($array) {
         try {
             $this->db->insert("Estilos", $array);
