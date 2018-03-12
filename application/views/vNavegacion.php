@@ -18,7 +18,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a>
                     <a class="dropdown-item" href="#">Fracciones por Estilo</a>
-                    <a class="dropdown-item" href="#">Partes y Materiales</a>
+                    <a class="dropdown-item" href="#">Piezas y Materiales</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -56,7 +56,7 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--<li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="<?php print base_url('Sistema') ?>">Generales</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Generales</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
