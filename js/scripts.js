@@ -67,6 +67,57 @@ var tableOptions = {
     },
     "autoWidth": true,
     "colReorder": true,
+    "displayLength": 20,
+    "bStateSave": true,
+    "bLengthChange": false,
+    "deferRender": true,
+//    "scrollY": false,
+    "scrollX": true,
+    "scrollCollapse": false,
+    "bSort": true,
+    "aaSorting": [
+        [0, 'desc']
+    ]
+            //    ,
+            //    "columnDefs": [
+            //        {"width": "20%", "targets": [0]}
+            //    ]
+};
+
+var tableOptionsDetalle = {
+    "dom": 'frt',
+    language: {
+        processing: "Proceso en curso...",
+        search: "Buscar:",
+        lengthMenu: "Mostrar _MENU_ Elementos",
+        info: "Mostrando  _START_ de _END_ , de _TOTAL_ Elementos.",
+        infoEmpty: "Mostrando 0 de 0 A 0 Elementos.",
+        infoFiltered: "(Filtrando un total _MAX_ Elementos. )",
+        infoPostFix: "",
+        loadingRecords: "Procesando los datos...",
+        zeroRecords: "No se encontro nada.",
+        emptyTable: "No existen datos en la tabla.",
+        paginate: {
+            first: "Primero",
+            previous: "Anterior",
+            next: "Siguiente",
+            last: "&Uacute;ltimo"
+        },
+        aria: {
+            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+        },
+        buttons: {
+            copyTitle: 'Registros copiados a portapapeles',
+            copyKeys: 'Copiado con teclas clave.',
+            copySuccess: {
+                _: ' %d Registros copiados',
+                1: ' 1 Registro copiado'
+            }
+        }
+    },
+    "autoWidth": true,
+    "colReorder": true,
     "displayLength": 40,
     "bStateSave": true,
     "bLengthChange": false,
@@ -117,17 +168,12 @@ function getTable(tblname, data) {
     div += "</div>";
     return div;
 }
-
-
-
 function getExt(filename) {
     var dot_pos = filename.lastIndexOf(".");
     if (dot_pos === -1)
         return "";
     return filename.substr(dot_pos + 1).toLowerCase();
 }
-
-
 function handleEnter() {
     $('input').keyup(function () {
         $(this).val($(this).val().toUpperCase());

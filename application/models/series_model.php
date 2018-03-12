@@ -43,10 +43,40 @@ class series_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function getSeriesDetallebySerieID($ID) {
+        try {
+            $this->db->select("U.*", false);
+            $this->db->from('SeriesDetalle AS U');
+            $this->db->where_in('U.Serie_ID', $ID);
+            $this->db->order_by("U.Talla", "ASC");
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function onAgregar($array) {
         try {
             $this->db->insert("Series", $array);
+            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
+            $row = $query->row_array();
+//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            return $row['IDL'];
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onAgregarDetalle($array) {
+        try {
+            $this->db->insert("SeriesDetalle", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -66,11 +96,31 @@ class series_model extends CI_Model {
         }
     }
 
+    public function onModificarDetalle($ID, $DATA) {
+        try {
+            $this->db->where('ID', $ID);
+            $this->db->update("SeriesDetalle", $DATA);
+//            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onEliminar($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
             $this->db->update("Series");
+//            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onEliminarDetalle($ID) {
+        try {
+            $this->db->where('ID', $ID);
+            $this->db->delete("SeriesDetalle");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -97,4 +147,3 @@ class series_model extends CI_Model {
     }
 
 }
-

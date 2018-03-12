@@ -6,9 +6,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="<?php print base_url(); ?>img/LS32X32.png">
         <meta name="theme-color" content="#ffffff">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Control Lobo Solo</title>
+        <title>Zap Lobo Solo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="<?php print base_url(); ?>js/jquery-3.2.1.min.js"></script>
