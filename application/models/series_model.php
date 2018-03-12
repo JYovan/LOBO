@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 
-class maquilas_model extends CI_Model {
+class series_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
@@ -12,8 +12,8 @@ class maquilas_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("U.ID, U.Clave, U.Nombre", false);
-            $this->db->from('Maquilas AS U');
+            $this->db->select("U.ID, U.Descripcion", false);
+            $this->db->from('Series AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -26,11 +26,11 @@ class maquilas_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
-    public function getMaquilas() {
+
+    public function getSeries() {
         try {
-            $this->db->select("U.ID, U.Clave, U.Nombre", false);
-            $this->db->from('Maquilas AS U');
+            $this->db->select("U.ID, U.Descripcion", false);
+            $this->db->from('Series AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -46,7 +46,7 @@ class maquilas_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("Maquilas", $array);
+            $this->db->insert("Series", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -59,7 +59,7 @@ class maquilas_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Maquilas", $DATA);
+            $this->db->update("Series", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -70,17 +70,17 @@ class maquilas_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Maquilas");
+            $this->db->update("Series");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getMaquilaByID($ID) {
+    public function getSerieByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Maquilas AS U');
+            $this->db->from('Series AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -97,3 +97,4 @@ class maquilas_model extends CI_Model {
     }
 
 }
+

@@ -42,7 +42,7 @@
             <form id="frmNuevo"> 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Nuevo Estilo</legend>
+                        <legend class="float-left">Nuevo</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -56,123 +56,134 @@
 
                 <div class="row"><!--START ROW-->
                     <div class="col-md has-success">
-                        <label for="Clave">CLAVE*</label>
-                        <input type="text" class="form-control" placeholder="001..." id="Clave" name="Clave">
+                        <label for="Clave">Clave*</label>
+                        <input type="text" class="form-control" placeholder="" id="Clave" name="Clave" required="">
                     </div>
                     <div class="col-md">
-                        <label for="Descripcion">DESCRIPCIÓN*</label>
-                        <textarea id="Descripcion" name="Descripcion" rows="4" cols="20" class="form-control form-control-lg">
-                        </textarea> 
+                        <label for="Descripción">Descripción*</label>
+                        <input type="text" class="form-control" placeholder="" id="Descripcion" name="Descripcion" required="">
                     </div>
                     <div class="col-md">
-                        <label for="Ano">AÑO*</label>
-                        <input type="text" class="form-control" placeholder="001..." id="Ano" name="Ano">
+                        <label for="Ano">Año*</label>
+                        <input type="number" class="form-control" placeholder="" id="Ano" name="Ano" required="">
                     </div>
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Linea">LINEA*</label>
-                        <select class="form-control form-control-lg" id="Linea"  name="Linea">  
+                        <label for="Linea">Linea*</label>
+                        <select class="form-control form-control-lg"   name="Linea" required="">  
+                            <option value=""></option>  
                         </select>
                     </div>  
                     <div class="col-md">
-                        <label for="Serie">SERIE*</label>
-                        <select class="form-control form-control-lg" id="Serie"  name="Serie">  
+                        <label for="Serie">Serie*</label>
+                        <select class="form-control form-control-lg"  name="Serie" required=""> 
+                            <option value=""></option>  
                         </select>
                     </div>  
                     <div class="col-md">
-                        <label for="Horma">HORMA*</label>
-                        <select class="form-control form-control-lg" id="Horma"  name="Horma">  
+                        <label for="Horma">Horma*</label>
+                        <select class="form-control form-control-lg"   name="Horma" required="">  
+                            <option value=""></option>  
                         </select>
                     </div>
-
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Familia">FAMILIA*</label>
-                        <select class="form-control form-control-lg" id="Familia"  name="Familia">  
+                        <label for="Familia">Familia*</label>
+                        <select class="form-control form-control-lg"   name="Familia" required="">  
+                            <option value=""></option>  
                         </select>
                     </div>  
                     <div class="col-md">
-                        <label for="Desperdicio">DESPERDICIO*</label>
-                        <input type="text" class="form-control" placeholder="0.0001" id="Desperdicio" name="Desperdicio">
+                        <label for="Temporada">Temporada*</label>
+                        <select class="form-control form-control-lg"   name="Temporada" required=""> 
+                            <option value=""></option>  
+                        </select>
                     </div>
                     <div class="col-md">
-                        <label for="Desperdicio">PUNTO CENTRAL*</label>
-                        <input type="text" class="form-control" placeholder="0.0001" id="PuntoCentral" name="PuntoCentral">
+                        <label for="Tipo">Tipo de Estilo*</label>
+                        <select class="form-control form-control-lg"   name="Tipo" required="">  
+                            <option value=""></option>  
+                        </select>
                     </div>
-
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Genero">GENERO*</label>
-                        <select class="form-control form-control-lg" id="Genero"  name="Genero"> 
+                        <label for="Desperdicio">Desperdicio</label>
+                        <input type="text" class="form-control"  id="Desperdicio" name="Desperdicio">
+                    </div>
+                    <div class="col-md">
+                        <label for="PuntoCentra">Punto Central</label>
+                        <input type="text" class="form-control"  id="PuntoCentral" name="PuntoCentral">
+                    </div>
+                    <div class="col-md">
+                        <label for="Genero">Género</label>
+                        <select class="form-control form-control-lg"   name="Genero"> 
+                            <option value=""></option>  
                             <option value="MASCULINO">MASCULINO</option>   
                             <option value="FEMENINO">FEMENINO</option>   
                         </select>
                     </div>  
+                    <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Herramental">HERRAMIENTA*</label>
+                        <label for="Herramental">Herramental</label>
                         <input type="text" class="form-control" placeholder="" id="Herramental" name="Herramental">
                     </div>
                     <div class="col-md">
-                        <label for="Herramental">TIPO DE CONSTRUCCIÓN*</label>
+                        <label for="Herramental">Tipo de Construcción</label>
                         <input type="text" class="form-control" placeholder="" id="TipoDeConstruccion" name="TipoDeConstruccion">
                     </div>
+
+                    <div class="col-md">
+                        <label for="Maquila">Maquila</label>
+                        <select class="form-control form-control-lg"  name="Maquila"> 
+                            <option value=""></option>  
+                        </select>
+                    </div>
+
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Maquila">MAQUILA*</label>
-                        <select class="form-control form-control-lg" id="Maquila"  name="Maquila">  
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Temporada">TEMPORADA*</label>
-                        <select class="form-control form-control-lg" id="Temporada"  name="Temporada">  
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Tipo">TIPO DE ESTILO*</label>
-                        <select class="form-control form-control-lg" id="Tipo"  name="Tipo">  
-                        </select>
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Notas">NOTAS*</label>
+                        <label for="Notas">Notas</label>
                         <input type="text" class="form-control" placeholder="" id="Notas" name="Notas">
                     </div>
                     <div class="col-md">
-                        <label for="Estatus">MAQUILA O PLANTILLA*</label>
-                        <select class="form-control form-control-lg" id="MaquilaPlantilla"  name="MaquilaPlantilla"> 
+                        <label for="Estatus">Maquila o Plantilla</label>
+                        <select class="form-control form-control-lg"   name="MaquilaPlantilla"> 
+                            <option value=""></option>  
                             <option value="MAQUILA">MAQUILA</option>  
                             <option value="PLANTILLA">PLANTILLA</option>
                             <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
                         </select>
                     </div>
                     <div class="col-md">
-                        <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="Estatus"  name="Estatus"> 
+                        <label for="Estatus">Estatus*</label>
+                        <select class="form-control form-control-lg"   name="Estatus" required=""> 
+                            <option value=""></option>  
                             <option value="ACTIVO">ACTIVO</option>   
                             <option value="INACTIVO">INACTIVO</option>   
                         </select>
                     </div>
+
+                    <div class="w-100"></div> <!--SALTO--> 
                     <div class="col-md">
                         <BR>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" checked="">
-                            <label class="custom-control-label" for="Liberado">LIBERADO</label>
+                            <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" >
+                            <label class="custom-control-label" for="Liberado">Liberado</label>
                         </div>
                     </div>  
-                    <div class="w-100"></div> <!--SALTO--> 
-
-                    <!-- FOTO -->
-                    <div id="FotoSeleccionada" class="col-sm text-center cursor-hand d-none"></div>
-                    <div class="w-100"></div> <!--SALTO--> 
-                    <div id="EscogerFoto" class="col-sm text-center cursor-hand">
-                        <img class="align-self-center mr-3  cursor-hand" src="<?php print base_url('img/camera.png'); ?>" alt="ESTILO" onclick="">
-                        <h1>SELECCIONE UNA IMAGEN</h1>
-                    </div> 
-                    <div class="col d-none">
-                        <input type="file" id="Foto" name="Foto" class="d-none"> 
-                    </div> 
-                    <!-- FIN FOTO -->
                 </div><!--FIN ROW-->
+                <!-- FOTO -->
+                <div for="" align="center">
+                    <h3>Puede subir un archivo PDF, imagen (JPG,GIF,PNG) etc.</h3>
+                </div>
+                <div class="col-md-12" align="center">
+                    <input type="file" id="Foto" name="Foto" class="d-none">
+                    <button type="button" class="btn btn-default" id="btnArchivo" name="btnArchivo">
+                        <span class="fa fa-upload fa-1x"></span> SELECCIONA EL ARCHIVO
+                    </button>
+                    <br><hr>
+                    <div id="VistaPrevia" class="col-md-12" align="center"></div>
+                </div>
+                <!-- FIN FOTO -->
             </form>
         </div> 
     </div> 
@@ -185,7 +196,7 @@
             <form id="frmEditar"> 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Editar Estilo</legend>
+                        <legend class="float-left">Editar</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -200,123 +211,135 @@
                 </div> 
                 <div class="row"><!--START ROW-->
                     <div class="col-md has-success">
-                        <label for="Clave">CLAVE*</label>
-                        <input type="text" class="form-control" placeholder="001..." id="ClaveE" name="ClaveE">
+                        <label for="Clave">Clave*</label>
+                        <input type="text" class="form-control" placeholder="" id="Clave" name="Clave" required="">
                     </div>
                     <div class="col-md">
-                        <label for="Descripcion">DESCRIPCIÓN*</label>
-                        <textarea id="DescripcionE" name="DescripcionE" rows="4" cols="20" class="form-control form-control-lg">
-                        </textarea> 
+                        <label for="Descripción">Descripción*</label>
+                        <input type="text" class="form-control" placeholder="" id="Descripcion" name="Descripcion" required="">
                     </div>
                     <div class="col-md">
-                        <label for="Ano">AÑO*</label>
-                        <input type="text" class="form-control" placeholder="001..." id="AnoE" name="AnoE">
+                        <label for="Ano">Año*</label>
+                        <input type="number" class="form-control" placeholder="" id="Ano" name="Ano" required="">
                     </div>
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Linea">LINEA*</label>
-                        <select class="form-control form-control-lg" id="LineaE"  name="LineaE">  
+                        <label for="Linea">Linea*</label>
+                        <select class="form-control form-control-lg" id="Linea"  name="Linea" required="">  
+                            <option value=""></option>  
                         </select>
                     </div>  
                     <div class="col-md">
-                        <label for="Serie">SERIE*</label>
-                        <select class="form-control form-control-lg" id="SerieE"  name="SerieE">  
+                        <label for="Serie">Serie*</label>
+                        <select class="form-control form-control-lg" id="Serie"  name="Serie" required=""> 
+                            <option value=""></option>  
                         </select>
                     </div>  
                     <div class="col-md">
-                        <label for="Horma">HORMA*</label>
-                        <select class="form-control form-control-lg" id="HormaE"  name="HormaE">  
+                        <label for="Horma">Horma*</label>
+                        <select class="form-control form-control-lg" id="Horma"  name="Horma" required="">  
+                            <option value=""></option>  
                         </select>
                     </div>
-
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Familia">FAMILIA*</label>
-                        <select class="form-control form-control-lg" id="FamiliaE"  name="FamiliaE">  
+                        <label for="Familia">Familia*</label>
+                        <select class="form-control form-control-lg" id="Familia"  name="Familia" required="">  
+                            <option value=""></option>  
                         </select>
                     </div>  
                     <div class="col-md">
-                        <label for="Desperdicio">DESPERDICIO*</label>
-                        <input type="text" class="form-control" placeholder="0.0001" id="DesperdicioE" name="DesperdicioE">
+                        <label for="Temporada">Temporada*</label>
+                        <select class="form-control form-control-lg" id="Temporada"  name="Temporada" required=""> 
+                            <option value=""></option>  
+                        </select>
                     </div>
                     <div class="col-md">
-                        <label for="Desperdicio">PUNTO CENTRAL*</label>
-                        <input type="text" class="form-control" placeholder="0.0001" id="PuntoCentralE" name="PuntoCentralE">
+                        <label for="Tipo">Tipo de Estilo*</label>
+                        <select class="form-control form-control-lg" id="Tipo"  name="Tipo" required="">  
+                            <option value=""></option>  
+                        </select>
                     </div>
-
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Genero">GENERO*</label>
-                        <select class="form-control form-control-lg" id="GeneroE"  name="GeneroE"> 
+                        <label for="Desperdicio">Desperdicio*</label>
+                        <input type="text" class="form-control"  id="Desperdicio" name="Desperdicio">
+                    </div>
+                    <div class="col-md">
+                        <label for="PuntoCentra">Punto Central*</label>
+                        <input type="text" class="form-control"  id="PuntoCentral" name="PuntoCentral">
+                    </div>
+                    <div class="col-md">
+                        <label for="Genero">Género*</label>
+                        <select class="form-control form-control-lg" id="Genero"  name="Genero"> 
+                            <option value=""></option>  
                             <option value="MASCULINO">MASCULINO</option>   
                             <option value="FEMENINO">FEMENINO</option>   
                         </select>
                     </div>  
-                    <div class="col-md">
-                        <label for="Herramental">HERRAMIENTA*</label>
-                        <input type="text" class="form-control" placeholder="" id="HerramentalE" name="HerramentalE">
-                    </div>
-                    <div class="col-md">
-                        <label for="Herramental">TIPO DE CONSTRUCCIÓN*</label>
-                        <input type="text" class="form-control" placeholder="" id="TipoDeConstruccionE" name="TipoDeConstruccionE">
-                    </div>
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Maquila">MAQUILA*</label>
-                        <select class="form-control form-control-lg" id="MaquilaE"  name="MaquilaE">  
-                        </select>
+                        <label for="Herramental">Herramental*</label>
+                        <input type="text" class="form-control" placeholder="" id="Herramental" name="Herramental">
                     </div>
                     <div class="col-md">
-                        <label for="Temporada">TEMPORADA*</label>
-                        <select class="form-control form-control-lg" id="TemporadaE"  name="TemporadaE">  
-                        </select>
+                        <label for="Herramental">Tipo de Construcción*</label>
+                        <input type="text" class="form-control" placeholder="" id="TipoDeConstruccion" name="TipoDeConstruccion">
                     </div>
+
                     <div class="col-md">
-                        <label for="Tipo">TIPO DE ESTILO*</label>
-                        <select class="form-control form-control-lg" id="TipoE"  name="TipoE">  
+                        <label for="Maquila">Maquila*</label>
+                        <select class="form-control form-control-lg" id="Maquila"  name="Maquila"> 
+                            <option value=""></option>  
                         </select>
                     </div>
+
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
-                        <label for="Notas">NOTAS*</label>
-                        <input type="text" class="form-control" placeholder="" id="NotasE" name="NotasE">
+                        <label for="Notas">Notas*</label>
+                        <input type="text" class="form-control" placeholder="" id="Notas" name="Notas">
                     </div>
                     <div class="col-md">
-                        <label for="Estatus">MAQUILA O PLANTILLA*</label>
-                        <select class="form-control form-control-lg" id="MaquilaPlantillaE"  name="MaquilaPlantillaE"> 
+                        <label for="Estatus">Maquila o Plantilla*</label>
+                        <select class="form-control form-control-lg" id="MaquilaPlantilla"  name="MaquilaPlantilla"> 
+                            <option value=""></option>  
                             <option value="MAQUILA">MAQUILA</option>  
                             <option value="PLANTILLA">PLANTILLA</option>
                             <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
                         </select>
                     </div>
                     <div class="col-md">
-                        <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="EstatusE"  name="EstatusE"> 
+                        <label for="Estatus">Estatus*</label>
+                        <select class="form-control form-control-lg" id="Estatus"  name="Estatus" required=""> 
+                            <option value=""></option>  
                             <option value="ACTIVO">ACTIVO</option>   
                             <option value="INACTIVO">INACTIVO</option>   
                         </select>
                     </div>
+
+                    <div class="w-100"></div> <!--SALTO--> 
                     <div class="col-md">
                         <BR>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="LiberadoE" name="LiberadoE" checked="">
-                            <label class="custom-control-label" for="Liberado">LIBERADO</label>
+                            <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" checked="">
+                            <label class="custom-control-label" for="Liberado">Liberado</label>
                         </div>
-                    </div> 
+                    </div>  
 
-                    <div class="w-100"></div> <!--SALTO-->
-                    <!-- FOTO -->
-                    <div id="FotoSeleccionadaE" class="col-sm text-center cursor-hand d-none"></div>
-                    <div class="w-100"></div> <!--SALTO--> 
-                    <div id="EscogerFotoE" class="col-sm text-center cursor-hand">
-                        <img class="align-self-center mr-3  cursor-hand" src="<?php print base_url('img/camera.png'); ?>" alt="ESTILO" onclick="">
-                        <h1>SELECCIONE UNA IMAGEN</h1>
-                    </div> 
-                    <div class="col d-none">
-                        <input type="file" id="FotoE" name="FotoE" class="d-none"> 
-                    </div> 
-                    <!-- FIN FOTO -->
-                </div><!--FIN ROW-->
+                </div><!--END ROW-->
+                <!-- FOTO -->
+                <div for="" align="center">
+                    <h3>Puede subir un archivo PDF, imagen (JPG,GIF,PNG) etc.</h3>
+                </div>
+                <div class="col-md-12" align="center">
+                    <input type="file" id="Foto" name="Foto" class="d-none">
+                    <button type="button" class="btn btn-default" id="btnArchivo" name="btnArchivo">
+                        <span class="fa fa-upload fa-1x"></span> SELECCIONA EL ARCHIVO
+                    </button>
+                    <br><hr>
+                    <div id="VistaPrevia" class="col-md-12" align="center"></div>
+                </div>
+                <!--FIN FOTO-->
             </form>
         </div> 
     </div> 
@@ -337,8 +360,73 @@
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
+
+    var Archivo = $("#Foto");
+    var btnArchivo = $("#btnArchivo");
+    var VistaPrevia = $("#VistaPrevia");
+    var ModificarArchivo = pnlEditar.find("#Foto");
+    var btnModificarArchivo = pnlEditar.find("#btnArchivo");
+    var ModificarVistaPrevia = pnlEditar.find("#VistaPrevia");
+
+
     $(document).ready(function () {
-        handleEnter();
+
+        btnArchivo.on("click", function () {
+            Archivo.change(function () {
+                HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
+                var imageType = /image.*/;
+                if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match(imageType)) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="400px"><div class="caption"><p>' + Archivo[0].files[0].name + '</p></div>';
+                        VistaPrevia.html(preview);
+                    };
+                    reader.readAsDataURL(Archivo[0].files[0]);
+                } else {
+                    if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match('application/pdf')) {
+                        
+                        var readerpdf = new FileReader();
+                        readerpdf.onload = function (e) {
+                            VistaPrevia.html('<div><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br> <embed src="' + readerpdf.result + '" type="application/pdf" width="90%" height="800px"' +
+                                    ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>');
+                        };
+                        readerpdf.readAsDataURL(Archivo[0].files[0]);
+                    } else {
+                        VistaPrevia.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
+                    }
+                }
+                HoldOn.close();
+            });
+            Archivo.trigger('click');
+        });
+        btnModificarArchivo.on("click", function () {
+            ModificarArchivo.change(function () {
+
+                var imageType = /image.*/;
+                if (ModificarArchivo[0].files[0] !== undefined && ModificarArchivo[0].files[0].type.match(imageType)) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="400px"><div class="caption"><p>' + ModificarArchivo[0].files[0].name + '</p></div>';
+                        ModificarVistaPrevia.html(preview);
+                    };
+                    reader.readAsDataURL(ModificarArchivo[0].files[0]);
+                } else {
+                    if (ModificarArchivo[0].files[0] !== undefined && ModificarArchivo[0].files[0].type.match('application/pdf')) {
+                        var readerpdf = new FileReader();
+                        readerpdf.onload = function (e) {
+                            ModificarVistaPrevia.html('<div><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br> <embed src="' + readerpdf.result + '" type="application/pdf" width="90%" height="800px"' +
+                                    ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>');
+                        };
+                        readerpdf.readAsDataURL(ModificarArchivo[0].files[0]);
+                    } else {
+                        ModificarVistaPrevia.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
+                    }
+                }
+
+            });
+            ModificarArchivo.trigger('click');
+        });
+
         //Evento clic del boton confirmar borrar
         btnConfirmarEliminar.click(function () {
             if (temp !== 0 && temp !== undefined && temp > 0) {
@@ -363,7 +451,7 @@
                 }).done(function (data, x, jq) {
 
                     mdlConfirmar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTILO ELIMINADO', 'danger');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REGISTRO ELIMINADO', 'danger');
                     pnlEditar.addClass("d-none");
                     pnlTablero.removeClass("d-none");
                     btnRefrescar.trigger('click');
@@ -387,8 +475,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IdModulo: 'required',
-                    IdUsuario: 'required'
+                    Clave: 'required',
+                    Descripcion: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -418,29 +506,17 @@
             //Si es verdadero que hacer
 
             if (pnlEditar.find('#frmEditar').valid()) {
-                var f = new FormData();
-                f.append('ID', pnlEditar.find("#ID").val());
-                f.append('IdUsuario', pnlEditar.find("#IdUsuarioE").val());
-                f.append('UsuarioT', pnlEditar.find("#IdUsuarioE option:selected").text());
-                f.append('IdModulo', pnlEditar.find("#IdModuloE").val());
-                f.append('ModuloT', pnlEditar.find("#IdModuloE option:selected").text());
-                f.append('Ver', pnlEditar.find("#VerE")[0].checked ? 1 : 0);
-                f.append('Crear', pnlEditar.find("#CrearE")[0].checked ? 1 : 0);
-                f.append('Modificar', pnlEditar.find("#ModificarE")[0].checked ? 1 : 0);
-                f.append('Eliminar', pnlEditar.find("#EliminarE")[0].checked ? 1 : 0);
-                f.append('Consultar', pnlEditar.find("#ConsultarE")[0].checked ? 1 : 0);
-                f.append('Reportes', pnlEditar.find("#ReportesE")[0].checked ? 1 : 0);
-                f.append('Buscar', pnlEditar.find("#BuscarE")[0].checked ? 1 : 0);
-                f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
+                var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
+               
                 $.ajax({
                     url: master_url + 'onModificar',
                     type: "POST",
                     cache: false,
                     contentType: false,
                     processData: false,
-                    data: f
+                    data: frm
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HAN MODIFICADO LOS ESTILOS', 'success');
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
                     getRecords();
                     pnlTablero.removeClass("d-none");
                     pnlEditar.addClass('d-none');
@@ -463,8 +539,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IdModulo: 'required',
-                    IdUsuario: 'required'
+                    Clave: 'required',
+                    Descripcion: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -494,36 +570,18 @@
             //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
             //Si es verdadero que hacer
             if (pnlNuevo.find('#frmNuevo').valid()) {
-                var f = new FormData();
-                f.append('Clave', pnlNuevo.find("#Clave").val());
-                f.append('Linea', pnlNuevo.find("#Linea").val());
-                f.append('Descripcion', pnlNuevo.find("#Descripcion").val());
-                f.append('Familia', pnlNuevo.find("#Familia").val());
-                f.append('Serie', pnlNuevo.find("#Serie").val());
-                f.append('Horma', pnlNuevo.find("#Horma").val());
-                f.append('Genero', pnlNuevo.find("#Genero option:selected").text());
-                f.append('Desperdicio', pnlNuevo.find("#Desperdicio").val());
-                f.append('Herramental', pnlNuevo.find("#Herramental").val());
-                f.append('Maquila', pnlNuevo.find("#Maquila").val());
-                f.append('Notas', pnlNuevo.find("#Notas").val());
-                f.append('Ano', pnlNuevo.find("#Ano").val());
-                f.append('Temporada', pnlNuevo.find("#Temporada").val());
-                f.append('PuntoCentral', pnlNuevo.find("#PuntoCentral").val());
-                f.append('Tipo', pnlNuevo.find("#Tipo").val());
-                f.append('MaquilaPlantilla', pnlNuevo.find("#MaquilaPlantilla option:selected").text());
-                f.append('TipoDeConstruccion', pnlNuevo.find("#TipoDeConstruccion").val());
-                f.append('Linea', pnlNuevo.find("#Linea").val());
-                f.append('Liberado', pnlNuevo.find("#Liberado")[0].checked ? 1 : 0);
-                f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
+                var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
+
+                frm.append('Liberado', pnlNuevo.find("#Liberado")[0].checked ? 1 : 0);
                 $.ajax({
                     url: master_url + 'onAgregar',
                     type: "POST",
                     cache: false,
                     contentType: false,
                     processData: false,
-                    data: f
+                    data: frm
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO ESTILO', 'success');
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
                     getRecords();
                     pnlTablero.removeClass("d-none");
                     pnlNuevo.addClass('d-none');
@@ -555,81 +613,16 @@
             pnlTablero.removeClass("d-none");
             btnRefrescar.trigger('click');
         });
-
-        /*ESCOGER FOTO NUEVO*/
-        pnlNuevo.find("#EscogerFoto").click(function () {
-            pnlNuevo.find("#FotoSeleccionada").removeClass("d-none");
-            var Archivo = pnlNuevo.find("#Foto");/*BOTON FILE*/
-            var VistaPreviaX = pnlNuevo.find("#FotoSeleccionada");/*UBICACION*/
-            Archivo.change(function () {
-                HoldOn.open({
-                    theme: 'sk-cube',
-                    message: 'ESPERE...'
-                });
-                var imageType = /image.*/;
-                if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match(imageType)) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var preview = '<img src="' + reader.result + '" class="img-responsive" >';
-                        VistaPreviaX.html(preview);
-                    };
-                    reader.readAsDataURL(Archivo[0].files[0]);
-                } else {
-                    if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match('application/pdf')) {
-                        var readerpdf = new FileReader();
-                        readerpdf.onload = function (e) {
-                            VistaPreviaX.html('<hr> <embed src="' + readerpdf.result + '" type="application/pdf" width="100%" height="600px"' +
-                                    ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
-                        };
-                        readerpdf.readAsDataURL(Archivo[0].files[0]);
-                    } else {
-                        VistaPreviaX.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
-                    }
-                }
-                HoldOn.close();
-            });
-            Archivo.trigger('click');
-        });
-        /*FIN ESCOGER FOTO NUEVO*/
-
-        /*ESCOGER FOTO EDITAR*/
-        pnlEditar.find("#EscogerFotoE").click(function () {
-            pnlEditar.find("#FotoSeleccionadaE").removeClass("d-none");
-            var Archivo = pnlEditar.find("#FotoE");/*BOTON FILE*/
-            var VistaPreviaX = pnlEditar.find("#FotoSeleccionadaE");/*UBICACION*/
-            Archivo.change(function () {
-                HoldOn.open({
-                    theme: 'sk-cube',
-                    message: 'ESPERE...'
-                });
-                var imageType = /image.*/;
-                if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match(imageType)) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var preview = '<img src="' + reader.result + '" class="img-responsive" >';
-                        VistaPreviaX.html(preview);
-                    };
-                    reader.readAsDataURL(Archivo[0].files[0]);
-                } else {
-                    if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match('application/pdf')) {
-                        var readerpdf = new FileReader();
-                        readerpdf.onload = function (e) {
-                            VistaPreviaX.html('<hr> <embed src="' + readerpdf.result + '" type="application/pdf" width="100%" height="600px"' +
-                                    ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
-                        };
-                        readerpdf.readAsDataURL(Archivo[0].files[0]);
-                    } else {
-                        VistaPreviaX.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
-                    }
-                }
-                HoldOn.close();
-            });
-            Archivo.trigger('click');
-        });
-        /*FIN ESCOGER FOTO EDITAR*/
-
         /*CALLS*/
-        btnRefrescar.trigger('click');
+        handleEnter();
+        getRecords();
+        getFamilias();
+        getHormas();
+        getTiposEstilo();
+        getTemporadas();
+        getMaquilas();
+        getLineas();
+        getSeries();
     });
     function getRecords() {
         temp = 0;
@@ -687,10 +680,31 @@
                                 var dtm = data[0];
                                 pnlEditar.find("input").val("");
                                 pnlEditar.find("select").select2("val", "");
-                                pnlEditar.find("#ID").val(dtm.ID);
-                                pnlEditar.find("#ClaveE").val(dtm.Clave);
-                                pnlEditar.find("#DescripcionE").val(dtm.Descripcion);
-                                pnlEditar.find("#AnoE").val(dtm.Ano);
+
+                                $.each(data[0], function (k, v) {
+                                    if (k !== 'Foto') {
+                                        pnlEditar.find("#" + k).val(v);
+                                        //pnlEditar.find("#" + k).val(v).trigger('change');
+                                        pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
+                                    }
+
+                                });
+
+                                if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
+                                    var ext = getExt(dtm.Foto);
+                                    if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
+                                        pnlEditar.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
+                                    }
+                                    if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
+                                        pnlEditar.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
+                                    }
+                                    if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
+                                        pnlEditar.find("#VistaPrevia").html('<h1>NO EXISTE ARCHIVO ADJUNTO</h1>');
+                                    }
+                                } else {
+                                    pnlEditar.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
+                                }
+
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
                             }
@@ -722,33 +736,133 @@
             HoldOn.close();
         });
     }
-
-    function getModulos() {
-        $.getJSON(master_url + 'getModulos').done(function (data, x, jq) {
-            console.log('MODULOS');
-
-
+    function getFamilias() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getFamilias',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.MODULO + '</option>';
+                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
             });
-            $("#pnlNuevo").find("#IdModulo").html(options);
-            $("#pnlEditar").find("#IdModuloE").html(options);
+            pnlNuevo.find("[name='Familia']").html(options);
+            pnlEditar.find("[name='Familia']").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
             HoldOn.close();
         });
     }
-    function getUsuarios() {
-        $.getJSON(master_url + 'getUsuarios').done(function (data, x, jq) {
-
+    function getHormas() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getHormas',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.USUARIO + '</option>';
+                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
             });
-            $("#pnlNuevo").find("#IdUsuario").html(options);
-            $("#pnlEditar").find("#IdUsuarioE").html(options);
+            pnlNuevo.find("[name='Horma']").html(options);
+            pnlEditar.find("[name='Horma']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getTemporadas() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getTemporadas',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+            });
+            pnlNuevo.find("[name='Temporada']").html(options);
+            pnlEditar.find("[name='Temporada']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getTiposEstilo() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getTiposEstilo',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+            });
+            pnlNuevo.find("[name='Tipo']").html(options);
+            pnlEditar.find("[name='Tipo']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getLineas() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getLineas',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+            });
+            pnlNuevo.find("[name='Linea']").html(options);
+            pnlEditar.find("[name='Linea']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getMaquilas() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getMaquilas',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.Nombre + '</option>';
+            });
+            pnlNuevo.find("[name='Maquila']").html(options);
+            pnlEditar.find("[name='Maquila']").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getSeries() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getSeries',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+            });
+            pnlNuevo.find("[name='Serie']").html(options);
+            pnlEditar.find("[name='Serie']").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -756,15 +870,17 @@
         });
     }
 
-    function onSeleccionarImagen(type, e) {
-        switch (type) {
-            case 'nuevo':
-                pnlNuevo.find("#Foto").trigger('click');
-                break;
-            case 'editar':
-                pnlEditar.find("#Foto").trigger('click');
-                break;
-        }
-
+    function onRemovePreview(e) {
+        $(e).parent().parent("#VistaPrevia").html("");
+        $('#Foto').trigger('blur');
+        $('#Foto').on('blur', function (e) {
+            $('#Foto').val('');
+        });
+    }
+    
+    function printImg(url) {
+        var win = window.open('');
+        win.document.write('<img src="' + url + '" onload="window.print();window.close()" />');
+        win.focus();
     }
 </script>
