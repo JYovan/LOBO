@@ -203,7 +203,19 @@
             });
             //Si es verdadero que hacer
             if ($('#frmEditar').valid()) {
-                var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
+                var f = new FormData(pnlEditar.find("#frmEditar")[0]);
+                var tallas = []; 
+                pnlEditar.find('#tblRegistrosDetalle > tbody  > tr').each(function (k, v) {
+                    var row = $(this).find("td");
+                    var material = {
+                        ID: row.eq(0).text().replace(/\s+/g, ''),
+                        Serie_ID: row.eq(1).text().replace(/\s+/g, ''),
+                        Talla: row.eq(2).text().replace(/\s+/g, ''),
+                        Cantidad: row.eq(3).text().replace(/\s+/g, '')
+                    };
+                    tallas.push(material);
+                });
+                f.append('Tallas', JSON.stringify(tallas));
                 $.ajax({
                     url: master_url + 'onModificar',
                     type: "POST",
@@ -224,6 +236,7 @@
                 });
             }
         });
+        
         btnGuardar.click(function () {
             $.validator.setDefaults({
                 ignore: []

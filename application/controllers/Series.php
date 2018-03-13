@@ -45,8 +45,8 @@ class Series extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
-     public function getSerieByID() {
+
+    public function getSerieByID() {
         try {
             extract($this->input->post());
             $data = $this->series_model->getSerieByID($ID);
@@ -64,13 +64,13 @@ class Series extends CI_Controller {
                 'PuntoFinal' => ($this->input->post('PuntoFinal') !== NULL) ? $this->input->post('PuntoFinal') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $ID= $this->series_model->onAgregar($data);
+            $ID = $this->series_model->onAgregar($data);
             echo $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onAgregarDetalle() {
         try {
             $data = array(
@@ -94,6 +94,16 @@ class Series extends CI_Controller {
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->series_model->onModificar($ID, $DATA);
+            /* MODIFICAR DETALLE */
+            $viviendas = json_decode($this->input->post("Tallas"));
+            foreach ($viviendas as $key => $v) {
+                $data = array(
+                    'Serie_ID' => $v->Serie_ID,
+                    'Talla' => $v->Talla,
+                    'Cantidad' => $v->Cantidad
+                );
+                $this->materialesxcombinacion_model->onModificarDetalle($data); 
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
