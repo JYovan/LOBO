@@ -46,7 +46,7 @@ class series_model extends CI_Model {
     
     public function getSeriesDetallebySerieID($ID) {
         try {
-            $this->db->select("U.*", false);
+            $this->db->select("U.ID AS ID, U.Serie_ID, U.Talla, U.Cantidad, CONCAT('<button type=\"button\" class=\"btn btn-dark\" id=\"btnEliminarPunto\" onclick=\"onEliminarPunto(this)\">','<span class=\"fa fa-minus\"></span></button>') AS ELIMINAR", false);
             $this->db->from('SeriesDetalle AS U');
             $this->db->where_in('U.Serie_ID', $ID);
             $this->db->order_by("U.Talla", "ASC");
@@ -120,9 +120,19 @@ class series_model extends CI_Model {
 
     public function onEliminarDetalle($ID) {
         try {
-            $this->db->where('ID', $ID);
+            $this->db->where('Estatus', 'INACTIVO');
+            $this->db->where('Serie_ID', $ID);
             $this->db->delete("SeriesDetalle");
 //            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    public function onDesactivar($ID) {
+        try {
+            $this->db->set('Estatus', 'INACTIVO');
+            $this->db->where('Serie_ID', $ID);
+            $this->db->update("SeriesDetalle");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

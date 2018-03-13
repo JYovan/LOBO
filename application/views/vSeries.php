@@ -139,7 +139,7 @@
                 <legend class="float-left">Desglose Corrida</legend>
             </div>
         </div> 
-        <div class="card-body">
+        <div class="card-body"> 
             <div id="RegistrosDetalle"></div>
         </div>
     </div> 
@@ -426,7 +426,7 @@
                     td.eq(0).addClass("d-none");
                     td.eq(1).addClass("d-none");
                 });
-                var tblRegistrosDetalleDT = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
+                tblRegistrosDetalleDT = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
 
                 pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
                     var row = $(this).find("td");
@@ -601,6 +601,9 @@
             HoldOn.close();
         });
     }
-
-
+    var tblRegistrosDetalleDT;
+    function onEliminarPunto(e) {
+        var tr = $(e).parent().parent();
+        tblRegistrosDetalleDT.row($(tr)).remove().draw();
+    }
 </script>

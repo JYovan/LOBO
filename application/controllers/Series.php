@@ -94,16 +94,22 @@ class Series extends CI_Controller {
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->series_model->onModificar($ID, $DATA);
+            /*DESACTIVAR DETALLE*/
+            $this->series_model->onDesactivar($ID);
+            
             /* MODIFICAR DETALLE */
             $tallas = json_decode($this->input->post("Tallas"));
             foreach ($tallas as $key => $v) {
+                /* COMPROBAR SI EXISTE */
                 $data = array(
-                    'Serie_ID' => $v->Serie_ID,
-                    'Talla' => $v->Talla,
-                    'Cantidad' => $v->Cantidad
+                    'Cantidad' => $v->Cantidad,
+                    'Estatus' => 'ACTIVO'
                 );
-                $this->series_model->onModificarDetalle($v->ID,$data); 
+                $this->series_model->onModificarDetalle($v->ID, $data);
             }
+            /*ELIMINACION DEFINITIVA DEL DETALLE INACTIVO*/
+            $this->series_model->onEliminarDetalle($ID);
+            
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
