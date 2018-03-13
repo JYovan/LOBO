@@ -47,17 +47,11 @@
                 </div>
 
             </li>
-
-
             <li class="nav-item dropdown">
-
-
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Configuración
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-
+                <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-dark " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
@@ -68,12 +62,11 @@
 
                         </ul>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-dark "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Generales
                         </a>
-                        <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
