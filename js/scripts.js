@@ -116,8 +116,7 @@ var tableOptionsDetalle = {
             }
         }
     },
-
-    keys: true,
+ 
 
     "autoWidth": true,
     "colReorder": true,

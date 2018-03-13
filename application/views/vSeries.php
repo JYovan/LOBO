@@ -400,8 +400,21 @@
                     td.eq(0).addClass("d-none");
                     td.eq(1).addClass("d-none");
                 });
-                var tblSelected = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
+                var tblRegistrosDetalleDT = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
 
+                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
+                    var row = $(this).find("td");
+                    $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
+                        var cell = $(this).find("td").eq(3);
+                        if (cell.find("#Cantidad").val() === '') {
+                            cell.html(0);
+                        } else {
+                            cell.html(cell.find("#Cantidad").val());
+                        }
+                    });
+                    row.eq(3).html('<input type="number" id="Cantidad" onkeydown="onColocarCantidad(event)"  value="' + row.eq(3).text() + '" placeholder="0">');
+
+                });
 
 //                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
 //                    var dtm = tblSelected.row(this).data();
@@ -416,6 +429,20 @@
         }).always(function () {
 
         });
+    }
+
+    function onColocarCantidad(event) {
+        var x = event.which || event.keyCode;
+        if (x === 13) {
+            $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
+                var cell = $(this).find("td").eq(3);
+                if (cell.find("#Cantidad").val() === '') {
+                    cell.html(0);
+                } else {
+                    cell.html(cell.find("#Cantidad").val());
+                }
+            });
+        }
     }
     function getRecords() {
         temp = 0;
