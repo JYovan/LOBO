@@ -102,7 +102,7 @@ class Series extends CI_Controller {
                     'Talla' => $v->Talla,
                     'Cantidad' => $v->Cantidad
                 );
-                $this->materialesxcombinacion_model->onModificarDetalle($data); 
+                $this->series_model->onModificarDetalle($data); 
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
