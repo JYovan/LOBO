@@ -95,14 +95,14 @@ class Series extends CI_Controller {
             );
             $this->series_model->onModificar($ID, $DATA);
             /* MODIFICAR DETALLE */
-            $viviendas = json_decode($this->input->post("Tallas"));
-            foreach ($viviendas as $key => $v) {
+            $tallas = json_decode($this->input->post("Tallas"));
+            foreach ($tallas as $key => $v) {
                 $data = array(
                     'Serie_ID' => $v->Serie_ID,
                     'Talla' => $v->Talla,
                     'Cantidad' => $v->Cantidad
                 );
-                $this->series_model->onModificarDetalle($data); 
+                $this->series_model->onModificarDetalle($v->ID,$data); 
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
