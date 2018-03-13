@@ -63,6 +63,7 @@ class MaterialesXCombinacion extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
     public function getMaterialesXCombinacionDetalleByID() {
         try {
             print json_encode($this->materialesxcombinacion_model->getMaterialesXCombinacionDetalleByID($this->input->post('ID')));
@@ -103,10 +104,44 @@ class MaterialesXCombinacion extends CI_Controller {
     public function onModificar() {
         try {
             $data = array(
-                'Modulo' => ($this->input->post('Modulo') !== NULL) ? $this->input->post('Modulo') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL,
+                'Combinacion' => ($this->input->post('Combinacion') !== NULL) ? $this->input->post('Combinacion') : NULL
             );
             $this->materialesxcombinacion_model->onModificar($this->input->post('ID'), $data);
+            /* ELIMINAR CUALQUIER DETALLE */
+            $this->materialesxcombinacion_model->onEliminarDetalle($this->input->post('ID'));
+
+            /* AGREGAR,ELIMINAR O MODIFICAR DETALLE */
+            $materiales = json_decode($this->input->post("Materiales"));
+            foreach ($materiales as $key => $v) {
+                /* COMPROBAR SI EL MATERIAL LEIDO EXISTE */
+                $dtm = $this->materialesxcombinacion_model->getExisteMaterial($v->Material, $this->input->post('ID'));
+                /* SI EXISTE, MODIFICARLO */
+                if ($dtm[0]->EXISTE > 0) {
+                    $data = array(
+                        'Material' => $v->Material,
+                        'Consumo' => $v->Consumo,
+                        'Tipo' => $v->Tipo,
+                        'Estatus' => 'ACTIVO'
+                    );
+                    $this->materialesxcombinacion_model->onModificarDetalle($v->Material, $data, $this->input->post('ID'));
+                } else {
+                    $data = array(
+                        'MaterialXCombinacion' => $this->input->post('ID'),
+                        'Material' => $v->Material,
+                        'Consumo' => $v->Consumo,
+                        'Tipo' => $v->Tipo,
+                        'Estatus' => 'ACTIVO',
+                        'Registro' => Date('d/m/Y h:i:s a'),
+                        'Precio' => $v->Precio
+                    );
+                    $this->materialesxcombinacion_model->onAgregarDetalle($data);
+                }
+            }
+            /* ELIMINAR INACTIVOS */
+            foreach ($materiales as $key => $v) {
+                $this->materialesxcombinacion_model->onEliminarDetalleInactivo($this->input->post('ID'), $v->Material);
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

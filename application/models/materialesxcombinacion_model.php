@@ -8,6 +8,7 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('America/Mexico_City');
     }
 
     public function getRecords() {
@@ -84,11 +85,63 @@ class materialesxcombinacion_model extends CI_Model {
         }
     }
 
+    public function onModificarDetalle($ID, $DATA, $M) {
+        try {
+            $this->db->where('Material', $ID);
+            $this->db->where('MaterialXCombinacion', $M);
+            $this->db->update("MaterialesXCombinacionDetalle", $DATA);
+//            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getExisteMaterial($MATERIAL, $MATERIALCOMBINACION) {
+        try {
+            $this->db->select('COUNT(*) AS EXISTE', false);
+            $this->db->from('MaterialesXCombinacionDetalle AS MXC ');
+            $this->db->where('MXC.Material', $MATERIAL);
+            $this->db->where('MXC.MaterialXCombinacion', $MATERIALCOMBINACION);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//            print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onEliminar($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
             $this->db->update("MaterialesXCombinacion");
+//            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onEliminarDetalleInactivo($ID,$M) {
+        try { 
+            $this->db->where('Estatus', 'INACTIVO'); 
+            $this->db->where('MaterialXCombinacion', $ID);
+            $this->db->delete('MaterialesXCombinacionDetalle');
+//            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onEliminarDetalle($ID) {
+        try {
+            $this->db->set('Estatus', 'INACTIVO');
+            $this->db->where('MaterialXCombinacion', $ID);
+            $this->db->update("MaterialesXCombinacionDetalle");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -125,9 +178,18 @@ class materialesxcombinacion_model extends CI_Model {
 		\'DIR\'
 		ELSE \'IND\' 
 	  END),\'</span></strong>\') AS TIPO,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS IMPORTE', false);
-            $this->db->from('MaterialesXCombinacionDetalle AS MXCD ');  
-            $this->db->join('Materiales AS M','MXCD.Material = M.ID');
-            $this->db->join('Catalogos AS C','M.UnidadConsumo = C.ID');
+//            $this->db->select('CONCAT(\'<button type="button" class="btn btn-dark" id="btnEliminarMaterialE" onclick="onEliminarMaterial(this)">\',\'<span class="fa fa-minus"></span></button>\') AS ELIMINAR, MXCD.Material ID, M.Material AS MATERIAL, 
+//                C.SValue AS "U.M", 
+//                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS PRECIO, 
+//                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS CONSUMO,
+//	   CONCAT(\'<strong><span class="text-info">\',(CASE 
+//	  WHEN MXCD.Tipo = 1 THEN
+//		\'DIR\'
+//		ELSE \'IND\' 
+//	  END),\'</span></strong>\') AS TIPO,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS IMPORTE', false);
+            $this->db->from('MaterialesXCombinacionDetalle AS MXCD ');
+            $this->db->join('Materiales AS M', 'MXCD.Material = M.ID');
+            $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
             $this->db->like('C.FieldId', 'UNIDADES');
             $this->db->like('C.Estatus', 'ACTIVO');
             $this->db->where('MXCD.MaterialXCombinacion', $ID);

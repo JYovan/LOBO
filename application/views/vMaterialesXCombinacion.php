@@ -283,8 +283,8 @@
                     error.insertAfter(element);
                 },
                 rules: {
-                    IdModulo: 'required',
-                    IdUsuario: 'required'
+                    EstiloE: 'required',
+                    CombinacionE: 'required'
                 },
                 // The select element, which would otherwise get the class, is hidden from
                 // view.
@@ -316,8 +316,22 @@
             if (pnlEditar.find('#frmEditar').valid()) {
                 var f = new FormData();
                 f.append('ID', pnlEditar.find("#ID").val());
-                f.append('Modulo', pnlEditar.find("#ModuloE").val());
-                f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
+                f.append('Estilo', pnlEditar.find("#EstiloE").val());
+                f.append('Combinacion', pnlEditar.find("#CombinacionE").val());
+//                f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
+
+                var detalle = [];
+                pnlEditar.find('#tblMaterialesRequeridosE > tbody  > tr').each(function (k, v) {
+                    var row = $(this).find("td");
+                    var material = {
+                        Material: row.eq(0).text().replace(/\s+/g, ''),
+                        Precio: row.eq(3).text().replace(/\s+/g, ''),
+                        Consumo: row.eq(4).text().replace(/\s+/g, ''),
+                        Tipo: (row.eq(5).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
+                    };
+                    detalle.push(material);
+                });
+                f.append('Materiales', JSON.stringify(detalle));
                 $.ajax({
                     url: master_url + 'onModificar',
                     type: "POST",
@@ -326,11 +340,11 @@
                     processData: false,
                     data: f
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL MODULO', 'success');
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL MATERIAL POR COMBINACIÓN', 'success');
                     getRecords();
                     pnlTablero.removeClass("d-none");
                     pnlEditar.addClass('d-none');
-                    console.log(data, x, jq);
+                    onEffect(1);
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -338,6 +352,7 @@
                 });
             }
         });
+
         btnGuardar.click(function () {
             $.validator.setDefaults({
                 ignore: []
@@ -409,6 +424,7 @@
                     pnlTablero.removeClass("d-none");
                     pnlNuevo.addClass('d-none');
                     console.log(data, x, jq);
+                    onEffect(1);
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -439,46 +455,61 @@
         });
 
         pnlNuevo.find("#btnEliminarMaterial").on('click', function () {
+            var seleccionado = false;
             $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                if ($(this).hasClass("row_for_delete")) {
-                    tblMaterialesRequeridos.row().remove().draw();
-                    /*CALCULAR SUPER TOTAL*/
-                    super_total = 0.0;
-                    $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                        var sub = parseFloat($(this).find("td").eq(6).text());
-                        super_total += sub;
-                    });
-                    pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
-                    /*FIN CALCULAR SUPER TOTAL*/
-                    onEffect(1);
-                } else {
-                    onEffect(2);
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
+                if ($(this).hasClass("success")) {
+                    seleccionado = true;
                     return false;
                 }
             });
+            if (seleccionado) {
+                $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
+                    if ($(this).hasClass("success")) {
+                        tblMaterialesRequeridos.row($(this)).remove().draw();/*SI NO SE ESPECIFICA THIS, Y SE FILTRA Y LA QUIERES ELIMINAR QUE SELECCIONASTE DESPUÉS DE FILTRAR TE REMUEVE EL PRIMERO SIN IMPORTAR LA SELECCION*/
+                        /*CALCULAR SUPER TOTAL*/
+                        super_total = 0.0;
+                        $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
+                            var sub = parseFloat($(this).find("td").eq(6).text());
+                            super_total += sub;
+                        });
+                        pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                        /*FIN CALCULAR SUPER TOTAL*/
+                        onEffect(1);
+                    }
+                });
+            } else {
+                onEffect(2);
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
+            }
         });
 
-
         pnlEditar.find("#btnEliminarMaterialE").on('click', function () {
+            var seleccionado = false;
             $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                if ($(this).hasClass("row_for_delete")) {
-                    tblMaterialesRequeridosE.row().remove().draw();
-                    /*CALCULAR SUPER TOTAL*/
-                    super_total = 0.0;
-                    $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                        var sub = parseFloat($(this).find("td").eq(6).text());
-                        super_total += sub;
-                    });
-                    pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
-                    /*FIN CALCULAR SUPER TOTAL*/
-                    onEffect(1);
-                } else {
-                    onEffect(2);
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
+                if ($(this).hasClass("success")) {
+                    seleccionado = true;
                     return false;
                 }
             });
+            if (seleccionado) {
+                $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                    if ($(this).hasClass("success")) {
+                        tblMaterialesRequeridosE.row($(this)).remove().draw();
+                        /*CALCULAR SUPER TOTAL*/
+                        super_total = 0.0;
+                        $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                            var sub = parseFloat($(this).find("td").eq(6).text());
+                            super_total += sub;
+                        });
+                        pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                        /*FIN CALCULAR SUPER TOTAL*/
+                        onEffect(1);
+                    }
+                });
+            } else {
+                onEffect(2);
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
+            }
         });
 
         pnlNuevo.find("#btnAgregarMaterial").on('click', function () {
@@ -540,8 +571,68 @@
                 onEffect(2);/*ERROR*/
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN MATERIAL', 'danger');
             }
-        }
-        );
+        });
+
+        pnlEditar.find("#btnAgregarMaterialE").on('click', function () {
+            var Consumo = pnlEditar.find("#ConsumoE").val();
+            var Tipo = pnlEditar.find("#TipoE option:selected").text().replace(/\s+/g, '');
+            var sub_row = pnlEditar.find("#tblMaterialesE tbody tr.selected_row td");
+            var id_selected = sub_row.eq(0).text().replace(/\s+/g, '');
+            if (id_selected !== '') {
+                if (parseFloat(Consumo) > 0 && Tipo !== '' && id_selected !== '') {
+                    console.log(pnlEditar.find("#tblMaterialesE tbody tr.selected_row td"));
+                    /*COMPROBAR SI YA FUE AGREGADO*/
+                    var agregado = false;
+                    $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                        var id_row = $(this).find("td").eq(0).text();
+                        console.log(id_row + '===' + id_selected);
+                        if (id_row === id_selected) {
+                            agregado = true;
+                            return false;
+                        } else {
+                            agregado = false;
+                        }
+                    });
+                    /*AGREGAR SI NO ESTA AGREGADO*/
+                    if (!agregado) {
+                        var Precio = parseFloat(sub_row.eq(4).text());
+                        tblMaterialesRequeridosE.row.add([
+                            sub_row.eq(0).text(),
+                            sub_row.eq(1).text(),
+                            sub_row.eq(3).text(),
+                            '<strong><span class="text-primary">' + Precio + '</span></strong>',
+                            '<strong><span class="text-danger">' + Consumo + '</span></strong>',
+                            '<strong><span class="text-info">' + Tipo + '</span></strong>',
+                            '<strong><span class="text-success">' + (Consumo * Precio) + '</span></strong>'
+                        ]).draw(false);
+                        onEffect(1);/*OK*/
+                        /*REINICIAR VALORES EN ZERO*/
+                        pnlEditar.find("#ConsumoE").val('');
+                        pnlEditar.find("#TipoE").val("").trigger('change');
+                        pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("selected_row");
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
+                        /*CALCULAR SUPER TOTAL*/
+                        super_total = 0.0;
+                        $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                            var sub = parseFloat($(this).find("td").eq(6).text());
+                            super_total += sub;
+                        });
+                        pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                        /*FIN CALCULAR SUPER TOTAL*/
+
+                    } else {
+                        onEffect(2);/*ERROR*/
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTE MATERIAL YA FUE AGREGADO', 'danger');
+                    }
+                } else {
+                    onEffect(2);/*ERROR*/
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO Y UN TIPO', 'danger');
+                }
+            } else {
+                onEffect(2);/*ERROR*/
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN MATERIAL', 'danger');
+            }
+        });
 
         /*CALLS*/
         btnRefrescar.trigger('click');
@@ -606,7 +697,6 @@
                     }
                     var dtm = tblSelected.row(this).data();
                     if (temp !== 0 && temp !== undefined && temp > 0) {
-                        console.log(temp)
                         HoldOn.open({
                             theme: "sk-bounce",
                             message: "CARGANDO DATOS..."
@@ -628,15 +718,13 @@
                                 pnlEditar.find("#CombinacionE").val(dtm.COMBINACION).trigger('change');
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
-                                
+
                                 $('#EstiloE').select2('open').select2('close');
                                 getMaterialesRequeridosE();
                                 /*OBTENER LOS MATERIALES AGREGADOS*/
                                 getMaterialesXCombinacionDetalleByID(dtm.ID);
                                 /*FIN OBTENER MATERIALES AGREGADOS*/
-
-
-
+                                onEffect(1);
                             }
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
@@ -809,30 +897,20 @@
             if (data.length > 0) {
                 $("#MaterialesRequeridosE").html(getTable('tblMaterialesRequeridosE', data));
 
-                $('#tblMaterialesRequeridosE tfoot th').each(function () {
-                    $(this).html('');
-                });
                 tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalle);
                 $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
 
                 $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () {
                     pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("success");
-                    pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("row_for_delete");
                     $(this).addClass("success");
                     $(this).addClass("row_for_delete");
                 });
 
 
                 $('#tblMaterialesRequeridosE tbody').on('dblclick', 'tr', function () {
-                    $("#tblMaterialesRequeridosE tbody tr").removeClass("success");
+                    pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("success");
                     $(this).addClass("success");
-                    var id = this.id;
-                    var index = $.inArray(id, selected);
-                    if (index === -1) {
-                        selected.push(id);
-                    } else {
-                        selected.splice(index, 1);
-                    }
+                    console.log($(this));
                 });
                 // Apply the search
                 tblMaterialesRequeridosE.columns().every(function () {
