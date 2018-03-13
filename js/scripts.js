@@ -116,6 +116,9 @@ var tableOptionsDetalle = {
             }
         }
     },
+
+    keys: true,
+
     "autoWidth": true,
     "colReorder": true,
     "displayLength": 40,
@@ -125,10 +128,10 @@ var tableOptionsDetalle = {
 //    "scrollY": false,
     "scrollX": true,
     "scrollCollapse": false,
-    "bSort": true,
-    "aaSorting": [
-        [0, 'desc']
-    ]
+    "bSort": false
+//    "aaSorting": [
+//        [0, 'desc']
+//    ]
             //    ,
             //    "columnDefs": [
             //        {"width": "20%", "targets": [0]}

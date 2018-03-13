@@ -64,7 +64,21 @@ class Series extends CI_Controller {
                 'PuntoFinal' => ($this->input->post('PuntoFinal') !== NULL) ? $this->input->post('PuntoFinal') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $this->series_model->onAgregar($data);
+            $ID= $this->series_model->onAgregar($data);
+            echo $ID;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    public function onAgregarDetalle() {
+        try {
+            $data = array(
+                'Serie_ID' => ($this->input->post('Serie_ID') !== NULL) ? $this->input->post('Serie_ID') : NULL,
+                'Talla' => ($this->input->post('Talla') !== NULL) ? $this->input->post('Talla') : NULL,
+                'Cantidad' => 0
+            );
+            $this->series_model->onAgregarDetalle($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

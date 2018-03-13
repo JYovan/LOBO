@@ -162,7 +162,6 @@
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
     var tempDetalle = 0;
-
     $(document).ready(function () {
         btnModificar.click(function () {
             $.validator.setDefaults({
@@ -188,7 +187,6 @@
                         elem.addClass(errorClass);
                     }
                 },
-
                 //When removing make the same adjustments as when adding
                 unhighlight: function (element, errorClass, validClass) {
                     var elem = $(element);
@@ -217,6 +215,7 @@
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
                     btnRefrescar.trigger('click');
                     pnlEditar.addClass('d-none');
+                    pnlDetalle.addClass('d-none');
                     pnlTablero.removeClass('d-none');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -249,7 +248,6 @@
                         elem.addClass(errorClass);
                     }
                 },
-
                 //When removing make the same adjustments as when adding
                 unhighlight: function (element, errorClass, validClass) {
                     var elem = $(element);
@@ -264,32 +262,60 @@
             $('select').on('change', function () {
                 $(this).valid();
             });
-            //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-            //Si es verdadero que hacer
-            if ($('#frmNuevo').valid()) {
-                var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
 
-                $.ajax({
-                    url: master_url + 'onAgregar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                    getRecords();
-                    pnlTablero.removeClass("d-none");
-                    pnlNuevo.addClass('d-none');
-                    console.log(data, x, jq);
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
+            var incremento = parseFloat(pnlNuevo.find('#PuntoInicial').val());
+            if (parseFloat(pnlNuevo.find('#PuntoFinal').val()) > parseFloat(pnlNuevo.find('#PuntoInicial').val())) {
+
+
+                //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
+                //Si es verdadero que hacer
+                if ($('#frmNuevo').valid()) {
+                    var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
+                    $.ajax({
+                        url: master_url + 'onAgregar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+
+                        //Crear las tallas
+                        while (incremento <= parseFloat(pnlNuevo.find('#PuntoFinal').val())) {
+                            $.ajax({
+                                url: master_url + 'onAgregarDetalle',
+                                type: "POST",
+                                dataType: "JSON",
+                                data: {
+                                    Serie_ID: data,
+                                    Talla: incremento
+                                }
+                            }).done(function (data, x, jq) {
+
+                                console.log(data);
+                            }).fail(function (x, y, z) {
+                                console.log(x, y, z);
+                            }).always(function () {
+                                HoldOn.close();
+                            });
+                            incremento = incremento + 0.5;
+                        }
+                        //Abrir la edición
+                        pnlNuevo.addClass('d-none');
+                        despuesDeGuardar(data);
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                    });
+                }
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL PUNTO INICIAL NO DEBE SER MAYOR AL PUNTO FINAL', 'danger');
             }
-        });
-        //Evento clic del boton confirmar borrar
+
+
+        }
+        );
         btnConfirmarEliminar.click(function () {
             if (temp !== 0 && temp !== undefined && temp > 0) {
                 //Muestra el modal
@@ -326,7 +352,6 @@
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
             }
         });
-
         btnRefrescar.click(function () {
             getRecords();
         });
@@ -345,13 +370,10 @@
             pnlEditar.addClass("d-none");
             pnlDetalle.addClass('d-none');
             pnlTablero.removeClass("d-none");
-            
         });
-
         getRecords();
         handleEnter();
     });
-
     function getSeriesDetallebySerieID(IDX) {
         HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
         $.ajax({
@@ -367,7 +389,6 @@
                 $('#tblRegistrosDetalle tfoot th').each(function () {
                     $(this).html('');
                 });
-
                 var thead = pnlDetalle.find('#tblRegistrosDetalle thead th');
                 var tfoot = pnlDetalle.find('#tblRegistrosDetalle tfoot th');
                 thead.eq(0).addClass("d-none");
@@ -380,13 +401,14 @@
                     td.eq(1).addClass("d-none");
                 });
                 var tblSelected = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
+
+
 //                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
 //                    var dtm = tblSelected.row(this).data();
 //                    tempDetalle = parseInt(dtm[0]);
 //                });
             } else {
                 pnlDetalle.find("#RegistrosDetalle").html("");
-
             }
             HoldOn.close();
         }).fail(function (x, y, z) {
@@ -395,7 +417,6 @@
 
         });
     }
-
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -407,87 +428,120 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            console.log(data);
-            $("#tblRegistros").html(getTable('tblSeries', data));
+            if (data.length > 0) {
+                $("#tblRegistros").html(getTable('tblSeries', data));
+                $('#tblSeries tfoot th').each(function () {
+                    $(this).html('');
+                });
+                var thead = $('#tblSeries thead th');
+                var tfoot = $('#tblSeries tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblSeries tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
+                var tblSelected = $('#tblSeries').DataTable(tableOptions);
+                $('#tblSeries_filter input[type=search]').focus();
+                $('#tblSeries tbody').on('click', 'tr', function () {
 
-            $('#tblSeries tfoot th').each(function () {
-                $(this).html('');
-            });
-
-            var thead = $('#tblSeries thead th');
-            var tfoot = $('#tblSeries tfoot th');
-            thead.eq(0).addClass("d-none");
-            tfoot.eq(0).addClass("d-none");
-            $.each($.find('#tblSeries tbody tr'), function (k, v) {
-                var td = $(v).find("td");
-                td.eq(0).addClass("d-none");
-            });
-
-            var tblSelected = $('#tblSeries').DataTable(tableOptions);
-            $('#tblSeries_filter input[type=search]').focus();
-
-            $('#tblSeries tbody').on('click', 'tr', function () {
-
-                $("#tblSeries tbody tr").removeClass("success");
-                $(this).addClass("success");
-                var dtm = tblSelected.row(this).data();
-                temp = parseInt(dtm[0]);
-            });
-
-            $('#tblSeries tbody').on('dblclick', 'tr', function () {
-                $("#tblSeries tbody tr").removeClass("success");
-                $(this).addClass("success");
-                var id = this.id;
-                var index = $.inArray(id, selected);
-                if (index === -1) {
-                    selected.push(id);
-                } else {
-                    selected.splice(index, 1);
-                }
-                var dtm = tblSelected.row(this).data();
-                if (temp !== 0 && temp !== undefined && temp > 0) {
-                    HoldOn.open({
-                        theme: "sk-bounce",
-                        message: "CARGANDO DATOS..."
-                    });
-                    $.ajax({
-                        url: master_url + 'getSerieByID',
-                        type: "POST",
-                        dataType: "JSON",
-                        data: {
-                            ID: temp
-                        }
-                    }).done(function (data, x, jq) {
-
-                        pnlEditar.find("input").val("");
-                        pnlEditar.find("select").val("").trigger('change');
-                        $.each(data[0], function (k, v) {
-                            pnlEditar.find("#" + k).val(v);
-                            pnlEditar.find("#" + k).val(v).trigger('change');
+                    $("#tblSeries tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var dtm = tblSelected.row(this).data();
+                    temp = parseInt(dtm[0]);
+                });
+                $('#tblSeries tbody').on('dblclick', 'tr', function () {
+                    $("#tblSeries tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var id = this.id;
+                    var index = $.inArray(id, selected);
+                    if (index === -1) {
+                        selected.push(id);
+                    } else {
+                        selected.splice(index, 1);
+                    }
+                    var dtm = tblSelected.row(this).data();
+                    if (temp !== 0 && temp !== undefined && temp > 0) {
+                        HoldOn.open({
+                            theme: "sk-bounce",
+                            message: "CARGANDO DATOS..."
                         });
-                        pnlTablero.addClass("d-none");
-                        pnlEditar.removeClass('d-none');
-                        pnlDetalle.removeClass('d-none');
-                        $(':input:text:enabled:visible:first').focus();
-                        getSeriesDetallebySerieID(temp);
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
-                } else {
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                }
-            });
-            // Apply the search
-            tblSelected.columns().every(function () {
-                var that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
+                        $.ajax({
+                            url: master_url + 'getSerieByID',
+                            type: "POST",
+                            dataType: "JSON",
+                            data: {
+                                ID: temp
+                            }
+                        }).done(function (data, x, jq) {
+                            pnlEditar.find("input").val("");
+                            pnlEditar.find("select").val("").trigger('change');
+                            $.each(data[0], function (k, v) {
+                                pnlEditar.find("#" + k).val(v);
+                                pnlEditar.find("#" + k).val(v).trigger('change');
+                            });
+                            pnlTablero.addClass("d-none");
+                            pnlEditar.removeClass('d-none');
+                            pnlDetalle.removeClass('d-none');
+                            $(':input:text:enabled:visible:first').focus();
+                            getSeriesDetallebySerieID(temp);
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+                    } else {
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
                     }
                 });
+                // Apply the search
+                tblSelected.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+
+            } else {
+
+
+            }
+
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+    function despuesDeGuardar(IDX) {
+        temp = IDX;
+        HoldOn.open({
+            theme: "sk-bounce",
+            message: "CARGANDO DATOS..."
+        });
+        $.ajax({
+            url: master_url + 'getSerieByID',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                ID: temp
+            }
+        }).done(function (data, x, jq) {
+
+            pnlEditar.find("input").val("");
+            pnlEditar.find("select").val("").trigger('change');
+            $.each(data[0], function (k, v) {
+                pnlEditar.find("#" + k).val(v);
+                pnlEditar.find("#" + k).val(v).trigger('change');
             });
+            pnlTablero.addClass("d-none");
+            pnlEditar.removeClass('d-none');
+            pnlDetalle.removeClass('d-none');
+            $(':input:text:enabled:visible:first').focus();
+            getSeriesDetallebySerieID(temp);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
