@@ -17,7 +17,7 @@
                     <a class="dropdown-item" href="#">Fichas Técnicas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a>
-                    <a class="dropdown-item" href="#">Fracciones por Estilo</a>
+                    <a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo') ?>">Fracciones por Estilo</a>
                     <a class="dropdown-item" href="#">Piezas y Materiales</a>
                 </div>
             </li>
