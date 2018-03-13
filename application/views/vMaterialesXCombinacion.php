@@ -715,8 +715,8 @@
                                 pnlEditar.find("input").val("");
                                 pnlEditar.find("select").val("").trigger('change');
                                 pnlEditar.find("#ID").val(dtm.ID);
-                                pnlEditar.find("#EstiloE").val(dtm.ESTILO).trigger('change');
-                                pnlEditar.find("#CombinacionE").val(dtm.COMBINACION).trigger('change');
+                                pnlEditar.find("#EstiloE").val(dtm.Estilo).trigger('change');
+                                pnlEditar.find("#CombinacionE").val(dtm.Combinacion).trigger('change');
                                 pnlTablero.addClass("d-none");
                                 pnlEditar.removeClass('d-none');
 
