@@ -87,7 +87,7 @@
                                 </div> 
                                 <div class="w-100"></div> 
                                 <br>
-                                <div id="Materiales" class="col-5">
+                                <div id="Materiales" class="col-5 fixed">
                                 </div>
                                 <div class="col-1"><br>
                                     <button type="button" class="btn btn-dark" id="btnAgregarMaterial"><span class="fa fa-arrow-right"></span></button>
@@ -102,13 +102,13 @@
                                     <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">MATERIAL</th>
+                                                <th class="d-none" scope="col">ID</th>
+                                                <th scope="col">Material</th>
                                                 <th scope="col">U.M</th>
-                                                <th scope="col">PRECIO</th>
-                                                <th scope="col">CONSUMO</th>
-                                                <th scope="col">TIPO</th>
-                                                <th scope="col">IMPORTE</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Consumo</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Importe</th>
                                             </tr>
                                         </thead>
                                         <tbody> 
@@ -195,13 +195,13 @@
                                     <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">MATERIAL</th>
+                                                <th class="d-none" scope="col">ID</th>
+                                                <th scope="col">Material</th>
                                                 <th scope="col">U.M</th>
-                                                <th scope="col">PRECIO</th>
-                                                <th scope="col">CONSUMO</th>
-                                                <th scope="col">TIPO</th>
-                                                <th scope="col">IMPORTE</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Consumo</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Importe</th>
                                             </tr>
                                         </thead>
                                         <tbody> 
@@ -444,6 +444,7 @@
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").val("").trigger('change');
             $('#Estilo').select2('open').select2('close');
+            getMaterialesRequeridos();
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -636,8 +637,8 @@
 
         /*CALLS*/
         btnRefrescar.trigger('click');
-        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsDetalle);
-        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsDetalle);
+        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsMiniTables);
+        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsMiniTables);
 
         pnlNuevo.find('#tblMaterialesRequeridos tbody').on('click', 'tr', function () {
             pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("success");
@@ -772,7 +773,28 @@
                 $('#tblMateriales tfoot th').each(function () {
                     $(this).html('');
                 });
-                var tblSelected = $('#tblMateriales').DataTable(tableOptionsDetalle);
+                var thead = $('#tblMateriales thead th');
+                var tfoot = $('#tblMateriales tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblMateriales tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
+
+                var tblSelected = $('#tblMateriales').DataTable(tableOptionsMiniTables);
+
+                $('#tblMateriales tbody').on('click', 'tr', function () {
+
+                    $("#tblMateriales tbody tr").removeClass("success");
+                    $("#tblMateriales tbody tr").removeClass("selected_row");
+                    $(this).addClass("success selected_row");
+                    var dtm = tblSelected.row(this).data();
+
+                    temp = parseInt(dtm[0]);
+                });
+                
+
                 $('#tblMateriales_filter input[type=search]').focus();
 
                 $('#tblMateriales tbody').on('click', 'tr', function () {
@@ -833,7 +855,17 @@
                 $('#tblMaterialesE tfoot th').each(function () {
                     $(this).html('');
                 });
-                var tblSelected = $('#tblMaterialesE').DataTable(tableOptionsDetalle);
+
+                var thead = $('#tblMaterialesE thead th');
+                var tfoot = $('#tblMaterialesE tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblMaterialesE tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
+
+                var tblSelected = $('#tblMaterialesE').DataTable(tableOptionsMiniTables);
                 $('#tblMaterialesE_filter input[type=search]').focus();
 
                 $('#tblMaterialesE tbody').on('click', 'tr', function () {
@@ -897,7 +929,20 @@
             if (data.length > 0) {
                 $("#MaterialesRequeridosE").html(getTable('tblMaterialesRequeridosE', data));
 
-                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalle);
+                $('#tblMaterialesRequeridosE tfoot th').each(function () {
+                    $(this).html('');
+                });
+                var thead = $('#tblMaterialesRequeridosE thead th');
+                var tfoot = $('#tblMaterialesRequeridosE tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblMaterialesRequeridosE tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
+
+
+                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsMiniTables);
                 $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
 
                 $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () {

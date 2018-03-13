@@ -3,6 +3,8 @@
 *{
     font-family: 'Exo 2', sans-serif;
 }
+
+
 /*Clase de validacion*/
 ul.myErrorClass, input.myErrorClass, textarea.myErrorClass, select.myErrorClass {
     border-width: 1px !important;
