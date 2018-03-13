@@ -13,13 +13,15 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("MXC.[ID]
+            $this->db->select("MXC.ID
       ,E.Descripcion AS ESTILO
-      ,C.Descripcion AS COMBINACION
+      ,E.Descripcion AS COMBINACION, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(MXCD.Consumo * MXCD.Precio) AS money), 1),'</span>')AS TOTAL
       ,MXC.Registro AS REGISTRO ", false);
             $this->db->from('MaterialesXCombinacion AS MXC ');
             $this->db->join('Estilos AS E', 'MXC.Estilo = E.ID');
             $this->db->join('Combinaciones AS C', 'MXC.Combinacion = C.ID');
+            $this->db->join('MaterialesXCombinacionDetalle AS MXCD', 'MXCD.MaterialXCombinacion = MXC.ID');
+            $this->db->group_by('MXC.ID,E.Descripcion,E.Descripcion,MXC.Registro');
             $this->db->where_in('MXC.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
