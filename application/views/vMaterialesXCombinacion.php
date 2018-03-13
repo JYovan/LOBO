@@ -990,7 +990,7 @@
 
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.ESTILO + '</option>';
+                options += '<option value="' + v.ID + '">' + v.Estilo + '</option>';
             });
             pnlNuevo.find("#Estilo").html(options);
             pnlEditar.find("#EstiloE").html(options);
@@ -1007,7 +1007,7 @@
 
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.COMBINACION + '</option>';
+                options += '<option value="' + v.ID + '">' + v.Combinacion + '</option>';
             });
             pnlNuevo.find("#Combinacion").html(options);
             pnlEditar.find("#CombinacionE").html(options);
