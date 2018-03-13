@@ -238,10 +238,10 @@
                     data: f
                 }).done(function (data, x, jq) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-//                    btnRefrescar.trigger('click');
-//                    pnlEditar.addClass('d-none');
-//                    pnlDetalle.addClass('d-none');
-//                    pnlTablero.removeClass('d-none');
+                    btnRefrescar.trigger('click');
+                    pnlEditar.addClass('d-none');
+                    pnlDetalle.addClass('d-none');
+                    pnlTablero.removeClass('d-none');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
