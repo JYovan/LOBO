@@ -203,9 +203,21 @@
             });
             //Si es verdadero que hacer
             if ($('#frmEditar').valid()) {
+                /*REMOVER EL INPUT ACTIVO*/
+                $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
+                    var cell = $(this).find("td").eq(3);
+                    if (cell.find("#Cantidad").val() === '') {
+                        cell.html(0);
+                    } else {
+                        cell.html(cell.find("#Cantidad").val());
+                    }
+                });
+
+
                 var f = new FormData(pnlEditar.find("#frmEditar")[0]);
-                var tallas = []; 
-                pnlEditar.find('#tblRegistrosDetalle > tbody  > tr').each(function (k, v) {
+                console.log(pnlEditar.find('table tbody tr'));
+                var tallas = [];
+                pnlDetalle.find('#tblRegistrosDetalle > tbody  > tr').each(function (k, v) {
                     var row = $(this).find("td");
                     var material = {
                         ID: row.eq(0).text().replace(/\s+/g, ''),
@@ -215,6 +227,7 @@
                     };
                     tallas.push(material);
                 });
+                console.log(tallas)
                 f.append('Tallas', JSON.stringify(tallas));
                 $.ajax({
                     url: master_url + 'onModificar',
@@ -222,13 +235,13 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    data: frm
+                    data: f
                 }).done(function (data, x, jq) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                    btnRefrescar.trigger('click');
-                    pnlEditar.addClass('d-none');
-                    pnlDetalle.addClass('d-none');
-                    pnlTablero.removeClass('d-none');
+//                    btnRefrescar.trigger('click');
+//                    pnlEditar.addClass('d-none');
+//                    pnlDetalle.addClass('d-none');
+//                    pnlTablero.removeClass('d-none');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -236,7 +249,7 @@
                 });
             }
         });
-        
+
         btnGuardar.click(function () {
             $.validator.setDefaults({
                 ignore: []
