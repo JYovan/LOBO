@@ -301,9 +301,7 @@
                             incremento = incremento + 0.5;
                         }
                         //Abrir la edición
-                        pnlTablero.removeClass("d-none");
                         pnlNuevo.addClass('d-none');
-                        getRecords();
                         despuesDeGuardar(data);
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
                     }).fail(function (x, y, z) {
