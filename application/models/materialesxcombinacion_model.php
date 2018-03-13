@@ -14,9 +14,9 @@ class materialesxcombinacion_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("MXC.ID
-      ,E.Descripcion AS ESTILO
-      ,E.Descripcion AS COMBINACION, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(MXCD.Consumo * MXCD.Precio) AS money), 1),'</span>')AS TOTAL
-      ,MXC.Registro AS REGISTRO ", false);
+      ,E.Descripcion AS Estilo
+      ,E.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(MXCD.Consumo * MXCD.Precio) AS money), 1),'</span>')AS Total
+      ,MXC.Registro AS Registro ", false);
             $this->db->from('MaterialesXCombinacion AS MXC ');
             $this->db->join('Estilos AS E', 'MXC.Estilo = E.ID');
             $this->db->join('Combinaciones AS C', 'MXC.Combinacion = C.ID');
@@ -38,7 +38,7 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getMaterialesRequeridos() {
         try {
-            $this->db->select('M.[ID] ,M.[Material] AS MATERIAL,M.Descripcion AS "DESCRIPCIÓN",  C.SValue AS "U.M", M.[PrecioLista] AS PRECIO', false);
+            $this->db->select('M.[ID] ,M.[Material] AS Material,M.Descripcion AS "Descripción",  C.SValue AS "U.M", M.[PrecioLista] AS Precio', false);
             $this->db->from('Materiales AS M ');
             $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
             $this->db->like('C.FieldId', 'UNIDADES');
@@ -98,12 +98,12 @@ class materialesxcombinacion_model extends CI_Model {
         }
     }
 
-    public function getExisteMaterial($MATERIAL, $MATERIALCOMBINACION) {
+    public function getExisteMaterial($Material, $MaterialCombinacion) {
         try {
             $this->db->select('COUNT(*) AS EXISTE', false);
             $this->db->from('MaterialesXCombinacionDetalle AS MXC ');
-            $this->db->where('MXC.Material', $MATERIAL);
-            $this->db->where('MXC.MaterialXCombinacion', $MATERIALCOMBINACION);
+            $this->db->where('MXC.Material', $Material);
+            $this->db->where('MXC.MaterialXCombinacion', $MaterialCombinacion);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -152,7 +152,7 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getMaterialesXCombinacionByID($ID) {
         try {
-            $this->db->select('M.ID AS ID, M.Estilo AS ESTILO, M.Combinacion AS COMBINACION', false);
+            $this->db->select('M.ID AS ID, M.Estilo AS Estilo, M.Combinacion AS Combinacion', false);
             $this->db->from('MaterialesXCombinacion AS M');
             $this->db->where('M.ID', $ID);
             $this->db->where_in('M.Estatus', 'ACTIVO');
@@ -171,19 +171,19 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getMaterialesXCombinacionDetalleByID($ID) {
         try {
-            $this->db->select('MXCD.Material ID, M.Material AS MATERIAL, 
+            $this->db->select('MXCD.Material ID, M.Material AS Material, 
                 C.SValue AS "U.M", 
-                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS PRECIO, 
-                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS CONSUMO,
+                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS Precio, 
+                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS Consumo,
 	   CONCAT(\'<strong><span class="text-info">\',(CASE 
 	  WHEN MXCD.Tipo = 1 THEN
 		\'DIR\'
 		ELSE \'IND\' 
-	  END),\'</span></strong>\') AS TIPO,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS IMPORTE', false);
-//            $this->db->select('CONCAT(\'<button type="button" class="btn btn-dark" id="btnEliminarMaterialE" onclick="onEliminarMaterial(this)">\',\'<span class="fa fa-minus"></span></button>\') AS ELIMINAR, MXCD.Material ID, M.Material AS MATERIAL, 
+	  END),\'</span></strong>\') AS Tipo,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS Importe', false);
+//            $this->db->select('CONCAT(\'<button type="button" class="btn btn-dark" id="btnEliminarMaterialE" onclick="onEliminarMaterial(this)">\',\'<span class="fa fa-minus"></span></button>\') AS ELIMINAR, MXCD.Material ID, M.Material AS Material, 
 //                C.SValue AS "U.M", 
-//                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS PRECIO, 
-//                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS CONSUMO,
+//                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS Precio, 
+//                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS Consumo,
 //	   CONCAT(\'<strong><span class="text-info">\',(CASE 
 //	  WHEN MXCD.Tipo = 1 THEN
 //		\'DIR\'
@@ -211,7 +211,7 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getCombinaciones() {
         try {
-            $this->db->select('C.ID AS ID, C.Descripcion AS COMBINACION', false);
+            $this->db->select('C.ID AS ID, C.Descripcion AS Combinacion', false);
             $this->db->from('Combinaciones AS C');
             $this->db->where_in('C.Estatus', array('ACTIVO'));
             $query = $this->db->get();
@@ -229,7 +229,7 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getEstilos() {
         try {
-            $this->db->select('E.ID AS ID, E.Descripcion AS ESTILO', false);
+            $this->db->select('E.ID AS ID, E.Descripcion AS Estilo', false);
             $this->db->from('Estilos AS E');
             $this->db->where_in('E.Estatus', array('ACTIVO'));
             $query = $this->db->get();
