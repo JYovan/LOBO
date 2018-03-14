@@ -125,10 +125,10 @@
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Herramental">Herramental</label>
-                        <input type="text" class="form-control" placeholder="" id="Herramental" name="Herramental">
+                        <input type="text" maxlength="3" class="form-control" placeholder="" id="Herramental" name="Herramental">
                     </div>
                     <div class="col-md">
-                        <label for="Herramental">Tipo de Construcción</label>
+                        <label for="TipoDeConstruccion">Tipo de Construcción</label>
                         <input type="text" class="form-control" placeholder="" id="TipoDeConstruccion" name="TipoDeConstruccion">
                     </div>
 
@@ -280,7 +280,7 @@
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Herramental">Herramental*</label>
-                        <input type="text" class="form-control" placeholder="" id="Herramental" name="Herramental">
+                        <input type="text" maxlength="3" class="form-control" placeholder="" id="Herramental" name="Herramental">
                     </div>
                     <div class="col-md">
                         <label for="Herramental">Tipo de Construcción*</label>

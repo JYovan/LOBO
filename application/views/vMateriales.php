@@ -57,7 +57,7 @@
 
                     <div class="col-sm">
                         <label for="Material">Material*</label>  
-                        <input type="text" class="form-control" id="Material" name="Material" required >
+                        <input type="text" maxlength="15" class="form-control" id="Material" name="Material" required >
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>  
@@ -174,7 +174,7 @@
 
                         <div class="col-sm">
                             <label for="Material">Material*</label>  
-                            <input type="text" class="form-control" id="Material" name="Material" required >
+                            <input type="text" maxlength="15" class="form-control" id="Material" name="Material" required >
                         </div>
                         <div class="col-sm">
                             <label for="Descripcion">Descripción*</label>  

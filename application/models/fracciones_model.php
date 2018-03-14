@@ -1,12 +1,15 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
+
 class fracciones_model extends CI_Model {
+
     public function __construct() {
         parent::__construct();
     }
-   
+
     public function getRecords() {
         try {
             $this->db->select("U.ID, U.Clave, U.Descripcion", false);
@@ -23,7 +26,24 @@ class fracciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
- 
+
+    public function getFracciones() {
+        try {
+            $this->db->select("U.ID, U.Clave, U.Descripcion", false);
+            $this->db->from('Fracciones AS U');
+            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onAgregar($array) {
         try {
             $this->db->insert("Fracciones", $array);
@@ -35,6 +55,7 @@ class fracciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
@@ -44,6 +65,7 @@ class fracciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onEliminar($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');
@@ -54,6 +76,7 @@ class fracciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function getFraccionByID($ID) {
         try {
             $this->db->select('U.*', false);
@@ -72,7 +95,5 @@ class fracciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
-   
-    
+
 }
