@@ -13,6 +13,26 @@
     </div>
 </div>
 <!--MODALES--> 
+<!--Confirmacion Eliminar Concepto-->
+<div class="modal" id="mdlConfirmarEliminarRenglon" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Deseas eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
+                <button type="button" class="btn btn-raised btn-primary" id="btnEliminarRenglon">ACEPTAR</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -33,103 +53,130 @@
         </div>
     </div>
 </div>
+<!--Nuevo Renglon-->
+<div class="modal" id="mdlNuevoRenglon" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seleccionar Fracción(es)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="col-md-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="chkMultiple" name="chkMultiple" >
+                            <label class="custom-control-label" for="chkMultiple"> Varios</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="col-md-12" id="Fracciones">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-raised btn-primary" data-dismiss="modal">TERMINAR</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--GUARDAR-->
-<div id="" class="container-fluid">
-    <div class="card border-0  d-none" id="pnlNuevo">
-        <div class="card-body text-dark"> 
-            <form id="frmNuevo">
 
-                <div class="row">
-                    <div class="col-md-2 float-left">
-                        <legend class="float-left">Nuevo</legend>
-                    </div>
-                    <div class="col-md-7 float-right">
+<div class="card border-0  d-none" id="pnlNuevo">
+    <div class="card-body text-dark"> 
+        <form id="frmNuevo">
 
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                    </div>
+            <div class="row">
+                <div class="col-md-3 float-left">
+                    <legend class="float-left">Fracciones por Estilo</legend>
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="EstiloN" name="Estilo" required>  
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-lg"  name="Estatus" required> 
-                            <option value=""></option>  
-                            <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
-                        </select>
-                    </div>
+                <div class="col-md-6 float-right">
+
                 </div>
-            </form>
-        </div> 
+                <div class="col-md-3 float-right" align="right">
+                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
+                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="Estilo">Estilo*</label>
+                    <select class="form-control form-control-lg" id="EstiloN" name="Estilo" required>  
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <label for="Estatus">Estatus*</label>
+                    <select class="form-control form-control-lg"  name="Estatus" required> 
+                        <option value=""></option>  
+                        <option>ACTIVO</option>
+                        <option>INACTIVO</option> 
+                    </select>
+                </div>
+            </div>
+        </form>
     </div> 
-</div>
+</div> 
+
 <!--EDITAR-->
-<div id="" class="container-fluid">
-    <div class="card border-0  d-none" id="pnlEditar">
-        <div class="card-body text-dark"> 
-            <div class="card-body text-dark"> 
-                <form id="frmEditar">
-                    <div class="row">
-                        <div class="col-md-2 float-left">
-                            <legend class="float-left">Editar</legend>
-                        </div>
-                        <div class="col-md-7 float-right">
+<div class="card border-0  d-none" id="pnlEditar">
+    <div class="card-body text-dark"> 
+        <form id="frmEditar">
+            <div class="row">
+                <div class="col-md-3 float-left">
+                    <legend class="float-left">Fracciones por Estilo</legend>
+                </div>
+                <div class="col-md-6 float-right">
 
-                        </div>
-                        <div class="col-md-3 float-right" align="right">
-                            <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                            <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                        </div>
-                    </div>
-                    <div class="d-none">
-                        <input type="text" class="form-control" id="ID" name="ID" required >
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Estilo">Estilo*</label>
-                            <select class="form-control form-control-lg" id="Estilo" name="Estilo" required>  
-                            </select>
-                        </div>
-                        <div class="col-sm">
-                            <label for="Estatus">Estatus*</label>
-                            <select class="form-control form-control-lg" id="Estatus" name="Estatus" required> 
-                                <option value=""></option>  
-                                <option>ACTIVO</option>
-                                <option>INACTIVO</option> 
-                            </select>
-                        </div>
-                    </div>  
-                </form>
-            </div> 
-        </div> 
+                </div>
+                <div class="col-md-3 float-right" align="right">
+                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
+                    <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                </div>
+            </div>
+            <div class="d-none">
+                <input type="text" class="form-control" id="ID" name="ID" required >
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="Estilo">Estilo*</label>
+                    <select class="form-control form-control-lg" id="Estilo" name="Estilo" required>  
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <label for="Estatus">Estatus*</label>
+                    <select class="form-control form-control-lg" id="Estatus" name="Estatus" required> 
+                        <option value=""></option>  
+                        <option>ACTIVO</option>
+                        <option>INACTIVO</option> 
+                    </select>
+                </div>
+            </div>  
+        </form>
     </div> 
-</div>
+</div> 
 
 <!--DETALLE-->
 <div class="card border-0  d-none" id="pnlDetalle">
     <div class="card-body text-dark"> 
-        <div class="card-body"> 
-            <div class="col-md-2 float-left">
-                <legend class="float-left">Fracciones</legend>
-            </div>
-            <div class="col-md-7">
 
+        <div class="row">
+            <div class="col-sm">
             </div>
-            <div class="col-md-2 float-right" >
-                <button type="button" class="btn btn-default float-right" id="btnNuevo"><span class="fa fa-plus fa-1x" ></span><br>AGREGAR</button>
+            <div class="col-sm text-center">
+                <legend class="card-title text-success" id="ImporteTotal"></legend>
             </div>
-        </div> 
-        <div class="card-body">
+            <div class="col-sm">
+                <button type="button" class="btn btn-default float-right" id="btnNuevoRenglon"><span class="fa fa-plus fa-1x" ></span><br>AGREGAR</button>
+            </div>
+        </div>
+
+    </div> 
+    <div class="row">
+        <div class="card-body text-dark"> 
             <div id="RegistrosDetalle"></div>
         </div>
-    </div> 
+    </div>
 </div> 
 
 
@@ -150,10 +197,133 @@
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
+
+    var mdlConfirmarEliminarRenglon = $("#mdlConfirmarEliminarRenglon");
+    var btnEliminarRenglon = $("#btnEliminarRenglon");
+
     var tempDetalle = 0;
 
-    $(document).ready(function () {
+    var btnNuevoRenglon = $('#btnNuevoRenglon');
+    var mdlNuevoRenglon = $('#mdlNuevoRenglon');
+    var IdMovimiento = 0;
 
+    $(document).ready(function () {
+        btnNuevoRenglon.click(function () {
+            temp = 0;
+            HoldOn.open({
+                theme: "sk-bounce",
+                message: "CARGANDO DATOS..."
+            });
+            $.ajax({
+                url: master_url + 'getFracciones',
+                type: "POST",
+                dataType: "JSON"
+            }).done(function (data, x, jq) {
+                console.log(data);
+                if (data.length > 0) {
+                    mdlNuevoRenglon.modal('show');
+                    $("#Fracciones").html(getTable('tblSeleccionarFracciones', data));
+                    $('#tblSeleccionarFracciones tfoot th').each(function () {
+                        var title = $(this).text();
+                        $(this).html('');
+                    });
+                    var tblSelected = $('#tblSeleccionarFracciones').DataTable(tableOptionsMiniTables);
+                    $('#tblSeleccionarFracciones tbody').on('click', 'tr', function () {
+                        $("#tblSeleccionarFracciones").find("tr").removeClass("success");
+                        $("#tblSeleccionarFracciones").find("tr").removeClass("warning");
+                        var id = this.id;
+                        var index = $.inArray(id, selected);
+                        if (index === -1) {
+                            selected.push(id);
+                        } else {
+                            selected.splice(index, 1);
+                        }
+                        $(this).addClass('success');
+                        var dtm = tblSelected.row(this).data();
+                        temp = parseInt(dtm[0]);
+                        $.ajax({
+                            url: master_url + 'getFraccionByID',
+                            type: "POST",
+                            dataType: "JSON",
+                            data: {
+                                ID: temp
+                            }
+                        }).done(function (data, x, jq) {
+                            console.log(data);
+                            /**AQUI  VALIDA QUE EL CONCEPTO NO HAYA SIDO AGREGADO CON ANTERIORIDAD**/
+                            var has_id = true;
+                            if (pnlDetalle.find("#tblRegistrosDetalle tbody tr").length > 0) {
+                                $.each(pnlDetalle.find("#tblRegistrosDetalle tbody tr"), function () {
+                                    var row_status = $(this).find("td").eq(1).text();
+                                    if (parseInt(row_status) === parseInt(temp)) {
+                                        has_id = false;
+                                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTA FRACCIÓN YA HA SIDO AGREGADO', 'danger');
+                                        return false;
+                                    }
+                                });
+                            }
+                            if (has_id) {
+
+                                if (data[0] !== undefined && data.length > 0) {
+                                    var dtm = data[0];
+                                    var frm = new FormData();
+                                    frm.append('Fraccion', dtm.ID);
+                                    frm.append('FraccionXEstilo', IdMovimiento);
+                                    $.ajax({
+                                        url: master_url + 'onAgregarDetalle',
+                                        type: "POST",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        data: frm
+                                    }).done(function (data, x, jq) {
+                                        mdlNuevoRenglon.modal('hide');
+                                        HoldOn.close();
+                                        getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+                                    }).fail(function (x, y, z) {
+                                        console.log(x, y, z);
+                                    }).always(function () {
+                                        HoldOn.close();
+                                    });
+                                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AGREGADO LA FRACCIÓN', 'success');
+                                } else {
+                                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'LA FRACCIÓN NO SE AGREGO, INTENTE DE NUEVO', 'danger');
+                                }
+                                if (!mdlNuevoRenglon.find("#chkMultiple").is(":checked")) {
+                                    mdlNuevoRenglon.modal('hide');
+                                }
+                            }
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+                    });
+                } else {
+                    mdlSeleccionarEntregasEditar.modal('hide');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN TRABAJOS CONCLUIDAS O ENTREGADOS', 'danger');
+                    HoldOn.close();
+                }
+                // Apply the search
+                tblSelected.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN PREFACTURAS CONCLUIDAS O AUTORIZADAS', 'danger');
+            }).always(function () {
+                HoldOn.close();
+            });
+
+
+
+
+        });
         btnModificar.click(function () {
             $.validator.setDefaults({
                 ignore: []
@@ -315,6 +485,27 @@
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
             }
         });
+        btnEliminarRenglon.click(function () {
+            if (tempDetalle !== 0 && tempDetalle !== undefined && tempDetalle > 0) {
+                HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
+                $.ajax({
+                    url: master_url + 'onEliminarRenglonDetalle',
+                    type: "POST",
+                    data: {
+                        ID: tempDetalle
+                    }
+                }).done(function (data, x, jq) {
+                    mdlConfirmarEliminarRenglon.modal('hide');
+                    getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                    HoldOn.close();
+                });
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+            }
+        });
         btnRefrescar.click(function () {
             getRecords();
         });
@@ -355,25 +546,69 @@
             HoldOn.close();
         });
     }
-    
-    function onModificarPrecioFraccionXEstilo(value, IDX){
-       
-        
-        
+
+    function onModificarPrecioFraccionXEstilo(value, IDX) {
+        HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
+        $.ajax({
+            url: master_url + 'onModificarDetalle',
+            type: "POST",
+            data: {
+                ID: IDX,
+                Precio: value === '' || value === null ? 0 : value
+            }
+        }).done(function (data, x, jq) {
+            getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
     }
-    
-    function onModificarCantidadFraccionXEstilo(value, IDX){
-       
-        
+
+    function onModificarCantidadFraccionXEstilo(value, IDX) {
+        HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
+        $.ajax({
+            url: master_url + 'onModificarDetalle',
+            type: "POST",
+            data: {
+                ID: IDX,
+                Cantidad: value === '' || value === null ? 0 : value
+            }
+        }).done(function (data, x, jq) {
+            getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+
     }
-    
-    function onModificarOrdenFraccionXEstilo(value, IDX){
-       
-        
+
+    function onModificarOrdenFraccionXEstilo(value, IDX) {
+        HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
+        $.ajax({
+            url: master_url + 'onModificarDetalle',
+            type: "POST",
+            data: {
+                ID: IDX,
+                Orden: value === '' || value === null ? 0 : value
+            }
+        }).done(function (data, x, jq) {
+            getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
     }
-    
-    
+
+    function onEliminarRenglonDetalle(IDX) {
+        tempDetalle = IDX;
+        mdlConfirmarEliminarRenglon.modal('show');
+    }
+
     function getFraccionesXEstiloDetallebyFraccionesXEstilo(IDX) {
+        var total = 0;
         HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
         $.ajax({
             url: master_url + 'getFraccionesXEstiloDetallebyFraccionesXEstilo',
@@ -392,11 +627,23 @@
                 var tfoot = pnlDetalle.find('#tblRegistrosDetalle tfoot th');
                 thead.eq(0).addClass("d-none");
                 tfoot.eq(0).addClass("d-none");
+                thead.eq(1).addClass("d-none");
+                tfoot.eq(1).addClass("d-none");
+                thead.eq(6).addClass("d-none");
+                tfoot.eq(6).addClass("d-none");
                 $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
                     var td = $(v).find("td");
                     td.eq(0).addClass("d-none");
+                    td.eq(1).addClass("d-none");
+                    td.eq(6).addClass("d-none");
+                    total += parseFloat(td.eq(6).text());
+
                 });
-                var tblRegistrosDetalle = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
+                
+                pnlDetalle.find('#ImporteTotal').html('Total: $'+$.number(total, 2, '.', ', '));
+                           
+
+                var tblRegistrosDetalle = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsMiniTables);
                 pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
                     var dtm = tblSelected.row(this).data();
                     tempDetalle = parseInt(dtm[0]);
@@ -411,7 +658,7 @@
 
         });
     }
-    
+
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -449,6 +696,7 @@
                     $(this).addClass("success");
                     var dtm = tblSelected.row(this).data();
                     temp = parseInt(dtm[0]);
+                    IdMovimiento = parseInt(dtm[0]);
                 });
 
                 $('#tblFraccionesXEstilo tbody').on('dblclick', 'tr', function () {
@@ -482,7 +730,7 @@
                                 pnlEditar.find("#" + k).val(v);
                                 pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
                             });
-                            
+
                             getFraccionesXEstiloDetallebyFraccionesXEstilo(temp);
                             pnlTablero.addClass("d-none");
                             pnlDetalle.removeClass('d-none');
@@ -516,7 +764,7 @@
             HoldOn.close();
         });
     }
-    
+
     function validate(event, val) {
         if (((event.which !== 46 || (event.which === 46 && val === '')) || val.indexOf('.') !== -1) && (event.which < 48 || event.which > 57)) {
             event.preventDefault();

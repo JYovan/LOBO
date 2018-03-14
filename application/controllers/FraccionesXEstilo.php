@@ -41,6 +41,15 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function getFraccionByID() {
+        try {
+            extract($this->input->post());
+            print json_encode($this->fracciones_model->getFraccionByID($ID));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function getEstilos() {
         try {
@@ -82,6 +91,22 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function onAgregarDetalle() {
+        try {
+            $data = array(
+                'FraccionXEstilo' => ($this->input->post('FraccionXEstilo') !== NULL) ? $this->input->post('FraccionXEstilo') : NULL,
+                'Fraccion' => ($this->input->post('Fraccion') !== NULL) ? $this->input->post('Fraccion') : NULL,
+                'Precio' => NULL,
+                'Vale' => NULL,
+                'Orden' => NULL,
+                'Cantidad' => NULL
+            );
+            $this->fraccionesxestilo_model->onAgregarDetalle($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function onModificar() {
         try {
@@ -95,11 +120,31 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function onModificarDetalle() {
+        try {
+            
+            extract($this->input->post());
+            unset($_POST['ID']);
+            $this->fraccionesxestilo_model->onModificarDetalle($ID, $this->input->post());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }    
 
     public function onEliminar() {
         try {
             extract($this->input->post());
             $this->fraccionesxestilo_model->onEliminar($ID);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    public function onEliminarRenglonDetalle() {
+        try {
+            extract($this->input->post());
+            $this->fraccionesxestilo_model->onEliminarRenglonDetalle($ID);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
