@@ -19,7 +19,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo') ?>">Fracciones por Estilo</a></li>
-                    <li><a class="dropdown-item" href="#">Piezas y Materiales</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales') ?>">Piezas y Materiales</a></li>
                     <div class="dropdown-divider" ></div>
 
                     <li class="nav-item dropdown dropdown-submenu">
