@@ -57,7 +57,7 @@
 
                     <div class="col-sm">
                         <label for="Clave">Clave*</label>  
-                        <input type="text" class="form-control" id="Clave" name="Clave" required >
+                        <input type="text" maxlength="15" class="form-control" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>  
@@ -117,7 +117,7 @@
 
                         <div class="col-sm">
                             <label for="Clave">Clave*</label>  
-                            <input type="text" class="form-control" id="Clave" name="Clave" required >
+                            <input type="text" maxlength="15" class="form-control" id="Clave" name="Clave" required >
                         </div>
                         <div class="col-sm">
                             <label for="Descripcion">Descripción*</label>  
