@@ -1,7 +1,7 @@
 
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Materiales Por Combinación</legend>
+        <legend class="float-left">Gestión de Piezas Y Materiales</legend>
         <div align="right">
             <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
             <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
@@ -43,7 +43,7 @@
             <form id="frmNuevo"> 
                 <div class="row">
                     <div class="col-md-4 float-left">
-                        <legend class="float-left">Nuevo Material Por Combinación</legend>
+                        <legend class="float-left">Nuevo Piezas Y Materiales</legend>
                     </div>
                     <div  class="col-md-5 text-center"> 
                     </div>
@@ -124,7 +124,7 @@
             <form id="frmEditar"> 
                 <div class="row">
                     <div class="col-md-4 float-left">
-                        <legend class="float-left">Editar Material Por Combinación</legend>
+                        <legend class="float-left">Editar Piezas Y Materiales</legend>
                     </div>
                     <div class="col-md-5 float-right">
 
