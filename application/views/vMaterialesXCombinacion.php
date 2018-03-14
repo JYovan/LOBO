@@ -341,82 +341,87 @@
         });
 
         btnGuardar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmNuevo').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Estilo: 'required',
-                    Combinacion: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
+            if (pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr td.dataTables_empty').length<=0) {
+                $.validator.setDefaults({
+                    ignore: []
+                });
+                $('#frmNuevo').validate({
+                    errorClass: 'myErrorClass',
+                    errorPlacement: function (error, element) {
+                        var elem = $(element);
+                        error.insertAfter(element);
+                    },
+                    rules: {
+                        Estilo: 'required',
+                        Combinacion: 'required'
+                    },
+                    // The select element, which would otherwise get the class, is hidden from
+                    // view.
+                    highlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
+                        } else {
+                            elem.addClass(errorClass);
+                        }
+                    },
 
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
+                    //When removing make the same adjustments as when adding
+                    unhighlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
+                        } else {
+                            elem.removeClass(errorClass);
+                        }
                     }
+                });
+                //Regresa si es valido para los select2
+                $('select').on('change', function () {
+                    $(this).valid();
+                });
+                //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
+                //Si es verdadero que hacer
+                if (pnlNuevo.find('#frmNuevo').valid()) {
+                    var f = new FormData();
+                    f.append('Estilo', pnlNuevo.find("#Estilo").val());
+                    f.append('Combinacion', pnlNuevo.find("#Combinacion").val());
+                    f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
+                    var detalle = [];
+                    pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr').each(function (k, v) {
+                        var row = $(this).find("td");
+                        var material = {
+                            Material: row.eq(0).text().replace(/\s+/g, ''),
+                            Precio: row.eq(3).text().replace(/\s+/g, ''),
+                            Consumo: row.eq(4).text().replace(/\s+/g, ''),
+                            Tipo: (row.eq(5).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
+                        };
+                        detalle.push(material);
+                    });
+                    f.append('Materiales', JSON.stringify(detalle));
+                    $.ajax({
+                        url: master_url + 'onAgregar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: f
+                    }).done(function (data, x, jq) {
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO MATERIAL POR COMBINACIÓN', 'success');
+                        getRecords();
+                        pnlTablero.removeClass("d-none");
+                        pnlNuevo.addClass('d-none');
+                        console.log(data, x, jq);
+                        onEffect(1);
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
                 }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-            //Si es verdadero que hacer
-            if (pnlNuevo.find('#frmNuevo').valid()) {
-                var f = new FormData();
-                f.append('Estilo', pnlNuevo.find("#Estilo").val());
-                f.append('Combinacion', pnlNuevo.find("#Combinacion").val());
-                f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
-                var detalle = [];
-                pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr').each(function (k, v) {
-                    var row = $(this).find("td");
-                    var material = {
-                        Material: row.eq(0).text().replace(/\s+/g, ''),
-                        Precio: row.eq(3).text().replace(/\s+/g, ''),
-                        Consumo: row.eq(4).text().replace(/\s+/g, ''),
-                        Tipo: (row.eq(5).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
-                    };
-                    detalle.push(material);
-                });
-                f.append('Materiales', JSON.stringify(detalle));
-                $.ajax({
-                    url: master_url + 'onAgregar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: f
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO MATERIAL POR COMBINACIÓN', 'success');
-                    getRecords();
-                    pnlTablero.removeClass("d-none");
-                    pnlNuevo.addClass('d-none');
-                    console.log(data, x, jq);
-                    onEffect(1);
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE AGREGAR MATERIALES A CONSUMIR', 'danger');
+                onEffect(2);
             }
         });
         btnRefrescar.click(function () {
@@ -432,7 +437,7 @@
             pnlNuevo.find("select").val("").trigger('change');
             $('#Estilo').select2('open').select2('close');
             $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-               tblMaterialesRequeridos.row($(this)).remove().draw();
+                tblMaterialesRequeridos.row($(this)).remove().draw();
             });
             getMaterialesRequeridos();
         });
