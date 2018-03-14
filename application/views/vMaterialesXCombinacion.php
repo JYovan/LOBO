@@ -74,17 +74,10 @@
                                 <div id="SuperTotal" class="col-12 text-center">
                                     <h1 class="text-success"><strong>$ 0.0</strong></h1>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label for="Consumo">Consumo*</label>
                                     <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
                                 </div>
-                                <div class="col-6">
-                                    <label for="Tipo">Tipo*</label>
-                                    <select class="form-control form-control-lg" id="Tipo"  name="Tipo">  
-                                        <option value="DIR">DIR</option>
-                                        <option value="IND">IND</option>
-                                    </select>
-                                </div> 
                                 <div class="w-100"></div> 
                                 <br>
                                 <div id="Materiales" class="col-5 fixed">
@@ -167,17 +160,11 @@
                                 <div id="SuperTotalE" class="col-12 text-center">
                                     <h1 class="text-success"><strong>$ 0.0</strong></h1>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label for="Consumo">Consumo*</label>
                                     <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
                                 </div>
-                                <div class="col-6">
-                                    <label for="Tipo">Tipo*</label>
-                                    <select class="form-control form-control-lg" id="TipoE"  name="TipoE">  
-                                        <option value="DIR">DIR</option>
-                                        <option value="IND">IND</option>
-                                    </select>
-                                </div> 
+
                                 <div class="w-100"></div> 
                                 <br>
                                 <div id="MaterialesE" class="col-5">
@@ -195,7 +182,7 @@
                                     <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="d-none" scope="col">ID</th>
+                                                <th scope="col">ID</th>
                                                 <th scope="col">Material</th>
                                                 <th scope="col">U.M</th>
                                                 <th scope="col">Precio</th>
@@ -444,6 +431,9 @@
             pnlNuevo.find("input").val("");
             pnlNuevo.find("select").val("").trigger('change');
             $('#Estilo').select2('open').select2('close');
+            $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
+               tblMaterialesRequeridos.row($(this)).remove().draw();
+            });
             getMaterialesRequeridos();
         });
         btnCancelar.click(function () {
@@ -515,11 +505,10 @@
 
         pnlNuevo.find("#btnAgregarMaterial").on('click', function () {
             var Consumo = pnlNuevo.find("#Consumo").val();
-            var Tipo = pnlNuevo.find("#Tipo option:selected").text().replace(/\s+/g, '');
             var sub_row = pnlNuevo.find("#tblMateriales tbody tr.selected_row td");
             var id_selected = sub_row.eq(0).text().replace(/\s+/g, '');
             if (id_selected !== '') {
-                if (parseFloat(Consumo) > 0 && Tipo !== '' && id_selected !== '') {
+                if (parseFloat(Consumo) > 0 && id_selected !== '') {
                     console.log(pnlNuevo.find("#tblMateriales tbody tr.selected_row td"));
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
@@ -542,19 +531,20 @@
                             sub_row.eq(3).text(),
                             '<strong><span class="text-primary">' + Precio + '</span></strong>',
                             '<strong><span class="text-danger">' + Consumo + '</span></strong>',
-                            '<strong><span class="text-info">' + Tipo + '</span></strong>',
+                            '<strong><span class="text-info">' + sub_row.eq(5).text() + '</span></strong>',
                             '<strong><span class="text-success">' + (Consumo * Precio) + '</span></strong>'
                         ]).draw(false);
+
                         onEffect(1);/*OK*/
                         /*REINICIAR VALORES EN ZERO*/
                         pnlNuevo.find("#Consumo").val('');
-                        pnlNuevo.find("#Tipo").val("").trigger('change');
                         pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("selected_row");
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
                         /*CALCULAR SUPER TOTAL*/
                         super_total = 0.0;
                         $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
                             var sub = parseFloat($(this).find("td").eq(6).text());
+                            $(this).find("td").eq(0).addClass("d-none");
                             super_total += sub;
                         });
                         pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
@@ -566,7 +556,7 @@
                     }
                 } else {
                     onEffect(2);/*ERROR*/
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO Y UN TIPO', 'danger');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO', 'danger');
                 }
             } else {
                 onEffect(2);/*ERROR*/
@@ -576,11 +566,10 @@
 
         pnlEditar.find("#btnAgregarMaterialE").on('click', function () {
             var Consumo = pnlEditar.find("#ConsumoE").val();
-            var Tipo = pnlEditar.find("#TipoE option:selected").text().replace(/\s+/g, '');
             var sub_row = pnlEditar.find("#tblMaterialesE tbody tr.selected_row td");
             var id_selected = sub_row.eq(0).text().replace(/\s+/g, '');
             if (id_selected !== '') {
-                if (parseFloat(Consumo) > 0 && Tipo !== '' && id_selected !== '') {
+                if (parseFloat(Consumo) > 0 && id_selected !== '') {
                     console.log(pnlEditar.find("#tblMaterialesE tbody tr.selected_row td"));
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
@@ -603,19 +592,19 @@
                             sub_row.eq(3).text(),
                             '<strong><span class="text-primary">' + Precio + '</span></strong>',
                             '<strong><span class="text-danger">' + Consumo + '</span></strong>',
-                            '<strong><span class="text-info">' + Tipo + '</span></strong>',
+                            '<strong><span class="text-info">' + sub_row.eq(5).text() + '</span></strong>',
                             '<strong><span class="text-success">' + (Consumo * Precio) + '</span></strong>'
                         ]).draw(false);
                         onEffect(1);/*OK*/
                         /*REINICIAR VALORES EN ZERO*/
                         pnlEditar.find("#ConsumoE").val('');
-                        pnlEditar.find("#TipoE").val("").trigger('change');
                         pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("selected_row");
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
                         /*CALCULAR SUPER TOTAL*/
                         super_total = 0.0;
                         $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
                             var sub = parseFloat($(this).find("td").eq(6).text());
+                            $(this).find("td").eq(0).addClass("d-none");
                             super_total += sub;
                         });
                         pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
@@ -627,7 +616,7 @@
                     }
                 } else {
                     onEffect(2);/*ERROR*/
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO Y UN TIPO', 'danger');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO', 'danger');
                 }
             } else {
                 onEffect(2);/*ERROR*/
@@ -793,7 +782,7 @@
 
                     temp = parseInt(dtm[0]);
                 });
-                
+
 
                 $('#tblMateriales_filter input[type=search]').focus();
 

@@ -226,8 +226,7 @@
                         Cantidad: row.eq(3).text().replace(/\s+/g, '')
                     };
                     tallas.push(material);
-                });
-                console.log(tallas)
+                }); 
                 f.append('Tallas', JSON.stringify(tallas));
                 $.ajax({
                     url: master_url + 'onModificar',

@@ -38,7 +38,7 @@ class materialesxcombinacion_model extends CI_Model {
 
     public function getMaterialesRequeridos() {
         try {
-            $this->db->select('M.[ID] ,M.[Material] AS Material,M.Descripcion AS "Descripción",  C.SValue AS "U.M", M.[PrecioLista] AS Precio', false);
+            $this->db->select('M.[ID] ,M.[Material] AS Material,M.Descripcion AS "Descripción",  C.SValue AS "U.M", M.[PrecioLista] AS Precio, M.Tipo AS Tipo', false);
             $this->db->from('Materiales AS M ');
             $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
             $this->db->like('C.FieldId', 'UNIDADES');
@@ -175,20 +175,8 @@ class materialesxcombinacion_model extends CI_Model {
                 C.SValue AS "U.M", 
                 CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS Precio, 
                  CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS Consumo,
-	   CONCAT(\'<strong><span class="text-info">\',(CASE 
-	  WHEN MXCD.Tipo = 1 THEN
-		\'DIR\'
-		ELSE \'IND\' 
-	  END),\'</span></strong>\') AS Tipo,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS Importe', false);
-//            $this->db->select('CONCAT(\'<button type="button" class="btn btn-dark" id="btnEliminarMaterialE" onclick="onEliminarMaterial(this)">\',\'<span class="fa fa-minus"></span></button>\') AS ELIMINAR, MXCD.Material ID, M.Material AS Material, 
-//                C.SValue AS "U.M", 
-//                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS Precio, 
-//                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS Consumo,
-//	   CONCAT(\'<strong><span class="text-info">\',(CASE 
-//	  WHEN MXCD.Tipo = 1 THEN
-//		\'DIR\'
-//		ELSE \'IND\' 
-//	  END),\'</span></strong>\') AS TIPO,  CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS IMPORTE', false);
+	   CONCAT(\'<strong><span class="text-info">\',M.Tipo,\'</span></strong>\') AS Tipo,  
+           CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS Importe', false);
             $this->db->from('MaterialesXCombinacionDetalle AS MXCD ');
             $this->db->join('Materiales AS M', 'MXCD.Material = M.ID');
             $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
