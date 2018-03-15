@@ -1,115 +1,73 @@
-<div class="row"><!--START ROW-->
-                    <div class="col-md has-success">
-                        <label for="Clave">CLAVE*</label>
-                        <input type="text" class="form-control" placeholder="001..." id="ClaveE" name="ClaveE">
-                    </div>
-                    <div class="col-md">
-                        <label for="Descripcion">DESCRIPCIÓN*</label>
-                        <textarea id="DescripcionE" name="DescripcionE" rows="4" cols="20" class="form-control form-control-lg">
-                        </textarea> 
-                    </div>
-                    <div class="col-md">
-                        <label for="Ano">AÑO*</label>
-                        <input type="text" class="form-control" placeholder="001..." id="AnoE" name="AnoE">
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Linea">LINEA*</label>
-                        <select class="form-control form-control-lg" id="LineaE"  name="LineaE">  
-                        </select>
-                    </div>  
-                    <div class="col-md">
-                        <label for="Serie">SERIE*</label>
-                        <select class="form-control form-control-lg" id="SerieE"  name="SerieE">  
-                        </select>
-                    </div>  
-                    <div class="col-md">
-                        <label for="Horma">HORMA*</label>
-                        <select class="form-control form-control-lg" id="HormaE"  name="HormaE">  
-                        </select>
-                    </div>
+<div class="row">
+                    <div class="col w-100">
+                        <br>
+                        <div class="card border-ligh">
+                            <div class="card-header text-center">
+                                <strong>DATOS</strong>
+                            </div>
+                            <div class="card-body row">
 
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Familia">FAMILIA*</label>
-                        <select class="form-control form-control-lg" id="FamiliaE"  name="FamiliaE">  
-                        </select>
-                    </div>  
-                    <div class="col-md">
-                        <label for="Desperdicio">DESPERDICIO*</label>
-                        <input type="text" class="form-control" placeholder="0.0001" id="DesperdicioE" name="DesperdicioE">
-                    </div>
-                    <div class="col-md">
-                        <label for="Desperdicio">PUNTO CENTRAL*</label>
-                        <input type="text" class="form-control" placeholder="0.0001" id="PuntoCentralE" name="PuntoCentralE">
-                    </div>
-
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Genero">GENERO*</label>
-                        <select class="form-control form-control-lg" id="GeneroE"  name="GeneroE"> 
-                            <option value="MASCULINO">MASCULINO</option>   
-                            <option value="FEMENINO">FEMENINO</option>   
-                        </select>
-                    </div>  
-                    <div class="col-md">
-                        <label for="Herramental">HERRAMIENTA*</label>
-                        <input type="text" class="form-control" placeholder="" id="HerramentalE" name="HerramentalE">
-                    </div>
-                    <div class="col-md">
-                        <label for="Herramental">TIPO DE CONSTRUCCIÓN*</label>
-                        <input type="text" class="form-control" placeholder="" id="TipoDeConstruccionE" name="TipoDeConstruccionE">
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Maquila">MAQUILA*</label>
-                        <select class="form-control form-control-lg" id="MaquilaE"  name="MaquilaE">  
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Temporada">TEMPORADA*</label>
-                        <select class="form-control form-control-lg" id="TemporadaE"  name="TemporadaE">  
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Tipo">TIPO DE ESTILO*</label>
-                        <select class="form-control form-control-lg" id="TipoE"  name="TipoE">  
-                        </select>
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Notas">NOTAS*</label>
-                        <input type="text" class="form-control" placeholder="" id="NotasE" name="NotasE">
-                    </div>
-                    <div class="col-md">
-                        <label for="Estatus">MAQUILA O PLANTILLA*</label>
-                        <select class="form-control form-control-lg" id="MaquilaPlantillaE"  name="MaquilaPlantillaE"> 
-                            <option value="MAQUILA">MAQUILA</option>  
-                            <option value="PLANTILLA">PLANTILLA</option>
-                            <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-lg" id="EstatusE"  name="EstatusE"> 
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <BR>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="LiberadoE" name="LiberadoE" checked="">
-                            <label class="custom-control-label" for="Liberado">LIBERADO</label>
+                                <div class="col-sm">
+                                    <label for="EstiloE">Estilo*</label>
+                                    <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="CombinacionE">Combinación*</label>
+                                    <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div> 
-
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-sm text-center">
-                        <img class="align-self-center mr-3" src="<?php print base_url('img/camera.png'); ?>" alt="ESTILO" onclick="">
-                        <h1>SELECCIONE UNA IMAGEN</h1>
-                    </div> 
-                    <div class="col d-none">
-                        <input type="file" id="FotoE" name="FotoE" class="d-none"> 
                     </div>
+                    <div class="w-100"></div>
+                    <br>
+                    <div class="col w-100">
+                        <div class="card border-ligh">
+                            <div class="card-header text-center">
+                                <strong>DETALLE</strong>
+                            </div>
+                            <div class="card-body row"> 
+                                <div id="SuperTotalE" class="col-12 text-center">
+                                    <h1 class="text-success"><strong>$ 0.0</strong></h1>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="MaterialE">Material*</label>
+                                    <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="PiezaE">Pieza*</label>
+                                    <select class="form-control form-control-lg" id="PiezaE"  name="PiezaE">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="ConsumoE">Consumo*</label>
+                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
+                                </div>
+                                <div class="w-100"></div> 
+                                <br>
+                                <div id="MaterialesRequeridosE" class="col-12 w-100">
+                                    <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="d-none" scope="col">ID</th>
+                                                <th scope="col">Estilo</th>
+                                                <th scope="col">Combinación</th>
+                                                <th scope="col">Material</th>
+                                                <th scope="col">Pieza</th>
+                                                <th scope="col">U.M</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Consumo</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Importe</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!--FIN CARD-->
+                    </div> 
                 </div><!--FIN ROW-->

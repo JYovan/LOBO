@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+<<<<<<< HEAD
+        <group/>
+=======
+        <group>
+            <file>file:/C:/wamp64/www/LOBO/application/models/fraccionesxestilo_model.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/views/vFraccionesXEstilo.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/controllers/FraccionesXEstilo.php</file>
+        </group>
+>>>>>>> d691077469974f6b4d0db32726fe8e4f03e52609
+>>>>>>> 5dbc72902cbf9e3bf4bf8d5ba5dc3015b7e8a0b0
     </open-files>
 </project-private>

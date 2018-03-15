@@ -13,16 +13,16 @@ class piezasymateriales_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("MXC.ID
+            $this->db->select("PYM.ID
       ,E.Descripcion AS Estilo
-      ,E.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(MXCD.Consumo * MXCD.Precio) AS money), 1),'</span>')AS Total
-      ,MXC.Registro AS Registro ", false);
-            $this->db->from('MaterialesXCombinacion AS MXC ');
-            $this->db->join('Estilos AS E', 'MXC.Estilo = E.ID');
-            $this->db->join('Combinaciones AS C', 'MXC.Combinacion = C.ID');
-            $this->db->join('MaterialesXCombinacionDetalle AS MXCD', 'MXCD.MaterialXCombinacion = MXC.ID');
-            $this->db->group_by('MXC.ID,E.Descripcion,E.Descripcion,MXC.Registro');
-            $this->db->where_in('MXC.Estatus', array('ACTIVO'));
+      ,E.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(PYMD.Consumo * PYMD.Precio) AS money), 1),'</span>')AS Total
+      ,PYM.Registro AS Registro ", false);
+            $this->db->from('PiezasYMateriales AS PYM ');
+            $this->db->join('Estilos AS E', 'PYM.Estilo = E.ID');
+            $this->db->join('Combinaciones AS C', 'PYM.Combinacion = C.ID');
+            $this->db->join('PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales = PYM.ID');
+            $this->db->group_by('PYM.ID,E.Descripcion,E.Descripcion,PYM.Registro');
+            $this->db->where_in('PYM.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -38,12 +38,49 @@ class piezasymateriales_model extends CI_Model {
 
     public function getMaterialesRequeridos() {
         try {
-            $this->db->select('M.[ID] ,M.[Material] AS Material,M.Descripcion AS "Descripción",  C.SValue AS "U.M", M.[PrecioLista] AS Precio, M.Tipo AS Tipo', false);
-            $this->db->from('Materiales AS M ');
-            $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
-            $this->db->like('C.FieldId', 'UNIDADES');
-            $this->db->like('C.Estatus', 'ACTIVO');
+            $this->db->select('M.[ID] AS ID,M.[Material] AS Material', false);
+            $this->db->from('Materiales AS M');
             $this->db->where_in('M.Estatus', array('ACTIVO'));
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//            print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getUnidadPrecioTipoXMaterialID($ID) {
+        try {
+            $this->db->select('C.SValue AS UNIDAD, M.PrecioLista AS PRECIO, M.Tipo AS TIPO', false);
+            $this->db->from('Materiales AS M');
+            $this->db->join('Catalogos AS C', 'C.ID = M.UnidadConsumo');
+            $this->db->where('M.ID', $ID);
+            $this->db->where_in('M.Estatus', array('ACTIVO'));
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//            print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getPiezas() {
+        try {
+            $this->db->select('C.ID AS ID, C.SValue Pieza', false);
+            $this->db->from('Catalogos AS C');
+            $this->db->like('C.FieldId', 'PIEZAS');
+            $this->db->like('C.Estatus', 'ACTIVO');
+            $this->db->where_in('C.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -59,7 +96,7 @@ class piezasymateriales_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("MaterialesXCombinacion", $array);
+            $this->db->insert("PiezasYMateriales", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -71,7 +108,7 @@ class piezasymateriales_model extends CI_Model {
 
     public function onAgregarDetalle($array) {
         try {
-            $this->db->insert("MaterialesXCombinacionDetalle", $array);
+            $this->db->insert("PiezasYMaterialesDetalle", $array);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -80,7 +117,7 @@ class piezasymateriales_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("MaterialesXCombinacion", $DATA);
+            $this->db->update("PiezasYMateriales", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -90,8 +127,8 @@ class piezasymateriales_model extends CI_Model {
     public function onModificarDetalle($ID, $DATA, $M) {
         try {
             $this->db->where('Material', $ID);
-            $this->db->where('MaterialXCombinacion', $M);
-            $this->db->update("MaterialesXCombinacionDetalle", $DATA);
+            $this->db->where('PiezasYMateriales', $M);
+            $this->db->update("PiezasYMaterialesDetalle", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -101,9 +138,9 @@ class piezasymateriales_model extends CI_Model {
     public function getExisteMaterial($Material, $MaterialCombinacion) {
         try {
             $this->db->select('COUNT(*) AS EXISTE', false);
-            $this->db->from('MaterialesXCombinacionDetalle AS MXC ');
-            $this->db->where('MXC.Material', $Material);
-            $this->db->where('MXC.MaterialXCombinacion', $MaterialCombinacion);
+            $this->db->from('PiezasYMaterialesDetalle AS PYM ');
+            $this->db->where('PYM.Material', $Material);
+            $this->db->where('PYM.PiezasYMateriales', $MaterialCombinacion);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -119,20 +156,23 @@ class piezasymateriales_model extends CI_Model {
 
     public function onEliminar($ID) {
         try {
-            $this->db->set('Estatus', 'INACTIVO');
+            /* ELIMINACION DEFINITIVA */
             $this->db->where('ID', $ID);
-            $this->db->update("MaterialesXCombinacion");
+            $this->db->delete('PiezasYMateriales');
+
+            $this->db->where('PiezasYMateriales', $ID);
+            $this->db->delete('PiezasYMaterialesDetalle');
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function onEliminarDetalleInactivo($ID,$M) {
-        try { 
-            $this->db->where('Estatus', 'INACTIVO'); 
-            $this->db->where('MaterialXCombinacion', $ID);
-            $this->db->delete('MaterialesXCombinacionDetalle');
+    public function onEliminarDetalleInactivo($ID, $M) {
+        try {
+            $this->db->where('Estatus', 'INACTIVO');
+            $this->db->where('PiezasYMateriales', $ID);
+            $this->db->delete('PiezasYMaterialesDetalle');
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -142,18 +182,18 @@ class piezasymateriales_model extends CI_Model {
     public function onEliminarDetalle($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('MaterialXCombinacion', $ID);
-            $this->db->update("MaterialesXCombinacionDetalle");
+            $this->db->where('PiezasYMateriales', $ID);
+            $this->db->update("PiezasYMaterialesDetalle");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getMaterialesXCombinacionByID($ID) {
+    public function getPiezasYMaterialesByID($ID) {
         try {
             $this->db->select('M.ID AS ID, M.Estilo AS Estilo, M.Combinacion AS Combinacion', false);
-            $this->db->from('MaterialesXCombinacion AS M');
+            $this->db->from('PiezasYMateriales AS M');
             $this->db->where('M.ID', $ID);
             $this->db->where_in('M.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -169,21 +209,24 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
-    public function getMaterialesXCombinacionDetalleByID($ID) {
+    public function getPiezasYMaterialesDetalleByID($ID) {
         try {
-            $this->db->select('MXCD.Material ID, M.Material AS Material, 
-                C.SValue AS "U.M", 
-                CONCAT(\'<strong><span class="text-primary">\',M.PrecioLista,\'</span></strong>\') AS Precio, 
-                 CONCAT(\'<strong><span class="text-danger">\',MXCD.[Consumo],\'</span></strong>\') AS Consumo,
+            $this->db->select('PYMD.Material ID, M.Material AS Material,P.ID AS PIEZA_ID,  P.SValue AS Pieza,
+                CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M", 
+                CONCAT(\'<strong><span class="text-primary">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio, 
+                 CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
 	   CONCAT(\'<strong><span class="text-info">\',M.Tipo,\'</span></strong>\') AS Tipo,  
-           CONCAT(\'<strong><span class="text-success">\',(M.PrecioLista * MXCD.Consumo),\'</span></strong>\')  AS Importe', false);
-            $this->db->from('MaterialesXCombinacionDetalle AS MXCD ');
-            $this->db->join('Materiales AS M', 'MXCD.Material = M.ID');
+           CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false);
+            $this->db->from('PiezasYMaterialesDetalle AS PYMD ');
+            $this->db->join('Materiales AS M', 'PYMD.Material = M.ID');
             $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
+            $this->db->join('Catalogos AS P', 'PYMD.Pieza = P.ID');
             $this->db->like('C.FieldId', 'UNIDADES');
             $this->db->like('C.Estatus', 'ACTIVO');
-            $this->db->where('MXCD.MaterialXCombinacion', $ID);
-            $this->db->where_in('MXCD.Estatus', 'ACTIVO');
+            $this->db->like('P.FieldId', 'PIEZAS');
+            $this->db->like('P.Estatus', 'ACTIVO');
+            $this->db->where('PYMD.PiezasYMateriales', $ID);
+            $this->db->where_in('PYMD.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
