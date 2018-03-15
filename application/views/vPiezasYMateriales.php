@@ -375,9 +375,9 @@
                     data: f
                 }).done(function (data, x, jq) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'LOS CAMBIOS SE HAN GUARDADO', 'success');
-//                    getRecords();
-//                    pnlTablero.removeClass("d-none");
-//                    pnlEditar.addClass('d-none');
+                    getRecords();
+                    pnlTablero.removeClass("d-none");
+                    pnlEditar.addClass('d-none');
                     onEffect(1);
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
