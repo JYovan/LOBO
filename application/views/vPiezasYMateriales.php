@@ -290,10 +290,8 @@
                 }).done(function (data, x, jq) {
 
                     mdlConfirmar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'MATERIAL POR COMBINACIÓN ELIMINADO', 'danger');
-                    pnlEditar.addClass("d-none");
-                    pnlTablero.removeClass("d-none");
-                    btnRefrescar.trigger('click');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'MATERIAL POR COMBINACIÓN ELIMINADO', 'danger'); 
+                    location.reload();
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -593,7 +591,7 @@
                             console.log('**** DTM ****');
                             console.log(dtm);
                             console.log('**** FIN DTM ****');
-                            if (data !== null && data.length > 0) { 
+                            if (data !== null && data.length > 0) {
                                 tblMaterialesRequeridos.row.add([
                                     pnlNuevo.find("#Material").val(), /*1*/
                                     pnlNuevo.find("#Material option:selected").text(), /*2*/
@@ -661,13 +659,13 @@
                         }
                     });
                     /*AGREGAR SI NO ESTA AGREGADO*/
-                    if (!agregado) { 
+                    if (!agregado) {
                         $.getJSON(master_url + 'getUnidadPrecioTipoXMaterialID', {ID: pnlEditar.find("#MaterialE").val()}).done(function (data, x, jq) {
                             var dtm = data[0];
                             console.log('**** DTM ****');
                             console.log(dtm);
                             console.log('**** FIN DTM ****');
-                            if (data !== null && data.length > 0) { 
+                            if (data !== null && data.length > 0) {
                                 tblMaterialesRequeridosE.row.add([
                                     pnlEditar.find("#MaterialE").val(), /*1*/
                                     pnlEditar.find("#MaterialE option:selected").text(), /*2*/
