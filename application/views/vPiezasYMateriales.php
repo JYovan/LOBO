@@ -53,20 +53,31 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm">
-                        <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="Combinacion">Combinación*</label>
-                        <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
-                        </select>
+                    <div class="col w-100">
+                        <br>
+                        <div class="card border-dark">
+                            <div class="card-header text-center">
+                                <strong>DATOS</strong>
+                            </div>
+                            <div class="card-body row">
+
+                                <div class="col-sm">
+                                    <label for="Estilo">Estilo*</label>
+                                    <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="Combinacion">Combinación*</label>
+                                    <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="w-100"></div>
                     <br>
                     <div class="col w-100">
-                        <div class="card border-success">
+                        <div class="card border-dark">
                             <div class="card-header text-center">
                                 <strong>DETALLE</strong>
                             </div>
@@ -74,34 +85,43 @@
                                 <div id="SuperTotal" class="col-12 text-center">
                                     <h1 class="text-success"><strong>$ 0.0</strong></h1>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-sm">
+                                    <br> 
+                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterial"><span class="fa fa-trash "></span></button>
+                                </div> 
+                                <div class="col-sm">
+                                    <label for="Material">Material*</label>
+                                    <select class="form-control form-control-lg" id="Material"  name="Material">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="Pieza">Pieza*</label>
+                                    <select class="form-control form-control-lg" id="Pieza"  name="Pieza">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
                                     <label for="Consumo">Consumo*</label>
                                     <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
                                 </div>
+                                <div class="col-sm" >
+                                    <br>
+                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterial"><span class="fa fa-check "></span></button> 
+                                </div> 
                                 <div class="w-100"></div> 
                                 <br>
-                                <div id="Materiales" class="col-5 fixed">
-                                </div>
-                                <div class="col-1"><br>
-                                    <button type="button" class="btn btn-dark" id="btnAgregarMaterial"><span class="fa fa-arrow-right"></span></button>
-                                    <div class="w-100"></div>
-                                    <br>
-                                    <button type="button" class="btn btn-dark" id="btnRefrescarMateriales" onclick="getMaterialesRequeridos()"><span class="fa fa-refresh"></span></button>
-                                    <div class="w-100"></div>
-                                    <br>
-                                    <button type="button" class="btn btn-dark" id="btnEliminarMaterial"><span class="fa fa-minus"></span></button>
-                                </div> 
-                                <div id="MaterialesRequeridos" class="col-6">
-                                    <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table table-hover">
+                                <div id="MaterialesRequeridos" class="table-responsive">
+                                    <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table dt-responsive">
                                         <thead>
                                             <tr>
-                                                <th class="d-none" scope="col">ID</th>
+                                                <th class="d-none" scope="col">ID</th> 
                                                 <th scope="col">Material</th>
+                                                <th class="d-none" scope="col">Pieza ID</th>
+                                                <th scope="col">Pieza</th>
                                                 <th scope="col">U.M</th>
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Consumo</th>
                                                 <th scope="col">Tipo</th>
-                                                <th scope="col">Importe</th>
+                                                <th scope="col">Importe</th> 
                                             </tr>
                                         </thead>
                                         <tbody> 
@@ -110,7 +130,7 @@
                                 </div>
                             </div>
                         </div><!--FIN CARD-->
-                    </div> 
+                    </div>
                 </div><!--FIN ROW-->
             </form>
         </div> 
@@ -139,20 +159,31 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm">
-                        <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="Combinacion">Combinación*</label>
-                        <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
-                        </select>
+                    <div class="col w-100">
+                        <br>
+                        <div class="card border-dark">
+                            <div class="card-header text-center">
+                                <strong>DATOS</strong>
+                            </div>
+                            <div class="card-body row">
+
+                                <div class="col-sm">
+                                    <label for="EstiloE">Estilo*</label>
+                                    <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="CombinacionE">Combinación*</label>
+                                    <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="w-100"></div>
                     <br>
                     <div class="col w-100">
-                        <div class="card border-success">
+                        <div class="card border-warning">
                             <div class="card-header text-center">
                                 <strong>DETALLE</strong>
                             </div>
@@ -160,35 +191,43 @@
                                 <div id="SuperTotalE" class="col-12 text-center">
                                     <h1 class="text-success"><strong>$ 0.0</strong></h1>
                                 </div>
-                                <div class="col-12">
-                                    <label for="Consumo">Consumo*</label>
-                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
+                                <div class="col-sm">
+                                    <br> 
+                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterialE"><span class="fa fa-trash "></span></button>
+                                </div> 
+                                <div class="col-sm">
+                                    <label for="MaterialE">Material*</label>
+                                    <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
+                                    </select>
                                 </div>
+                                <div class="col-sm">
+                                    <label for="PiezaE">Pieza*</label>
+                                    <select class="form-control form-control-lg" id="PiezaE"  name="PiezaE">  
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="ConsumoE">Consumo*</label>
+                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
 
+                                </div>
+                                <div class="col-sm">
+                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterialE"><span class="fa fa-check "></span></button>
+                                </div> 
                                 <div class="w-100"></div> 
                                 <br>
-                                <div id="MaterialesE" class="col-5">
-                                </div>
-                                <div class="col-1"><br>
-                                    <button type="button" class="btn btn-dark" id="btnAgregarMaterialE"><span class="fa fa-arrow-right"></span></button>
-                                    <div class="w-100"></div>
-                                    <br>
-                                    <button type="button" class="btn btn-dark" id="btnRefrescarMaterialesE" onclick="getMaterialesRequeridosE()"><span class="fa fa-refresh"></span></button>
-                                    <div class="w-100"></div>
-                                    <br>
-                                    <button type="button" class="btn btn-dark" id="btnEliminarMaterialE"><span class="fa fa-minus"></span></button>
-                                </div> 
-                                <div id="MaterialesRequeridosE" class="col-6">
+                                <div id="MaterialesRequeridosE" class="col-12 w-100">
                                     <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th scope="col">ID</th>
+                                                <th class="d-none" scope="col">ID</th> 
                                                 <th scope="col">Material</th>
+                                                <th class="d-none" scope="col">Pieza ID</th>
+                                                <th scope="col">Pieza</th>
                                                 <th scope="col">U.M</th>
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Consumo</th>
                                                 <th scope="col">Tipo</th>
-                                                <th scope="col">Importe</th>
+                                                <th scope="col">Importe</th> 
                                             </tr>
                                         </thead>
                                         <tbody> 
@@ -207,7 +246,7 @@
 
 <!--SCRIPT-->
 <script>
-    var master_url = base_url + 'index.php/MaterialesXCombinacion/';
+    var master_url = base_url + 'index.php/PiezasYMateriales/';
     var pnlNuevo = $("#pnlNuevo");
     var pnlTablero = $("#pnlTablero");
     var btnNuevo = $("#btnNuevo");
@@ -220,6 +259,10 @@
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
+
+    var tblMaterialesRequeridos, tblMaterialesRequeridosE;
+    var super_total = 0.0;
+
     $(document).ready(function () {
         handleEnter();
         //Evento clic del boton confirmar borrar
@@ -231,6 +274,7 @@
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
             }
         });
+
         btnEliminar.click(function () {
             if (temp !== 0 && temp !== undefined && temp > 0) {
                 HoldOn.open({
@@ -259,6 +303,8 @@
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
             }
         });
+
+        /*MODIFICAR*/
         btnModificar.click(function () {
             $.validator.setDefaults({
                 ignore: []
@@ -312,9 +358,10 @@
                     var row = $(this).find("td");
                     var material = {
                         Material: row.eq(0).text().replace(/\s+/g, ''),
-                        Precio: row.eq(3).text().replace(/\s+/g, ''),
-                        Consumo: row.eq(4).text().replace(/\s+/g, ''),
-                        Tipo: (row.eq(5).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
+                        Pieza: row.eq(2).text().replace(/\s+/g, ''),
+                        Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                        Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                        Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
                     };
                     detalle.push(material);
                 });
@@ -327,10 +374,10 @@
                     processData: false,
                     data: f
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL MATERIAL POR COMBINACIÓN', 'success');
-                    getRecords();
-                    pnlTablero.removeClass("d-none");
-                    pnlEditar.addClass('d-none');
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'LOS CAMBIOS SE HAN GUARDADO', 'success');
+//                    getRecords();
+//                    pnlTablero.removeClass("d-none");
+//                    pnlEditar.addClass('d-none');
                     onEffect(1);
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -340,8 +387,9 @@
             }
         });
 
+        /*GUARDAR*/
         btnGuardar.click(function () {
-            if (pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr td.dataTables_empty').length<=0) {
+            if (pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr td.dataTables_empty').length <= 0) {
                 $.validator.setDefaults({
                     ignore: []
                 });
@@ -392,13 +440,18 @@
                         var row = $(this).find("td");
                         var material = {
                             Material: row.eq(0).text().replace(/\s+/g, ''),
-                            Precio: row.eq(3).text().replace(/\s+/g, ''),
-                            Consumo: row.eq(4).text().replace(/\s+/g, ''),
-                            Tipo: (row.eq(5).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
+                            Pieza: row.eq(2).text().replace(/\s+/g, ''),
+                            Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                            Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                            Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
                         };
                         detalle.push(material);
                     });
                     f.append('Materiales', JSON.stringify(detalle));
+                    console.log('* * * * DETALLE * * *');
+                    console.log(detalle);
+                    console.log('* * * * FIN DETALLE * * *');
+
                     $.ajax({
                         url: master_url + 'onAgregar',
                         type: "POST",
@@ -407,11 +460,10 @@
                         processData: false,
                         data: f
                     }).done(function (data, x, jq) {
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO MATERIAL POR COMBINACIÓN', 'success');
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AGREGADO UN REGISTRO', 'success');
                         getRecords();
                         pnlTablero.removeClass("d-none");
                         pnlNuevo.addClass('d-none');
-                        console.log(data, x, jq);
                         onEffect(1);
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -424,12 +476,15 @@
                 onEffect(2);
             }
         });
+
         btnRefrescar.click(function () {
             getRecords();
             getMaterialesRequeridos();
             getEstilos();
             getCombinaciones();
+            getPiezas();
         });
+
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
             pnlNuevo.removeClass('d-none');
@@ -440,11 +495,15 @@
                 tblMaterialesRequeridos.row($(this)).remove().draw();
             });
             getMaterialesRequeridos();
+            onEffect(1);
         });
+
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
+            onEffect(3);
         });
+
         btnCancelarModificar.click(function () {
             pnlEditar.addClass("d-none");
             pnlTablero.removeClass("d-none");
@@ -465,7 +524,7 @@
                         /*CALCULAR SUPER TOTAL*/
                         super_total = 0.0;
                         $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                            var sub = parseFloat($(this).find("td").eq(6).text());
+                            var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                             super_total += sub;
                         });
                         pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
@@ -494,7 +553,7 @@
                         /*CALCULAR SUPER TOTAL*/
                         super_total = 0.0;
                         $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                            var sub = parseFloat($(this).find("td").eq(6).text());
+                            var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                             super_total += sub;
                         });
                         pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
@@ -510,11 +569,9 @@
 
         pnlNuevo.find("#btnAgregarMaterial").on('click', function () {
             var Consumo = pnlNuevo.find("#Consumo").val();
-            var sub_row = pnlNuevo.find("#tblMateriales tbody tr.selected_row td");
-            var id_selected = sub_row.eq(0).text().replace(/\s+/g, '');
+            var id_selected = pnlNuevo.find("#Material").val().replace(/\s+/g, '');
             if (id_selected !== '') {
                 if (parseFloat(Consumo) > 0 && id_selected !== '') {
-                    console.log(pnlNuevo.find("#tblMateriales tbody tr.selected_row td"));
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
@@ -529,32 +586,49 @@
                     });
                     /*AGREGAR SI NO ESTA AGREGADO*/
                     if (!agregado) {
-                        var Precio = parseFloat(sub_row.eq(4).text());
-                        tblMaterialesRequeridos.row.add([
-                            sub_row.eq(0).text(),
-                            sub_row.eq(1).text(),
-                            sub_row.eq(3).text(),
-                            '<strong><span class="text-primary">' + Precio + '</span></strong>',
-                            '<strong><span class="text-danger">' + Consumo + '</span></strong>',
-                            '<strong><span class="text-info">' + sub_row.eq(5).text() + '</span></strong>',
-                            '<strong><span class="text-success">' + (Consumo * Precio) + '</span></strong>'
-                        ]).draw(false);
+                        /*Estilo	Combinación	Material	Pieza	U.M	Precio	Consumo	Tipo	Importe
+                         * */
+                        $.getJSON(master_url + 'getUnidadPrecioTipoXMaterialID', {ID: pnlNuevo.find("#Material").val()}).done(function (data, x, jq) {
+                            var dtm = data[0];
+                            console.log('**** DTM ****');
+                            console.log(dtm);
+                            console.log('**** FIN DTM ****');
+                            if (data !== null && data.length > 0) { 
+                                tblMaterialesRequeridos.row.add([
+                                    pnlNuevo.find("#Material").val(), /*1*/
+                                    pnlNuevo.find("#Material option:selected").text(), /*2*/
+                                    pnlNuevo.find("#Pieza").val(), /*3*/
+                                    pnlNuevo.find("#Pieza option:selected").text(), /*4*/
+                                    '<strong><span class="text-warning">' + dtm.UNIDAD + '</span></strong>', /*5*/
+                                    '<strong><span class="text-primary">$' + $.number(dtm.PRECIO, 3, '.', ',') + '</span></strong>', /*5*/
+                                    '<strong><span class="text-danger">' + Consumo + '</span></strong>', /*6*/
+                                    '<strong><span class="text-info">' + dtm.TIPO + '</span></strong>', /*7*/
+                                    '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*8*/
+                                ]).draw(false);
 
-                        onEffect(1);/*OK*/
-                        /*REINICIAR VALORES EN ZERO*/
-                        pnlNuevo.find("#Consumo").val('');
-                        pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("selected_row");
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
-                        /*CALCULAR SUPER TOTAL*/
-                        super_total = 0.0;
-                        $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                            var sub = parseFloat($(this).find("td").eq(6).text());
-                            $(this).find("td").eq(0).addClass("d-none");
-                            super_total += sub;
+                                onEffect(1);/*OK*/
+                                /*REINICIAR VALORES EN ZERO*/
+                                pnlNuevo.find("#Consumo").val('');
+                                onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
+                                /*CALCULAR SUPER TOTAL*/
+                                super_total = 0.0;
+                                $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
+                                    var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
+                                    $(this).find("td").eq(0).addClass("d-none");
+                                    $(this).find("td").eq(2).addClass("d-none");
+                                    super_total += sub;
+                                });
+                                pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                                /*FIN CALCULAR SUPER TOTAL*/
+                            }
+                        }).fail(function (x, y, z) {
+                            console.log(x);
+                            console.log(y);
+                            console.log(z);
+                            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN MATERIAL', 'danger');
+                        }).always(function () {
+                            HoldOn.close();
                         });
-                        pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
-                        /*FIN CALCULAR SUPER TOTAL*/
-
                     } else {
                         onEffect(2);/*ERROR*/
                         onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTE MATERIAL YA FUE AGREGADO', 'danger');
@@ -571,11 +645,9 @@
 
         pnlEditar.find("#btnAgregarMaterialE").on('click', function () {
             var Consumo = pnlEditar.find("#ConsumoE").val();
-            var sub_row = pnlEditar.find("#tblMaterialesE tbody tr.selected_row td");
-            var id_selected = sub_row.eq(0).text().replace(/\s+/g, '');
+            var id_selected = pnlEditar.find("#MaterialE").val().replace(/\s+/g, '');
             if (id_selected !== '') {
                 if (parseFloat(Consumo) > 0 && id_selected !== '') {
-                    console.log(pnlEditar.find("#tblMaterialesE tbody tr.selected_row td"));
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
@@ -589,32 +661,48 @@
                         }
                     });
                     /*AGREGAR SI NO ESTA AGREGADO*/
-                    if (!agregado) {
-                        var Precio = parseFloat(sub_row.eq(4).text());
-                        tblMaterialesRequeridosE.row.add([
-                            sub_row.eq(0).text(),
-                            sub_row.eq(1).text(),
-                            sub_row.eq(3).text(),
-                            '<strong><span class="text-primary">' + Precio + '</span></strong>',
-                            '<strong><span class="text-danger">' + Consumo + '</span></strong>',
-                            '<strong><span class="text-info">' + sub_row.eq(5).text() + '</span></strong>',
-                            '<strong><span class="text-success">' + (Consumo * Precio) + '</span></strong>'
-                        ]).draw(false);
-                        onEffect(1);/*OK*/
-                        /*REINICIAR VALORES EN ZERO*/
-                        pnlEditar.find("#ConsumoE").val('');
-                        pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("selected_row");
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
-                        /*CALCULAR SUPER TOTAL*/
-                        super_total = 0.0;
-                        $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                            var sub = parseFloat($(this).find("td").eq(6).text());
-                            $(this).find("td").eq(0).addClass("d-none");
-                            super_total += sub;
+                    if (!agregado) { 
+                        $.getJSON(master_url + 'getUnidadPrecioTipoXMaterialID', {ID: pnlEditar.find("#MaterialE").val()}).done(function (data, x, jq) {
+                            var dtm = data[0];
+                            console.log('**** DTM ****');
+                            console.log(dtm);
+                            console.log('**** FIN DTM ****');
+                            if (data !== null && data.length > 0) { 
+                                tblMaterialesRequeridosE.row.add([
+                                    pnlEditar.find("#MaterialE").val(), /*1*/
+                                    pnlEditar.find("#MaterialE option:selected").text(), /*2*/
+                                    pnlEditar.find("#PiezaE").val(), /*3*/
+                                    pnlEditar.find("#PiezaE option:selected").text(), /*4*/
+                                    '<strong><span class="text-warning">' + dtm.UNIDAD + '</span></strong>', /*5*/
+                                    '<strong><span class="text-primary">$' + $.number(dtm.PRECIO, 3, '.', ',') + '</span></strong>', /*5*/
+                                    '<strong><span class="text-danger">' + Consumo + '</span></strong>', /*6*/
+                                    '<strong><span class="text-info">' + dtm.TIPO + '</span></strong>', /*7*/
+                                    '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*8*/
+                                ]).draw(false);
+                                onEffect(1);/*OK*/
+                                /*REINICIAR VALORES EN ZERO*/
+                                pnlEditar.find("#ConsumoE").val('');
+                                pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("selected_row");
+                                onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
+                                /*CALCULAR SUPER TOTAL*/
+                                super_total = 0.0;
+                                $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+                                    var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
+                                    $(this).find("td").eq(0).addClass("d-none");
+                                    $(this).find("td").eq(2).addClass("d-none");
+                                    super_total += sub;
+                                });
+                                pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                                /*FIN CALCULAR SUPER TOTAL*/
+                            }
+                        }).fail(function (x, y, z) {
+                            console.log(x);
+                            console.log(y);
+                            console.log(z);
+                            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN MATERIAL', 'danger');
+                        }).always(function () {
+                            HoldOn.close();
                         });
-                        pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
-                        /*FIN CALCULAR SUPER TOTAL*/
-
                     } else {
                         onEffect(2);/*ERROR*/
                         onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTE MATERIAL YA FUE AGREGADO', 'danger');
@@ -641,8 +729,7 @@
             $(this).addClass("row_for_delete");
         });
     });
-    var tblMaterialesRequeridos, tblMaterialesRequeridosE;
-    var super_total = 0.0;
+
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -655,33 +742,33 @@
             dataType: "JSON"
         }).done(function (data, x, jq) {
             if (data.length > 0) {
-                $("#tblRegistros").html(getTable('tblMaterialesXCombinacion', data));
+                $("#tblRegistros").html(getTable('tblPiezasYMateriales', data));
 
-                $('#tblMaterialesXCombinacion tfoot th').each(function () {
+                $('#tblPiezasYMateriales tfoot th').each(function () {
                     $(this).html('');
                 });
-                var thead = $('#tblMaterialesXCombinacion thead th');
-                var tfoot = $('#tblMaterialesXCombinacion tfoot th');
+                var thead = $('#tblPiezasYMateriales thead th');
+                var tfoot = $('#tblPiezasYMateriales tfoot th');
                 thead.eq(0).addClass("d-none");
                 tfoot.eq(0).addClass("d-none");
-                $.each($.find('#tblMaterialesXCombinacion tbody tr'), function (k, v) {
+                $.each($.find('#tblPiezasYMateriales tbody tr'), function (k, v) {
                     var td = $(v).find("td");
                     td.eq(0).addClass("d-none");
                 });
 
-                var tblSelected = $('#tblMaterialesXCombinacion').DataTable(tableOptions);
-                $('#tblMaterialesXCombinacion_filter input[type=search]').focus();
+                var tblSelected = $('#tblPiezasYMateriales').DataTable(tableOptions);
+                $('#tblPiezasYMateriales_filter input[type=search]').focus();
 
-                $('#tblMaterialesXCombinacion tbody').on('click', 'tr', function () {
+                $('#tblPiezasYMateriales tbody').on('click', 'tr', function () {
 
-                    $("#tblMaterialesXCombinacion tbody tr").removeClass("success");
+                    $("#tblPiezasYMateriales tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var dtm = tblSelected.row(this).data();
                     temp = parseInt(dtm[0]);
                 });
 
-                $('#tblMaterialesXCombinacion tbody').on('dblclick', 'tr', function () {
-                    $("#tblMaterialesXCombinacion tbody tr").removeClass("success");
+                $('#tblPiezasYMateriales tbody').on('dblclick', 'tr', function () {
+                    $("#tblPiezasYMateriales tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var id = this.id;
                     var index = $.inArray(id, selected);
@@ -697,7 +784,7 @@
                             message: "CARGANDO DATOS..."
                         });
                         $.ajax({
-                            url: master_url + 'getMaterialesXCombinacionByID',
+                            url: master_url + 'getPiezasYMaterialesByID',
                             type: "POST",
                             dataType: "JSON",
                             data: {
@@ -715,9 +802,8 @@
                                 pnlEditar.removeClass('d-none');
 
                                 $('#EstiloE').select2('open').select2('close');
-                                getMaterialesRequeridosE();
                                 /*OBTENER LOS MATERIALES AGREGADOS*/
-                                getMaterialesXCombinacionDetalleByID(dtm.ID);
+                                getPiezasYMaterialesDetalleByID(dtm.ID);
                                 /*FIN OBTENER MATERIALES AGREGADOS*/
                                 onEffect(1);
                             }
@@ -751,80 +837,17 @@
     }
 
     function getMaterialesRequeridos() {
-        temp = 0;
         HoldOn.open({
             theme: "sk-bounce",
             message: "CARGANDO DATOS..."
         });
-        $.ajax({
-            url: master_url + 'getMaterialesRequeridos',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                $("#Materiales").html(getTable('tblMateriales', data));
-
-                $('#tblMateriales tfoot th').each(function () {
-                    $(this).html('');
-                });
-                var thead = $('#tblMateriales thead th');
-                var tfoot = $('#tblMateriales tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                $.each($.find('#tblMateriales tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                });
-
-                var tblSelected = $('#tblMateriales').DataTable(tableOptionsMiniTables);
-
-                $('#tblMateriales tbody').on('click', 'tr', function () {
-
-                    $("#tblMateriales tbody tr").removeClass("success");
-                    $("#tblMateriales tbody tr").removeClass("selected_row");
-                    $(this).addClass("success selected_row");
-                    var dtm = tblSelected.row(this).data();
-
-                    temp = parseInt(dtm[0]);
-                });
-
-
-                $('#tblMateriales_filter input[type=search]').focus();
-
-                $('#tblMateriales tbody').on('click', 'tr', function () {
-
-                    $("#tblMateriales tbody tr").removeClass("success");
-                    $("#tblMateriales tbody tr").removeClass("selected_row");
-                    $(this).addClass("success selected_row");
-                    var dtm = tblSelected.row(this).data();
-
-                    temp = parseInt(dtm[0]);
-                });
-
-                $('#tblMateriales tbody').on('dblclick', 'tr', function () {
-                    $("#tblMateriales tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var id = this.id;
-                    var index = $.inArray(id, selected);
-                    if (index === -1) {
-                        selected.push(id);
-                    } else {
-                        selected.splice(index, 1);
-                    }
-                });
-                // Apply the search
-                tblSelected.columns().every(function () {
-                    var that = this;
-                    $('input', this.footer()).on('keyup change', function () {
-                        if (that.search() !== this.value) {
-                            that.search(this.value).draw();
-                        }
-                    });
-                });
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO SE ENCONTRARON REGISTROS', 'danger');
-            }
-
+        $.getJSON(master_url + 'getMaterialesRequeridos').done(function (data, x, jq) {
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.Material + '</option>';
+            });
+            pnlNuevo.find("#Material").html(options);
+            pnlEditar.find("#MaterialE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -832,86 +855,14 @@
         });
     }
 
-    function getMaterialesRequeridosE() {
+    function getPiezasYMaterialesDetalleByID(IDX) {
         temp = 0;
         HoldOn.open({
             theme: "sk-bounce",
             message: "CARGANDO DATOS..."
         });
         $.ajax({
-            url: master_url + 'getMaterialesRequeridos',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                $("#MaterialesE").html(getTable('tblMaterialesE', data));
-
-                $('#tblMaterialesE tfoot th').each(function () {
-                    $(this).html('');
-                });
-
-                var thead = $('#tblMaterialesE thead th');
-                var tfoot = $('#tblMaterialesE tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                $.each($.find('#tblMaterialesE tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                });
-
-                var tblSelected = $('#tblMaterialesE').DataTable(tableOptionsMiniTables);
-                $('#tblMaterialesE_filter input[type=search]').focus();
-
-                $('#tblMaterialesE tbody').on('click', 'tr', function () {
-
-                    $("#tblMaterialesE tbody tr").removeClass("success");
-                    $("#tblMaterialesE tbody tr").removeClass("selected_row");
-                    $(this).addClass("success selected_row");
-                    var dtm = tblSelected.row(this).data();
-
-                    temp = parseInt(dtm[0]);
-                });
-
-                $('#tblMaterialesE tbody').on('dblclick', 'tr', function () {
-                    $("#tblMaterialesE tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var id = this.id;
-                    var index = $.inArray(id, selected);
-                    if (index === -1) {
-                        selected.push(id);
-                    } else {
-                        selected.splice(index, 1);
-                    }
-                });
-                // Apply the search
-                tblSelected.columns().every(function () {
-                    var that = this;
-                    $('input', this.footer()).on('keyup change', function () {
-                        if (that.search() !== this.value) {
-                            that.search(this.value).draw();
-                        }
-                    });
-                });
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO SE ENCONTRARON REGISTROS', 'danger');
-            }
-
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
-
-
-    function getMaterialesXCombinacionDetalleByID(IDX) {
-        temp = 0;
-        HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
-        });
-        $.ajax({
-            url: master_url + 'getMaterialesXCombinacionDetalleByID',
+            url: master_url + 'getPiezasYMaterialesDetalleByID',
             type: "POST",
             dataType: "JSON",
             data: {
@@ -930,9 +881,12 @@
                 var tfoot = $('#tblMaterialesRequeridosE tfoot th');
                 thead.eq(0).addClass("d-none");
                 tfoot.eq(0).addClass("d-none");
+                thead.eq(2).addClass("d-none");
+                tfoot.eq(2).addClass("d-none");
                 $.each($.find('#tblMaterialesRequeridosE tbody tr'), function (k, v) {
                     var td = $(v).find("td");
                     td.eq(0).addClass("d-none");
+                    td.eq(2).addClass("d-none");
                 });
 
 
@@ -972,13 +926,14 @@
             super_total = 0.0;
             $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
                 console.log($(this).find("td"));
-                var sub = parseFloat($(this).find("td").eq(6).text());
+                var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                 super_total += sub;
             });
             pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
             /*FIN CALCULAR SUPER TOTAL*/
         });
     }
+
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
 
@@ -995,7 +950,6 @@
         });
     }
 
-
     function getCombinaciones() {
         $.getJSON(master_url + 'getCombinaciones').done(function (data, x, jq) {
 
@@ -1005,6 +959,22 @@
             });
             pnlNuevo.find("#Combinacion").html(options);
             pnlEditar.find("#CombinacionE").html(options);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+    function getPiezas() {
+        $.getJSON(master_url + 'getPiezas').done(function (data, x, jq) {
+
+            var options = '<option></option>';
+            $.each(data, function (k, v) {
+                options += '<option value="' + v.ID + '">' + v.Pieza + '</option>';
+            });
+            pnlNuevo.find("#Pieza").html(options);
+            pnlEditar.find("#PiezaE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {

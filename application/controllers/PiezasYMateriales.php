@@ -56,9 +56,25 @@ class PiezasYMateriales extends CI_Controller {
         }
     }
 
+    public function getPiezas() {
+        try {
+            print json_encode($this->piezasymateriales_model->getPiezas());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getPiezasYMaterialesByID() {
         try {
             print json_encode($this->piezasymateriales_model->getPiezasYMaterialesByID($this->input->post('ID')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getUnidadPrecioTipoXMaterialID() {
+        try {
+            print json_encode($this->piezasymateriales_model->getUnidadPrecioTipoXMaterialID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -86,8 +102,9 @@ class PiezasYMateriales extends CI_Controller {
             $viviendas = json_decode($this->input->post("Materiales"));
             foreach ($viviendas as $key => $v) {
                 $data = array(
-                    'MaterialXCombinacion' => $ID,
+                    'PiezasYMateriales' => $ID,
                     'Material' => $v->Material,
+                    'Pieza' => $v->Pieza,
                     'Consumo' => $v->Consumo,
                     'Tipo' => $v->Tipo,
                     'Estatus' => 'ACTIVO',
@@ -120,15 +137,16 @@ class PiezasYMateriales extends CI_Controller {
                 if ($dtm[0]->EXISTE > 0) {
                     $data = array(
                         'Material' => $v->Material,
-                        'Consumo' => $v->Consumo,
-                        'Tipo' => '',
+                        'Precio' => $v->Precio,
+                        'Consumo' => $v->Consumo, 
                         'Estatus' => 'ACTIVO'
                     );
                     $this->piezasymateriales_model->onModificarDetalle($v->Material, $data, $this->input->post('ID'));
                 } else {
                     $data = array(
-                        'MaterialXCombinacion' => $this->input->post('ID'),
+                        'PiezasYMateriales' => $this->input->post('ID'),
                         'Material' => $v->Material,
+                        'Pieza' => $v->Pieza,
                         'Consumo' => $v->Consumo,
                         'Estatus' => 'ACTIVO',
                         'Registro' => Date('d/m/Y h:i:s a'),
