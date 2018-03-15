@@ -89,7 +89,6 @@ class MaterialesXCombinacion extends CI_Controller {
                     'MaterialXCombinacion' => $ID,
                     'Material' => $v->Material,
                     'Consumo' => $v->Consumo,
-                    'Tipo' => $v->Tipo,
                     'Estatus' => 'ACTIVO',
                     'Registro' => Date('d/m/Y h:i:s a'),
                     'Precio' => $v->Precio
@@ -121,7 +120,6 @@ class MaterialesXCombinacion extends CI_Controller {
                     $data = array(
                         'Material' => $v->Material,
                         'Consumo' => $v->Consumo,
-                        'Tipo' => '',
                         'Estatus' => 'ACTIVO'
                     );
                     $this->materialesxcombinacion_model->onModificarDetalle($v->Material, $data, $this->input->post('ID'));
