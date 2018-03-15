@@ -53,6 +53,7 @@ class piezasymateriales_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function getUnidadPrecioTipoXMaterialID($ID) {
         try {
             $this->db->select('C.SValue AS UNIDAD, M.PrecioLista AS PRECIO, M.Tipo AS TIPO', false);
@@ -155,18 +156,21 @@ class piezasymateriales_model extends CI_Model {
 
     public function onEliminar($ID) {
         try {
-            $this->db->set('Estatus', 'INACTIVO');
+            /* ELIMINACION DEFINITIVA */
             $this->db->where('ID', $ID);
-            $this->db->update("PiezasYMateriales");
+            $this->db->delete('PiezasYMateriales');
+
+            $this->db->where('PiezasYMateriales', $ID);
+            $this->db->delete('PiezasYMaterialesDetalle');
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function onEliminarDetalleInactivo($ID,$M) {
-        try { 
-            $this->db->where('Estatus', 'INACTIVO'); 
+    public function onEliminarDetalleInactivo($ID, $M) {
+        try {
+            $this->db->where('Estatus', 'INACTIVO');
             $this->db->where('PiezasYMateriales', $ID);
             $this->db->delete('PiezasYMaterialesDetalle');
 //            print $str = $this->db->last_query();
