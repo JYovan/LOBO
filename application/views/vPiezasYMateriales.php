@@ -37,7 +37,6 @@
 </div>
 
 <!--GUARDAR-->
-<div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlNuevo">
         <div class="card-body text-dark">
             <form id="frmNuevo"> 
@@ -83,12 +82,8 @@
                             </div>
                             <div class="card-body row"> 
                                 <div id="SuperTotal" class="col-12 text-center">
-                                    <h1 class="text-success"><strong>$ 0.0</strong></h1>
+                                    <h2 class="text-success"><strong>$ 0.0</strong></h2>
                                 </div>
-                                <div class="col-sm">
-                                    <br> 
-                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterial"><span class="fa fa-trash "></span></button>
-                                </div> 
                                 <div class="col-sm">
                                     <label for="Material">Material*</label>
                                     <select class="form-control form-control-lg" id="Material"  name="Material">  
@@ -105,7 +100,8 @@
                                 </div>
                                 <div class="col-sm" >
                                     <br>
-                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterial"><span class="fa fa-check "></span></button> 
+                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterial"><span class="fa fa-plus "></span></button> 
+                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterial"><span class="fa fa-trash "></span></button>
                                 </div> 
                                 <div class="w-100"></div> 
                                 <br>
@@ -135,10 +131,8 @@
             </form>
         </div> 
     </div> 
-</div>
 
 <!--EDITAR--> 
-<div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlEditar">
         <div class="card-body text-dark">
             <form id="frmEditar"> 
@@ -157,7 +151,6 @@
                 <div class="d-none">
                     <input type="text" class="form-control" id="ID" name="ID" required >
                 </div>
-
                 <div class="row">
                     <div class="col w-100">
                         <br>
@@ -183,18 +176,14 @@
                     <div class="w-100"></div>
                     <br>
                     <div class="col w-100">
-                        <div class="card border-warning">
+                        <div class="card border-dark">
                             <div class="card-header text-center">
                                 <strong>DETALLE</strong>
                             </div>
                             <div class="card-body row"> 
                                 <div id="SuperTotalE" class="col-12 text-center">
-                                    <h1 class="text-success"><strong>$ 0.0</strong></h1>
+                                    <h2 class="text-success"><strong>$ 0.0</strong></h2>
                                 </div>
-                                <div class="col-sm">
-                                    <br> 
-                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterialE"><span class="fa fa-trash "></span></button>
-                                </div> 
                                 <div class="col-sm">
                                     <label for="MaterialE">Material*</label>
                                     <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
@@ -208,10 +197,11 @@
                                 <div class="col-sm">
                                     <label for="ConsumoE">Consumo*</label>
                                     <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
-
                                 </div>
-                                <div class="col-sm">
-                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterialE"><span class="fa fa-check "></span></button>
+                                 <div class="col-sm">
+                                    <br> 
+                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterialE"><span class="fa fa-plus "></span></button>
+                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterialE"><span class="fa fa-trash "></span></button>
                                 </div> 
                                 <div class="w-100"></div> 
                                 <br>
@@ -242,7 +232,6 @@
             </form>
         </div> 
     </div> 
-</div>
 
 <!--SCRIPT-->
 <script>

@@ -15,13 +15,13 @@ class piezasymateriales_model extends CI_Model {
         try {
             $this->db->select("PYM.ID
       ,E.Descripcion AS Estilo
-      ,E.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(PYMD.Consumo * PYMD.Precio) AS money), 1),'</span>')AS Total
+      ,C.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(PYMD.Consumo * PYMD.Precio) AS money), 1),'</span>')AS Total
       ,PYM.Registro AS Registro ", false);
             $this->db->from('PiezasYMateriales AS PYM ');
             $this->db->join('Estilos AS E', 'PYM.Estilo = E.ID');
             $this->db->join('Combinaciones AS C', 'PYM.Combinacion = C.ID');
             $this->db->join('PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales = PYM.ID');
-            $this->db->group_by('PYM.ID,E.Descripcion,E.Descripcion,PYM.Registro');
+            $this->db->group_by('PYM.ID,E.Descripcion,C.Descripcion,PYM.Registro');
             $this->db->where_in('PYM.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
