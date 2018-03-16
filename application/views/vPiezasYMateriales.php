@@ -37,201 +37,201 @@
 </div>
 
 <!--GUARDAR-->
-    <div class="card border-0  d-none" id="pnlNuevo">
-        <div class="card-body text-dark">
-            <form id="frmNuevo"> 
-                <div class="row">
-                    <div class="col-md-4 float-left">
-                        <legend class="float-left">Nuevo Piezas Y Materiales</legend>
-                    </div>
-                    <div  class="col-md-5 text-center"> 
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                    </div>
+<div class="card border-0  d-none" id="pnlNuevo">
+    <div class="card-body text-dark">
+        <form id="frmNuevo"> 
+            <div class="row">
+                <div class="col-md-4 float-left">
+                    <legend class="float-left">Nuevo Piezas Y Materiales</legend>
                 </div>
-                <div class="row">
-                    <div class="col w-100">
-                        <br>
-                        <div class="card border-dark">
-                            <div class="card-header text-center">
-                                <strong>DATOS</strong>
-                            </div>
-                            <div class="card-body row">
+                <div  class="col-md-5 text-center"> 
+                </div>
+                <div class="col-md-3 float-right" align="right">
+                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
+                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col w-100">
+                    <br>
+                    <div class="card border-dark">
+                        <div class="card-header text-center">
+                            <strong>DATOS</strong>
+                        </div>
+                        <div class="card-body row">
 
-                                <div class="col-sm">
-                                    <label for="Estilo">Estilo*</label>
-                                    <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
-                                    </select>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="Combinacion">Combinación*</label>
-                                    <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
-                                    </select>
-                                </div>
+                            <div class="col-sm">
+                                <label for="Estilo">Estilo*</label>
+                                <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <label for="Combinacion">Combinación*</label>
+                                <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="w-100"></div>
-                    <br>
-                    <div class="col w-100">
-                        <div class="card border-dark">
-                            <div class="card-header text-center">
-                                <strong>DETALLE</strong>
+                </div>
+                <div class="w-100"></div>
+                <br>
+                <div class="col w-100">
+                    <div class="card border-dark">
+                        <div class="card-header text-center">
+                            <strong>DETALLE</strong>
+                        </div>
+                        <div class="card-body row"> 
+                            <div id="SuperTotal" class="col-12 text-center">
+                                <h2 class="text-success"><strong>$ 0.0</strong></h2>
                             </div>
-                            <div class="card-body row"> 
-                                <div id="SuperTotal" class="col-12 text-center">
-                                    <h2 class="text-success"><strong>$ 0.0</strong></h2>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="Material">Material*</label>
-                                    <select class="form-control form-control-lg" id="Material"  name="Material">  
-                                    </select>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="Pieza">Pieza*</label>
-                                    <select class="form-control form-control-lg" id="Pieza"  name="Pieza">  
-                                    </select>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="Consumo">Consumo*</label>
-                                    <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
-                                </div>
-                                <div class="col-sm" >
-                                    <br>
-                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterial"><span class="fa fa-plus "></span></button> 
-                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterial"><span class="fa fa-trash "></span></button>
-                                </div> 
-                                <div class="w-100"></div> 
+                            <div class="col-sm">
+                                <label for="Material">Material*</label>
+                                <select class="form-control form-control-lg" id="Material"  name="Material">  
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <label for="Pieza">Pieza*</label>
+                                <select class="form-control form-control-lg" id="Pieza"  name="Pieza">  
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <label for="Consumo">Consumo*</label>
+                                <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
+                            </div>
+                            <div class="col-sm" >
                                 <br>
-                                <div id="MaterialesRequeridos" class="table-responsive">
-                                    <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table dt-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th class="d-none" scope="col">ID</th> 
-                                                <th scope="col">Material</th>
-                                                <th class="d-none" scope="col">Pieza ID</th>
-                                                <th scope="col">Pieza</th>
-                                                <th scope="col">U.M</th>
-                                                <th scope="col">Precio</th>
-                                                <th scope="col">Consumo</th>
-                                                <th scope="col">Tipo</th>
-                                                <th scope="col">Importe</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody> 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <button type="button" class="btn btn-secondary" id="btnAgregarMaterial"><span class="fa fa-plus "></span></button> 
+                                <button type="button" class="btn btn-secondary" id="btnEliminarMaterial"><span class="fa fa-trash "></span></button>
+                            </div> 
+                            <div class="w-100"></div> 
+                            <br>
+                            <div id="MaterialesRequeridos" class="table-responsive">
+                                <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th class="d-none" scope="col">ID</th> 
+                                            <th scope="col">Material</th>
+                                            <th class="d-none" scope="col">Pieza ID</th>
+                                            <th scope="col">Pieza</th>
+                                            <th scope="col">U.M</th>
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">Consumo</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Importe</th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                    </tbody>
+                                </table>
                             </div>
-                        </div><!--FIN CARD-->
-                    </div>
-                </div><!--FIN ROW-->
-            </form>
-        </div> 
+                        </div>
+                    </div><!--FIN CARD-->
+                </div>
+            </div><!--FIN ROW-->
+        </form>
     </div> 
+</div> 
 
 <!--EDITAR--> 
-    <div class="card border-0  d-none" id="pnlEditar">
-        <div class="card-body text-dark">
-            <form id="frmEditar"> 
-                <div class="row">
-                    <div class="col-md-4 float-left">
-                        <legend class="float-left">Editar Piezas Y Materiales</legend>
-                    </div>
-                    <div class="col-md-5 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                    </div>
-                </div>  
-                <div class="d-none">
-                    <input type="text" class="form-control" id="ID" name="ID" required >
+<div class="card border-0  d-none" id="pnlEditar">
+    <div class="card-body text-dark">
+        <form id="frmEditar"> 
+            <div class="row">
+                <div class="col-md-4 float-left">
+                    <legend class="float-left">Editar Piezas Y Materiales</legend>
                 </div>
-                <div class="row">
-                    <div class="col w-100">
-                        <br>
-                        <div class="card border-dark">
-                            <div class="card-header text-center">
-                                <strong>DATOS</strong>
-                            </div>
-                            <div class="card-body row">
+                <div class="col-md-5 float-right">
 
-                                <div class="col-sm">
-                                    <label for="EstiloE">Estilo*</label>
-                                    <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
-                                    </select>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="CombinacionE">Combinación*</label>
-                                    <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
-                                    </select>
-                                </div>
+                </div>
+                <div class="col-md-3 float-right" align="right">
+                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
+                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                </div>
+            </div>  
+            <div class="d-none">
+                <input type="text" class="form-control" id="ID" name="ID" required >
+            </div>
+            <div class="row">
+                <div class="col w-100">
+                    <br>
+                    <div class="card border-dark">
+                        <div class="card-header text-center">
+                            <strong>DATOS</strong>
+                        </div>
+                        <div class="card-body row">
+
+                            <div class="col-sm">
+                                <label for="EstiloE">Estilo*</label>
+                                <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <label for="CombinacionE">Combinación*</label>
+                                <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="w-100"></div>
-                    <br>
-                    <div class="col w-100">
-                        <div class="card border-dark">
-                            <div class="card-header text-center">
-                                <strong>DETALLE</strong>
+                </div>
+                <div class="w-100"></div>
+                <br>
+                <div class="col w-100">
+                    <div class="card border-dark">
+                        <div class="card-header text-center">
+                            <strong>DETALLE</strong>
+                        </div>
+                        <div class="card-body row"> 
+                            <div id="SuperTotalE" class="col-12 text-center">
+                                <h2 class="text-success"><strong>$ 0.0</strong></h2>
                             </div>
-                            <div class="card-body row"> 
-                                <div id="SuperTotalE" class="col-12 text-center">
-                                    <h2 class="text-success"><strong>$ 0.0</strong></h2>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="MaterialE">Material*</label>
-                                    <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
-                                    </select>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="PiezaE">Pieza*</label>
-                                    <select class="form-control form-control-lg" id="PiezaE"  name="PiezaE">  
-                                    </select>
-                                </div>
-                                <div class="col-sm">
-                                    <label for="ConsumoE">Consumo*</label>
-                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
-                                </div>
-                                 <div class="col-sm">
-                                    <br> 
-                                    <button type="button" class="btn btn-secondary" id="btnAgregarMaterialE"><span class="fa fa-plus "></span></button>
-                                    <button type="button" class="btn btn-secondary" id="btnEliminarMaterialE"><span class="fa fa-trash "></span></button>
-                                </div> 
-                                <div class="w-100"></div> 
-                                <br>
-                                <div id="MaterialesRequeridosE" class="col-12 w-100">
-                                    <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th class="d-none" scope="col">ID</th> 
-                                                <th scope="col">Material</th>
-                                                <th class="d-none" scope="col">Pieza ID</th>
-                                                <th scope="col">Pieza</th>
-                                                <th scope="col">U.M</th>
-                                                <th scope="col">Precio</th>
-                                                <th scope="col">Consumo</th>
-                                                <th scope="col">Tipo</th>
-                                                <th scope="col">Importe</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody> 
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-sm">
+                                <label for="MaterialE">Material*</label>
+                                <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
+                                </select>
                             </div>
-                        </div><!--FIN CARD-->
-                    </div> 
-                </div><!--FIN ROW-->
+                            <div class="col-sm">
+                                <label for="PiezaE">Pieza*</label>
+                                <select class="form-control form-control-lg" id="PiezaE"  name="PiezaE">  
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <label for="ConsumoE">Consumo*</label>
+                                <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
+                            </div>
+                            <div class="col-sm">
+                                <br> 
+                                <button type="button" class="btn btn-secondary" id="btnAgregarMaterialE"><span class="fa fa-plus "></span></button>
+                                <button type="button" class="btn btn-secondary" id="btnEliminarMaterialE"><span class="fa fa-trash "></span></button>
+                            </div> 
+                            <div class="w-100"></div> 
+                            <br>
+                            <div id="MaterialesRequeridosE" class="col-12 w-100">
+                                <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="d-none" scope="col">ID</th> 
+                                            <th scope="col">Material</th>
+                                            <th class="d-none" scope="col">Pieza ID</th>
+                                            <th scope="col">Pieza</th>
+                                            <th scope="col">U.M</th>
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">Consumo</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Importe</th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!--FIN CARD-->
+                </div> 
+            </div><!--FIN ROW-->
 
-            </form>
-        </div> 
+        </form>
     </div> 
+</div> 
 
 <!--SCRIPT-->
 <script>
@@ -252,8 +252,31 @@
     var tblMaterialesRequeridos, tblMaterialesRequeridosE;
     var super_total = 0.0;
 
+    var Estilo = pnlNuevo.find("#Estilo");
+    var Combinacion = pnlNuevo.find("#Combinacion");
+
+    var EstiloE = pnlEditar.find("#EstiloE");
+    var CombinacionE = pnlEditar.find("#CombinacionE");
+
     $(document).ready(function () {
         handleEnter();
+
+        Estilo.change(function () {
+            onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
+        });
+
+        Combinacion.change(function () {
+            onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
+        });
+
+        EstiloE.change(function () {
+            onComprobarEstiloXCombinacion(pnlEditar.find("#ID").val(), EstiloE, CombinacionE);
+        });
+
+        CombinacionE.change(function () {
+            onComprobarEstiloXCombinacion(pnlEditar.find("#ID").val(), EstiloE, CombinacionE);
+        });
+
         //Evento clic del boton confirmar borrar
         btnConfirmarEliminar.click(function () {
             if (temp !== 0 && temp !== undefined && temp > 0) {
@@ -279,7 +302,7 @@
                 }).done(function (data, x, jq) {
 
                     mdlConfirmar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'MATERIAL POR COMBINACIÓN ELIMINADO', 'danger'); 
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'MATERIAL POR COMBINACIÓN ELIMINADO', 'danger');
                     location.reload();
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -293,84 +316,86 @@
 
         /*MODIFICAR*/
         btnModificar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            pnlEditar.find('#frmEditar').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    EstiloE: 'required',
-                    CombinacionE: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
+            if (onComprobarEstiloXCombinacion(EstiloE, CombinacionE)) {
+                $.validator.setDefaults({
+                    ignore: []
+                });
+                pnlEditar.find('#frmEditar').validate({
+                    errorClass: 'myErrorClass',
+                    errorPlacement: function (error, element) {
+                        var elem = $(element);
+                        error.insertAfter(element);
+                    },
+                    rules: {
+                        EstiloE: 'required',
+                        CombinacionE: 'required'
+                    },
+                    // The select element, which would otherwise get the class, is hidden from
+                    // view.
+                    highlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
+                        } else {
+                            elem.addClass(errorClass);
+                        }
+                    },
 
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
+                    //When removing make the same adjustments as when adding
+                    unhighlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
+                        } else {
+                            elem.removeClass(errorClass);
+                        }
                     }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Si es verdadero que hacer
+                });
+                //Regresa si es valido para los select2
+                $('select').on('change', function () {
+                    $(this).valid();
+                });
+                //Si es verdadero que hacer
 
-            if (pnlEditar.find('#frmEditar').valid()) {
-                var f = new FormData();
-                f.append('ID', pnlEditar.find("#ID").val());
-                f.append('Estilo', pnlEditar.find("#EstiloE").val());
-                f.append('Combinacion', pnlEditar.find("#CombinacionE").val());
+                if (pnlEditar.find('#frmEditar').valid()) {
+                    var f = new FormData();
+                    f.append('ID', pnlEditar.find("#ID").val());
+                    f.append('Estilo', pnlEditar.find("#EstiloE").val());
+                    f.append('Combinacion', pnlEditar.find("#CombinacionE").val());
 //                f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
 
-                var detalle = [];
-                pnlEditar.find('#tblMaterialesRequeridosE > tbody  > tr').each(function (k, v) {
-                    var row = $(this).find("td");
-                    var material = {
-                        Material: row.eq(0).text().replace(/\s+/g, ''),
-                        Pieza: row.eq(2).text().replace(/\s+/g, ''),
-                        Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
-                        Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
-                        Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
-                    };
-                    detalle.push(material);
-                });
-                f.append('Materiales', JSON.stringify(detalle));
-                $.ajax({
-                    url: master_url + 'onModificar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: f
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'LOS CAMBIOS SE HAN GUARDADO', 'success');
-                    getRecords();
-                    pnlTablero.removeClass("d-none");
-                    pnlEditar.addClass('d-none');
-                    onEffect(1);
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
+                    var detalle = [];
+                    pnlEditar.find('#tblMaterialesRequeridosE > tbody  > tr').each(function (k, v) {
+                        var row = $(this).find("td");
+                        var material = {
+                            Material: row.eq(0).text().replace(/\s+/g, ''),
+                            Pieza: row.eq(2).text().replace(/\s+/g, ''),
+                            Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                            Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                            Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
+                        };
+                        detalle.push(material);
+                    });
+                    f.append('Materiales', JSON.stringify(detalle));
+                    $.ajax({
+                        url: master_url + 'onModificar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: f
+                    }).done(function (data, x, jq) {
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'LOS CAMBIOS SE HAN GUARDADO', 'success');
+                        getRecords();
+                        pnlTablero.removeClass("d-none");
+                        pnlEditar.addClass('d-none');
+                        onEffect(1);
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                }
             }
         });
 
@@ -968,6 +993,30 @@
             HoldOn.close();
         });
     }
+    /*COMPRUEBA SI EL ESTILO Y LA COMBINACION YA HAN SIDO REGISTRADOS*/
+    function onComprobarEstiloXCombinacion(ID, Estilo, Combinacion) {
+        console.log(ID)
+        if (Estilo.val() !== '' && Combinacion.val() !== '') {
+            $.getJSON(master_url + 'onComprobarEstiloXCombinacion', {ID: ID, E: Estilo.val(), C: Combinacion.val()}).done(function (data, x, jq) {
+                if (parseInt(data[0].EXISTE) > 0) {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL ESTILO Y LA COMBINACIÓN YA EXISTEN', 'danger');
+                    if (ID === 0) {
+                        Estilo.val("").trigger('change');
+                        Combinacion.val("").trigger('change');
+                    }
+                    onEffect(2);
+                    return false;
+                } else {
+                    onEffect(4);
+                    return true;
+                }
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+            });
+        }
+    }
 
     function onEffect(e) {
         /*
@@ -979,5 +1028,4 @@
         var audio = new Audio('<?php print base_url(); ?>media/' + e + '.mp3');
         audio.play();
     }
-
 </script>
