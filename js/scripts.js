@@ -191,7 +191,7 @@ var tableOptionsMiniTables = {
 function getTable(tblname, data) {
     var column = '';
     var i = 0;
-    var div = "<div class=\"  \">";
+    var div = "<div class=\" table-responsive \">";
     div = "<table id=\"" + tblname + "\" class=\" table table-sm  \"  width=\"100%\">";
     //Create header
     div += "<thead>";

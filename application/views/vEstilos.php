@@ -108,7 +108,7 @@
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Desperdicio">Desperdicio</label>
-                        <input type="text" class="form-control"  id="Desperdicio" name="Desperdicio">
+                        <input type="number" maxlength="3" class="form-control"  id="Desperdicio" name="Desperdicio">
                     </div>
                     <div class="col-md">
                         <label for="PuntoCentra">Punto Central</label>
@@ -263,7 +263,7 @@
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Desperdicio">Desperdicio*</label>
-                        <input type="text" class="form-control"  id="Desperdicio" name="Desperdicio">
+                        <input type="number" maxlength="3" class="form-control"  id="Desperdicio" name="Desperdicio">
                     </div>
                     <div class="col-md">
                         <label for="PuntoCentra">Punto Central*</label>

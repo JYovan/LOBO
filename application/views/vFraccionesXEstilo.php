@@ -81,43 +81,47 @@
         </div>
     </div>
 </div>
-<!--GUARDAR-->
 
+
+<!--GUARDAR-->
 <div class="card border-0  d-none" id="pnlNuevo">
     <div class="card-body text-dark"> 
         <form id="frmNuevo">
-
             <div class="row">
                 <div class="col-md-3 float-left">
                     <legend class="float-left">Fracciones por Estilo</legend>
                 </div>
                 <div class="col-md-6 float-right">
-
                 </div>
                 <div class="col-md-3 float-right" align="right">
                     <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
                     <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    <label for="Estilo">Estilo*</label>
-                    <select class="form-control form-control-lg" id="EstiloN" name="Estilo" required>  
-                    </select>
+            <br>
+            <div class="card border-dark">
+                <div class="card-header text-center">
+                    <strong>DATOS</strong>
                 </div>
-                <div class="col-sm">
-                    <label for="Estatus">Estatus*</label>
-                    <select class="form-control form-control-lg"  name="Estatus" required> 
-                        <option value=""></option>  
-                        <option>ACTIVO</option>
-                        <option>INACTIVO</option> 
-                    </select>
+                <div class="card-body row">
+                    <div class="col-sm">
+                        <label for="Estilo">Estilo*</label>
+                        <select class="form-control form-control-lg" id="EstiloN" name="Estilo" required>  
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <label for="Estatus">Estatus*</label>
+                        <select class="form-control form-control-lg"  name="Estatus" required> 
+                            <option value=""></option>  
+                            <option>ACTIVO</option>
+                            <option>INACTIVO</option> 
+                        </select>
+                    </div>
                 </div>
             </div>
         </form>
     </div> 
 </div> 
-
 <!--EDITAR-->
 <div class="card border-0  d-none" id="pnlEditar">
     <div class="card-body text-dark"> 
@@ -134,52 +138,56 @@
                     <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
                 </div>
             </div>
+            <br>
             <div class="d-none">
                 <input type="text" class="form-control" id="ID" name="ID" required >
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    <label for="Estilo">Estilo*</label>
-                    <select class="form-control form-control-lg" id="Estilo" name="Estilo" required>  
-                    </select>
+            <div class="card border-dark">
+                <div class="card-header text-center">
+                    <strong>DATOS</strong>
                 </div>
-                <div class="col-sm">
-                    <label for="Estatus">Estatus*</label>
-                    <select class="form-control form-control-lg" id="Estatus" name="Estatus" required> 
-                        <option value=""></option>  
-                        <option>ACTIVO</option>
-                        <option>INACTIVO</option> 
-                    </select>
-                </div>
-            </div>  
+                <div class="card-body row">
+                    <div class="col-sm">
+                        <label for="Estilo">Estilo*</label>
+                        <select class="form-control form-control-lg" id="Estilo" name="Estilo" required>  
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <label for="Estatus">Estatus*</label>
+                        <select class="form-control form-control-lg" id="Estatus" name="Estatus" required> 
+                            <option value=""></option>  
+                            <option>ACTIVO</option>
+                            <option>INACTIVO</option> 
+                        </select>
+                    </div>
+                </div>  
+            </div>
         </form>
     </div> 
 </div> 
-
-<!--DETALLE-->
 <div class="card border-0  d-none" id="pnlDetalle">
-    <div class="card-body text-dark"> 
-
-        <div class="row">
-            <div class="col-sm">
+    <div class="card-body text-dark">
+        <div class="card border-dark">
+            <div class="card-header text-center">
+                <strong>DETALLE</strong>
             </div>
-            <div class="col-sm text-center">
-                <legend class="card-title text-success" id="ImporteTotal"></legend>
+            <div class="card-body row"> 
+                <div class="col-sm">
+                </div>
+                <div class="col-sm text-center">
+                    <legend class="card-title text-success" id="ImporteTotal"></legend>
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-default float-right" id="btnNuevoRenglon"><span class="fa fa-plus fa-1x" ></span><br>AGREGAR</button>
+                </div>
+            </div> 
+            <div class=" row"> 
+                <div id="RegistrosDetalle"  class="col-12 w-100">
+                </div>
             </div>
-            <div class="col-sm">
-                <button type="button" class="btn btn-default float-right" id="btnNuevoRenglon"><span class="fa fa-plus fa-1x" ></span><br>AGREGAR</button>
-            </div>
-        </div>
-
-    </div> 
-    <div class="row">
-        <div class="card-body text-dark"> 
-            <div id="RegistrosDetalle"></div>
-        </div>
+        </div><!--FIN CARD-->
     </div>
-</div> 
-
-
+</div>
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/FraccionesXEstilo/';
@@ -639,9 +647,9 @@
                     total += parseFloat(td.eq(6).text());
 
                 });
-                
-                pnlDetalle.find('#ImporteTotal').html('Total: $'+$.number(total, 2, '.', ', '));
-                           
+
+                pnlDetalle.find('#ImporteTotal').html('Total: $' + $.number(total, 2, '.', ', '));
+
 
                 var tblRegistrosDetalle = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsMiniTables);
                 pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
