@@ -32,6 +32,14 @@ class PiezasYMateriales extends CI_Controller {
         }
     }
 
+    public function onComprobarEstiloXCombinacion() {
+        try {
+            print json_encode($this->piezasymateriales_model->onComprobarEstiloXCombinacion($this->input->get('ID'), $this->input->get('E'), $this->input->get('C')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getMaterialesRequeridos() {
         try {
             print json_encode($this->piezasymateriales_model->getMaterialesRequeridos());
@@ -138,7 +146,7 @@ class PiezasYMateriales extends CI_Controller {
                     $data = array(
                         'Material' => $v->Material,
                         'Precio' => $v->Precio,
-                        'Consumo' => $v->Consumo, 
+                        'Consumo' => $v->Consumo,
                         'Estatus' => 'ACTIVO'
                     );
                     $this->piezasymateriales_model->onModificarDetalle($v->Material, $data, $this->input->post('ID'));

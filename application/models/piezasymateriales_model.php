@@ -36,6 +36,33 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
+    public function onComprobarEstiloXCombinacion($ID, $E, $C) {
+        try {
+            $this->db->select("COUNT(*) AS EXISTE", false);
+            $this->db->from('PiezasYMateriales AS PYM');
+            if ($ID !== '' && $ID !== '0') {
+                $this->db->where('PYM.ID <>' . $ID, null, false);
+            }
+            if ($E !== '') {
+                $this->db->where('PYM.Estilo', $E);
+            }
+            if ($C !== '') {
+                $this->db->where('PYM.Combinacion', $C);
+            }
+            $this->db->where_in('PYM.Estatus', array('ACTIVO'));
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//            print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getMaterialesRequeridos() {
         try {
             $this->db->select('M.[ID] AS ID,M.[Material] AS Material', false);

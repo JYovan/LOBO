@@ -117,3 +117,7 @@ input {
 .cursor-hand{
     cursor: pointer;
 }
+.table-responsive table{
+    display: table  !important;
+    width: 100% !important;
+}
