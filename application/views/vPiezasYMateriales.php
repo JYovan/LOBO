@@ -316,7 +316,8 @@
 
         /*MODIFICAR*/
         btnModificar.click(function () {
-            if (onComprobarEstiloXCombinacion(EstiloE, CombinacionE)) {
+            onComprobarEstiloXCombinacion(pnlEditar.find("#ID").val(), EstiloE, CombinacionE);
+            if (guardar) {
                 $.validator.setDefaults({
                     ignore: []
                 });
@@ -401,91 +402,94 @@
 
         /*GUARDAR*/
         btnGuardar.click(function () {
-            if (pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr td.dataTables_empty').length <= 0) {
-                $.validator.setDefaults({
-                    ignore: []
-                });
-                $('#frmNuevo').validate({
-                    errorClass: 'myErrorClass',
-                    errorPlacement: function (error, element) {
-                        var elem = $(element);
-                        error.insertAfter(element);
-                    },
-                    rules: {
-                        Estilo: 'required',
-                        Combinacion: 'required'
-                    },
-                    // The select element, which would otherwise get the class, is hidden from
-                    // view.
-                    highlight: function (element, errorClass, validClass) {
-                        var elem = $(element);
-                        if (elem.hasClass("select2-offscreen")) {
-                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                        } else {
-                            elem.addClass(errorClass);
-                        }
-                    },
+            onComprobarEstiloXCombinacion(pnlEditar.find("#ID").val(), EstiloE, CombinacionE);
+            if (guardar) {
+                if (pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr td.dataTables_empty').length <= 0) {
+                    $.validator.setDefaults({
+                        ignore: []
+                    });
+                    $('#frmNuevo').validate({
+                        errorClass: 'myErrorClass',
+                        errorPlacement: function (error, element) {
+                            var elem = $(element);
+                            error.insertAfter(element);
+                        },
+                        rules: {
+                            Estilo: 'required',
+                            Combinacion: 'required'
+                        },
+                        // The select element, which would otherwise get the class, is hidden from
+                        // view.
+                        highlight: function (element, errorClass, validClass) {
+                            var elem = $(element);
+                            if (elem.hasClass("select2-offscreen")) {
+                                $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
+                            } else {
+                                elem.addClass(errorClass);
+                            }
+                        },
 
-                    //When removing make the same adjustments as when adding
-                    unhighlight: function (element, errorClass, validClass) {
-                        var elem = $(element);
-                        if (elem.hasClass("select2-offscreen")) {
-                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                        } else {
-                            elem.removeClass(errorClass);
+                        //When removing make the same adjustments as when adding
+                        unhighlight: function (element, errorClass, validClass) {
+                            var elem = $(element);
+                            if (elem.hasClass("select2-offscreen")) {
+                                $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
+                            } else {
+                                elem.removeClass(errorClass);
+                            }
                         }
+                    });
+                    //Regresa si es valido para los select2
+                    $('select').on('change', function () {
+                        $(this).valid();
+                    });
+                    //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
+                    //Si es verdadero que hacer
+                    if (pnlNuevo.find('#frmNuevo').valid()) {
+                        var f = new FormData();
+                        f.append('Estilo', pnlNuevo.find("#Estilo").val());
+                        f.append('Combinacion', pnlNuevo.find("#Combinacion").val());
+                        f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
+                        var detalle = [];
+                        pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr').each(function (k, v) {
+                            var row = $(this).find("td");
+                            var material = {
+                                Material: row.eq(0).text().replace(/\s+/g, ''),
+                                Pieza: row.eq(2).text().replace(/\s+/g, ''),
+                                Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                                Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                                Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
+                            };
+                            detalle.push(material);
+                        });
+                        f.append('Materiales', JSON.stringify(detalle));
+                        console.log('* * * * DETALLE * * *');
+                        console.log(detalle);
+                        console.log('* * * * FIN DETALLE * * *');
+
+                        $.ajax({
+                            url: master_url + 'onAgregar',
+                            type: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: f
+                        }).done(function (data, x, jq) {
+                            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AGREGADO UN REGISTRO', 'success');
+                            getRecords();
+                            pnlTablero.removeClass("d-none");
+                            pnlNuevo.addClass('d-none');
+                            onEffect(1);
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
                     }
-                });
-                //Regresa si es valido para los select2
-                $('select').on('change', function () {
-                    $(this).valid();
-                });
-                //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-                //Si es verdadero que hacer
-                if (pnlNuevo.find('#frmNuevo').valid()) {
-                    var f = new FormData();
-                    f.append('Estilo', pnlNuevo.find("#Estilo").val());
-                    f.append('Combinacion', pnlNuevo.find("#Combinacion").val());
-                    f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
-                    var detalle = [];
-                    pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr').each(function (k, v) {
-                        var row = $(this).find("td");
-                        var material = {
-                            Material: row.eq(0).text().replace(/\s+/g, ''),
-                            Pieza: row.eq(2).text().replace(/\s+/g, ''),
-                            Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
-                            Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
-                            Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
-                        };
-                        detalle.push(material);
-                    });
-                    f.append('Materiales', JSON.stringify(detalle));
-                    console.log('* * * * DETALLE * * *');
-                    console.log(detalle);
-                    console.log('* * * * FIN DETALLE * * *');
-
-                    $.ajax({
-                        url: master_url + 'onAgregar',
-                        type: "POST",
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: f
-                    }).done(function (data, x, jq) {
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AGREGADO UN REGISTRO', 'success');
-                        getRecords();
-                        pnlTablero.removeClass("d-none");
-                        pnlNuevo.addClass('d-none');
-                        onEffect(1);
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
+                } else {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE AGREGAR MATERIALES A CONSUMIR', 'danger');
+                    onEffect(2);
                 }
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE AGREGAR MATERIALES A CONSUMIR', 'danger');
-                onEffect(2);
             }
         });
 
@@ -994,8 +998,8 @@
         });
     }
     /*COMPRUEBA SI EL ESTILO Y LA COMBINACION YA HAN SIDO REGISTRADOS*/
+    var guardar = false;
     function onComprobarEstiloXCombinacion(ID, Estilo, Combinacion) {
-        console.log(ID)
         if (Estilo.val() !== '' && Combinacion.val() !== '') {
             $.getJSON(master_url + 'onComprobarEstiloXCombinacion', {ID: ID, E: Estilo.val(), C: Combinacion.val()}).done(function (data, x, jq) {
                 if (parseInt(data[0].EXISTE) > 0) {
@@ -1005,15 +1009,16 @@
                         Combinacion.val("").trigger('change');
                     }
                     onEffect(2);
-                    return false;
+                    guardar = false;
                 } else {
                     onEffect(4);
-                    return true;
+                    guardar = true;
                 }
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
             }).always(function () {
                 HoldOn.close();
+
             });
         }
     }
