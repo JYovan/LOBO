@@ -21,54 +21,70 @@
                     <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo') ?>">Fracciones por Estilo</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales') ?>">Piezas y Materiales</a></li>
                     <div class="dropdown-divider" ></div>
+                    <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes') ?>">Reportes</a></li>
+                    
+                    <!--
+                                        <li class="nav-item dropdown dropdown-submenu">
+                                            <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Reportes
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle text-dark " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Generales</a>
+                                                    <ul class="dropdown-menu ">
+                                                        <li><a class="dropdown-item" href="#">Ficha Técnica</a></li>
+                                                        <div class="dropdown-divider" ></div>
+                                                        <li><a class="dropdown-item" href="#">Materiales</a></li>
+                                                        <li><a class="dropdown-item" href="#">Fracciones</a></li>
+                                                    </ul>
+                                                </li>
+                    
+                                            </ul>
+                                        </li>-->
+                </ul>
+            </li>
 
-                    <li class="nav-item dropdown dropdown-submenu">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes
+                </a>
+                <ul class="dropdown-menu dropdown-submenu">
+                    <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Reportes
+                            Generales
                         </a>
-                        <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Generales</a>
-                                <ul class="dropdown-menu ">
-                                    <li><a class="dropdown-item" href="#">Ficha Técnica</a></li>
-                                    <div class="dropdown-divider" ></div>
-                                    <li><a class="dropdown-item" href="#">Materiales</a></li>
-                                    <li><a class="dropdown-item" href="#">Fracciones</a></li>
-                                </ul>
-                            </li>
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Reporte 1</a></li>
+                            <div class="dropdown-divider" ></div>
+                            <li><a class="dropdown-item" href="#">Reporte 2</a></li>
+                            <li><a class="dropdown-item" href="#">Reporte 3</a></li>
 
                         </ul>
                     </li>
                 </ul>
             </li>
 
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pedidos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Producción</a>
-            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Catálogos
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Clientes</a>
-                    <a class="dropdown-item" href="#">Proveedores</a>
-                    <a class="dropdown-item" href="#">Almacenes</a>
-                    <a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Clientes</a></li>
+                    <li><a class="dropdown-item" href="#">Proveedores</a></li>
+                    <li><a class="dropdown-item" href="#">Almacenes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a></li>
+                    <div class="dropdown-divider" ></div>
+                    <li><a class="dropdown-item" href="<?php print base_url('Lineas') ?>">Lineas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Estilos') ?>">Estilos</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Combinaciones') ?>">Combinaciones</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Series') ?>">Series</a></li>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?php print base_url('Lineas') ?>">Lineas</a>
-                    <a class="dropdown-item" href="<?php print base_url('Estilos') ?>">Estilos</a>
-                    <a class="dropdown-item" href="<?php print base_url('Combinaciones') ?>">Combinaciones</a>
-                    <a class="dropdown-item" href="<?php print base_url('Series') ?>">Series</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?php print base_url('Fracciones') ?>">Mano de Obra (Fracciones)</a>
-                    <a class="dropdown-item" href="<?php print base_url('Materiales') ?>">Materiales</a>
-                </div>
+                    <li><a class="dropdown-item" href="<?php print base_url('Fracciones') ?>">Mano de Obra (Fracciones)</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Materiales') ?>">Materiales</a></li>
 
+                </ul>
             </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Configuración
@@ -88,7 +104,7 @@
                         <a class="nav-link dropdown-toggle text-dark "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Generales
                         </a>
-                        <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
