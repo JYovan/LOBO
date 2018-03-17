@@ -49,43 +49,184 @@ class ReportesDisDes extends CI_Controller {
 
     public function onImprimirFichaTecnica() {
         extract($this->input->post());
-        $fichaTecnica = $this->reportes_disdes_model->getFichaTecnicaByEstiloByCombinacion($Estilo, $Combinacion);
-        if (!empty($fichaTecnica)) {
-         $datosEncabezado = $fichaTecnica[0];
-        // Creación del objeto de la clase heredada
-        $pdf = new PDF('P', 'mm', array(215.9/* ANCHO */, 279.4/* ALTURA */));
+        $FichaTecnica = $this->reportes_disdes_model->getFichaTecnicaByEstiloByCombinacion($Estilo, $Combinacion);
+        if (!empty($FichaTecnica)) {
+            $Encabezado = $FichaTecnica[0];
+//            $pdf = new PDF('P', 'mm', array(215.9/* ANCHO */, 279.4/* ALTURA */));
+            $pdf = new PDF('P', 'mm', array(235, 297));
+            $pdf->AliasNbPages();
+            $pdf->AddPage();
+            /* ENCABEZADO */
+            $image = "lsbck.png";
+            $pdf->Image('img/' . $image, /* LEFT */ 8, 11/* TOP */, /* ANCHO */ 35, /* ALTO */ 17.5);
+            $pdf->SetAutoPageBreak(false);
+            $base = 10;
+            $pdf->SetFont('Arial', 'B', 11);
+            $pdf->SetY($base);
+            $pdf->SetX(43.5);
+            $pdf->Cell(110, 4, utf8_decode("CALZADO LOBO, S.A. DE C.V."), 1/* BORDE */, 1, 'L');
+            $pdf->SetY($base);
+            $pdf->SetX(190);
+            $pdf->Cell(100, 4, utf8_decode("Fecha. " . Date('d/m/Y')), 0/* BORDE */, 1, 'L');
+            $pdf->Rect(43.5/* X */, 14/* Y */, 110/* W */, 16/* H */);
+            $pdf->SetFont('Arial', 'B', 9);
+            /* LINEA */
+            $pdf->SetY(14);
+            $pdf->SetX(43.5);
+            $pdf->Cell(12, 4, utf8_decode("Linea"), 1/* BORDE */, 1, 'L');
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->SetY(14);
+            $pdf->SetX(55.5);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveLinea), 1/* BORDE */, 1, 'C');
+            $pdf->SetY(14);
+            $pdf->SetX(75.5);
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescLinea), 1/* BORDE */, 1, 'L');
+            /* ESTILO */
+            $pdf->SetFont('Arial', 'B', 9);
+            $pdf->SetY(18);
+            $pdf->SetX(43.5);
+            $pdf->Cell(12, 4, utf8_decode("Estilo"), 1/* BORDE */, 1, 'L');
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->SetY(18);
+            $pdf->SetX(55.5);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveEstilo), 1/* BORDE */, 1, 'C');
+            $pdf->SetY(18);
+            $pdf->SetX(75.5);
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescEstilo), 1/* BORDE */, 1, 'L');
+            /* DESPERDICIO */
+            $pdf->SetY(18);
+            $pdf->SetX(123.5);
+            $pdf->Cell(30, 4, utf8_decode("% Desperdicio .10"), 1/* BORDE */, 1, 'C');
+            /* COLOR */
+            $pdf->SetFont('Arial', 'B', 9);
+            $pdf->SetY(22);
+            $pdf->SetX(43.5);
+            $pdf->Cell(12, 4, utf8_decode("Color"), 1/* BORDE */, 1, 'L');
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->SetY(22);
+            $pdf->SetX(55.5);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveCombinacion), 1/* BORDE */, 1, 'C');
+            $pdf->SetY(22);
+            $pdf->SetX(75.5);
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescCombinacion), 1/* BORDE */, 1, 'L');
+            /* MAQUILA */
+            $pdf->SetFont('Arial', 'B', 9);
+            $pdf->SetY(26);
+            $pdf->SetX(43.5);
+            $pdf->Cell(12, 4, utf8_decode("Maq"), 1/* BORDE */, 1, 'L');
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->SetY(26);
+            $pdf->SetX(55.5);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveMaquila), 1/* BORDE */, 1, 'C');
+            $pdf->SetY(26);
+            $pdf->SetX(75.5);
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->NombreMaquila), 1/* BORDE */, 1, 'L');
 
+            /* FIN ENCABEZADO */
+            $posiciones = array(10/* 0 */, 60/* 1 */, 125/* 2 */, 145/* 3 */, 165/* 5 */, 185/* 6 */, 205/* 7 */);
+            $anchos = array(50/* 0 */, 65/* 1 */, 20/* 2 */);
+            /* DETALLE */
+            /* DETALLE TITULOS */
+            /* PIEZA */
+            $pdf->SetY(32);
+            $pdf->SetX($posiciones[0]);
+            $pdf->Cell($anchos[0], 4, utf8_decode("Pieza"), 0/* BORDE */, 0, 'L');
+            /* ARTICULO */
+            $pdf->SetY(32);
+            $pdf->SetX($posiciones[1]);
+            $pdf->Cell($anchos[1], 4, utf8_decode("Articulo"), 0/* BORDE */, 0, 'L');
+            /* UNIDAD MEDIDA */
+            $pdf->SetY(32);
+            $pdf->SetX($posiciones[2]);
+            $pdf->Cell($anchos[2], 4, utf8_decode("U.M"), 0/* BORDE */, 0, 'C');
+            /* PRECIO */
+            $pdf->SetY(32);
+            $pdf->SetX($posiciones[3]);
+            $pdf->Cell($anchos[2], 4, utf8_decode("Precio"), 0/* BORDE */, 0, 'C');
+            /* CONSUMO */
+            $pdf->SetY(32);
+            $pdf->SetX($posiciones[4]);
+            $pdf->Cell($anchos[2], 4, utf8_decode("Consumo"), 0/* BORDE */, 0, 'C');
+            /* CONSUMO */
+            $pdf->SetY(32 - 4);
+            $pdf->SetX($posiciones[5]);
+            $pdf->MultiCell($anchos[2], 4, utf8_decode("Consumo y costo"), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+            /* .10 */
+            $pdf->SetY(32);
+            $pdf->SetX($posiciones[6]);
+            $pdf->Cell($anchos[2], 4, utf8_decode(".10"), 0/* BORDE */, 1, 'C');
+            $pdf->Line(/* Izq-X */10, /* Top-Y */ $pdf->GetY(), /* Largo */ 225, $pdf->GetY());
+            /* FIN DETALLE TITULOS */
 
-        $pdf->AliasNbPages();
-        $pdf->AddPage();
-        $pdf->SetAutoPageBreak(true, 10);
+            /* DETALLE */
+            $page_height = 287;
+            $Y = $pdf->GetY();
+            $YY = $pdf->GetY();
+            /* RECORRER CADA FILA DENTRO DEL ARRAY OBTENIDO */
+            foreach ($FichaTecnica as $row) {
+                /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
+                if ($pdf->GetY() > $page_height) {
+                    /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
+                    $page_height = 580;
+                    /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
+                    $pdf->AddPage();
+                }
+                /* RESTABLECER POSICION EN Y */
+                $Y = $pdf->GetY();
+                $YY = $pdf->GetY();
+                /* FIN RESTABLECER POSICION EN Y */
 
-        $pdf->SetFont('Arial', 'B', 14);
-        $pdf->SetY(10);
-        $pdf->SetX(10);
-        $pdf->Cell(50, 5, utf8_decode("FICHA TECNICA " . $datosEncabezado->ClaveLinea), 0, 1, 'L');
-        
-        $pdf->SetY(30);
-        $pdf->SetX(30);
-        $pdf->Cell(50, 5, utf8_decode("Estiloi " . $datosEncabezado->DescLinea), 0, 1, 'L');
-        
+                /* COLOCAR CAMPOS */
+                /*PIEZA*/
+                $pdf->SetXY($posiciones[0], $YY);
+                $pdf->MultiCell($anchos[0], 4, utf8_decode($row->ClavePieza . ' ' . $row->DescPieza), 1/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                /*ARTICULO*/
+                $pdf->SetXY($posiciones[1], $YY);
+                $pdf->MultiCell($anchos[1], 4, utf8_decode($row->ClaveMaterial . ' ' . $row->DescMaterial), 1/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                
+                /*UNIDAD MEDIDA*/
+                $pdf->SetXY($posiciones[2], $YY);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode($row->Unidad), 1/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                /*PRECIO*/
+                $pdf->SetXY($posiciones[3], $YY);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode("$ " . number_format($row->Precio, 4, '.', ', ')), 1/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                /*CONSUMO*/
+                $pdf->SetXY($posiciones[4], $YY);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Consumo, 4, '.', ', ')), 1/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                /*CONSUMO Y COSTO*/
+                $pdf->SetXY($posiciones[5], $YY);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode( number_format(0, 4, '.', ', ')), 1/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                /*.10*/
+                $pdf->SetXY($posiciones[6], $YY);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Desperdicio, 4, '.', ', ')), 1/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $pdf->GetY() : $YY;
+                
+                /* FIN COLOCAR CAMPOS */
+                /*  $pdf->SetY($YY); !SOLO EN CASO DE QUE LA ULTIMA CELDA SEA DE TIPO CELL ESTABLECER LA ALTURA FINAL, DE LA FILA */
+                $pdf->Line(/* Izq-X */12, /* Top-Y */ $pdf->GetY(), /* Largo */ 225, $pdf->GetY());
+            }
+            /* FIN DETALLE */
 
-
-
-        /* FIN CUERPO */
-        $path = 'uploads/Reportes/FichasTecnicas';
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
-        }
-         $file_name = "FICHA TECNICA " . $datosEncabezado->ClaveEstilo . " " . date("Y-m-d His");
-        $url = $path . '/' . $file_name . '.pdf';
-        /* Borramos el archivo anterior */
+            /* FIN CUERPO */
+            $path = 'uploads/Reportes/FichasTecnicas';
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $file_name = "FICHA TECNICA " . $Encabezado->ClaveEstilo . " " . date("Y-m-d His");
+            $url = $path . '/' . $file_name . '.pdf';
+            /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/FichasTecnicas/')) {
                 
             }
-        $pdf->Output($url);
-        print base_url() . $url;
-         }
+            $pdf->Output($url);
+            print base_url() . $url;
+        }
     }
 
 }

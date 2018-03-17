@@ -14,7 +14,7 @@ class reportes_disdes_model extends CI_Model {
         try {
             $this->db->select(''
                     . 'L.Clave As ClaveLinea, L.Descripcion As DescLinea, '
-                    . 'E.Clave AS ClaveEstilo, E.Descripcion As DescEstilo, E.Desperdicio, '
+                    . 'E.Clave AS ClaveEstilo, E.Descripcion As DescEstilo, E.Desperdicio AS Desperdicio, '
                     . 'C.Clave AS ClaveCombinacion, C.Descripcion As DescCombinacion, '
                     . 'MAQ.Clave AS ClaveMaquila, MAQ.Nombre As NombreMaquila, '
                     . 'M.Material AS ClaveMaterial ,M.Descripcion AS DescMaterial,M.UnidadConsumo AS Unidad,'
