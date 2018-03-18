@@ -21,7 +21,7 @@ class reportes_disdes_model extends CI_Model {
                     . 'M.PrecioLista AS Precio, PYMD.Consumo As Consumo, '
                     . '(M.PrecioLista * PYMD.Consumo) AS Costo, '
                     . '(M.PrecioLista * PYMD.Consumo) + ((M.PrecioLista * PYMD.Consumo) * E.Desperdicio ) AS UtlimaColumna, '
-                    . 'CATP.IValue AS ClavePieza, CATP.SValue AS DescPieza,'
+                    . 'CATP.IValue AS ClavePieza, CATP.SValue AS DescPieza,CATF.SValue AS Familia, CATD.SValue AS Departamento'
                     . ' '
                     . ' ', false);
             $this->db->from('Estilos AS E');
@@ -31,7 +31,7 @@ class reportes_disdes_model extends CI_Model {
             $this->db->join('Maquilas AS MAQ', 'MAQ.ID = E.Maquila');
             $this->db->join('Combinaciones AS C', 'PYM.Combinacion =  C.ID');
             $this->db->join('Materiales AS M', 'M.ID = PYMD.Material');
-            $this->db->join('Catalogos CATf', "CATF.ID = M.Familia AND CATF.FieldId = 'FAMILIAS' ");
+            $this->db->join('Catalogos CATF', "CATF.ID = M.Familia AND CATF.FieldId = 'FAMILIAS' ");
             $this->db->join('Catalogos CATD', "CATD.ID = M.Departamento AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->join('Catalogos CATP', "CATP.ID = PYMD.Pieza AND CATP.FieldId = 'PIEZAS' ");
             $this->db->where('PYM.Estilo', $Estilo);
