@@ -18,9 +18,9 @@ class piezasymateriales_model extends CI_Model {
       ,C.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(PYMD.Consumo * PYMD.Precio) AS money), 1),'</span>')AS Total
       ,PYM.Registro AS Registro ", false);
             $this->db->from('PiezasYMateriales AS PYM ');
-            $this->db->join('Estilos AS E', 'PYM.Estilo = E.ID');
-            $this->db->join('Combinaciones AS C', 'PYM.Combinacion = C.ID');
-            $this->db->join('PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales = PYM.ID');
+            $this->db->join('Estilos AS E', 'PYM.Estilo = E.ID','left');
+            $this->db->join('Combinaciones AS C', 'PYM.Combinacion = C.ID','left');
+            $this->db->join('PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales = PYM.ID','left');
             $this->db->group_by('PYM.ID,E.Descripcion,C.Descripcion,PYM.Registro');
             $this->db->where_in('PYM.Estatus', array('ACTIVO'));
             $query = $this->db->get();
@@ -151,9 +151,10 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
-    public function onModificarDetalle($ID, $DATA, $M) {
+    public function onModificarDetalle($ID,$Pieza, $DATA, $M) {
         try {
             $this->db->where('Material', $ID);
+            $this->db->where('Pieza', $Pieza);
             $this->db->where('PiezasYMateriales', $M);
             $this->db->update("PiezasYMaterialesDetalle", $DATA);
 //            print $str = $this->db->last_query();
@@ -162,11 +163,12 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
-    public function getExisteMaterial($Material, $MaterialCombinacion) {
+    public function getExisteMaterial($Material,$Pieza, $MaterialCombinacion) {
         try {
             $this->db->select('COUNT(*) AS EXISTE', false);
             $this->db->from('PiezasYMaterialesDetalle AS PYM ');
             $this->db->where('PYM.Material', $Material);
+            $this->db->where('PYM.Pieza', $Pieza);
             $this->db->where('PYM.PiezasYMateriales', $MaterialCombinacion);
             $query = $this->db->get();
             /*

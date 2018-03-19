@@ -386,10 +386,11 @@
                         processData: false,
                         data: f
                     }).done(function (data, x, jq) {
+                        console.log(data);
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'LOS CAMBIOS SE HAN GUARDADO', 'success');
                         getRecords();
-                        pnlTablero.removeClass("d-none");
-                        pnlEditar.addClass('d-none');
+//                        pnlTablero.removeClass("d-none");
+//                        pnlEditar.addClass('d-none');
                         onEffect(1);
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -585,13 +586,13 @@
 
         pnlNuevo.find("#btnAgregarMaterial").on('click', function () {
             var Consumo = pnlNuevo.find("#Consumo").val();
-            var id_selected = pnlNuevo.find("#Material").val().replace(/\s+/g, '');
+            var id_selected = pnlNuevo.find("#Pieza").val().replace(/\s+/g, '');
             if (id_selected !== '') {
                 if (parseFloat(Consumo) > 0 && id_selected !== '') {
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                        var id_row = $(this).find("td").eq(0).text();
+                        var id_row = $(this).find("td").eq(2).text();
                         console.log(id_row + '===' + id_selected);
                         if (id_row === id_selected) {
                             agregado = true;
@@ -647,7 +648,7 @@
                         });
                     } else {
                         onEffect(2);/*ERROR*/
-                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTE MATERIAL YA FUE AGREGADO', 'danger');
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTA PIEZA YA FUE AGREGADA', 'danger');
                     }
                 } else {
                     onEffect(2);/*ERROR*/
@@ -661,13 +662,13 @@
 
         pnlEditar.find("#btnAgregarMaterialE").on('click', function () {
             var Consumo = pnlEditar.find("#ConsumoE").val();
-            var id_selected = pnlEditar.find("#MaterialE").val().replace(/\s+/g, '');
+            var id_selected = pnlEditar.find("#PiezaE").val().replace(/\s+/g, '');
             if (id_selected !== '') {
                 if (parseFloat(Consumo) > 0 && id_selected !== '') {
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                        var id_row = $(this).find("td").eq(0).text();
+                        var id_row = $(this).find("td").eq(2    ).text();
                         console.log(id_row + '===' + id_selected);
                         if (id_row === id_selected) {
                             agregado = true;
@@ -721,7 +722,7 @@
                         });
                     } else {
                         onEffect(2);/*ERROR*/
-                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTE MATERIAL YA FUE AGREGADO', 'danger');
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTA PIEZA YA FUE AGREGADA', 'danger');
                     }
                 } else {
                     onEffect(2);/*ERROR*/

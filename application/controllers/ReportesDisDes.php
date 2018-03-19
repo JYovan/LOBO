@@ -15,6 +15,7 @@ class ReportesDisDes extends CI_Controller {
         $this->load->model('piezasymateriales_model');
         $this->load->helper('reportes_helper');
         $this->load->helper('file');
+        $this->load->helper('array');
     }
 
     public function index() {
@@ -163,7 +164,25 @@ class ReportesDisDes extends CI_Controller {
             $Y = $pdf->GetY();
             $YY = $pdf->GetY();
             $pdf->SetFont('Arial', 'B', 8);
-            /* RECORRER CADA FILA DENTRO DEL ARRAY OBTENIDO */
+            $Detalle = array();
+            $Departamentos = array();
+            $Familias = array(); 
+             foreach ($FichaTecnica as $k => $v) {
+                if (!in_array($v->Departamento, $Departamentos, true)) {
+                    array_push($Departamentos, $v->Departamento);
+                }  
+                if (!in_array($v->Familia, $Familias, true)) {
+                    array_push($Familias, $v->Familia);
+                }
+            }
+            
+            /* COMPROBAR SI EL INDEX EXISTE */
+            foreach ($FichaTecnica as $k => $v) {
+                if (isset($v->Departamento, $Detalle) ) {
+                    $Detalle[$v->Departamento] =  $v->Familia;
+                }
+            }
+            print_r($Detalle);
             foreach ($FichaTecnica as $row) {
                 /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                 if ($pdf->GetY() > $page_height) {
@@ -223,7 +242,6 @@ class ReportesDisDes extends CI_Controller {
             $url = $path . '/' . $file_name . '.pdf';
             /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/FichasTecnicas/')) {
-                
             }
             $pdf->Output($url);
             print base_url() . $url;

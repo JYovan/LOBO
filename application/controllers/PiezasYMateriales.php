@@ -139,17 +139,18 @@ class PiezasYMateriales extends CI_Controller {
             /* AGREGAR,ELIMINAR O MODIFICAR DETALLE */
             $materiales = json_decode($this->input->post("Materiales"));
             foreach ($materiales as $key => $v) {
-                /* COMPROBAR SI EL MATERIAL LEIDO EXISTE */
-                $dtm = $this->piezasymateriales_model->getExisteMaterial($v->Material, $this->input->post('ID'));
+                /* COMPROBAR SI EL MATERIAL-PIEZA LEIDO EXISTE */
+                $dtm = $this->piezasymateriales_model->getExisteMaterial($v->Material, $v->Pieza, $this->input->post('ID'));
                 /* SI EXISTE, MODIFICARLO */
                 if ($dtm[0]->EXISTE > 0) {
                     $data = array(
                         'Material' => $v->Material,
+                        'Pieza' => $v->Pieza,
                         'Precio' => $v->Precio,
                         'Consumo' => $v->Consumo,
                         'Estatus' => 'ACTIVO'
                     );
-                    $this->piezasymateriales_model->onModificarDetalle($v->Material, $data, $this->input->post('ID'));
+                    $this->piezasymateriales_model->onModificarDetalle($v->Material, $v->Pieza, $data, $this->input->post('ID'));
                 } else {
                     $data = array(
                         'PiezasYMateriales' => $this->input->post('ID'),
