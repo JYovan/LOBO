@@ -65,9 +65,10 @@ class piezasymateriales_model extends CI_Model {
 
     public function getMaterialesRequeridos() {
         try {
-            $this->db->select('M.[ID] AS ID,M.[Material] AS Material', false);
+            $this->db->select('M.[ID] AS ID,M.[Descripcion] AS Material', false);
             $this->db->from('Materiales AS M');
             $this->db->where_in('M.Estatus', array('ACTIVO'));
+            $this->db->order_by("M.Material", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
