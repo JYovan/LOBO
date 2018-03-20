@@ -446,7 +446,7 @@
         }).done(function (data, x, jq) {
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+                options += '<option value="' + v.ID + '">'+v.IValue +'-'+ v.SValue + '</option>';
             });
             pnlNuevo.find("[name='DepartamentoCat']").html(options);
             pnlEditar.find("[name='DepartamentoCat']").html(options);

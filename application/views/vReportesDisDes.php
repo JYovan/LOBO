@@ -22,7 +22,7 @@
 </div>
 <!--MODALES--> 
 <!--Confirmacion Eliminar Concepto-->
-<div class="modal" id="mdlImprimirFichaTecnica" tabindex="-1" role="dialog">
+<div class="modal" id="mdlImprimirFichaTecnica"  role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,14 +36,18 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="Estilo">Estilo*</label>
-                            <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
+                            
+                            
+                            <select class="form-control form-control-lg" id="Estilo"   name="Estilo">  
+                                <option value=""></option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
                             <label for="Combinacion">Combinación*</label>
-                            <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
+                            <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion"> 
+                                <option value=""></option>
                             </select>
                         </div>
                     </div>

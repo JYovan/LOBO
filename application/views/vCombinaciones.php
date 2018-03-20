@@ -54,30 +54,11 @@
                     </div>
                 </div>
                 <div class="row">
-
-                    <div class="col-sm">
-                        <label for="Clave">Clave*</label>  
-                        <input type="text" maxlength="15" class="form-control" id="Clave" name="Clave" required >
-                    </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>  
                         <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="Linea">Linea*</label>
-                        <select class="form-control form-control-lg"  name="Linea" required=""> 
-                            <option value=""></option>  
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg"  name="Estilo" required=""> 
-                            <option value=""></option>  
-                        </select>
-                    </div>
-                </div> 
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
@@ -114,28 +95,9 @@
                         <input type="text" class="form-control" id="ID" name="ID" required >
                     </div>
                     <div class="row">
-
-                        <div class="col-sm">
-                            <label for="Clave">Clave*</label>  
-                            <input type="text" maxlength="15" class="form-control" id="Clave" name="Clave" required >
-                        </div>
                         <div class="col-sm">
                             <label for="Descripcion">Descripción*</label>  
                             <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Linea">Linea*</label>
-                            <select class="form-control form-control-lg"  name="Linea" required=""> 
-                                <option value=""></option>  
-                            </select>
-                        </div>
-                        <div class="col-sm">
-                            <label for="Estilo">Estilo*</label>
-                            <select class="form-control form-control-lg"  name="Estilo" required=""> 
-                                <option value=""></option>  
-                            </select>
                         </div>
                     </div> 
                     <div class="row">
@@ -358,8 +320,6 @@
         });
 
         getRecords();
-        getLineas();
-        getEstilos();
         handleEnter();
     });
 
@@ -375,122 +335,91 @@
             dataType: "JSON"
         }).done(function (data, x, jq) {
             console.log(data);
-            $("#tblRegistros").html(getTable('tblCombinaciones', data));
 
-            $('#tblCombinaciones tfoot th').each(function () {
-                $(this).html('');
-            });
-            var thead = $('#tblCombinaciones thead th');
-            var tfoot = $('#tblCombinaciones tfoot th');
-            thead.eq(0).addClass("d-none");
-            tfoot.eq(0).addClass("d-none");
-            $.each($.find('#tblCombinaciones tbody tr'), function (k, v) {
-                var td = $(v).find("td");
-                td.eq(0).addClass("d-none");
-            });
-            var tblSelected = $('#tblCombinaciones').DataTable(tableOptions);
-            $('#tblCombinaciones_filter input[type=search]').focus();
+            if (data.length > 0) {
 
-            $('#tblCombinaciones tbody').on('click', 'tr', function () {
+                $("#tblRegistros").html(getTable('tblCombinaciones', data));
 
-                $("#tblCombinaciones tbody tr").removeClass("success");
-                $(this).addClass("success");
-                var dtm = tblSelected.row(this).data();
-                temp = parseInt(dtm[0]);
-            });
+                $('#tblCombinaciones tfoot th').each(function () {
+                    $(this).html('');
+                });
+//                var thead = $('#tblCombinaciones thead th');
+//                var tfoot = $('#tblCombinaciones tfoot th');
+//                thead.eq(0).addClass("d-none");
+//                tfoot.eq(0).addClass("d-none");
+//                $.each($.find('#tblCombinaciones tbody tr'), function (k, v) {
+//                    var td = $(v).find("td");
+//                    td.eq(0).addClass("d-none");
+//                });
+                var tblSelected = $('#tblCombinaciones').DataTable(tableOptions);
+                $('#tblCombinaciones_filter input[type=search]').focus();
 
-            $('#tblCombinaciones tbody').on('dblclick', 'tr', function () {
-                $("#tblCombinaciones tbody tr").removeClass("success");
-                $(this).addClass("success");
-                var id = this.id;
-                var index = $.inArray(id, selected);
-                if (index === -1) {
-                    selected.push(id);
-                } else {
-                    selected.splice(index, 1);
-                }
-                var dtm = tblSelected.row(this).data();
-                if (temp !== 0 && temp !== undefined && temp > 0) {
-                    HoldOn.open({
-                        theme: "sk-bounce",
-                        message: "CARGANDO DATOS..."
-                    });
-                    $.ajax({
-                        url: master_url + 'getCombinacionByID',
-                        type: "POST",
-                        dataType: "JSON",
-                        data: {
-                            ID: temp
-                        }
-                    }).done(function (data, x, jq) {
+                $('#tblCombinaciones tbody').on('click', 'tr', function () {
 
-                        pnlEditar.find("input").val("");
-                        pnlEditar.find("select").val("").trigger('change');
-                        $.each(data[0], function (k, v) {
-                            pnlEditar.find("#" + k).val(v);
-                            //pnlEditar.find("#" + k).val(v).trigger('change');
-                            pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
+                    $("#tblCombinaciones tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var dtm = tblSelected.row(this).data();
+                    temp = parseInt(dtm[0]);
+                });
+
+                $('#tblCombinaciones tbody').on('dblclick', 'tr', function () {
+                    $("#tblCombinaciones tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var id = this.id;
+                    var index = $.inArray(id, selected);
+                    if (index === -1) {
+                        selected.push(id);
+                    } else {
+                        selected.splice(index, 1);
+                    }
+                    var dtm = tblSelected.row(this).data();
+                    if (temp !== 0 && temp !== undefined && temp > 0) {
+                        HoldOn.open({
+                            theme: "sk-bounce",
+                            message: "CARGANDO DATOS..."
                         });
-                        pnlTablero.addClass("d-none");
-                        pnlEditar.removeClass('d-none');
-                        $(':input:text:enabled:visible:first').focus();
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
-                } else {
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                }
-            });
-            // Apply the search
-            tblSelected.columns().every(function () {
-                var that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
+                        $.ajax({
+                            url: master_url + 'getCombinacionByID',
+                            type: "POST",
+                            dataType: "JSON",
+                            data: {
+                                ID: temp
+                            }
+                        }).done(function (data, x, jq) {
+
+                            pnlEditar.find("input").val("");
+                            pnlEditar.find("select").val("").trigger('change');
+                            $.each(data[0], function (k, v) {
+                                pnlEditar.find("#" + k).val(v);
+                                //pnlEditar.find("#" + k).val(v).trigger('change');
+                                pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
+                            });
+                            pnlTablero.addClass("d-none");
+                            pnlEditar.removeClass('d-none');
+                            $(':input:text:enabled:visible:first').focus();
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+                    } else {
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
                     }
                 });
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
-    function getLineas() {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getLineas',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            var options = '<option></option>';
-            $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
-            });
-            pnlNuevo.find("[name='Linea']").html(options);
-            pnlEditar.find("[name='Linea']").html(options);
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
-    function getEstilos() {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getEstilos',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            console.log(data);
-            var options = '<option></option>';
-            $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
-            });
-            pnlNuevo.find("[name='Estilo']").html(options);
-            pnlEditar.find("[name='Estilo']").html(options);
+                // Apply the search
+                tblSelected.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+
+
+            }
+
+
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {

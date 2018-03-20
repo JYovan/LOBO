@@ -12,7 +12,7 @@ class generales_model extends CI_Model {
 
     public function getRecords($FieldId) {
         try {
-            $this->db->select("U.ID ,U.IValue AS Clave, U.SValue AS Nombre, U.Valor_Num AS Valor, U.Estatus AS Estatus ", false);
+            $this->db->select("U.ID ,U.IValue AS Clave, U.SValue AS Nombre,U.Valor_Text AS Descripción, U.Valor_Num AS Valor, U.Estatus AS Estatus ", false);
             $this->db->from('Catalogos AS U');
             $this->db->where_in('U.FieldId', $FieldId);
             $this->db->where_in('U.Estatus', 'ACTIVO');

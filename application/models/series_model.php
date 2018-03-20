@@ -15,6 +15,7 @@ class series_model extends CI_Model {
             $this->db->select("U.ID, U.Descripcion, U.PuntoInicial AS 'Punto Inicial', U.PuntoFinal AS 'Punto Final' ", false);
             $this->db->from('Series AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->order_by("U.ID", "asc");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

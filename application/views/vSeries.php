@@ -304,6 +304,7 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
+                        
 
                         //Crear las tallas
                         while (incremento <= parseFloat(pnlNuevo.find('#PuntoFinal').val())) {
@@ -316,7 +317,7 @@
                                     Talla: incremento
                                 }
                             }).done(function (data, x, jq) {
-
+                                
                                 console.log(data);
                             }).fail(function (x, y, z) {
                                 console.log(x, y, z);
@@ -593,7 +594,9 @@
             pnlEditar.removeClass('d-none');
             pnlDetalle.removeClass('d-none');
             $(':input:text:enabled:visible:first').focus();
+            
             getSeriesDetallebySerieID(temp);
+            getRecords();
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {

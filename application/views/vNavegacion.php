@@ -17,12 +17,12 @@
                     Diseño y Desarrollo
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a></li>
+<!--                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a></li>-->
                     <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo') ?>">Fracciones por Estilo</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales') ?>">Piezas y Materiales</a></li>
                     <div class="dropdown-divider" ></div>
                     <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes') ?>">Reportes</a></li>
-                    
+
                     <!--
                                         <li class="nav-item dropdown dropdown-submenu">
                                             <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,11 +114,28 @@
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Trasnportes</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=RUTAS') ?>">Rutas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=ZONAS') ?>">Zonas</a></li>
                             <div class="dropdown-divider" href="#"></div>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PIEZAS') ?>">Piezas</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TEMPORADAS') ?>">Temporadas</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=HORMAS') ?>">Hormas</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TIPOS ESTILO') ?>">Tipos de Estilo</a></li>
+
+                            <li class="nav-item dropdown dropdown-submenu">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Producción
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEP-PROD') ?>">Departamentos Producción</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DETALLES_PROD') ?>">Detalles Producción</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PIEZAS') ?>">Piezas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TEMPORADAS') ?>">Temporadas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=HORMAS') ?>">Hormas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TIPOS ESTILO') ?>">Tipos de Estilo</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PLANTILLAS') ?>">Plantillas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEFECTOS') ?>">Defectos</a></li>
+
+                                </ul>
+                            </li>
+
+
+
                         </ul>
                     </li>
 

@@ -71,10 +71,7 @@ class Combinaciones extends CI_Controller {
     public function onAgregar() {
         try {
             $data = array(
-                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Linea' => ($this->input->post('Linea') !== NULL) ? $this->input->post('Linea') : NULL,
-                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->combinaciones_model->onAgregar($data);
@@ -87,10 +84,7 @@ class Combinaciones extends CI_Controller {
         try {
             extract($this->input->post());
             $DATA = array(
-                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Linea' => ($this->input->post('Linea') !== NULL) ? $this->input->post('Linea') : NULL,
-                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->combinaciones_model->onModificar($ID, $DATA);

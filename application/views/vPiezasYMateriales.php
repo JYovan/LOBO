@@ -85,15 +85,16 @@
                                 <h2 class="text-success"><strong>$ 0.0</strong></h2>
                             </div>
                             <div class="col-sm">
-                                <label for="Material">Material*</label>
-                                <select class="form-control form-control-lg" id="Material"  name="Material">  
-                                </select>
-                            </div>
-                            <div class="col-sm">
                                 <label for="Pieza">Pieza*</label>
                                 <select class="form-control form-control-lg" id="Pieza"  name="Pieza">  
                                 </select>
                             </div>
+                            <div class="col-sm">
+                                <label for="Material">Material*</label>
+                                <select class="form-control form-control-lg" id="Material"  name="Material">  
+                                </select>
+                            </div>
+
                             <div class="col-sm">
                                 <label for="Consumo">Consumo*</label>
                                 <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
@@ -185,15 +186,16 @@
                                 <h2 class="text-success"><strong>$ 0.0</strong></h2>
                             </div>
                             <div class="col-sm">
-                                <label for="MaterialE">Material*</label>
-                                <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
-                                </select>
-                            </div>
-                            <div class="col-sm">
                                 <label for="PiezaE">Pieza*</label>
                                 <select class="form-control form-control-lg" id="PiezaE"  name="PiezaE">  
                                 </select>
                             </div>
+                            <div class="col-sm">
+                                <label for="MaterialE">Material*</label>
+                                <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
+                                </select>
+                            </div>
+                            
                             <div class="col-sm">
                                 <label for="ConsumoE">Consumo*</label>
                                 <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
@@ -668,7 +670,7 @@
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                        var id_row = $(this).find("td").eq(2    ).text();
+                        var id_row = $(this).find("td").eq(2).text();
                         console.log(id_row + '===' + id_selected);
                         if (id_row === id_selected) {
                             agregado = true;

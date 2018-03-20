@@ -15,9 +15,9 @@ class reportes_disdes_model extends CI_Model {
             $this->db->select(''
                     . 'L.Clave As ClaveLinea, L.Descripcion As DescLinea, '
                     . 'E.Clave AS ClaveEstilo, E.Descripcion As DescEstilo, E.Desperdicio AS Desperdicio, '
-                    . 'C.Clave AS ClaveCombinacion, C.Descripcion As DescCombinacion, '
+                    . 'C.ID AS ClaveCombinacion, C.Descripcion As DescCombinacion, '
                     . 'MAQ.Clave AS ClaveMaquila, MAQ.Nombre As NombreMaquila, '
-                    . 'M.Material AS ClaveMaterial ,M.Descripcion AS DescMaterial,M.UnidadConsumo AS Unidad,'
+                    . 'M.Material AS ClaveMaterial ,M.Descripcion AS DescMaterial,CATU.SValue AS Unidad,'
                     . 'M.PrecioLista AS Precio, PYMD.Consumo As Consumo, '
                     . '(M.PrecioLista * PYMD.Consumo) AS Costo, '
                     . '(M.PrecioLista * PYMD.Consumo) + ((M.PrecioLista * PYMD.Consumo) * E.Desperdicio ) AS UtlimaColumna, '
@@ -31,6 +31,7 @@ class reportes_disdes_model extends CI_Model {
             $this->db->join('Maquilas AS MAQ', 'MAQ.ID = E.Maquila');
             $this->db->join('Combinaciones AS C', 'PYM.Combinacion =  C.ID');
             $this->db->join('Materiales AS M', 'M.ID = PYMD.Material');
+            $this->db->join('Catalogos CATU', "CATU.ID = M.UnidadConsumo AND CATU.FieldId = 'UNIDADES' ");
             $this->db->join('Catalogos CATF', "CATF.ID = M.Familia AND CATF.FieldId = 'FAMILIAS' ");
             $this->db->join('Catalogos CATD', "CATD.ID = M.Departamento AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->join('Catalogos CATP', "CATP.ID = PYMD.Pieza AND CATP.FieldId = 'PIEZAS' ");

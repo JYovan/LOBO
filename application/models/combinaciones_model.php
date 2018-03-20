@@ -12,7 +12,7 @@ class combinaciones_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("U.ID, U.Clave, U.Descripcion", false);
+            $this->db->select("U.ID, U.Descripcion", false);
             $this->db->from('Combinaciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -29,7 +29,7 @@ class combinaciones_model extends CI_Model {
 
     public function getCombinaciones() {
         try {
-            $this->db->select("U.ID, U.Clave, U.Descripcion", false);
+            $this->db->select("U.ID,  U.Descripcion", false);
             $this->db->from('Combinaciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

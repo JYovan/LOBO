@@ -62,100 +62,109 @@ class ReportesDisDes extends CI_Controller {
             $pdf->Image('img/' . $image, /* LEFT */ 8, 11/* TOP */, /* ANCHO */ 35, /* ALTO */ 17.5);
             $pdf->SetAutoPageBreak(false);
             $base = 10;
-            $pdf->SetFont('Arial', 'B', 11);
+            $pdf->SetFont('Arial', 'B', 9);
             $pdf->SetY($base);
             $pdf->SetX(43.5);
-            $pdf->Cell(110, 4, utf8_decode("CALZADO LOBO, S.A. DE C.V."), 1/* BORDE */, 1, 'L');
+            $pdf->Cell(110, 4, utf8_decode("CALZADO LOBO, S.A. DE C.V."), 0/* BORDE */, 1, 'L');
             $pdf->SetY($base);
-            $pdf->SetX(190);
+            $pdf->SetX(200);
+            $pdf->SetFont('Arial', 'B', 7.5);
             $pdf->Cell(100, 4, utf8_decode("Fecha. " . Date('d/m/Y')), 0/* BORDE */, 1, 'L');
-            $pdf->Rect(43.5/* X */, 14/* Y */, 110/* W */, 16/* H */);
-            $pdf->SetFont('Arial', 'B', 9);
+            $pdf->Rect(43.5/* X */, 14/* Y */, 110/* W */, 13.5/* H */);
+            $pdf->SetFont('Arial', 'B', 7);
             /* LINEA */
             $pdf->SetY(14);
             $pdf->SetX(43.5);
-            $pdf->Cell(12, 4, utf8_decode("Linea"), 1/* BORDE */, 1, 'L');
-            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->Cell(12, 4, utf8_decode("Linea"), 0/* BORDE */, 0, 'L');
+            $pdf->SetFont('Arial', 'B', 7);
             $pdf->SetY(14);
             $pdf->SetX(55.5);
-            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveLinea), 1/* BORDE */, 1, 'C');
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveLinea), 0/* BORDE */, 1, 'C');
             $pdf->SetY(14);
             $pdf->SetX(75.5);
-            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescLinea), 1/* BORDE */, 1, 'L');
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescLinea), 0/* BORDE */, 1, 'L');
             /* ESTILO */
-            $pdf->SetFont('Arial', 'B', 9);
-            $pdf->SetY(18);
+            $pdf->SetFont('Arial', 'B', 7);
+            $pdf->SetY(17.5);
             $pdf->SetX(43.5);
-            $pdf->Cell(12, 4, utf8_decode("Estilo"), 1/* BORDE */, 1, 'L');
-            $pdf->SetFont('Arial', 'B', 8);
-            $pdf->SetY(18);
+            $pdf->Cell(12, 4, utf8_decode("Estilo"), 0/* BORDE */, 0, 'L');
+            $pdf->SetFont('Arial', 'B', 7);
+            $pdf->SetY(17.5);
             $pdf->SetX(55.5);
-            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveEstilo), 1/* BORDE */, 1, 'C');
-            $pdf->SetY(18);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveEstilo), 0/* BORDE */, 1, 'C');
+            $pdf->SetY(17.5);
             $pdf->SetX(75.5);
-            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescEstilo), 1/* BORDE */, 1, 'L');
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescEstilo), 0/* BORDE */, 1, 'L');
             /* DESPERDICIO */
-            $pdf->SetY(18);
+            $pdf->SetY(17.5);
             $pdf->SetX(123.5);
-            $pdf->Cell(30, 4, utf8_decode("% Desperdicio .10"), 1/* BORDE */, 1, 'C');
+            $pdf->Cell(30, 4, utf8_decode("% Desperdicio ".$Encabezado->Desperdicio), 0/* BORDE */, 1, 'C');
             /* COLOR */
-            $pdf->SetFont('Arial', 'B', 9);
-            $pdf->SetY(22);
+            $pdf->SetFont('Arial', 'B', 7);
+            $pdf->SetY(20.5);
             $pdf->SetX(43.5);
-            $pdf->Cell(12, 4, utf8_decode("Color"), 1/* BORDE */, 1, 'L');
-            $pdf->SetFont('Arial', 'B', 8);
-            $pdf->SetY(22);
+            $pdf->Cell(12, 4, utf8_decode("Color"), 0/* BORDE */, 0, 'L');
+            $pdf->SetFont('Arial', 'B', 7);
+            $pdf->SetY(20.5);
             $pdf->SetX(55.5);
-            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveCombinacion), 1/* BORDE */, 1, 'C');
-            $pdf->SetY(22);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveCombinacion), 0/* BORDE */, 1, 'C');
+            $pdf->SetY(20.5);
             $pdf->SetX(75.5);
-            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescCombinacion), 1/* BORDE */, 1, 'L');
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->DescCombinacion), 0/* BORDE */, 1, 'L');
             /* MAQUILA */
-            $pdf->SetFont('Arial', 'B', 9);
-            $pdf->SetY(26);
+            $pdf->SetFont('Arial', 'B', 7);
+            $pdf->SetY(23.5);
             $pdf->SetX(43.5);
-            $pdf->Cell(12, 4, utf8_decode("Maq"), 1/* BORDE */, 1, 'L');
-            $pdf->SetFont('Arial', 'B', 8);
-            $pdf->SetY(26);
+            $pdf->Cell(12, 4, utf8_decode("Maq"), 0/* BORDE */, 1, 'L');
+            $pdf->SetFont('Arial', 'B', 7);
+            $pdf->SetY(23.5);
             $pdf->SetX(55.5);
-            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveMaquila), 1/* BORDE */, 1, 'C');
-            $pdf->SetY(26);
+            $pdf->Cell(20, 4, utf8_decode($Encabezado->ClaveMaquila), 0/* BORDE */, 1, 'C');
+            $pdf->SetY(23.5);
             $pdf->SetX(75.5);
-            $pdf->Cell(48, 4, utf8_decode($Encabezado->NombreMaquila), 1/* BORDE */, 1, 'L');
+            $pdf->Cell(48, 4, utf8_decode($Encabezado->NombreMaquila), 0/* BORDE */, 1, 'L');
 
             /* FIN ENCABEZADO */
-            $posiciones = array(10/* 0 */, 60/* 1 */, 125/* 2 */, 145/* 3 */, 165/* 5 */, 185/* 6 */, 205/* 7 */);
-            $anchos = array(50/* 0 */, 65/* 1 */, 20/* 2 */);
+            $posiciones = array(10/* 0 */,20/* 1 */, 60/* 2 */, 85/* 3 */, 140/* 4 */, 165/* 5 */, 180/* 6 */, 195/* 7 */, 210/* 8 */);
+            $anchos = array(40/* 0 */, 65/* 1 */, 20/* 2 */, 10/* 3 */, 60/* 4 */);
             /* DETALLE */
             /* DETALLE TITULOS */
             /* PIEZA */
-            $pdf->SetY(32);
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[0]);
-            $pdf->Cell($anchos[0], 4, utf8_decode("Pieza"), 0/* BORDE */, 0, 'L');
-            /* ARTICULO */
-            $pdf->SetY(32);
+            $pdf->Cell($anchos[3], 4, utf8_decode("Pieza"), 0/* BORDE */, 0, 'L');
+             /*DESC PIEZA */
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[1]);
-            $pdf->Cell($anchos[1], 4, utf8_decode("Artículo"), 0/* BORDE */, 0, 'L');
-            /* UNIDAD MEDIDA */
-            $pdf->SetY(32);
+            $pdf->Cell($anchos[0], 4, utf8_decode(""), 0/* BORDE */, 0, 'L');
+            /* ARTICULO */
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[2]);
-            $pdf->Cell($anchos[2], 4, utf8_decode("U.M"), 0/* BORDE */, 0, 'C');
-            /* PRECIO */
-            $pdf->SetY(32);
+            $pdf->Cell($anchos[2], 4, utf8_decode("Artículo"), 0/* BORDE */, 0, 'L');
+            /*DESC ARTICULO */
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[3]);
-            $pdf->Cell($anchos[2], 4, utf8_decode("Precio"), 0/* BORDE */, 0, 'C');
-            /* CONSUMO */
-            $pdf->SetY(32);
+            $pdf->Cell($anchos[4], 4, utf8_decode(""), 0/* BORDE */, 0, 'L');
+            /* UNIDAD MEDIDA */
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[4]);
-            $pdf->Cell($anchos[2], 4, utf8_decode("Consumo"), 0/* BORDE */, 0, 'C');
-            /* CONSUMO */
-            $pdf->SetY(32 - 4);
+            $pdf->Cell($anchos[3], 4, utf8_decode("U.M"), 0/* BORDE */, 0, 'L');
+            /* PRECIO */
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[5]);
-            $pdf->MultiCell($anchos[2], 4, utf8_decode("Consumo y costo"), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
-            /* .10 */
-            $pdf->SetY(32);
+            $pdf->Cell($anchos[2], 4, utf8_decode("Precio"), 0/* BORDE */, 0, 'L');
+            /* CONSUMO */
+            $pdf->SetY(29);
             $pdf->SetX($posiciones[6]);
-            $pdf->Cell($anchos[2], 4, utf8_decode(".10"), 0/* BORDE */, 1, 'C');
+            $pdf->Cell($anchos[2], 4, utf8_decode("Consumo"), 0/* BORDE */, 0, 'C');
+            /* COSTO */
+            $pdf->SetY(29);
+            $pdf->SetX($posiciones[7]);
+            $pdf->MultiCell($anchos[2], 4, utf8_decode("Costo"), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+            /* .10 */
+            $pdf->SetY(29);
+            $pdf->SetX($posiciones[8]);
+            $pdf->Cell($anchos[2], 4, utf8_decode(utf8_decode("% ".$Encabezado->Desperdicio)), 0/* BORDE */, 1, 'C');
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $pdf->GetY(), /* Largo */ 225, $pdf->GetY());
             /* FIN DETALLE TITULOS */
 
@@ -163,7 +172,7 @@ class ReportesDisDes extends CI_Controller {
             $page_height = 287;
             $Y = $pdf->GetY();
             $YY = $pdf->GetY();
-            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->SetFont('Arial', 'B', 6);
             $Detalle = array();
             $Departamentos = array();
             $Familias = array(); 
@@ -182,7 +191,7 @@ class ReportesDisDes extends CI_Controller {
                     $Detalle[$v->Departamento] =  $v->Familia;
                 }
             }
-            print_r($Detalle);
+//            print_r($Detalle);
             foreach ($FichaTecnica as $row) {
                 /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                 if ($pdf->GetY() > $page_height) {
@@ -199,32 +208,40 @@ class ReportesDisDes extends CI_Controller {
                 /* COLOCAR CAMPOS */
                 /* PIEZA */
                 $pdf->SetXY($posiciones[0], $Y);
-                $pdf->MultiCell($anchos[0], 4, utf8_decode($row->ClavePieza . ' ' . $row->DescPieza . ' D :' . $row->Departamento . ' F :' . $row->Familia), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $pdf->MultiCell($anchos[3], 4, utf8_decode($row->ClavePieza ), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                /* DESC PIEZA */
+                $pdf->SetXY($posiciones[1], $Y);
+                $pdf->MultiCell($anchos[0], 4, utf8_decode($row->DescPieza ), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                 /* ARTICULO */
-                $pdf->SetXY($posiciones[1], $Y);
-                $pdf->MultiCell($anchos[1], 4, utf8_decode($row->ClaveMaterial . ' ' . $row->DescMaterial), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $pdf->SetXY($posiciones[2], $Y);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode($row->ClaveMaterial ), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                /*DESC ARTICULO */
+                $pdf->SetXY($posiciones[3], $Y);
+                $pdf->MultiCell($anchos[4], 4, utf8_decode($row->DescMaterial), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
 
                 /* UNIDAD MEDIDA */
-                $pdf->SetXY($posiciones[2], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode($row->Unidad), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $pdf->SetXY($posiciones[4], $Y);
+                $pdf->MultiCell($anchos[3], 4, utf8_decode($row->Unidad), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                 /* PRECIO */
-                $pdf->SetXY($posiciones[3], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode("$ " . number_format($row->Precio, 4, '.', ', ')), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                $pdf->SetXY($posiciones[5], $Y);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode("$ " . number_format($row->Precio, 3, '.', ', ')), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                 /* CONSUMO */
-                $pdf->SetXY($posiciones[4], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Consumo, 4, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                $pdf->SetXY($posiciones[6], $Y);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Consumo, 3, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                 /* CONSUMO Y COSTO */
-                $pdf->SetXY($posiciones[5], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format(0, 4, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                $pdf->SetXY($posiciones[7], $Y);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Costo, 2, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                 /* .10 */
-                $pdf->SetXY($posiciones[6], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Desperdicio, 4, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                $pdf->SetXY($posiciones[8], $Y);
+                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->UtlimaColumna, 2, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
                 $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
 
                 /* FIN COLOCAR CAMPOS */
