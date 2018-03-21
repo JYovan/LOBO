@@ -111,8 +111,8 @@ class PiezasYMateriales extends CI_Controller {
             foreach ($viviendas as $key => $v) {
                 $data = array(
                     'PiezasYMateriales' => $ID,
-                    'Material' => $v->Material,
                     'Pieza' => $v->Pieza,
+                    'Material' => $v->Material,
                     'Consumo' => $v->Consumo,
                     'Tipo' => $v->Tipo,
                     'Estatus' => 'ACTIVO',
@@ -144,8 +144,8 @@ class PiezasYMateriales extends CI_Controller {
                 /* SI EXISTE, MODIFICARLO */
                 if ($dtm[0]->EXISTE > 0) {
                     $data = array(
-                        'Material' => $v->Material,
                         'Pieza' => $v->Pieza,
+                        'Material' => $v->Material,
                         'Precio' => $v->Precio,
                         'Consumo' => $v->Consumo,
                         'Estatus' => 'ACTIVO'
@@ -154,8 +154,8 @@ class PiezasYMateriales extends CI_Controller {
                 } else {
                     $data = array(
                         'PiezasYMateriales' => $this->input->post('ID'),
-                        'Material' => $v->Material,
                         'Pieza' => $v->Pieza,
+                        'Material' => $v->Material,
                         'Consumo' => $v->Consumo,
                         'Estatus' => 'ACTIVO',
                         'Registro' => Date('d/m/Y h:i:s a'),

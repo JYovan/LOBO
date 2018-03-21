@@ -112,10 +112,10 @@
                                 <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table dt-responsive">
                                     <thead>
                                         <tr>
-                                            <th class="d-none" scope="col">ID</th> 
-                                            <th scope="col">Material</th>
                                             <th class="d-none" scope="col">Pieza ID</th>
                                             <th scope="col">Pieza</th>
+                                            <th class="d-none" scope="col">ID</th> 
+                                            <th scope="col">Material</th>
                                             <th scope="col">U.M</th>
                                             <th scope="col">Precio</th>
                                             <th scope="col">Consumo</th>
@@ -213,10 +213,11 @@
                                 <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th class="d-none" scope="col">ID</th> 
-                                            <th scope="col">Material</th>
                                             <th class="d-none" scope="col">Pieza ID</th>
                                             <th scope="col">Pieza</th>
+                                            <th class="d-none" scope="col">ID</th> 
+                                            <th scope="col">Material</th>
+
                                             <th scope="col">U.M</th>
                                             <th scope="col">Precio</th>
                                             <th scope="col">Consumo</th>
@@ -382,8 +383,8 @@
                     pnlEditar.find('#tblMaterialesRequeridosE > tbody  > tr').each(function (k, v) {
                         var row = $(this).find("td");
                         var material = {
-                            Material: row.eq(0).text().replace(/\s+/g, ''),
-                            Pieza: row.eq(2).text().replace(/\s+/g, ''),
+                            Pieza: row.eq(0).text().replace(/\s+/g, ''),
+                            Material: row.eq(2).text().replace(/\s+/g, ''),
                             Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
                             Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
                             Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
@@ -468,8 +469,8 @@
                         pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr').each(function (k, v) {
                             var row = $(this).find("td");
                             var material = {
-                                Material: row.eq(0).text().replace(/\s+/g, ''),
-                                Pieza: row.eq(2).text().replace(/\s+/g, ''),
+                                Pieza: row.eq(0).text().replace(/\s+/g, ''),
+                                Material: row.eq(2).text().replace(/\s+/g, ''),
                                 Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
                                 Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
                                 Tipo: (row.eq(7).text().replace(/\s+/g, '') === 'DIR') ? 1 : 2
@@ -604,7 +605,7 @@
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                        var id_row = $(this).find("td").eq(2).text();
+                        var id_row = $(this).find("td").eq(0).text();
                         console.log(id_row + '===' + id_selected);
                         if (id_row === id_selected) {
                             agregado = true;
@@ -624,10 +625,10 @@
                             console.log('**** FIN DTM ****');
                             if (data !== null && data.length > 0) {
                                 tblMaterialesRequeridos.row.add([
-                                    pnlNuevo.find("#Material").val(), /*1*/
-                                    pnlNuevo.find("#Material option:selected").text(), /*2*/
-                                    pnlNuevo.find("#Pieza").val(), /*3*/
-                                    pnlNuevo.find("#Pieza option:selected").text(), /*4*/
+                                    pnlNuevo.find("#Pieza").val(), /*1*/
+                                    pnlNuevo.find("#Pieza option:selected").text(), /*2*/
+                                    pnlNuevo.find("#Material").val(), /*3*/
+                                    pnlNuevo.find("#Material option:selected").text(), /*4*/
                                     '<strong><span class="text-warning">' + dtm.UNIDAD + '</span></strong>', /*5*/
                                     '<strong><span class="text-primary">$' + $.number(dtm.PRECIO, 3, '.', ',') + '</span></strong>', /*5*/
                                     '<strong><span class="text-danger">' + Consumo + '</span></strong>', /*6*/
@@ -680,7 +681,7 @@
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
                     $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                        var id_row = $(this).find("td").eq(2).text();
+                        var id_row = $(this).find("td").eq(0).text();
                         console.log(id_row + '===' + id_selected);
                         if (id_row === id_selected) {
                             agregado = true;
@@ -698,10 +699,10 @@
                             console.log('**** FIN DTM ****');
                             if (data !== null && data.length > 0) {
                                 tblMaterialesRequeridosE.row.add([
-                                    pnlEditar.find("#MaterialE").val(), /*1*/
-                                    pnlEditar.find("#MaterialE option:selected").text(), /*2*/
-                                    pnlEditar.find("#PiezaE").val(), /*3*/
-                                    pnlEditar.find("#PiezaE option:selected").text(), /*4*/
+                                    pnlEditar.find("#PiezaE").val(), /*1*/
+                                    pnlEditar.find("#PiezaE option:selected").text(), /*2*/
+                                    pnlEditar.find("#MaterialE").val(), /*3*/
+                                    pnlEditar.find("#MaterialE option:selected").text(), /*4*/
                                     '<strong><span class="text-warning">' + dtm.UNIDAD + '</span></strong>', /*5*/
                                     '<strong><span class="text-primary">$' + $.number(dtm.PRECIO, 3, '.', ',') + '</span></strong>', /*5*/
                                     '<strong><span class="text-danger">' + Consumo + '</span></strong>', /*6*/
