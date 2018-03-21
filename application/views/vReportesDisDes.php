@@ -68,7 +68,12 @@
 
     $(document).ready(function () {
         getEstilos();
-        getCombinaciones();
+        
+        $("#Estilo").change(function () {
+            getCombinacionesXPiezaMaterial($(this).val());
+        });
+        
+        
         //Abrir modales para filtros
         $("#Reporte").change(function () {
             var modal = $(this).val();
@@ -123,19 +128,30 @@
         });
     }
 
-    function getCombinaciones() {
-        $.getJSON(master_url + 'getCombinaciones').done(function (data, x, jq) {
-            
+    function getCombinacionesXPiezaMaterial(Estilo) {
+        
+         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getCombinacionesXPiezaMaterial',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                Estilo: Estilo
+            }
+        }).done(function (data, x, jq) {
             var options = '<option></option>';
             $.each(data, function (k, v) {
                 options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
             });
             $('#mdlImprimirFichaTecnica').find("#Combinacion").html(options);
+
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
             HoldOn.close();
         });
+        
+      
     }
 
 </script>

@@ -91,8 +91,10 @@
                             </div>
                             <div class="col-sm">
                                 <label for="Material">Material*</label>
-                                <select class="form-control form-control-lg test" id="Material"  name="Material">  
-                                </select>
+                                <div id="MaterialNuevo">
+                                    <select class="form-control form-control-lg test" id="Material"  name="Material">  
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-sm">
@@ -259,6 +261,7 @@
 
     var EstiloE = pnlEditar.find("#EstiloE");
     var CombinacionE = pnlEditar.find("#CombinacionE");
+    var EsNuevo = true;
 
     $(document).ready(function () {
         handleEnter();
@@ -266,11 +269,10 @@
 
         $(document).on('keyup', '.select2-search__field', function (e) {
             if (e.which === 13) {
+                e.preventDefault();
                 getMaterialesRequeridos($(this).val().toUpperCase());
             }
         });
-
-
 
         Estilo.change(function () {
             onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
@@ -522,6 +524,7 @@
                 tblMaterialesRequeridos.row($(this)).remove().draw();
             });
             onEffect(1);
+            EsNuevo = true;
         });
 
         btnCancelar.click(function () {
@@ -832,6 +835,7 @@
                                 getPiezasYMaterialesDetalleByID(dtm.ID);
                                 /*FIN OBTENER MATERIALES AGREGADOS*/
                                 onEffect(1);
+                                EsNuevo = false;
                             }
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
@@ -863,35 +867,56 @@
     }
 
     function getMaterialesRequeridos(Descripcion) {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getMaterialesRequeridos',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                Descripcion: Descripcion
-            }
-        }).done(function (data, x, jq) {
-            var options = '<option></option>';
-            $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Material + '</option>';
+
+        if (Descripcion !== '' && Descripcion !== undefined && Descripcion !== null) {
+            HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+            $.ajax({
+                url: master_url + 'getMaterialesRequeridos',
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    Descripcion: Descripcion
+                }
+            }).done(function (data, x, jq) {
+                var options = '<option></option>';
+                $.each(data, function (k, v) {
+                    options += '<option value="' + v.ID + '">' + v.Material + '</option>';
+                });
+
+                if (EsNuevo) {
+                    pnlNuevo.find("#Material").select2("destroy");
+                    pnlNuevo.find("#Material").select2({
+                        placeholder: "SELECCIONE UNA OPCIÓN",
+                        allowClear: true
+                    });
+                    pnlNuevo.find("#Material").html(options);
+                    pnlNuevo.find("#Material").select2('open');
+
+
+                } else {
+                    pnlEditar.find("#MaterialE").select2("destroy");
+                    pnlEditar.find("#MaterialE").select2({
+                        placeholder: "SELECCIONE UNA OPCIÓN",
+                        allowClear: true
+                    });
+                    pnlEditar.find("#MaterialE").html(options);
+                    pnlEditar.find("#MaterialE").select2('open');
+
+                }
+
+
+
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
             });
-            pnlNuevo.find("#Material").select2("destroy");
-            pnlNuevo.find("#Material").select2();
-            pnlNuevo.find("#Material").html(options);
-            pnlNuevo.find("#Material").select2('open');
 
-            pnlEditar.find("#Material").select2("destroy");
-            pnlEditar.find("#Material").select2();
-            pnlEditar.find("#MaterialE").html(options);
-            pnlEditar.find("#Material").select2('open');
-
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
+        }
     }
+
+
+
 
     function getPiezasYMaterialesDetalleByID(IDX) {
         temp = 0;

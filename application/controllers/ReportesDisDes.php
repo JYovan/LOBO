@@ -40,9 +40,10 @@ class ReportesDisDes extends CI_Controller {
         }
     }
 
-    public function getCombinaciones() {
+    public function getCombinacionesXPiezaMaterial() {
         try {
-            print json_encode($this->combinaciones_model->getCombinaciones());
+            extract($this->input->post());
+            print json_encode($this->reportes_disdes_model->getCombinacionesXPiezaMaterial($Estilo));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -37,6 +37,7 @@ class reportes_disdes_model extends CI_Model {
             $this->db->join('Catalogos CATP', "CATP.ID = PYMD.Pieza AND CATP.FieldId = 'PIEZAS' ");
             $this->db->where('PYM.Estilo', $Estilo);
             $this->db->where('PYM.Combinacion', $Combinacion);
+            $this->db->order_by("CATD.IValue", "ASC");
             $this->db->order_by("M.Descripcion", "ASC");
             $query = $this->db->get();
             /*
@@ -49,6 +50,29 @@ class reportes_disdes_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+    
+    public function getCombinacionesXPiezaMaterial($Estilo){
+        try {
+            $this->db->select(''
+                    . 'C.ID AS ID, C.Descripcion As Descripcion '
+                    . ' ', false);
+            $this->db->from('PiezasYMateriales AS PYM');
+            $this->db->join('Combinaciones AS C', 'PYM.Combinacion =  C.ID');
+            $this->db->where('PYM.Estilo', $Estilo);
+            $this->db->order_by("C.Descripcion", "ASC");
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        
     }
 
 }
