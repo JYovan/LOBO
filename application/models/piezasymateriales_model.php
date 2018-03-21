@@ -63,11 +63,11 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
-    public function getMaterialesRequeridos($q) {
+    public function getMaterialesRequeridos($Descripcion) {
         try {
-            $this->db->select('M.[ID] AS id,M.[Descripcion] AS text', false);
+            $this->db->select("M.[ID] AS ID,M.Material+'-'+ M.Descripcion AS Material", false);
             $this->db->from('Materiales AS M');
-            $this->db->like('M.Descripcion', $q);
+            $this->db->like('M.Descripcion', $Descripcion);
             $this->db->where_in('M.Estatus', array('ACTIVO'));
             $this->db->order_by("M.Material", "ASC");
             $query = $this->db->get();
@@ -75,7 +75,7 @@ class piezasymateriales_model extends CI_Model {
              * FOR DEBUG ONLY
              */
             $str = $this->db->last_query();
-//            print $str;
+            print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {

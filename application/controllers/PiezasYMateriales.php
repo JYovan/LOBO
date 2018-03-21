@@ -42,7 +42,7 @@ class PiezasYMateriales extends CI_Controller {
 
     public function getMaterialesRequeridos() {
         try { 
-            print json_encode($this->piezasymateriales_model->getMaterialesRequeridos($this->input->get('q')));
+            print json_encode($this->piezasymateriales_model->getMaterialesRequeridos($this->input->post('Descripcion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

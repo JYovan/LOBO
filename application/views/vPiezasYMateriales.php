@@ -91,7 +91,7 @@
                             </div>
                             <div class="col-sm">
                                 <label for="Material">Material*</label>
-                                <select class="form-control form-control-lg" id="Material"  name="Material">  
+                                <select class="form-control form-control-lg test" id="Material"  name="Material">  
                                 </select>
                             </div>
 
@@ -262,6 +262,15 @@
 
     $(document).ready(function () {
         handleEnter();
+
+
+        $(document).on('keyup', '.select2-search__field', function (e) {
+            if (e.which === 13) {
+                getMaterialesRequeridos($(this).val().toUpperCase());
+            }
+        });
+
+
 
         Estilo.change(function () {
             onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
@@ -498,7 +507,6 @@
 
         btnRefrescar.click(function () {
             getRecords();
-            getMaterialesRequeridos();
             getEstilos();
             getCombinaciones();
             getPiezas();
@@ -513,7 +521,6 @@
             $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
                 tblMaterialesRequeridos.row($(this)).remove().draw();
             });
-            getMaterialesRequeridos();
             onEffect(1);
         });
 
@@ -855,31 +862,32 @@
         });
     }
 
-    function getMaterialesRequeridos() {
-        HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
-        });
-        pnlNuevo.find("#Material").select2({
-                width: '100%',
-                placeholder: "SELECCIONE UNA OPCIÓN",
-                allowClear: true,
-            ajax: {
-                url: master_url + 'getMaterialesRequeridos',
-                processResults: function (data, params) { 
-                    return {results: data};
-                }
+    function getMaterialesRequeridos(Descripcion) {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getMaterialesRequeridos',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                Descripcion: Descripcion
             }
-        });
-/*https://github.com/select2/select2/issues/4298*/
-        $.getJSON(master_url + 'getMaterialesRequeridos').done(function (data, x, jq) {
+        }).done(function (data, x, jq) {
+            console.log(data);
+            
             var options = '<option></option>';
             $.each(data, function (k, v) {
                 options += '<option value="' + v.ID + '">' + v.Material + '</option>';
             });
-
+            pnlNuevo.find("#Material").select2("destroy");
+            pnlNuevo.find("#Material").select2();
+            pnlNuevo.find("#Material").html(options);
+            pnlNuevo.find("#Material").select2('open');
+            
+            pnlEditar.find("#Material").select2("destroy");
+            pnlEditar.find("#Material").select2();
             pnlEditar.find("#MaterialE").html(options);
-
+            pnlEditar.find("#Material").select2('open');
+            
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
