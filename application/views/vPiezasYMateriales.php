@@ -866,6 +866,7 @@
                 allowClear: true,
             ajax: {
                 url: master_url + 'getMaterialesRequeridos',
+                dataType: 'json', 
                 processResults: function (data, params) { 
                     return {results: data};
                 }
