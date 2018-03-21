@@ -54,7 +54,7 @@ class ReportesDisDes extends CI_Controller {
         if (!empty($FichaTecnica)) {
             $Encabezado = $FichaTecnica[0];
 //            $pdf = new PDF('P', 'mm', array(215.9/* ANCHO */, 279.4/* ALTURA */));
-            $pdf = new PDF('P', 'mm', array(235, 297));
+            $pdf = new PDF('P', 'mm', array(250, 297));
             $pdf->AliasNbPages();
             $pdf->AddPage();
             /* ENCABEZADO */
@@ -98,7 +98,7 @@ class ReportesDisDes extends CI_Controller {
             /* DESPERDICIO */
             $pdf->SetY(17.5);
             $pdf->SetX(123.5);
-            $pdf->Cell(30, 4, utf8_decode("% Desperdicio ".$Encabezado->Desperdicio), 0/* BORDE */, 1, 'C');
+            $pdf->Cell(30, 4, utf8_decode("% Desperdicio " . $Encabezado->Desperdicio), 0/* BORDE */, 1, 'C');
             /* COLOR */
             $pdf->SetFont('Arial', 'B', 7);
             $pdf->SetY(20.5);
@@ -125,7 +125,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->Cell(48, 4, utf8_decode($Encabezado->NombreMaquila), 0/* BORDE */, 1, 'L');
 
             /* FIN ENCABEZADO */
-            $posiciones = array(10/* 0 */,20/* 1 */, 60/* 2 */, 85/* 3 */, 140/* 4 */, 165/* 5 */, 180/* 6 */, 195/* 7 */, 210/* 8 */);
+            $posiciones = array(10/* 0 */, 20/* 1 */, 60/* 2 */, 85/* 3 */, 140/* 4 */, 165/* 5 */, 180/* 6 */, 195/* 7 */, 210/* 8 */);
             $anchos = array(40/* 0 */, 65/* 1 */, 20/* 2 */, 10/* 3 */, 60/* 4 */);
             /* DETALLE */
             /* DETALLE TITULOS */
@@ -133,7 +133,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->SetY(29);
             $pdf->SetX($posiciones[0]);
             $pdf->Cell($anchos[3], 4, utf8_decode("Pieza"), 0/* BORDE */, 0, 'L');
-             /*DESC PIEZA */
+            /* DESC PIEZA */
             $pdf->SetY(29);
             $pdf->SetX($posiciones[1]);
             $pdf->Cell($anchos[0], 4, utf8_decode(""), 0/* BORDE */, 0, 'L');
@@ -141,7 +141,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->SetY(29);
             $pdf->SetX($posiciones[2]);
             $pdf->Cell($anchos[2], 4, utf8_decode("Artículo"), 0/* BORDE */, 0, 'L');
-            /*DESC ARTICULO */
+            /* DESC ARTICULO */
             $pdf->SetY(29);
             $pdf->SetX($posiciones[3]);
             $pdf->Cell($anchos[4], 4, utf8_decode(""), 0/* BORDE */, 0, 'L');
@@ -164,7 +164,7 @@ class ReportesDisDes extends CI_Controller {
             /* .10 */
             $pdf->SetY(29);
             $pdf->SetX($posiciones[8]);
-            $pdf->Cell($anchos[2], 4, utf8_decode(utf8_decode("% ".$Encabezado->Desperdicio)), 0/* BORDE */, 1, 'C');
+            $pdf->Cell($anchos[2], 4, utf8_decode(utf8_decode("% " . $Encabezado->Desperdicio)), 0/* BORDE */, 1, 'C');
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $pdf->GetY(), /* Largo */ 225, $pdf->GetY());
             /* FIN DETALLE TITULOS */
 
@@ -175,79 +175,113 @@ class ReportesDisDes extends CI_Controller {
             $pdf->SetFont('Arial', 'B', 6);
             $Detalle = array();
             $Departamentos = array();
-            $Familias = array(); 
-             foreach ($FichaTecnica as $k => $v) {
+            $Familias = array();
+            foreach ($FichaTecnica as $k => $v) {
                 if (!in_array($v->Departamento, $Departamentos, true)) {
                     array_push($Departamentos, $v->Departamento);
-                }  
+                }
                 if (!in_array($v->Familia, $Familias, true)) {
                     array_push($Familias, $v->Familia);
                 }
             }
-            
-            /* COMPROBAR SI EL INDEX EXISTE */
-            foreach ($FichaTecnica as $k => $v) {
-                if (isset($v->Departamento, $Detalle) ) {
-                    $Detalle[$v->Departamento] =  $v->Familia;
-                }
-            }
-//            print_r($Detalle);
-            foreach ($FichaTecnica as $row) {
-                /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
-                if ($pdf->GetY() > $page_height) {
-                    /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                    $page_height = 580;
-                    /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
-                    $pdf->AddPage();
-                }
-                /* RESTABLECER POSICION EN Y */
-                $Y = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* FIN RESTABLECER POSICION EN Y */
+            $total_consumo_familia = 0.0;
+            $total_consumo_departamento = 0.0;
+            $total_costo_familia = 0.0;
+            $total_consumo_y_costo_familia = 0.0;
+            $total_punto_diez_porciento_familia = 0.0;
 
-                /* COLOCAR CAMPOS */
-                /* PIEZA */
-                $pdf->SetXY($posiciones[0], $Y);
-                $pdf->MultiCell($anchos[3], 4, utf8_decode($row->ClavePieza ), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* DESC PIEZA */
-                $pdf->SetXY($posiciones[1], $Y);
-                $pdf->MultiCell($anchos[0], 4, utf8_decode($row->DescPieza ), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* ARTICULO */
-                $pdf->SetXY($posiciones[2], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode($row->ClaveMaterial ), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /*DESC ARTICULO */
-                $pdf->SetXY($posiciones[3], $Y);
-                $pdf->MultiCell($anchos[4], 4, utf8_decode($row->DescMaterial), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+//            /* FOR EACH DEPARTAMENTOS */
+//            foreach ($Departamentos as $kd => $d) {
+//                print "\nDEPTO " . $d;
+//                /* FOR EACH FAMILIAS */
+//                foreach ($Familias as $kf => $f) {
+//                    print "\nFAMILIA " . $f;
+//                    /* FOR EACH FILAS */
+//                    foreach ($FichaTecnica as $row) {
+//                        if ($row->Departamento === $d && $row->Familia === $f) {
+//                            print "\n .- PIEZA: " . $row->DescPieza . ", MAT : " . $row->DescMaterial . "\n";
+//                            $total_consumo_familia += $row->Consumo;
+//                            $total_costo_familia += $row->Costo;
+//                            $total_punto_diez_porciento_familia += $row->Desperdicio;
+//                            $total_consumo_departamento += $row->Consumo;
+//                        }
+//                    }/* FIN FOREACH FILAS */
+//                    if ($total_consumo_familia > 0) {
+//                        print "\n * CONSUMO FAMILIA " . $f . " : " . $total_consumo_familia . " * ";
+//                    }
+//                    $total_consumo_familia = 0.0;
+//                }/* FIN FOREACH FAMILIA */
+//            }/* FIN FOREACH DEPARTAMENTOS */
+//            print "\n * CONSUMO DEPTO  " . $d . " : " . $total_consumo_departamento . " * ";
 
-                /* UNIDAD MEDIDA */
-                $pdf->SetXY($posiciones[4], $Y);
-                $pdf->MultiCell($anchos[3], 4, utf8_decode($row->Unidad), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* PRECIO */
-                $pdf->SetXY($posiciones[5], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode("$ " . number_format($row->Precio, 3, '.', ', ')), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* CONSUMO */
-                $pdf->SetXY($posiciones[6], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Consumo, 3, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* CONSUMO Y COSTO */
-                $pdf->SetXY($posiciones[7], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Costo, 2, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
-                /* .10 */
-                $pdf->SetXY($posiciones[8], $Y);
-                $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->UtlimaColumna, 2, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
-                $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+            /* FOR EACH DEPARTAMENTOS */
+            foreach ($Departamentos as $kd => $d) {
+                /* FOR EACH FAMILIAS */
+                foreach ($Familias as $kf => $f) {
+                    /* FOR EACH FILAS */
+                    foreach ($FichaTecnica as $row) {
+                        if ($row->Departamento === $d && $row->Familia === $f) {
+                            /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
+                            if ($pdf->GetY() > $page_height) {
+                                /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
+                                $page_height = 580;
+                                /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
+                                $pdf->AddPage();
+                            }
+                            /* RESTABLECER POSICION EN Y */
+                            $Y = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* FIN RESTABLECER POSICION EN Y */
 
-                /* FIN COLOCAR CAMPOS */
+                            /* COLOCAR CAMPOS */
+                            /* PIEZA */
+                            $pdf->SetXY($posiciones[0], $Y);
+                            $pdf->MultiCell($anchos[3], 4, utf8_decode($row->ClavePieza), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* DESC PIEZA */
+                            $pdf->SetXY($posiciones[1], $Y);
+                            $pdf->MultiCell($anchos[0], 4, utf8_decode($row->DescPieza), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* ARTICULO */
+                            $pdf->SetXY($posiciones[2], $Y);
+                            $pdf->MultiCell($anchos[2], 4, utf8_decode($row->ClaveMaterial), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* DESC ARTICULO */
+                            $pdf->SetXY($posiciones[3], $Y);
+                            $pdf->MultiCell($anchos[4], 4, utf8_decode($row->DescMaterial), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+
+                            /* UNIDAD MEDIDA */
+                            $pdf->SetXY($posiciones[4], $Y);
+                            $pdf->MultiCell($anchos[3], 4, utf8_decode($row->Unidad), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* PRECIO */
+                            $pdf->SetXY($posiciones[5], $Y);
+                            $pdf->MultiCell($anchos[2], 4, utf8_decode("$ " . number_format($row->Precio, 3, '.', ', ')), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* CONSUMO */
+                            $pdf->SetXY($posiciones[6], $Y);
+                            $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Consumo, 3, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+                            /* CONSUMO Y COSTO */
+                            $pdf->SetXY($posiciones[7], $Y);
+                            $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($row->Costo, 2, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
+
+                            /* FIN COLOCAR CAMPOS */
 //                  $pdf->SetY($YY); /*!SOLO EN CASO DE QUE LA ULTIMA CELDA SEA DE TIPO CELL ESTABLECER LA ALTURA FINAL, DE LA FILA */
-                $pdf->Line(/* Izq-X */12, /* Top-Y */ $YY, /* Largo */ 225, $YY);
-            }
+                            $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ 240, $YY);
+                        }
+                    }
+                    /* FIN FOREACH FILAS */
+                    if ($total_consumo_familia > 0) {
+                        print "\n * CONSUMO FAMILIA " . $f . " : " . $total_consumo_familia . " * ";
+                    }
+                    $total_consumo_familia = 0.0;
+                }/* FIN FOREACH FAMILIA */
+                print "\n * CONSUMO DEPTO  " . $d . " : " . $total_consumo_departamento . " * ";
+                $total_consumo_departamento = 0.0;
+            }/* FIN FOREACH DEPARTAMENTOS */
             /* FIN DETALLE */
 
             /* FIN CUERPO */
@@ -259,6 +293,7 @@ class ReportesDisDes extends CI_Controller {
             $url = $path . '/' . $file_name . '.pdf';
             /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/FichasTecnicas/')) {
+                
             }
             $pdf->Output($url);
             print base_url() . $url;

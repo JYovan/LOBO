@@ -195,7 +195,7 @@
                                 <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
                                 </select>
                             </div>
-                            
+
                             <div class="col-sm">
                                 <label for="ConsumoE">Consumo*</label>
                                 <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
@@ -860,13 +860,26 @@
             theme: "sk-bounce",
             message: "CARGANDO DATOS..."
         });
+        pnlNuevo.find("#Material").select2({
+                width: '100%',
+                placeholder: "SELECCIONE UNA OPCIÓN",
+                allowClear: true,
+            ajax: {
+                url: master_url + 'getMaterialesRequeridos',
+                processResults: function (data, params) { 
+                    return {results: data};
+                }
+            }
+        });
+/*https://github.com/select2/select2/issues/4298*/
         $.getJSON(master_url + 'getMaterialesRequeridos').done(function (data, x, jq) {
             var options = '<option></option>';
             $.each(data, function (k, v) {
                 options += '<option value="' + v.ID + '">' + v.Material + '</option>';
             });
-            pnlNuevo.find("#Material").html(options);
+
             pnlEditar.find("#MaterialE").html(options);
+
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
