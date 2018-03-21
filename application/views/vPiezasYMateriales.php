@@ -862,7 +862,6 @@
         });
     }
 
-<<<<<<< HEAD
     function getMaterialesRequeridos(Descripcion) {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
@@ -871,27 +870,8 @@
             dataType: "JSON",
             data: {
                 Descripcion: Descripcion
-=======
-    function getMaterialesRequeridos() {
-        HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
-        });
-        pnlNuevo.find("#Material").select2({
-                width: '100%',
-                placeholder: "SELECCIONE UNA OPCIÓN",
-                allowClear: true,
-            ajax: {
-                url: master_url + 'getMaterialesRequeridos',
-                dataType: 'json', 
-                processResults: function (data, params) { 
-                    return {results: data};
-                }
->>>>>>> 6430371c98b6d0cf0fead27cf1a4f2c205fe0056
             }
         }).done(function (data, x, jq) {
-            console.log(data);
-            
             var options = '<option></option>';
             $.each(data, function (k, v) {
                 options += '<option value="' + v.ID + '">' + v.Material + '</option>';
@@ -900,12 +880,12 @@
             pnlNuevo.find("#Material").select2();
             pnlNuevo.find("#Material").html(options);
             pnlNuevo.find("#Material").select2('open');
-            
+
             pnlEditar.find("#Material").select2("destroy");
             pnlEditar.find("#Material").select2();
             pnlEditar.find("#MaterialE").html(options);
             pnlEditar.find("#Material").select2('open');
-            
+
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
