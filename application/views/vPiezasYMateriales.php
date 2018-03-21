@@ -862,6 +862,7 @@
         });
     }
 
+<<<<<<< HEAD
     function getMaterialesRequeridos(Descripcion) {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
@@ -870,6 +871,23 @@
             dataType: "JSON",
             data: {
                 Descripcion: Descripcion
+=======
+    function getMaterialesRequeridos() {
+        HoldOn.open({
+            theme: "sk-bounce",
+            message: "CARGANDO DATOS..."
+        });
+        pnlNuevo.find("#Material").select2({
+                width: '100%',
+                placeholder: "SELECCIONE UNA OPCIÓN",
+                allowClear: true,
+            ajax: {
+                url: master_url + 'getMaterialesRequeridos',
+                dataType: 'json', 
+                processResults: function (data, params) { 
+                    return {results: data};
+                }
+>>>>>>> 6430371c98b6d0cf0fead27cf1a4f2c205fe0056
             }
         }).done(function (data, x, jq) {
             console.log(data);
