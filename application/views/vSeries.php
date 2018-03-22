@@ -226,7 +226,7 @@
                         Cantidad: row.eq(3).text().replace(/\s+/g, '')
                     };
                     tallas.push(material);
-                }); 
+                });
                 f.append('Tallas', JSON.stringify(tallas));
                 $.ajax({
                     url: master_url + 'onModificar',
@@ -304,7 +304,7 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
-                        
+
 
                         //Crear las tallas
                         while (incremento <= parseFloat(pnlNuevo.find('#PuntoFinal').val())) {
@@ -317,7 +317,7 @@
                                     Talla: incremento
                                 }
                             }).done(function (data, x, jq) {
-                                
+
                                 console.log(data);
                             }).fail(function (x, y, z) {
                                 console.log(x, y, z);
@@ -438,8 +438,8 @@
                             cell.html(cell.find("#Cantidad").val());
                         }
                     });
-                    row.eq(3).html('<input type="number" id="Cantidad" onkeydown="onColocarCantidad(event)"  value="' + row.eq(3).text() + '" placeholder="0">');
-
+                    row.eq(3).html('<input type="number" id="Cantidad" onkeydown="onColocarCantidad(event)"  value="' + (parseFloat(row.eq(3).text()) > 0 ? row.eq(3).text() : '') + '" placeholder="0">');
+                    row.find("#Cantidad").focus();
                 });
 
 //                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
@@ -594,7 +594,7 @@
             pnlEditar.removeClass('d-none');
             pnlDetalle.removeClass('d-none');
             $(':input:text:enabled:visible:first').focus();
-            
+
             getSeriesDetallebySerieID(temp);
             getRecords();
         }).fail(function (x, y, z) {

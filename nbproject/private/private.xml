@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/wamp64/www/LOBO/application/controllers/ReportesDisDes.php</file>
             <file>file:/C:/wamp64/www/LOBO/application/helpers/reportes_helper.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/models/reportes_disdes_model.php</file>
         </group>
     </open-files>
 </project-private>
