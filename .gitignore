@@ -17,3 +17,5 @@ application/logs/*
 /vendor/
 nbproject/private/private.xml
 *.pdf
+
+private.xml 
