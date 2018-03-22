@@ -349,14 +349,9 @@
             }).always(function () {
                 HoldOn.close();
             });
-
-
-
-
         });
         btnModificar.click(function () {
-            onComprobarExisteEstilo(EstiloE);
-            if (guardar) {
+
                 $.validator.setDefaults({
                     ignore: []
                 });
@@ -417,7 +412,6 @@
                     });
                 }
 
-            }
         });
         btnGuardar.click(function () {
             onComprobarExisteEstilo(EstiloN);

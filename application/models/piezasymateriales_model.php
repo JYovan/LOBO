@@ -67,7 +67,8 @@ class piezasymateriales_model extends CI_Model {
         try {
             $this->db->select("M.[ID] AS ID,M.Material+'-'+ M.Descripcion AS Material", false);
             $this->db->from('Materiales AS M');
-            $this->db->like('M.Descripcion', $Descripcion);
+            //$this->db->like('M.Descripcion', $Descripcion);
+            $this->db->where("(M.Descripcion LIKE '%$Descripcion%' OR M.Material LIKE '%$Descripcion%')");
             $this->db->where_in('M.Estatus', array('ACTIVO'));
             $this->db->order_by("M.Material", "ASC");
             $query = $this->db->get();
@@ -75,7 +76,7 @@ class piezasymateriales_model extends CI_Model {
              * FOR DEBUG ONLY
              */
             $str = $this->db->last_query();
-//            print $str;
+            //print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {
@@ -105,7 +106,7 @@ class piezasymateriales_model extends CI_Model {
 
     public function getPiezas() {
         try {
-            $this->db->select('C.ID AS ID, C.SValue Pieza', false);
+            $this->db->select('C.ID AS ID, CONVERT(varchar(10), C.IValue)+\'-\'+ C.SValue Pieza', false);
             $this->db->from('Catalogos AS C');
             $this->db->like('C.FieldId', 'PIEZAS');
             $this->db->like('C.Estatus', 'ACTIVO');
