@@ -43,6 +43,26 @@ class fracciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function getFraccionesSeleccionar() {
+        try {
+            $this->db->select("U.ID, U.Clave, U.Descripcion, CONVERT(varchar(10), CATD.IValue)+'-'+CATD.SValue AS Departamento ", false);
+            $this->db->from('Fracciones AS U');
+            $this->db->join('Catalogos CATD', "CATD.ID = U.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
+            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->order_by('CATD.IValue', 'ASC');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
 
     public function onAgregar($array) {
         try {

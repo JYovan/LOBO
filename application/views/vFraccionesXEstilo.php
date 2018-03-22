@@ -223,11 +223,10 @@
                 message: "CARGANDO DATOS..."
             });
             $.ajax({
-                url: master_url + 'getFracciones',
+                url: master_url + 'getFraccionesSeleccionar',
                 type: "POST",
                 dataType: "JSON"
             }).done(function (data, x, jq) {
-                console.log(data);
                 if (data.length > 0) {
                     mdlNuevoRenglon.modal('show');
                     $("#Fracciones").html(getTable('tblSeleccionarFracciones', data));
@@ -235,7 +234,22 @@
                         var title = $(this).text();
                         $(this).html('');
                     });
+
+                    var thead = $('#tblSeleccionarFracciones thead th');
+                    var tfoot = $('#tblSeleccionarFracciones tfoot th');
+                    thead.eq(0).addClass("d-none");
+                    tfoot.eq(0).addClass("d-none");
+                    $.each($('#tblSeleccionarFracciones tbody tr'), function (k, v) {
+                        var td = $(v).find("td");
+                        td.eq(0).addClass("d-none");
+
+                    });
+
                     var tblSelected = $('#tblSeleccionarFracciones').DataTable(tableOptionsMiniTables);
+
+
+
+
                     $('#tblSeleccionarFracciones tbody').on('click', 'tr', function () {
                         $("#tblSeleccionarFracciones").find("tr").removeClass("success");
                         $("#tblSeleccionarFracciones").find("tr").removeClass("warning");
@@ -257,7 +271,6 @@
                                 ID: temp
                             }
                         }).done(function (data, x, jq) {
-                            console.log(data);
                             /**AQUI  VALIDA QUE EL CONCEPTO NO HAYA SIDO AGREGADO CON ANTERIORIDAD**/
                             var has_id = true;
                             if (pnlDetalle.find("#tblRegistrosDetalle tbody tr").length > 0) {
@@ -285,9 +298,14 @@
                                         processData: false,
                                         data: frm
                                     }).done(function (data, x, jq) {
-                                        mdlNuevoRenglon.modal('hide');
-                                        HoldOn.close();
+
+                                        if (!mdlNuevoRenglon.find("#chkMultiple").is(":checked")) {
+                                            mdlNuevoRenglon.modal('hide');
+                                        }
+
                                         getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+                                        HoldOn.close();
+
                                     }).fail(function (x, y, z) {
                                         console.log(x, y, z);
                                     }).always(function () {
@@ -297,9 +315,7 @@
                                 } else {
                                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'LA FRACCIÓN NO SE AGREGO, INTENTE DE NUEVO', 'danger');
                                 }
-                                if (!mdlNuevoRenglon.find("#chkMultiple").is(":checked")) {
-                                    mdlNuevoRenglon.modal('hide');
-                                }
+
                             }
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
@@ -445,11 +461,11 @@
                     processData: false,
                     data: frm
                 }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                    getRecords();
-                    //pnlTablero.removeClass("d-none");
+
                     pnlNuevo.addClass('d-none');
-                    console.log(data, x, jq);
+                    getRecords();
+                    despuesDeGuardar(data);
+                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -478,7 +494,6 @@
                         ID: temp
                     }
                 }).done(function (data, x, jq) {
-                    console.log(data);
                     mdlConfirmar.modal('hide');
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
                     pnlEditar.addClass("d-none");
@@ -540,8 +555,6 @@
 
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
-            console.log(data);
-
             var options = '<option></option>';
             $.each(data, function (k, v) {
                 options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
@@ -645,14 +658,12 @@
                     td.eq(1).addClass("d-none");
                     td.eq(6).addClass("d-none");
                     total += parseFloat(td.eq(6).text());
-
                 });
 
                 pnlDetalle.find('#ImporteTotal').html('Total: $' + $.number(total, 2, '.', ', '));
-
-
-                var tblRegistrosDetalle = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsMiniTables);
+                var tblSelected = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsMiniTables);
                 pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
+
                     var dtm = tblSelected.row(this).data();
                     tempDetalle = parseInt(dtm[0]);
                 });
@@ -667,6 +678,44 @@
         });
     }
 
+    function despuesDeGuardar(ID) {
+        IdMovimiento = ID;
+        if (IdMovimiento !== 0 && IdMovimiento !== undefined && IdMovimiento > 0) {
+            HoldOn.open({
+                theme: "sk-bounce",
+                message: "CARGANDO DATOS..."
+            });
+            $.ajax({
+                url: master_url + 'getFraccionXEstiloByID',
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    ID: IdMovimiento
+                }
+            }).done(function (data, x, jq) {
+
+                pnlEditar.find("input").val("");
+                pnlEditar.find("select").val("").trigger('change');
+                $.each(data[0], function (k, v) {
+                    pnlEditar.find("#" + k).val(v);
+                    pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
+                });
+
+                getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+                pnlTablero.addClass("d-none");
+                pnlDetalle.removeClass('d-none');
+                pnlEditar.removeClass('d-none');
+                $('#Estilo').select2('open').select2('close');
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+            });
+        } else {
+            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+        }
+    }
+
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -678,12 +727,8 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            console.log(data);
             if (data.length > 0) {
-
-
                 $("#tblRegistros").html(getTable('tblFraccionesXEstilo', data));
-
                 $('#tblFraccionesXEstilo tfoot th').each(function () {
                     $(this).html('');
                 });

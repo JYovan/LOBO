@@ -34,9 +34,9 @@ class FraccionesXEstilo extends CI_Controller {
         }
     }
     
-    public function getFracciones() {
+    public function getFraccionesSeleccionar() {
         try {
-            print json_encode($this->fracciones_model->getFracciones());
+            print json_encode($this->fracciones_model->getFraccionesSeleccionar());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -86,7 +86,8 @@ class FraccionesXEstilo extends CI_Controller {
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'Registro' => Date('d/m/Y h:i:s a')
             );
-            $this->fraccionesxestilo_model->onAgregar($data);
+            $ID=$this->fraccionesxestilo_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

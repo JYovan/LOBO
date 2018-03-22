@@ -36,14 +36,16 @@ class fraccionesxestilo_model extends CI_Model {
         try {
             $this->db->select('FXED.ID,'
                     . 'FXED.Fraccion AS FraccionID, '
-                    //Precio
+                    
+                    //orden
                     . "(CASE WHEN ISNULL(FXED.Orden,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Orden'' class=''form-control  '' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarOrdenFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
                     . " ELSE "
                     . "'<input type=''text'' id=''#Orden'' class=''form-control  '' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Orden) +' '' onchange=''onModificarOrdenFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
                     . 'END) AS "Orden", '
+                    //Departamento en caso de que quieran ordenarlo por depto  CONVERT(varchar(10), CATD.IValue) + \'-\'+ 
                     //Fraccion
-                    . 'C.Descripcion AS "Fracción", '
+                    . 'C.Clave +\'-\'+ C.Descripcion AS "Fracción", '
                     //Precio
                     . "(CASE WHEN ISNULL(FXED.Precio,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Precio'' class=''form-control  '' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarPrecioFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
@@ -56,13 +58,16 @@ class fraccionesxestilo_model extends CI_Model {
                     . " ELSE "
                     . "'<input type=''text'' id=''#Cantidad'' class=''form-control  '' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Cantidad) +' '' onchange=''onModificarCantidadFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
                     . 'END) AS "Cantidad", '
-                    //Total
-                    .'CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1) As TotalSF, '
+                    //Total SF
+                    .'ISNULL(CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1),0) As TotalSF, '
+                    //Total Formateado
                     .'CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1),\'</span></strong>\')  AS Importe, '
+                    //Eliminar
                     . "'<span class=''fa fa-times'' onclick=''onEliminarRenglonDetalle('+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' ></span>' AS Eliminar "
                     . ' ', false);
             $this->db->from('FraccionesXEstiloDetalle AS FXED ');
             $this->db->join('Fracciones AS C', 'FXED.Fraccion = C.ID');
+            $this->db->join('Catalogos CATD', "CATD.ID = C.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->like('C.Estatus', 'ACTIVO');
             $this->db->where('FXED.FraccionXEstilo', $ID);
             $this->db->order_by("FXED.Orden", "ASC");

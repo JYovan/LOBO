@@ -78,6 +78,12 @@
                 </div>
                 <div class="row">
                     <div class="col-sm">
+                        <label for="Capacidad">Capacidad Producción</label>  
+                        <input type="number" min="0"  class="form-control" id="Capacidad" name="Capacidad"  >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
                         <label for="Contacto">Contacto</label>  
                         <input type="text" class="form-control" id="Contacto" name="Contacto"  >
                     </div>
@@ -137,6 +143,12 @@
                         </div>
 
 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="Capacidad">Capacidad Producción</label>  
+                            <input type="number" min="0" class="form-control" id="Capacidad" name="Capacidad"  >
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">

@@ -53,6 +53,7 @@ class Maquilas extends CI_Controller {
                 'Nombre' => ($this->input->post('Nombre') !== NULL) ? $this->input->post('Nombre') : NULL,
                 'Direccion' => ($this->input->post('Direccion') !== NULL) ? $this->input->post('Direccion') : NULL,
                 'Telefono' => ($this->input->post('Telefono') !== NULL) ? $this->input->post('Telefono') : NULL,
+                'Capacidad' => ($this->input->post('Capacidad') !== NULL) ? $this->input->post('Capacidad') : NULL,
                 'Contacto' => ($this->input->post('Contacto') !== NULL) ? $this->input->post('Contacto') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
@@ -70,6 +71,7 @@ class Maquilas extends CI_Controller {
                 'Nombre' => ($this->input->post('Nombre') !== NULL) ? $this->input->post('Nombre') : NULL,
                 'Direccion' => ($this->input->post('Direccion') !== NULL) ? $this->input->post('Direccion') : NULL,
                 'Telefono' => ($this->input->post('Telefono') !== NULL) ? $this->input->post('Telefono') : NULL,
+                'Capacidad' => ($this->input->post('Capacidad') !== NULL) ? $this->input->post('Capacidad') : NULL,
                 'Contacto' => ($this->input->post('Contacto') !== NULL) ? $this->input->post('Contacto') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
