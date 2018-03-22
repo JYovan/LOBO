@@ -42,6 +42,14 @@ class FraccionesXEstilo extends CI_Controller {
         }
     }
     
+    public function onComprobarExisteEstilo() {
+        try {
+            print json_encode($this->fraccionesxestilo_model->onComprobarExisteEstilo($this->input->get('Estilo')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
     public function getFraccionByID() {
         try {
             extract($this->input->post());

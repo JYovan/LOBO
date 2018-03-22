@@ -83,6 +83,24 @@ class fraccionesxestilo_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function onComprobarExisteEstilo($Estilo) {
+        try {
+            $this->db->select('COUNT(*) AS EXISTE', false);
+            $this->db->from('FraccionesXEstilo AS FXE ');
+            $this->db->where('FXE.Estilo', $Estilo);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//            print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function onAgregar($array) {
         try {

@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/wamp64/www/LOBO/application/controllers/ReportesDisDes.php</file>
             <file>file:/C:/wamp64/www/LOBO/application/helpers/reportes_helper.php</file>
             <file>file:/C:/wamp64/www/LOBO/application/models/reportes_disdes_model.php</file>
+=======
+            <file>file:/C:/wamp64/www/LOBO/application/views/vSeries.php</file>
+            <file>file:/C:/wamp64/www/LOBO/application/models/series_model.php</file>
+>>>>>>> 6b00987e75a90f7a8a77f6182b6e712c46174638
         </group>
     </open-files>
 </project-private>
