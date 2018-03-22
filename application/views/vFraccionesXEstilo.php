@@ -206,6 +206,9 @@
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
 
+    var EstiloN = pnlNuevo.find("#EstiloN");
+    var EstiloE = pnlEditar.find("#Estilo");
+
     var mdlConfirmarEliminarRenglon = $("#mdlConfirmarEliminarRenglon");
     var btnEliminarRenglon = $("#btnEliminarRenglon");
 
@@ -216,6 +219,8 @@
     var IdMovimiento = 0;
 
     $(document).ready(function () {
+ 
+
         btnNuevoRenglon.click(function () {
             temp = 0;
             HoldOn.open({
@@ -227,6 +232,7 @@
                 type: "POST",
                 dataType: "JSON"
             }).done(function (data, x, jq) {
+                console.log(data);
                 if (data.length > 0) {
                     mdlNuevoRenglon.modal('show');
                     $("#Fracciones").html(getTable('tblSeleccionarFracciones', data));
@@ -324,8 +330,8 @@
                         });
                     });
                 } else {
-                    mdlSeleccionarEntregasEditar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN TRABAJOS CONCLUIDAS O ENTREGADOS', 'danger');
+                    mdlNuevoRenglon.modal('hide');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN REGISTROS', 'danger');
                     HoldOn.close();
                 }
                 // Apply the search
@@ -339,7 +345,7 @@
                 });
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN PREFACTURAS CONCLUIDAS O AUTORIZADAS', 'danger');
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ERROR AL CONSULTAR DATOS', 'danger');
             }).always(function () {
                 HoldOn.close();
             });
@@ -349,128 +355,135 @@
 
         });
         btnModificar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmEditar').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Estilo: 'required',
-                    Estatus: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Si es verdadero que hacer
-            if ($('#frmEditar').valid()) {
-                var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
-                $.ajax({
-                    url: master_url + 'onModificar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                    btnRefrescar.trigger('click');
-                    pnlEditar.addClass('d-none');
-                    pnlTablero.removeClass('d-none');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
+            onComprobarExisteEstilo(EstiloE);
+            if (guardar) {
+                $.validator.setDefaults({
+                    ignore: []
                 });
+                $('#frmEditar').validate({
+                    errorClass: 'myErrorClass',
+                    errorPlacement: function (error, element) {
+                        var elem = $(element);
+                        error.insertAfter(element);
+                    },
+                    rules: {
+                        Estilo: 'required',
+                        Estatus: 'required'
+                    },
+                    // The select element, which would otherwise get the class, is hidden from
+                    // view.
+                    highlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
+                        } else {
+                            elem.addClass(errorClass);
+                        }
+                    },
+
+                    //When removing make the same adjustments as when adding
+                    unhighlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
+                        } else {
+                            elem.removeClass(errorClass);
+                        }
+                    }
+                });
+                //Regresa si es valido para los select2
+                $('select').on('change', function () {
+                    $(this).valid();
+                });
+                //Si es verdadero que hacer
+                if ($('#frmEditar').valid()) {
+                    var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
+                    $.ajax({
+                        url: master_url + 'onModificar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                        btnRefrescar.trigger('click');
+                        pnlEditar.addClass('d-none');
+                        pnlTablero.removeClass('d-none');
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                }
+
             }
         });
         btnGuardar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmNuevo').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Estilo: 'required',
-                    Estatus: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-            //Si es verdadero que hacer
-            if ($('#frmNuevo').valid()) {
-                var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
-
-                $.ajax({
-                    url: master_url + 'onAgregar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-
-                    pnlNuevo.addClass('d-none');
-                    getRecords();
-                    despuesDeGuardar(data);
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
+            onComprobarExisteEstilo(EstiloN);
+            if (guardar) {
+                $.validator.setDefaults({
+                    ignore: []
                 });
+                $('#frmNuevo').validate({
+                    errorClass: 'myErrorClass',
+                    errorPlacement: function (error, element) {
+                        var elem = $(element);
+                        error.insertAfter(element);
+                    },
+                    rules: {
+                        Estilo: 'required',
+                        Estatus: 'required'
+                    },
+                    // The select element, which would otherwise get the class, is hidden from
+                    // view.
+                    highlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
+                        } else {
+                            elem.addClass(errorClass);
+                        }
+                    },
+
+                    //When removing make the same adjustments as when adding
+                    unhighlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-offscreen")) {
+                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
+                        } else {
+                            elem.removeClass(errorClass);
+                        }
+                    }
+                });
+                //Regresa si es valido para los select2
+                $('select').on('change', function () {
+                    $(this).valid();
+                });
+                //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
+                //Si es verdadero que hacer
+                if ($('#frmNuevo').valid()) {
+                    var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
+
+                    $.ajax({
+                        url: master_url + 'onAgregar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+
+                        pnlNuevo.addClass('d-none');
+                        getRecords();
+                        despuesDeGuardar(data);
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                }
             }
         });
         btnConfirmarEliminar.click(function () {
@@ -552,6 +565,30 @@
         getEstilos();
         handleEnter();
     });
+
+
+    /*COMPRUEBA SI EL ESTILO Y LA COMBINACION YA HAN SIDO REGISTRADOS*/
+    var guardar = false;
+    function onComprobarExisteEstilo(Estilo) {
+        if (Estilo.val() !== '') {
+            $.getJSON(master_url + 'onComprobarExisteEstilo', {Estilo: Estilo.val()}).done(function (data, x, jq) {
+                if (parseInt(data[0].EXISTE) > 0) {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL ESTILO YA EXISTE', 'danger');
+                    if (ID === 0) {
+                        Estilo.val("").trigger('change');
+                    }
+                    guardar = false;
+                } else {
+                    guardar = true;
+                }
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+
+            });
+        }
+    }
 
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
