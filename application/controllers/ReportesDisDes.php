@@ -400,7 +400,7 @@ class ReportesDisDes extends CI_Controller {
             /* FIN ENCERRAR TOTALES POR ESTILO */
 
             $pdf->SetXY($posiciones[0], $YY);
-            $pdf->MultiCell($anchos[4]-10, 4, utf8_decode("Mano de obra"), 1/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+            $pdf->MultiCell($anchos[4] - 10, 4, utf8_decode("Mano de obra"), 1/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
             $pdf->SetXY($posiciones[4], $YY);
             $pdf->MultiCell(40, 4, utf8_decode("Total de materiales de este estilo"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
 
@@ -438,30 +438,28 @@ class ReportesDisDes extends CI_Controller {
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Corte"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();/*SALTO EN MULTICELL*/
+            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Pespunte"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();/*SALTO EN MULTICELL*/
+            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Tejido"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();/*SALTO EN MULTICELL*/
+            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Montado"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();/*SALTO EN MULTICELL*/
+            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Adorno"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();/*SALTO EN MULTICELL*/
+            $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Total M.O."), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
-            
-            
-            
-            
+
+
             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
             /* FIN ENCERRAR RESUMEN */
 
