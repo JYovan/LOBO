@@ -16,7 +16,7 @@ class PDF extends FPDF {
 
     function Footer() { 
         $this->SetY(-15); 
-        $this->SetFont('Arial', 'I', 11);
+        $this->SetFont('Arial', 'I', 10);
         
         $this->SetX(12);
         $this->Cell(60, 12, 'CALZADO LOBO SOLO S.A.DE C.V', 0/* BORDE */, 0/* FILL */, 'C');
