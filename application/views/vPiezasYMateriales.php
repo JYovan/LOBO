@@ -200,7 +200,7 @@
 
                             <div class="col-sm">
                                 <label for="ConsumoE">Consumo*</label>
-                                <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
+                                <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" >
                             </div>
                             <div class="col-sm">
                                 <br> 

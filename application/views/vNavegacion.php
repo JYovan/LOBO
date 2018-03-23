@@ -81,7 +81,7 @@
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="<?php print base_url('Fracciones') ?>">Mano de Obra (Fracciones)</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Materiales') ?>">Materiales</a></li>
-
+                    <li><a class="dropdown-item" href="<?php print base_url('Piezas') ?>">Piezas</a></li>
                 </ul>
             </li>
 
@@ -110,7 +110,6 @@
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES PAGO') ?>">Condiciones de Pago</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=BANCOS') ?>">Bancos</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=FAMILIAS') ?>">Familias</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Trasnportes</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=RUTAS') ?>">Rutas</a></li>

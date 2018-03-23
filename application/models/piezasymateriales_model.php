@@ -104,19 +104,17 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
+    
     public function getPiezas() {
         try {
-            $this->db->select('C.ID AS ID, CONVERT(varchar(10), C.IValue)+\'-\'+ C.SValue Pieza', false);
-            $this->db->from('Catalogos AS C');
-            $this->db->like('C.FieldId', 'PIEZAS');
-            $this->db->like('C.Estatus', 'ACTIVO');
-            $this->db->where_in('C.Estatus', array('ACTIVO'));
+            $this->db->select("U.ID, U.Clave+'-'+ U.Descripcion AS Pieza", false);
+            $this->db->from('Piezas AS U');
+            $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
              */
             $str = $this->db->last_query();
-//            print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {
@@ -243,7 +241,8 @@ class piezasymateriales_model extends CI_Model {
 
     public function getPiezasYMaterialesDetalleByID($ID) {
         try {
-            $this->db->select('P.ID AS PIEZA_ID,  P.SValue AS Pieza, PYMD.Material ID, M.Material+\'-\'+M.Descripcion AS Material,
+            $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza, 
+                PYMD.Material ID, M.Material+\'-\'+M.Descripcion AS Material,
                 CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M", 
                 CONCAT(\'<strong><span class="text-primary">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio, 
                  CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
@@ -251,12 +250,10 @@ class piezasymateriales_model extends CI_Model {
            CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false);
             $this->db->from('PiezasYMaterialesDetalle AS PYMD ');
             $this->db->join('Materiales AS M', 'PYMD.Material = M.ID');
+            $this->db->join('Piezas AS P', 'PYMD.Pieza = P.ID');
             $this->db->join('Catalogos AS C', 'M.UnidadConsumo = C.ID');
-            $this->db->join('Catalogos AS P', 'PYMD.Pieza = P.ID');
             $this->db->like('C.FieldId', 'UNIDADES');
             $this->db->like('C.Estatus', 'ACTIVO');
-            $this->db->like('P.FieldId', 'PIEZAS');
-            $this->db->like('P.Estatus', 'ACTIVO');
             $this->db->where('PYMD.PiezasYMateriales', $ID);
             $this->db->where_in('PYMD.Estatus', 'ACTIVO');
             $query = $this->db->get();
