@@ -99,7 +99,8 @@
 
                             <div class="col-sm">
                                 <label for="Consumo">Consumo*</label>
-                                <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
+                                <input type="number" onKeyDown="if (event.keyCode === 13)
+                                            triggerNuevoAgregar();" id="Consumo" name="Consumo" class="form-control" min="0">
                             </div>
                             <div class="col-sm" >
                                 <br>
@@ -200,7 +201,8 @@
 
                             <div class="col-sm">
                                 <label for="ConsumoE">Consumo*</label>
-                                <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" >
+                                <input type="number" onKeyDown="if (event.keyCode === 13)
+                                            triggerEditarAgregar();" id="ConsumoE" name="ConsumoE" class="form-control" >
                             </div>
                             <div class="col-sm">
                                 <br> 
@@ -264,8 +266,22 @@
     var CombinacionE = pnlEditar.find("#CombinacionE");
     var EsNuevo = true;
 
+    var AgregarRenglonN = pnlNuevo.find("#btnAgregarMaterial");
+    var AgregarRenglonE = pnlEditar.find("#btnAgregarMaterial");
+
+    function triggerNuevoAgregar() {
+        AgregarRenglonN.trigger("click");
+        $('#Pieza').select2('open');
+    }
+    function triggerEditarAgregar() {
+        AgregarRenglonE.trigger("click");
+        $('#PiezaE').select2('open');
+    }
+
     $(document).ready(function () {
         handleEnter();
+
+
 
 
         $(document).on('keyup', '.select2-search__field', function (e) {
