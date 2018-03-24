@@ -172,7 +172,7 @@ class ReportesDisDes extends CI_Controller {
             /* FIN DETALLE TITULOS */
 
             /* DETALLE */
-            $page_height = 260;
+            $page_height = 270;
             $Y = $pdf->GetY();
             $YY = $pdf->GetY();
             $pdf->SetFont('Arial', 'B', 6);
@@ -228,9 +228,53 @@ class ReportesDisDes extends CI_Controller {
                             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                             if ($pdf->GetY() > $page_height) {
                                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                                $page_height = 297;
+                                $page_height = 265;
                                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                                 $pdf->AddPage();
+
+
+
+                                /* DETALLE TITULOS */
+                                /* PIEZA */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[0]);
+                                $pdf->Cell($anchos[3], 4, utf8_decode("Pieza"), 0/* BORDE */, 0, 'L');
+                                /* DESC PIEZA */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[1]);
+                                $pdf->Cell($anchos[0], 4, utf8_decode(""), 0/* BORDE */, 0, 'L');
+                                /* ARTICULO */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[2]);
+                                $pdf->Cell($anchos[2], 4, utf8_decode("Artículo"), 0/* BORDE */, 0, 'L');
+                                /* DESC ARTICULO */
+                                $pdf->SetY(29);
+                                $pdf->SetX($posiciones[3]);
+                                $pdf->Cell($anchos[4], 4, utf8_decode(""), 0/* BORDE */, 0, 'L');
+                                /* UNIDAD MEDIDA */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[4]);
+                                $pdf->Cell($anchos[3], 4, utf8_decode("U.M"), 0/* BORDE */, 0, 'L');
+                                /* PRECIO */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[5]);
+                                $pdf->Cell($anchos[2], 4, utf8_decode("Precio"), 0/* BORDE */, 0, 'L');
+                                /* CONSUMO */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[6]);
+                                $pdf->Cell($anchos[2], 4, utf8_decode("Consumo"), 0/* BORDE */, 0, 'C');
+                                /* COSTO */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[7]);
+                                $pdf->MultiCell($anchos[2], 4, utf8_decode("Costo"), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
+                                /* .10 */
+                                $pdf->SetY(10);
+                                $pdf->SetX($posiciones[8]);
+                                $pdf->Cell($anchos[2], 4, utf8_decode(utf8_decode("% " . $Encabezado->Desperdicio)), 0/* BORDE */, 1, 'C');
+                                $pdf->Line(/* Izq-X */10, /* Top-Y */ $pdf->GetY(), /* Largo */ 225, $pdf->GetY());
+                                /* FIN DETALLE TITULOS */
+
+
                                 $Y = $pdf->GetY();
                                 $YY = $pdf->GetY();
                             }
@@ -306,7 +350,7 @@ class ReportesDisDes extends CI_Controller {
                             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                             if ($pdf->GetY() > $page_height) {
                                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                                $page_height = 297;
+                                $page_height = 265;
                                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                                 $pdf->AddPage();
                                 $Y = $pdf->GetY();
@@ -389,7 +433,7 @@ class ReportesDisDes extends CI_Controller {
                         /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                         if ($pdf->GetY() > $page_height) {
                             /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                            $page_height = 297;
+                            $page_height = 265;
                             /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                             $pdf->AddPage();
                             $Y = $pdf->GetY();
@@ -432,19 +476,21 @@ class ReportesDisDes extends CI_Controller {
                 /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                 if ($pdf->GetY() > $page_height) {
                     /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                    $page_height = 297;
+                    $page_height = 265;
                     /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                     $pdf->AddPage();
                     $Y = $pdf->GetY();
                     $YY = $pdf->GetY();
                 }
                 /* ENCERRAR SUBTOTALES POR DEPARTAMENTO */
-                $pdf->Rect($posiciones[4]/* X */, $YY/* Y */, 90/* W */, 4/* H */);
+                $pdf->Rect(115/* X */, $YY/* Y */, 110/* W */, 4/* H */);
                 /* FIN ENCERRAR SUBTOTALES POR DEPARTAMENTO */
 
                 /* TOTAL DEL DEPARTAMENTO */
+                $pdf->SetXY($posiciones[3], $YY);
+                $pdf->MultiCell(55, 4, utf8_decode("Total del departamento"), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
                 $pdf->SetXY($posiciones[4], $YY);
-                $pdf->MultiCell(40, 4, utf8_decode("Total del departamento $d "), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                $pdf->MultiCell(45, 4, utf8_decode($d), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
 
                 /* TOTAL CONSUMO POR DEPARTAMENTO */
                 $pdf->SetXY($posiciones[6], $YY);
@@ -478,20 +524,23 @@ class ReportesDisDes extends CI_Controller {
             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
             if ($pdf->GetY() > $page_height) {
                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                $page_height = 297;
+                $page_height = 265;
                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                 $pdf->AddPage();
                 $Y = $pdf->GetY();
                 $YY = $pdf->GetY();
             }
             /* ENCERRAR TOTALES POR ESTILO */
-            $pdf->Rect($posiciones[4]/* X */, $YY/* Y */, 90/* W */, 4/* H */);
+            $pdf->Rect(115/* X */, $YY/* Y */, 110/* W */, 4/* H */);
             /* FIN ENCERRAR TOTALES POR ESTILO */
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[4] - 10, 4, utf8_decode("Mano de obra"), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
-            $pdf->SetXY($posiciones[4], $YY);
-            $pdf->MultiCell(40, 4, utf8_decode("Total de materiales de este estilo"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+            $pdf->SetXY(114.7, $YY);
+            $pdf->MultiCell(40, 4, utf8_decode("Total de materiales de este estilo"), 0/* BORDER */, 'l'/* ALIGN */, 0/* FILL */);
+            
+            
+            
 
             /* TOTAL FINAL CONSUMO */
 //            $pdf->SetXY($posiciones[6], $YY);
@@ -520,14 +569,14 @@ class ReportesDisDes extends CI_Controller {
             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
             if ($pdf->GetY() > $page_height) {
                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                $page_height = 297;
+                $page_height = 265;
                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                 $pdf->AddPage();
                 $Y = $pdf->GetY();
                 $YY = $pdf->GetY();
             }
             /* ENCERRAR RESUMEN */
-            $pdf->Rect($posiciones[0]/* X */, $YY/* Y */, 220/* W */, 24/* H */);
+            $pdf->Rect($posiciones[0]/* X */, $YY/* Y */, 215/* W */, 24/* H */);
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Corte"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
@@ -544,7 +593,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->MultiCell($anchos[2], 4, utf8_decode(number_format($total_desperdicio_final, 2, '.', ', ')), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
-            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 227.5, $YY);
+            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 224, $YY);
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Tejido"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
@@ -552,7 +601,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Mano de Obra"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
-            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 227.5, $YY);
+            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 224, $YY);
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Montado"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
@@ -560,7 +609,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Gastos"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
-            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 227.5, $YY);
+            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 224, $YY);
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Adorno"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
@@ -568,7 +617,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Utilidad"), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY(); /* SALTO EN MULTICELL */
             $pdf->Line(/* Izq-X */10, /* Top-Y */ $YY, /* Largo */ $anchos[4], $YY);
-            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 227.5, $YY);
+            $pdf->Line(/* Izq-X */$posiciones[2] + 5, /* Top-Y */ $YY, /* Largo */ 224, $YY);
 
             $pdf->SetXY($posiciones[0], $YY);
             $pdf->MultiCell($anchos[2], 4, utf8_decode("Total M.O."), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
