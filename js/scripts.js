@@ -300,3 +300,11 @@ function handleEnter() {
         }
     });
 }
+
+function getNumber(x) {
+    return x.replace(/\s+/g, '').replace(/,/g, "").replace("$", "");
+}
+
+function getNumberFloat(x) {
+    return parseFloat(x.replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
+}
