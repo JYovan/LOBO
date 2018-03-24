@@ -396,6 +396,7 @@
 //                f.append('Estatus', pnlEditar.find("#EstatusE option:selected").text());
 
                     var detalle = [];
+                    tblMaterialesRequeridosE.destroy();
                     pnlEditar.find('#tblMaterialesRequeridosE > tbody  > tr').each(function (k, v) {
                         var row = $(this).find("td");
                         var material = {
@@ -407,6 +408,9 @@
                         };
                         detalle.push(material);
                     });
+                    console.log('* * * * DETALLE * * *');
+                    console.log(detalle);
+                    console.log('* * * * FIN DETALLE * * *');
                     f.append('Materiales', JSON.stringify(detalle));
                     $.ajax({
                         url: master_url + 'onModificar',
@@ -422,6 +426,18 @@
 //                        pnlTablero.removeClass("d-none");
 //                        pnlEditar.addClass('d-none');
                         onEffect(1);
+
+                        /*OBTENER LOS MATERIALES AGREGADOS*/
+                        getPiezasYMaterialesDetalleByID(pnlEditar.find("#ID").val());
+
+                        tblMaterialesRequeridosE.state.clear();
+                        tblMaterialesRequeridosE.destroy();
+                        tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalleInfinito);
+                        tblMaterialesRequeridosE.draw();
+                        pnlEditar.find('#tblMaterialesRequeridosE_filter').find('input[type=search]').val('');
+                        $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
+
+                        /*FIN OBTENER MATERIALES AGREGADOS*/
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
@@ -482,6 +498,7 @@
                         f.append('Combinacion', pnlNuevo.find("#Combinacion").val());
                         f.append('Estatus', pnlNuevo.find("#Estatus option:selected").text());
                         var detalle = [];
+                        tblMaterialesRequeridos.destroy();
                         pnlNuevo.find('#tblMaterialesRequeridos > tbody  > tr').each(function (k, v) {
                             var row = $(this).find("td");
                             var material = {
@@ -969,8 +986,11 @@
                     td.eq(2).addClass("d-none");
                 });
 
-
+                tblMaterialesRequeridosE.state.clear();
+                tblMaterialesRequeridosE.destroy();
                 tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalleInfinito);
+                tblMaterialesRequeridosE.draw();
+                pnlEditar.find('#tblMaterialesRequeridosE_filter').find('input[type=search]').val('');
                 $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
 
                 $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () {
@@ -1005,7 +1025,7 @@
             /*CALCULAR SUPER TOTAL*/
             super_total = 0.0;
             $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                console.log($(this).find("td"));
+
                 var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                 super_total += sub;
             });
