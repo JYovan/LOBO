@@ -765,8 +765,8 @@
 
         /*CALLS*/
         btnRefrescar.trigger('click');
-        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsDetalle);
-        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsDetalle);
+        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsDetalleInfinito);
+        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsDetalleInfinito);
 
         pnlNuevo.find('#tblMaterialesRequeridos tbody').on('click', 'tr', function () {
             pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("success");
@@ -970,7 +970,7 @@
                 });
 
 
-                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalle);
+                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalleInfinito);
                 $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
 
                 $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () {

@@ -228,9 +228,11 @@ class ReportesDisDes extends CI_Controller {
                             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                             if ($pdf->GetY() > $page_height) {
                                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                                $page_height = 260;
+                                $page_height = 297;
                                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                                 $pdf->AddPage();
+                                $Y = $pdf->GetY();
+                                $YY = $pdf->GetY();
                             }
 
                             /* RESTABLECER POSICION EN Y */
@@ -304,13 +306,15 @@ class ReportesDisDes extends CI_Controller {
                             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                             if ($pdf->GetY() > $page_height) {
                                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                                $page_height = 260;
+                                $page_height = 297;
                                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                                 $pdf->AddPage();
+                                $Y = $pdf->GetY();
+                                $YY = $pdf->GetY();
                             }
                             /**/
-                             
-                             /* RESTABLECER POSICION EN Y */
+
+                            /* RESTABLECER POSICION EN Y */
                             $Y = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                             /* FIN RESTABLECER POSICION EN Y */
@@ -385,9 +389,11 @@ class ReportesDisDes extends CI_Controller {
                         /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                         if ($pdf->GetY() > $page_height) {
                             /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                            $page_height = 260;
+                            $page_height = 297;
                             /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                             $pdf->AddPage();
+                            $Y = $pdf->GetY();
+                            $YY = $pdf->GetY();
                         }
                         /* TOTAL DE LA FAMILIA */
                         /* TITULO DE LA FAMILIA */
@@ -426,9 +432,11 @@ class ReportesDisDes extends CI_Controller {
                 /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
                 if ($pdf->GetY() > $page_height) {
                     /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                    $page_height = 260;
+                    $page_height = 297;
                     /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                     $pdf->AddPage();
+                    $Y = $pdf->GetY();
+                    $YY = $pdf->GetY();
                 }
                 /* ENCERRAR SUBTOTALES POR DEPARTAMENTO */
                 $pdf->Rect($posiciones[4]/* X */, $YY/* Y */, 90/* W */, 4/* H */);
@@ -470,9 +478,11 @@ class ReportesDisDes extends CI_Controller {
             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
             if ($pdf->GetY() > $page_height) {
                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                $page_height = 260;
+                $page_height = 297;
                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                 $pdf->AddPage();
+                $Y = $pdf->GetY();
+                $YY = $pdf->GetY();
             }
             /* ENCERRAR TOTALES POR ESTILO */
             $pdf->Rect($posiciones[4]/* X */, $YY/* Y */, 90/* W */, 4/* H */);
@@ -510,9 +520,11 @@ class ReportesDisDes extends CI_Controller {
             /* VALIDAR LA ALTURA ACTUAL CON LA ALTURA DEL DOCUMENTO */
             if ($pdf->GetY() > $page_height) {
                 /* COMO YA NO EXISTE EL ENCABEZADO SE INICIA DESDE UNA NUEVA POSICION Y ALTURA */
-                $page_height = 260;
+                $page_height = 297;
                 /* SE AGREGA UNA PÁGINA PARA EVITAR EL DUPLICADO CON SALTO AUTOMATICO */
                 $pdf->AddPage();
+                $Y = $pdf->GetY();
+                $YY = $pdf->GetY();
             }
             /* ENCERRAR RESUMEN */
             $pdf->Rect($posiciones[0]/* X */, $YY/* Y */, 220/* W */, 24/* H */);
