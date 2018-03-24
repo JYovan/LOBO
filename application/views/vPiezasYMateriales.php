@@ -613,13 +613,9 @@
                 $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
                     if ($(this).hasClass("success")) {
                         tblMaterialesRequeridosE.row($(this)).remove().draw();
+
                         /*CALCULAR SUPER TOTAL*/
-                        super_total = 0.0;
-                        $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-                            var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
-                            super_total += sub;
-                        });
-                        pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                        onCalcularSuperTotalAlEditar();
                         /*FIN CALCULAR SUPER TOTAL*/
                         onEffect(1);
                     }
@@ -949,8 +945,7 @@
         }
     }
 
-
-
+    var Consumo_temporal = 0;
 
     function getPiezasYMaterialesDetalleByID(IDX) {
         temp = 0;
@@ -997,13 +992,58 @@
                     pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("success");
                     $(this).addClass("success");
                     $(this).addClass("row_for_delete");
+
+                    /*REMOVER EDITORES EN OTRAS CELDAS*/
+                    onRemoverEditoresInactivos();
+                    /*FIN REMOVER EDITORES EN OTRAS CELDAS*/
                 });
 
 
                 $('#tblMaterialesRequeridosE tbody').on('dblclick', 'tr', function () {
                     pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("success");
                     $(this).addClass("success");
-                    console.log($(this));
+                    /*EDITOR DE CONSUMO*/
+                    Consumo_temporal = 0;
+                    var cells = $(this).find("td");
+                    var Consumo = (cells.eq(6).text().replace(/\s+/g, '') !== '' && parseFloat(cells.eq(6).text().replace(/\s+/g, '')) > 0) ? parseFloat(cells.eq(6).text().replace(/\s+/g, '')) : '1';
+                    cells.eq(6).html('<input type="number" id="CeldaConsumo" name="CeldaConsumo" class="form-control">');
+                    Consumo_temporal = Consumo;
+                    cells.eq(6).find("#CeldaConsumo").val(Consumo);
+                    onEffect(1);
+                    cells.eq(6).find("#CeldaConsumo").focus();
+                    cells.eq(6).find("#CeldaConsumo").keyup(function (e) {
+                        var code = e.which; // recommended to use e.which, it's normalized across browsers
+                        if (code === 13) {
+                            if (cells.eq(6).find("#CeldaConsumo").val() !== '' && parseFloat(cells.eq(6).find("#CeldaConsumo").val()) > 0) {
+                                var Precio = getNumberFloat(cells.eq(5).text());
+                                var Consumo = getNumberFloat(cells.eq(6).find("#CeldaConsumo").val());
+                                cells.eq(8).html('<strong><span class="text-success">$' + $.number(Precio * Consumo, 2, '.', ',') + '</span></strong>');
+                                onRemoverEditoresInactivos();
+                            } else {
+                                onEffect(2);
+                                cells.eq(6).html('<strong><span class="text-danger">' + Consumo_temporal + '</span></strong>');
+                            }
+                        }
+                    });
+                    cells.eq(6).find("#CeldaConsumo").change(function () {
+                        var Precio = getNumberFloat(cells.eq(5).text());
+                        var Consumo = getNumberFloat(cells.eq(6).find("#CeldaConsumo").val());
+                        cells.eq(8).html('<strong><span class="text-success">$' + $.number(Precio * Consumo, 2, '.', ',') + '</span></strong>');
+
+                        /*CALCULAR SUPER TOTAL*/
+                        onCalcularSuperTotalAlEditar();
+                        /*FIN CALCULAR SUPER TOTAL*/
+                    });
+                    cells.eq(6).find("#CeldaConsumo").focusout(function () {
+                        if (cells.eq(6).find("#CeldaConsumo").val() !== '' && parseFloat(cells.eq(6).find("#CeldaConsumo").val()) > 0) {
+                            onRemoverEditoresInactivos();
+                        } else {
+                            onEffect(2);
+                            cells.eq(6).html('<strong><span class="text-danger">' + Consumo_temporal + '</span></strong>');
+                        }
+                    });
+
+                    /*FIN EDITOR DE CONSUMO*/
                 });
                 // Apply the search
                 tblMaterialesRequeridosE.columns().every(function () {
@@ -1022,15 +1062,7 @@
             console.log(x, y, z);
         }).always(function () {
             HoldOn.close();
-            /*CALCULAR SUPER TOTAL*/
-            super_total = 0.0;
-            $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
-
-                var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
-                super_total += sub;
-            });
-            pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
-            /*FIN CALCULAR SUPER TOTAL*/
+            onCalcularSuperTotalAlEditar();
         });
     }
 
@@ -1105,6 +1137,28 @@
 
             });
         }
+    }
+    function onRemoverEditoresInactivos() {
+        /*REMOVER EDITORES EN OTRAS CELDAS*/
+        $.each($.find('#tblMaterialesRequeridosE tbody tr'), function (k, v) {
+            var subcells = $(this).find("td");
+            var SubConsumo = (subcells.eq(6).text().replace(/\s+/g, '') !== '' &&
+                    parseFloat(subcells.eq(6).text().replace(/\s+/g, '')) > 0) ? subcells.eq(6).text() : subcells.eq(6).find("#CeldaConsumo").val();
+            subcells.eq(6).html('<strong><span class="text-danger">' + SubConsumo + '</span></strong>');
+        });
+        /*FIN REMOVER EDITORES EN OTRAS CELDAS*/
+    }
+
+    function onCalcularSuperTotalAlEditar() {
+        /*CALCULAR SUPER TOTAL*/
+        super_total = 0.0;
+        $.each(pnlEditar.find("#tblMaterialesRequeridosE tbody tr"), function (k, v) {
+
+            var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
+            super_total += sub;
+        });
+        pnlEditar.find("#SuperTotalE").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+        /*FIN CALCULAR SUPER TOTAL*/
     }
 
     function onEffect(e) {
