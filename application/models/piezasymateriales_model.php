@@ -256,6 +256,7 @@ class piezasymateriales_model extends CI_Model {
             $this->db->like('C.Estatus', 'ACTIVO');
             $this->db->where('PYMD.PiezasYMateriales', $ID);
             $this->db->where_in('PYMD.Estatus', 'ACTIVO');
+            $this->db->order_by('PYMD.ID', 'DESC');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

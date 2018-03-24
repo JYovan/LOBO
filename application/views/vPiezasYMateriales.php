@@ -267,7 +267,7 @@
     var EsNuevo = true;
 
     var AgregarRenglonN = pnlNuevo.find("#btnAgregarMaterial");
-    var AgregarRenglonE = pnlEditar.find("#btnAgregarMaterial");
+    var AgregarRenglonE = pnlEditar.find("#btnAgregarMaterialE");
 
     function triggerNuevoAgregar() {
         AgregarRenglonN.trigger("click");
@@ -765,8 +765,8 @@
 
         /*CALLS*/
         btnRefrescar.trigger('click');
-        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsMiniTables);
-        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsMiniTables);
+        tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsDetalle);
+        tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsDetalle);
 
         pnlNuevo.find('#tblMaterialesRequeridos tbody').on('click', 'tr', function () {
             pnlNuevo.find("#tblMaterialesRequeridos tbody tr").removeClass("success");
@@ -970,7 +970,7 @@
                 });
 
 
-                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsMiniTables);
+                tblMaterialesRequeridosE = $('#tblMaterialesRequeridosE').DataTable(tableOptionsDetalle);
                 $('#tblMaterialesRequeridosE_filter input[type=search]').focus();
 
                 $('#tblMaterialesRequeridosE tbody').on('click', 'tr', function () {
