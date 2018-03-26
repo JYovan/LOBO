@@ -15,9 +15,9 @@
         <script src="<?php print base_url(); ?>js/jquery-3.2.1.min.js"></script>
         <!-- Bootstrap CSS -->
         <link href="<?php print base_url('css/bootstrap_cosmo.css') ?>" rel="stylesheet"> 
-        
+
         <link href="<?php print base_url('js/submenu-boostrap4/bootstrap-4-navbar.css') ?>" rel="stylesheet"> 
-        
+
         <!--DataTables Plugin-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.css">
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/datatables.min.js"></script>
@@ -83,6 +83,18 @@
                 placeholder: "SELECCIONE UNA OPCIÓN",
                 allowClear: true
             });
+
+            $('.numbersOnly').keypress(function (event) {
+                var charCode = (event.which) ? event.which : event.keyCode;
+                if (
+                        (charCode !== 45 || $(this).val().indexOf('-') !== -1) && // “-” CHECK MINUS, AND ONLY ONE.
+                        (charCode !== 46 || $(this).val().indexOf('.') !== -1) && // “.” CHECK DOT, AND ONLY ONE.
+                        (charCode < 48 || charCode > 57))
+                    return false;
+
+                return true;
+            });
+
 
 
             $(document).on('touchend', function () {

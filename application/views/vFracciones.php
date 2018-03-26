@@ -57,7 +57,7 @@
 
                     <div class="col-sm">
                         <label for="Clave">Clave*</label>  
-                        <input type="number" maxlength="15"  class="form-control" id="Clave" name="Clave" required >
+                        <input type="text" maxlength="15"  class="form-control numbersOnly" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>  
@@ -109,7 +109,7 @@
 
                         <div class="col-sm">
                             <label for="Clave">Clave*</label>  
-                            <input type="number" maxlength="15" class="form-control" id="Clave" name="Clave" required >
+                            <input type="text" maxlength="15" class="form-control numbersOnly" id="Clave" name="Clave" required >
                         </div>
                         <div class="col-sm">
                             <label for="Descripcion">Descripción*</label>  
@@ -446,7 +446,7 @@
         }).done(function (data, x, jq) {
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">'+v.IValue +'-'+ v.SValue + '</option>';
+                options += '<option value="' + v.ID + '">'+ v.SValue + '</option>';
             });
             pnlNuevo.find("[name='DepartamentoCat']").html(options);
             pnlEditar.find("[name='DepartamentoCat']").html(options);

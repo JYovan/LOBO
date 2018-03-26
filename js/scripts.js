@@ -85,7 +85,7 @@ var tableOptions = {
 };
 
 var tableOptionsDetalleInfinito = {
-    "dom": 'frt',
+    "dom": 'frti',
     language: {
         processing: "Proceso en curso...",
         search: "Buscar:",
@@ -119,10 +119,11 @@ var tableOptionsDetalleInfinito = {
 
     "autoWidth": true,
     "colReorder": true,
+    "displayLength": 200,
     "bStateSave": true,
     "bLengthChange": false,
     "deferRender": true,
-    "scrollY": 600,
+    "scrollY": 450,
     "scrollX": true,
     "scrollCollapse": false,
     "bSort": false

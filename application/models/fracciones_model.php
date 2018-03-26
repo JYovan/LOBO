@@ -29,7 +29,7 @@ class fracciones_model extends CI_Model {
 
     public function getFracciones() {
         try {
-            $this->db->select("U.ID, U.Clave, U.Descripcion", false);
+            $this->db->select("U.ID, U.Clave, U.Clave+'-'+U.Descripcion AS Descripcion ", false);
             $this->db->from('Fracciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

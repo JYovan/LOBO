@@ -8,6 +8,9 @@ class PiezasYMateriales extends CI_Controller {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('piezasymateriales_model');
+        $this->load->model('piezas_model');
+        $this->load->model('estilos_model');
+        $this->load->model('combinaciones_model');
     }
 
     public function index() {
@@ -50,7 +53,7 @@ class PiezasYMateriales extends CI_Controller {
 
     public function getCombinaciones() {
         try {
-            print json_encode($this->piezasymateriales_model->getCombinaciones());
+            print json_encode($this->combinaciones_model->getCombinaciones());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -58,7 +61,7 @@ class PiezasYMateriales extends CI_Controller {
 
     public function getEstilos() {
         try {
-            print json_encode($this->piezasymateriales_model->getEstilos());
+            print json_encode($this->estilos_model->getEstilos());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -66,7 +69,7 @@ class PiezasYMateriales extends CI_Controller {
 
     public function getPiezas() {
         try {
-            print json_encode($this->piezasymateriales_model->getPiezas());
+            print json_encode($this->piezas_model->getPiezas());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

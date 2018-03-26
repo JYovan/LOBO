@@ -1071,7 +1071,7 @@
 
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Estilo + '</option>';
+                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
             });
             pnlNuevo.find("#Estilo").html(options);
             pnlEditar.find("#EstiloE").html(options);
@@ -1087,7 +1087,7 @@
 
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Combinacion + '</option>';
+                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
             });
             pnlNuevo.find("#Combinacion").html(options);
             pnlEditar.find("#CombinacionE").html(options);
@@ -1103,7 +1103,7 @@
 
             var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Pieza + '</option>';
+                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
             });
             pnlNuevo.find("#Pieza").html(options);
             pnlEditar.find("#PiezaE").html(options);

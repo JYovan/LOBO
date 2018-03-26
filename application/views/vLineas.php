@@ -57,7 +57,7 @@
 
                     <div class="col-sm">
                         <label for="Clave">Clave*</label>  
-                        <input type="number" class="form-control" id="Clave" name="Clave" required >
+                        <input type="text" class="form-control numbersOnly" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>  
@@ -123,7 +123,7 @@
 
                         <div class="col-sm">
                             <label for="Clave">Clave*</label>  
-                            <input type="number" class="form-control" id="Clave" name="Clave" required >
+                            <input type="text" class="form-control numbersOnly" id="Clave" name="Clave" required >
                         </div>
                         <div class="col-sm">
                             <label for="Descripcion">Descripción*</label>  
@@ -382,7 +382,6 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            console.log(data);
             $("#tblRegistros").html(getTable('tblLineas', data));
 
             $('#tblLineas tfoot th').each(function () {

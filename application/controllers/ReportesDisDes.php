@@ -290,7 +290,7 @@ class ReportesDisDes extends CI_Controller {
                             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                             /* DESC PIEZA */
                             $pdf->SetXY($posiciones[1], $Y);
-                            $pdf->MultiCell($anchos[0], 4, utf8_decode($row->DescPieza . " " . $pdf->GetY()), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
+                            $pdf->MultiCell($anchos[0], 4, utf8_decode($row->DescPieza), 0/* BORDER */, 'L'/* ALIGN */, 0/* FILL */);
                             $YY = ($YY > $pdf->GetY()) ? $YY : $pdf->GetY();
                             /* ARTICULO */
                             $pdf->SetXY($posiciones[2], $Y);

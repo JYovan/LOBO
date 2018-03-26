@@ -29,7 +29,7 @@ class maquilas_model extends CI_Model {
     
     public function getMaquilas() {
         try {
-            $this->db->select("U.ID, U.Clave, U.Nombre", false);
+            $this->db->select("U.ID, U.Clave, U.Clave+'-'+U.Nombre AS Nombre ", false);
             $this->db->from('Maquilas AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

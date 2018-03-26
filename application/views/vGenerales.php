@@ -60,7 +60,7 @@
 
                     <div class="col-sm">
                         <label for="IValue">Clave/Orden*</label>  
-                        <input type="number" class="form-control" id="IValue" name="IValue" required >
+                        <input type="text" class="form-control numbersOnly" id="IValue" name="IValue" required >
                     </div>
                     <div class="col-sm">
                         <label for="SValue">Nombre Corto*</label>  
@@ -128,7 +128,7 @@
 
                         <div class="col-sm">
                             <label for="IValue">Clave/Orden*</label>  
-                            <input type="number" class="form-control" id="IValue" name="IValue" required >
+                            <input type="text" class="form-control numbersOnly" id="IValue" name="IValue" required >
                         </div>
                         <div class="col-sm">
                             <label for="SValue">Nombre Corto*</label>  
@@ -187,6 +187,8 @@
     var mdlConfirmar = $("#mdlConfirmar");
 
     $(document).ready(function () {
+        
+
         btnModificar.click(function () {
             $.validator.setDefaults({
                 ignore: []
