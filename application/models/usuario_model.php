@@ -10,7 +10,7 @@ class usuario_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("U.ID, U.Usuario, U.Estatus, U.Tipo", false);
-            $this->db->from('Usuarios AS U');
+            $this->db->from('sz_Usuarios AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -26,7 +26,7 @@ class usuario_model extends CI_Model {
     public function getAcceso($USUARIO, $CONTRASENA) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Usuarios AS U');
+            $this->db->from('sz_Usuarios AS U');
             $this->db->where('U.Usuario', $USUARIO);
             $this->db->where('U.Contrasena', $CONTRASENA);
             $this->db->where_in('U.Estatus', 'ACTIVO');
@@ -44,7 +44,7 @@ class usuario_model extends CI_Model {
     }
     public function onAgregar($array) {
         try {
-            $this->db->insert("Usuarios", $array);
+            $this->db->insert("sz_Usuarios", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -56,7 +56,7 @@ class usuario_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Usuarios", $DATA);
+            $this->db->update("sz_Usuarios", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -66,7 +66,7 @@ class usuario_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Usuarios");
+            $this->db->update("sz_Usuarios");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -75,7 +75,7 @@ class usuario_model extends CI_Model {
     public function getUsuarioByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Usuarios AS U');
+            $this->db->from('sz_Usuarios AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -94,7 +94,7 @@ class usuario_model extends CI_Model {
         public function getContrasena($USUARIO) {
         try {
             $this->db->select('U.Contrasena', false);
-            $this->db->from('Usuarios AS U');
+            $this->db->from('sz_Usuarios AS U');
             $this->db->where('U.Usuario', $USUARIO);
             $this->db->where_in('U.Estatus', 'Activo');
             $query = $this->db->get();

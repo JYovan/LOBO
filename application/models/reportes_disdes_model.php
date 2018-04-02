@@ -25,17 +25,17 @@ class reportes_disdes_model extends CI_Model {
                     . 'CATF.SValue AS Familia, CATD.SValue AS Departamento'
                     . ' '
                     . ' ', false);
-            $this->db->from('Estilos AS E');
-            $this->db->join('PiezasYMateriales AS PYM', 'PYM.Estilo = E.ID');
-            $this->db->join('PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales =  PYM.ID');
-            $this->db->join('Lineas AS L', 'L.ID = E.Linea');
-            $this->db->join('Maquilas AS MAQ', 'MAQ.ID = E.Maquila');
-            $this->db->join('Combinaciones AS C', 'PYM.Combinacion =  C.ID');
-            $this->db->join('Materiales AS M', 'M.ID = PYMD.Material');
-            $this->db->join('Piezas AS P', 'P.ID = PYMD.Pieza');
-            $this->db->join('Catalogos CATU', "CATU.ID = M.UnidadConsumo AND CATU.FieldId = 'UNIDADES' ");
-            $this->db->join('Catalogos CATF', "CATF.ID = M.Familia AND CATF.FieldId = 'FAMILIAS' ");
-            $this->db->join('Catalogos CATD', "CATD.ID = P.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
+            $this->db->from('sz_Estilos AS E');
+            $this->db->join('sz_PiezasYMateriales AS PYM', 'PYM.Estilo = E.ID');
+            $this->db->join('sz_PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales =  PYM.ID');
+            $this->db->join('sz_Lineas AS L', 'L.ID = E.Linea');
+            $this->db->join('sz_Maquilas AS MAQ', 'MAQ.ID = E.Maquila');
+            $this->db->join('sz_Combinaciones AS C', 'PYM.Combinacion =  C.ID');
+            $this->db->join('sz_Materiales AS M', 'M.ID = PYMD.Material');
+            $this->db->join('sz_Piezas AS P', 'P.ID = PYMD.Pieza');
+            $this->db->join('sz_Catalogos CATU', "CATU.ID = M.UnidadConsumo AND CATU.FieldId = 'UNIDADES' ");
+            $this->db->join('sz_Catalogos CATF', "CATF.ID = M.Familia AND CATF.FieldId = 'FAMILIAS' ");
+            $this->db->join('sz_Catalogos CATD', "CATD.ID = P.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->where('PYM.Estilo', $Estilo);
             $this->db->where('PYM.Combinacion', $Combinacion);
             $this->db->order_by("CATD.IValue", "ASC");
@@ -58,8 +58,8 @@ class reportes_disdes_model extends CI_Model {
             $this->db->select(''
                     . 'C.ID AS ID, C.Descripcion As Descripcion '
                     . ' ', false);
-            $this->db->from('PiezasYMateriales AS PYM');
-            $this->db->join('Combinaciones AS C', 'PYM.Combinacion =  C.ID');
+            $this->db->from('sz_PiezasYMateriales AS PYM');
+            $this->db->join('sz_Combinaciones AS C', 'PYM.Combinacion =  C.ID');
             $this->db->where('PYM.Estilo', $Estilo);
             $this->db->order_by("C.Descripcion", "ASC");
             $query = $this->db->get();

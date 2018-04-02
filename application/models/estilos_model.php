@@ -12,8 +12,8 @@ class estilos_model extends CI_Model {
             $this->db->select("E.ID, "
                     . "CASE "
                     . "WHEN E.Linea IS NULL THEN '<span class=\"badge badge-danger\">SIN LINEA</span>' ELSE L.Descripcion END AS Linea, E.Clave AS Clave, E.Descripcion AS Descripción, E.Estatus AS Estatus,  E.Registro AS Registro", false);
-            $this->db->from('Estilos AS E');
-            $this->db->join('Lineas AS L','E.Linea = L.ID','left');
+            $this->db->from('sz_Estilos AS E');
+            $this->db->join('sz_Lineas AS L','E.Linea = L.ID','left');
             $this->db->where_in('E.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -31,7 +31,7 @@ class estilos_model extends CI_Model {
      public function getEstilos() {
         try {
             $this->db->select("U.ID, U.Clave, U.Clave+'-'+U.Descripcion AS Descripcion ", false);
-            $this->db->from('Estilos AS U');
+            $this->db->from('sz_Estilos AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -47,7 +47,7 @@ class estilos_model extends CI_Model {
     
     public function onAgregar($array) {
         try {
-            $this->db->insert("Estilos", $array);
+            $this->db->insert("sz_Estilos", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -59,7 +59,7 @@ class estilos_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Estilos", $DATA);
+            $this->db->update("sz_Estilos", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -69,7 +69,7 @@ class estilos_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Estilos");
+            $this->db->update("sz_Estilos");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -78,7 +78,7 @@ class estilos_model extends CI_Model {
     public function getEstiloByID($ID) {
         try {
             $this->db->select('E.*', false);
-            $this->db->from('Estilos AS E');
+            $this->db->from('sz_Estilos AS E');
             $this->db->where('E.ID', $ID);
             $this->db->where_in('E.Estatus', 'ACTIVO');
             $query = $this->db->get();

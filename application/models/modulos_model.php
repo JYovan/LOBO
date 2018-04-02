@@ -14,7 +14,7 @@ class modulos_model extends CI_Model {
                 M.Modulo ,  
                 M.Estatus , 
                 M.Registro  ", false);
-            $this->db->from('Modulos AS M');
+            $this->db->from('sz_Modulos AS M');
             $this->db->where_in('M.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -30,7 +30,7 @@ class modulos_model extends CI_Model {
     } 
     public function onAgregar($array) {
         try {
-            $this->db->insert("Modulos", $array);
+            $this->db->insert("sz_Modulos", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -42,7 +42,7 @@ class modulos_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Modulos", $DATA);
+            $this->db->update("sz_Modulos", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -52,7 +52,7 @@ class modulos_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Modulos");
+            $this->db->update("sz_Modulos");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -61,7 +61,7 @@ class modulos_model extends CI_Model {
     public function getModuloByID($ID) {
         try {
             $this->db->select('M.*', false);
-            $this->db->from('Modulos AS M');
+            $this->db->from('sz_Modulos AS M');
             $this->db->where('M.ID', $ID);
             $this->db->where_in('M.Estatus', 'ACTIVO');
             $query = $this->db->get();

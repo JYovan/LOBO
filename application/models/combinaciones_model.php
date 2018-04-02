@@ -13,7 +13,7 @@ class combinaciones_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("U.ID, U.Descripcion", false);
-            $this->db->from('Combinaciones AS U');
+            $this->db->from('sz_Combinaciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -30,7 +30,7 @@ class combinaciones_model extends CI_Model {
     public function getCombinaciones() {
         try {
             $this->db->select("U.ID,  U.Descripcion", false);
-            $this->db->from('Combinaciones AS U');
+            $this->db->from('sz_Combinaciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -46,7 +46,7 @@ class combinaciones_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("Combinaciones", $array);
+            $this->db->insert("sz_Combinaciones", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -59,7 +59,7 @@ class combinaciones_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Combinaciones", $DATA);
+            $this->db->update("sz_Combinaciones", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -70,7 +70,7 @@ class combinaciones_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Combinaciones");
+            $this->db->update("sz_Combinaciones");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -80,7 +80,7 @@ class combinaciones_model extends CI_Model {
     public function getCombinacionByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Combinaciones AS U');
+            $this->db->from('sz_Combinaciones AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

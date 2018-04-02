@@ -13,7 +13,7 @@ class fracciones_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("U.ID, U.Clave, U.Descripcion", false);
-            $this->db->from('Fracciones AS U');
+            $this->db->from('sz_Fracciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -30,7 +30,7 @@ class fracciones_model extends CI_Model {
     public function getFracciones() {
         try {
             $this->db->select("U.ID, U.Clave, U.Clave+'-'+U.Descripcion AS Descripcion ", false);
-            $this->db->from('Fracciones AS U');
+            $this->db->from('sz_Fracciones AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -48,7 +48,7 @@ class fracciones_model extends CI_Model {
         try {
             $this->db->select("U.ID, U.Clave, U.Descripcion, CONVERT(varchar(10), CATD.IValue)+'-'+CATD.SValue AS Departamento ", false);
             $this->db->from('Fracciones AS U');
-            $this->db->join('Catalogos CATD', "CATD.ID = U.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
+            $this->db->join('sz_Catalogos CATD', "CATD.ID = U.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $this->db->order_by('CATD.IValue', 'ASC');
             $query = $this->db->get();
@@ -67,7 +67,7 @@ class fracciones_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("Fracciones", $array);
+            $this->db->insert("sz_Fracciones", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -80,7 +80,7 @@ class fracciones_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Fracciones", $DATA);
+            $this->db->update("sz_Fracciones", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -91,7 +91,7 @@ class fracciones_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Fracciones");
+            $this->db->update("sz_Fracciones");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -101,7 +101,7 @@ class fracciones_model extends CI_Model {
     public function getFraccionByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Fracciones AS U');
+            $this->db->from('sz_Fracciones AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

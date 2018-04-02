@@ -13,7 +13,7 @@ class generales_model extends CI_Model {
     public function getRecords($FieldId) {
         try {
             $this->db->select("U.ID ,U.IValue AS Clave, U.SValue AS Nombre,U.Valor_Text AS Descripción, U.Valor_Num AS Valor, U.Estatus AS Estatus ", false);
-            $this->db->from('Catalogos AS U');
+            $this->db->from('sz_Catalogos AS U');
             $this->db->where_in('U.FieldId', $FieldId);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -30,7 +30,7 @@ class generales_model extends CI_Model {
     
      public function onAgregar($array) {
         try {
-            $this->db->insert("Catalogos", $array);
+            $this->db->insert("sz_Catalogos", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -42,7 +42,7 @@ class generales_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("Catalogos", $DATA);
+            $this->db->update("sz_Catalogos", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -52,7 +52,7 @@ class generales_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Catalogos");
+            $this->db->update("sz_Catalogos");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -61,7 +61,7 @@ class generales_model extends CI_Model {
     public function getCatalogoByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('Catalogos AS U');
+            $this->db->from('sz_Catalogos AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -80,7 +80,7 @@ class generales_model extends CI_Model {
     public function getCatalogosByFielID($FieldId) {
         try {
             $this->db->select('U.ID, CONVERT(varchar(10), U.IValue)+\'-\'+U.SValue AS SValue', false);
-            $this->db->from('Catalogos AS U');
+            $this->db->from('sz_Catalogos AS U');
             $this->db->where('U.FieldId', $FieldId);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $this->db->order_by("U.IValue", "ASC");

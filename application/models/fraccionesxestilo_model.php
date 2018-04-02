@@ -16,8 +16,8 @@ class fraccionesxestilo_model extends CI_Model {
             $this->db->select("FXE.ID
       ,E.Descripcion AS Estilo,
       ,FXE.Registro AS Registro ", false);
-            $this->db->from('FraccionesXEstilo AS FXE ');
-            $this->db->join('Estilos AS E', 'FXE.Estilo = E.ID');
+            $this->db->from('sz_FraccionesXEstilo AS FXE ');
+            $this->db->join('sz_Estilos AS E', 'FXE.Estilo = E.ID');
             $this->db->where_in('FXE.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -65,9 +65,9 @@ class fraccionesxestilo_model extends CI_Model {
                     //Eliminar
                     . "'<span class=''fa fa-times'' onclick=''onEliminarRenglonDetalle('+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' ></span>' AS Eliminar "
                     . ' ', false);
-            $this->db->from('FraccionesXEstiloDetalle AS FXED ');
-            $this->db->join('Fracciones AS C', 'FXED.Fraccion = C.ID');
-            $this->db->join('Catalogos CATD', "CATD.ID = C.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
+            $this->db->from('sz_FraccionesXEstiloDetalle AS FXED ');
+            $this->db->join('sz_Fracciones AS C', 'FXED.Fraccion = C.ID');
+            $this->db->join('sz_Catalogos CATD', "CATD.ID = C.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->like('C.Estatus', 'ACTIVO');
             $this->db->where('FXED.FraccionXEstilo', $ID);
             $this->db->order_by("FXED.Orden", "ASC");
@@ -87,7 +87,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function onComprobarExisteEstilo($Estilo) {
         try {
             $this->db->select('COUNT(*) AS EXISTE', false);
-            $this->db->from('FraccionesXEstilo AS FXE ');
+            $this->db->from('sz_FraccionesXEstilo AS FXE ');
             $this->db->where('FXE.Estilo', $Estilo);
             $query = $this->db->get();
             /*
@@ -104,7 +104,7 @@ class fraccionesxestilo_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("FraccionesXEstilo", $array);
+            $this->db->insert("sz_FraccionesXEstilo", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -115,7 +115,7 @@ class fraccionesxestilo_model extends CI_Model {
     }
     public function onAgregarDetalle($array) {
         try {
-            $this->db->insert("FraccionesXEstiloDetalle", $array);
+            $this->db->insert("sz_FraccionesXEstiloDetalle", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -128,7 +128,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("FraccionesXEstilo", $DATA);
+            $this->db->update("sz_FraccionesXEstilo", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -138,7 +138,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function onModificarDetalle($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("FraccionesXEstiloDetalle", $DATA);
+            $this->db->update("sz_FraccionesXEstiloDetalle", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -149,7 +149,7 @@ class fraccionesxestilo_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("FraccionesXEstilo");
+            $this->db->update("sz_FraccionesXEstilo");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -159,7 +159,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function onEliminarRenglonDetalle($ID) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->delete("FraccionesXEstiloDetalle");
+            $this->db->delete("sz_FraccionesXEstiloDetalle");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -169,7 +169,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function getFraccionXEstiloByID($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('FraccionesXEstilo AS U');
+            $this->db->from('sz_FraccionesXEstilo AS U');
             $this->db->where('U.ID', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();

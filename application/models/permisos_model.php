@@ -45,7 +45,7 @@ class permisos_model extends CI_Model {
                 ELSE '<span class=\"badge badge-danger\">INACTIVO</span>' 
                 END  AS ESTATUS, 
                 P.Registro AS REGISTRO ", false);
-            $this->db->from('Permisos AS P');
+            $this->db->from('sz_Permisos AS P');
             $this->db->where_in('P.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -62,7 +62,7 @@ class permisos_model extends CI_Model {
     public function getModulos(){
         try {
             $this->db->select("M.ID AS ID, M.Modulo AS MODULO  ", false);
-            $this->db->from('Modulos AS M');
+            $this->db->from('sz_Modulos AS M');
             $this->db->where_in('M.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -80,7 +80,7 @@ class permisos_model extends CI_Model {
     public function getUsuarios(){
         try {
             $this->db->select("U.ID AS ID, U.Usuario AS USUARIO  ", false);
-            $this->db->from('Usuarios AS U');
+            $this->db->from('sz_Usuarios AS U');
             $this->db->where_in('U.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -97,7 +97,7 @@ class permisos_model extends CI_Model {
     
     public function onAgregar($array) {
         try {
-            $this->db->insert("Permisos", $array);
+            $this->db->insert("sz_Permisos", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -119,7 +119,7 @@ class permisos_model extends CI_Model {
         try {
             $this->db->set('Estatus', 'INACTIVO');
             $this->db->where('ID', $ID);
-            $this->db->update("Permisos");
+            $this->db->update("sz_Permisos");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -128,7 +128,7 @@ class permisos_model extends CI_Model {
     public function getPermisoByID($ID) {
         try {
             $this->db->select('P.*', false);
-            $this->db->from('Permisos AS P');
+            $this->db->from('sz_Permisos AS P');
             $this->db->where('P.ID', $ID);
             $this->db->where_in('P.Estatus', 'ACTIVO');
             $query = $this->db->get();
