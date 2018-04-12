@@ -36,16 +36,6 @@ class Series extends CI_Controller {
         }
     }
 
-    public function getSeriesDetallebySerieID() {
-        try {
-            extract($this->input->post());
-            $data = $this->series_model->getSeriesDetallebySerieID($ID);
-            print json_encode($data);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
     public function getSerieByID() {
         try {
             extract($this->input->post());
@@ -59,26 +49,36 @@ class Series extends CI_Controller {
     public function onAgregar() {
         try {
             $data = array(
-                'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
+                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'PuntoInicial' => ($this->input->post('PuntoInicial') !== NULL) ? $this->input->post('PuntoInicial') : NULL,
                 'PuntoFinal' => ($this->input->post('PuntoFinal') !== NULL) ? $this->input->post('PuntoFinal') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
+                'T1' => ($this->input->post('T1') !== NULL) ? $this->input->post('T1') : 0,
+                'T2' => ($this->input->post('T2') !== NULL) ? $this->input->post('T2') : 0,
+                'T3' => ($this->input->post('T3') !== NULL) ? $this->input->post('T3') : 0,
+                'T4' => ($this->input->post('T4') !== NULL) ? $this->input->post('T4') : 0,
+                'T5' => ($this->input->post('T5') !== NULL) ? $this->input->post('T5') : 0,
+                'T6' => ($this->input->post('T6') !== NULL) ? $this->input->post('T6') : 0,
+                'T7' => ($this->input->post('T7') !== NULL) ? $this->input->post('T7') : 0,
+                'T8' => ($this->input->post('T8') !== NULL) ? $this->input->post('T8') : 0,
+                'T9' => ($this->input->post('T9') !== NULL) ? $this->input->post('T9') : 0,
+                'T10' => ($this->input->post('T10') !== NULL) ? $this->input->post('T10') : 0,
+                'T11' => ($this->input->post('T11') !== NULL) ? $this->input->post('T11') : 0,
+                'T12' => ($this->input->post('T12') !== NULL) ? $this->input->post('T12') : 0,
+                'T13' => ($this->input->post('T13') !== NULL) ? $this->input->post('T13') : 0,
+                'T14' => ($this->input->post('T14') !== NULL) ? $this->input->post('T14') : 0,
+                'T15' => ($this->input->post('T15') !== NULL) ? $this->input->post('T15') : 0,
+                'T16' => ($this->input->post('T16') !== NULL) ? $this->input->post('T16') : 0,
+                'T17' => ($this->input->post('T17') !== NULL) ? $this->input->post('T17') : 0,
+                'T18' => ($this->input->post('T18') !== NULL) ? $this->input->post('T18') : 0,
+                'T19' => ($this->input->post('T19') !== NULL) ? $this->input->post('T19') : 0,
+                'T20' => ($this->input->post('T20') !== NULL) ? $this->input->post('T20') : 0,
+                'T21' => ($this->input->post('T21') !== NULL) ? $this->input->post('T21') : 0,
+                'T22' => ($this->input->post('T22') !== NULL) ? $this->input->post('T22') : 0
+                
             );
             $ID = $this->series_model->onAgregar($data);
             echo $ID;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onAgregarDetalle() {
-        try {
-            $data = array(
-                'Serie_ID' => ($this->input->post('Serie_ID') !== NULL) ? $this->input->post('Serie_ID') : NULL,
-                'Talla' => ($this->input->post('Talla') !== NULL) ? $this->input->post('Talla') : NULL,
-                'Cantidad' => 0
-            );
-            $this->series_model->onAgregarDetalle($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -88,28 +88,12 @@ class Series extends CI_Controller {
         try {
             extract($this->input->post());
             $DATA = array(
-                'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
+                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'PuntoInicial' => ($this->input->post('PuntoInicial') !== NULL) ? $this->input->post('PuntoInicial') : NULL,
                 'PuntoFinal' => ($this->input->post('PuntoFinal') !== NULL) ? $this->input->post('PuntoFinal') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->series_model->onModificar($ID, $DATA);
-            /*DESACTIVAR DETALLE*/
-            $this->series_model->onDesactivar($ID);
-            
-            /* MODIFICAR DETALLE */
-            $tallas = json_decode($this->input->post("Tallas"));
-            foreach ($tallas as $key => $v) {
-                /* COMPROBAR SI EXISTE */
-                $data = array(
-                    'Cantidad' => $v->Cantidad,
-                    'Estatus' => 'ACTIVO'
-                );
-                $this->series_model->onModificarDetalle($v->ID, $data);
-            }
-            /*ELIMINACION DEFINITIVA DEL DETALLE INACTIVO*/
-            $this->series_model->onEliminarDetalle($ID);
-            
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -121,7 +121,6 @@ class FraccionesXEstilo extends CI_Controller {
         try {
             extract($this->input->post());
             $DATA = array(
-                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->fraccionesxestilo_model->onModificar($ID, $DATA);

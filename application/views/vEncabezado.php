@@ -14,7 +14,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="<?php print base_url(); ?>js/jquery-3.2.1.min.js"></script>
         <!-- Bootstrap CSS -->
-        <link href="<?php print base_url('css/bootstrap_cosmo.css') ?>" rel="stylesheet"> 
+        <link href="<?php print base_url('css/bootstrap_yeti.css') ?>" rel="stylesheet"> 
 
         <link href="<?php print base_url('js/submenu-boostrap4/bootstrap-4-navbar.css') ?>" rel="stylesheet"> 
 
@@ -27,9 +27,11 @@
         <script src="<?php echo base_url(); ?>js/tabletools/master/DataTables/Buttons-1.5.1/js/buttons.html5.min.js" type="text/javascript"></script>
 
         <!--select2 control--> 
-        <link href="<?php echo base_url(); ?>js/select2/select2.min.css" rel="stylesheet" />
-        <script src="<?php echo base_url(); ?>js/select2/select2.min.js"></script>
+<!--        <link href="<?php echo base_url(); ?>js/select2/select2.min.css" rel="stylesheet" />
+        <script src="<?php echo base_url(); ?>js/select2/select2.min.js"></script>-->
 <!--        <script src="<?php echo base_url(); ?>js/select2/select2-tab-fix.js"></script>-->
+        <script src="<?php echo base_url(); ?>js/selectize/js/standalone/selectize.min.js"></script>
+        <link href="<?php echo base_url(); ?>js/selectize/css/selectize.bootstrap.css" rel="stylesheet" />
         <!-- Validacion forms -->
         <script rel="javascript" type="text/javascript" href="<?php echo base_url(); ?>js/additional-methods.min.js"></script>
         <script src="<?php echo base_url(); ?>js/jquery.validate.min.js"></script>
@@ -78,11 +80,11 @@
                 $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
             });
 
-            $("select").select2({
-                width: '100%',
-                placeholder: "SELECCIONE UNA OPCIÓN",
-                allowClear: true
-            });
+            $('select').selectize(
+                    {
+                        placeholder: 'SELECCIONE UNA OPCIÓN'
+                    }
+            );
 
             $('.numbersOnly').keypress(function (event) {
                 var charCode = (event.which) ? event.which : event.keyCode;
@@ -95,17 +97,9 @@
                 return true;
             });
 
-
-
-            $(document).on('touchend', function () {
-                $(".select2-search, .select2-focusser").remove();
-            });
-
-
             $('.modal').on('shown.bs.modal', function (e) {
                 $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
             });
-
             //Esto se hace para que ejecute el validador de campos
             $('[data-provide="datepicker"]').on('changeDate', function (ev) {
 //               $(this).valid();
@@ -116,13 +110,53 @@
                 todayHighlight: true
             });
 
-
             /*Mensajes de jquery validate*/
             jQuery.validator.messages.required = 'Este campo es obligatorio';
             jQuery.validator.messages.number = 'Este campo debe ser numérico';
             jQuery.validator.messages.email = 'Correo no válido';
 
         });
+
+        function isValid(p) {
+            var inputs = $('#' + p).find("div.card-body").find("input.form-control:required").length;
+            var selects = $('#' + p).find("div.card-body").find("select.required").length;
+            var valid_inputs = 0;
+            var valid_selects = 0;
+
+            $.each($('#' + p).find("div.card-body").find("input.form-control:required"), function () {
+                var e = $(this).parent().find("small.text-danger");
+                if ($(this).val() === '' && e.length === 0) {
+                    $(this).parent().find("label").after("<small class=\"text-danger\"> Este campo es obligatorio</small>");
+                    $(this).css("border", "1px solid #d01010");
+                    valido = false;
+                } else {
+                    if ($(this).val() !== '') {
+                        $(this).css("border", "1px solid #ccc");
+                        $(this).parent().find("small.text-danger").remove();
+                        valid_inputs += 1;
+                    }
+                }
+            });
+            $.each($('#' + p).find("div.card-body").find("select.required"), function () {
+                var e = $(this).parent().find("small.text-danger");
+                if ($(this).val() === '' && e.length === 0) {
+                    $(this).after("<small class=\"text-danger\"> Este campo es obligatorio</small>");
+                    $(this).parent().find(".selectize-input").css("border", "1px solid #d01010");
+                    valido = false;
+                } else {
+                    if ($(this).val() !== '') {
+                        $(this).parent().find(".selectize-input").css("border", "1px solid #ccc");
+                        $(this).parent().find("small.text-danger").remove();
+                        valid_selects += 1;
+                    }
+                }
+            });
+
+            if (valid_inputs === inputs && valid_selects === selects) {
+                valido = true;
+            }
+        }
+
         function onNotify(span, message, type) {
             $.notify({
                 title: span,

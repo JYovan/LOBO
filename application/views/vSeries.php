@@ -1,75 +1,87 @@
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Series</legend>
-        <div align="right">
-            <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
-            <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
-            <button type="button" class="btn btn-dark" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br>ELIMINAR</button>
+        <div class="row">
+            <div class="col-sm-6 float-left">
+                <legend class="float-left">Gestión de Series</legend>
+            </div>
+            <div class="col-sm-6 float-right" align="right">
+                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
+            </div>
         </div>
-
         <div class="card-block">
-            <div id="tblRegistros"></div>
+            <div class="table-responsive" id="tblRegistros"></div>
         </div>
     </div>
 </div>
-<!--MODALES--> 
-<!--Confirmacion-->
-<div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirmar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Deseas eliminar el registro?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
-                <button type="button" class="btn btn-raised btn-primary" id="btnEliminar">ACEPTAR</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--GUARDAR-->
-<div id="" class="container-fluid">
-    <div class="card border-0  d-none" id="pnlNuevo">
+<div  class="container-fluid">
+    <div class="card border-0  d-none" id="pnlDatos">
         <div class="card-body text-dark"> 
             <form id="frmNuevo">
 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Nuevo</legend>
+                        <legend class="float-left">Series</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Descripcion">Descripción*</label>  
-                        <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
+                        <label for="Clave">Clave*</label>  
+                        <input type="text" class="form-control form-control-sm" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
                         <label for="PuntoInicial">Punto Inicial*</label>  
-                        <input type="number" class="form-control" id="PuntoInicial" name="PuntoInicial" required >
+                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" id="PuntoInicial" name="PuntoInicial" required >
                     </div>
                     <div class="col-sm">
                         <label for="PuntoFinal">Punto Final*</label>  
-                        <input type="number" class="form-control" id="PuntoFinal" name="PuntoFinal" required >
+                        <input type="text"  class="form-control form-control-sm numbersOnly" maxlength="4" id="PuntoFinal" name="PuntoFinal" required >
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="MediosPuntos" checked="">
+                            <label class="custom-control-label" for="MediosPuntos">Medios Puntos</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
+                    <br>
+                </div>
+                <div class=" " style="width: 1200px;" id="dSerie">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T1">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T2">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T3">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T4">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T5">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T6">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T7">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T8">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T9">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T10">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T11">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T12">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T13">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T14">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T15">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T16">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T17">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T18">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T19">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T20">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T21">
+                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T22">
+
+                </div>
+
+                <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-lg"  name="Estatus"> 
+                        <select class="form-control form-control-sm "  name="Estatus"> 
                             <option value=""></option>  
                             <option>ACTIVO</option>
                             <option>INACTIVO</option> 
@@ -80,222 +92,83 @@
         </div> 
     </div> 
 </div>
-<!--EDITAR-->
-<div id="" class="container-fluid">
-    <div class="card border-0  d-none" id="pnlEditar">
-        <div class="card-body text-dark"> 
-            <div class="card-body text-dark"> 
-                <form id="frmEditar">
-                    <div class="row">
-                        <div class="col-md-2 float-left">
-                            <legend class="float-left">Editar</legend>
-                        </div>
-                        <div class="col-md-7 float-right">
-
-                        </div>
-                        <div class="col-md-3 float-right" align="right">
-                            <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                            <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                        </div>
-                    </div>
-                    <div class="d-none">
-                        <input type="text" class="form-control" id="ID" name="ID" required >
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Descripcion">Descripción*</label>  
-                            <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
-                        </div>
-                        <div class="col-sm">
-                            <label for="PuntoInicial">Punto Inicial*</label>  
-                            <input type="number" class="form-control" id="PuntoInicial" name="PuntoInicial" required >
-                        </div>
-                        <div class="col-sm">
-                            <label for="PuntoFinal">Punto Final*</label>  
-                            <input type="number" class="form-control" id="PuntoFinal" name="PuntoFinal" required >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Estatus">Estatus*</label>
-                            <select class="form-control form-control-lg" id="Estatus" name="Estatus"> 
-                                <option value=""></option>  
-                                <option>ACTIVO</option>
-                                <option>INACTIVO</option> 
-                            </select>
-                        </div>
-                    </div>   
-                </form>
-            </div> 
-        </div> 
-    </div> 
-</div>
-
-<!--DETALLE-->
-<div class="card border-0  d-none" id="pnlDetalle">
-    <div class="card-body text-dark"> 
-        <div class="card-body"> 
-            <div class="col-md-12">
-                <legend class="float-left">Desglose Corrida</legend>
-            </div>
-        </div> 
-        <div class="card-body"> 
-            <div id="RegistrosDetalle"></div>
-        </div>
-    </div> 
-</div> 
 
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/Series/';
-    var pnlNuevo = $("#pnlNuevo");
+    var pnlDatos = $("#pnlDatos");
     var pnlTablero = $("#pnlTablero");
-    var pnlDetalle = $("#pnlDetalle");
     var btnNuevo = $("#btnNuevo");
-    var btnGuardar = pnlNuevo.find("#btnGuardar");
-    var btnCancelar = pnlNuevo.find("#btnCancelar");
-    var pnlEditar = $("#pnlEditar");
-    var btnModificar = pnlEditar.find("#btnModificar");
-    var btnCancelarModificar = pnlEditar.find("#btnCancelar");
-    var btnRefrescar = $("#btnRefrescar");
-    var btnEliminar = $("#btnEliminar");
-    var btnConfirmarEliminar = $("#btnConfirmarEliminar");
-    var mdlConfirmar = $("#mdlConfirmar");
+    var btnGuardar = pnlDatos.find("#btnGuardar");
+    var btnCancelar = pnlDatos.find("#btnCancelar");
+    var btnModificar = pnlDatos.find("#btnModificar");
     var tempDetalle = 0;
+    var nuevo = true;
+
     $(document).ready(function () {
-        btnModificar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmEditar').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Descripcion: 'required',
-                    Estatus: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
+        pnlDatos.find('#PuntoFinal').keydown(function (e) {
+            if (e.keyCode === 13) {
+                //Borramos los datos para evitar errores
+                var contReset = 1;
+                while (contReset <= 22) {
+                    pnlDatos.find("[name='T" + contReset + "']").val("");
+                    contReset++;
                 }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Si es verdadero que hacer
-            if ($('#frmEditar').valid()) {
-                /*REMOVER EL INPUT ACTIVO*/
-                $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
-                    var cell = $(this).find("td").eq(3);
-                    if (cell.find("#Cantidad").val() === '') {
-                        cell.html(0);
+                var incremento = parseFloat(pnlDatos.find('#PuntoInicial').val());
+                //Se valida que no sea mas granda la talla inicial que la final
+                if (parseFloat(pnlDatos.find('#PuntoFinal').val()) > parseFloat(pnlDatos.find('#PuntoInicial').val())) {
+
+                    var cont = 1;
+                    //Validamos si las tallas son con medios o sin medios puntos
+                    if ($('#MediosPuntos').is(":checked"))
+                    {
+                        //Crear las tallas
+                        while (incremento <= parseFloat(pnlDatos.find('#PuntoFinal').val())) {
+                            pnlDatos.find("[name='T" + cont + "']").val(incremento);
+                            incremento = incremento + 0.5;
+                            cont++;
+                        }
                     } else {
-                        cell.html(cell.find("#Cantidad").val());
+                        //Crear las tallas
+                        while (incremento <= parseFloat(pnlDatos.find('#PuntoFinal').val())) {
+                            pnlDatos.find("[name='T" + cont + "']").val(incremento);
+                            incremento = incremento + 1;
+                            cont++;
+                        }
                     }
-                });
+                    guardar = true;
 
-
-                var f = new FormData(pnlEditar.find("#frmEditar")[0]);
-                console.log(pnlEditar.find('table tbody tr'));
-                var tallas = [];
-                pnlDetalle.find('#tblRegistrosDetalle > tbody  > tr').each(function (k, v) {
-                    var row = $(this).find("td");
-                    var material = {
-                        ID: row.eq(0).text().replace(/\s+/g, ''),
-                        Serie_ID: row.eq(1).text().replace(/\s+/g, ''),
-                        Talla: row.eq(2).text().replace(/\s+/g, ''),
-                        Cantidad: row.eq(3).text().replace(/\s+/g, '')
-                    };
-                    tallas.push(material);
-                });
-                f.append('Tallas', JSON.stringify(tallas));
-                $.ajax({
-                    url: master_url + 'onModificar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: f
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                    btnRefrescar.trigger('click');
-                    pnlEditar.addClass('d-none');
-                    pnlDetalle.addClass('d-none');
-                    pnlTablero.removeClass('d-none');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
+                } else {
+                    guardar = false;
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL PUNTO INICIAL NO DEBE SER MAYOR AL PUNTO FINAL', 'danger');
+                }
             }
+
         });
 
         btnGuardar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmNuevo').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Descripcion: 'required',
-                    Estatus: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-
-            var incremento = parseFloat(pnlNuevo.find('#PuntoInicial').val());
-            if (parseFloat(pnlNuevo.find('#PuntoFinal').val()) > parseFloat(pnlNuevo.find('#PuntoInicial').val())) {
+            isValid('pnlDatos');
+            if (valido) {
+                var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
+                if (!nuevo) {
+                    $.ajax({
+                        url: master_url + 'onModificar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                        getRecords();
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
 
 
-                //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-                //Si es verdadero que hacer
-                if ($('#frmNuevo').valid()) {
-                    var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
+                } else {
                     $.ajax({
                         url: master_url + 'onAgregar',
                         type: "POST",
@@ -304,172 +177,43 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
-
-
-                        //Crear las tallas
-                        while (incremento <= parseFloat(pnlNuevo.find('#PuntoFinal').val())) {
-                            $.ajax({
-                                url: master_url + 'onAgregarDetalle',
-                                type: "POST",
-                                dataType: "JSON",
-                                data: {
-                                    Serie_ID: data,
-                                    Talla: incremento
-                                }
-                            }).done(function (data, x, jq) {
-
-                                console.log(data);
-                            }).fail(function (x, y, z) {
-                                console.log(x, y, z);
-                            }).always(function () {
-                                HoldOn.close();
-                            });
-                            incremento = incremento + 0.5;
-                        }
-                        //Abrir la edición
-                        pnlNuevo.addClass('d-none');
-                        despuesDeGuardar(data);
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                        nuevo = false;
+                        getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
                     });
                 }
             } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL PUNTO INICIAL NO DEBE SER MAYOR AL PUNTO FINAL', 'danger');
+                onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
             }
 
 
-        }
-        );
-        btnConfirmarEliminar.click(function () {
-            if (temp !== 0 && temp !== undefined && temp > 0) {
-                //Muestra el modal
-                mdlConfirmar.modal('show');
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-            }
-        });
-        btnEliminar.click(function () {
-            if (temp !== 0 && temp !== undefined && temp > 0) {
-                HoldOn.open({
-                    theme: "sk-bounce",
-                    message: "CARGANDO DATOS..."
-                });
-                $.ajax({
-                    url: master_url + 'onEliminar',
-                    type: "POST",
-                    data: {
-                        ID: temp
-                    }
-                }).done(function (data, x, jq) {
-                    console.log(data);
-                    mdlConfirmar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
-                    pnlEditar.addClass("d-none");
-                    pnlTablero.removeClass("d-none");
-                    btnRefrescar.trigger('click');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-            }
-        });
-        btnRefrescar.click(function () {
-            getRecords();
+
         });
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
-            pnlNuevo.removeClass('d-none');
-            pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").val("").trigger('change');
+            pnlDatos.removeClass('d-none');
+            pnlDatos.find("input").val("");
+            $.each(pnlDatos.find("select"), function (k, v) {
+                pnlDatos.find("select")[k].selectize.clear(true);
+            });
+            pnlDatos.find('#PuntoInicial').removeClass('disabledForms');
+            pnlDatos.find('#PuntoFinal').removeClass('disabledForms');
+            pnlDatos.find('#dSerie').removeClass('disabledForms');
             $(':input:text:enabled:visible:first').focus();
+            nuevo = true;
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
-            pnlNuevo.addClass('d-none');
-        });
-        btnCancelarModificar.click(function () {
-            pnlEditar.addClass("d-none");
-            pnlDetalle.addClass('d-none');
-            pnlTablero.removeClass("d-none");
+            pnlDatos.addClass('d-none');
+            nuevo = true;
         });
         getRecords();
         handleEnter();
     });
-    function getSeriesDetallebySerieID(IDX) {
-        HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
-        $.ajax({
-            url: master_url + 'getSeriesDetallebySerieID',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                ID: IDX
-            }
-        }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                pnlDetalle.find("#RegistrosDetalle").html(getTable('tblRegistrosDetalle', data));
-                $('#tblRegistrosDetalle tfoot th').each(function () {
-                    $(this).html('');
-                });
-                var thead = pnlDetalle.find('#tblRegistrosDetalle thead th');
-                var tfoot = pnlDetalle.find('#tblRegistrosDetalle tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                thead.eq(1).addClass("d-none");
-                tfoot.eq(1).addClass("d-none");
-                $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                    td.eq(1).addClass("d-none");
-                });
-                tblRegistrosDetalleDT = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tableOptionsDetalle);
 
-                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
-                    var row = $(this).find("td");
-                    $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
-                        var cell = $(this).find("td").eq(3);
-                        if (cell.find("#Cantidad").val() === '') {
-                            cell.html(0);
-                        } else {
-                            cell.html(cell.find("#Cantidad").val());
-                        }
-                    });
-                    row.eq(3).html('<input type="number" id="Cantidad" onkeydown="onColocarCantidad(event)"  value="' + (parseFloat(row.eq(3).text()) > 0 ? row.eq(3).text() : '') + '" placeholder="0">');
-                    row.find("#Cantidad").focus();
-                });
-
-//                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
-//                    var dtm = tblSelected.row(this).data();
-//                    tempDetalle = parseInt(dtm[0]);
-//                });
-            } else {
-                pnlDetalle.find("#RegistrosDetalle").html("");
-            }
-            HoldOn.close();
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-
-        });
-    }
-
-    function onColocarCantidad(event) {
-        var x = event.which || event.keyCode;
-        if (x === 13) {
-            $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
-                var cell = $(this).find("td").eq(3);
-                if (cell.find("#Cantidad").val() === '') {
-                    cell.html(0);
-                } else {
-                    cell.html(cell.find("#Cantidad").val());
-                }
-            });
-        }
-    }
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -515,6 +259,7 @@
                     }
                     var dtm = tblSelected.row(this).data();
                     if (temp !== 0 && temp !== undefined && temp > 0) {
+                        nuevo = false;
                         HoldOn.open({
                             theme: "sk-bounce",
                             message: "CARGANDO DATOS..."
@@ -527,17 +272,22 @@
                                 ID: temp
                             }
                         }).done(function (data, x, jq) {
-                            pnlEditar.find("input").val("");
-                            pnlEditar.find("select").val("").trigger('change');
+                            pnlDatos.find("input").val("");
+                            $.each(pnlDatos.find("select"), function (k, v) {
+                                pnlDatos.find("select")[k].selectize.clear(true);
+                            });
                             $.each(data[0], function (k, v) {
-                                pnlEditar.find("#" + k).val(v);
-                                pnlEditar.find("#" + k).val(v).trigger('change');
+                                pnlDatos.find("[name='" + k + "']").val(v);
+                                if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                    pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+                                }
                             });
                             pnlTablero.addClass("d-none");
-                            pnlEditar.removeClass('d-none');
-                            pnlDetalle.removeClass('d-none');
+                            pnlDatos.removeClass('d-none');
+                            pnlDatos.find('#dSerie').addClass('disabledForms');
+                            pnlDatos.find('#PuntoInicial').addClass('disabledForms');
+                            pnlDatos.find('#PuntoFinal').addClass('disabledForms');
                             $(':input:text:enabled:visible:first').focus();
-                            getSeriesDetallebySerieID(temp);
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -557,11 +307,7 @@
                     });
                 });
 
-            } else {
-
-
             }
-
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -569,43 +315,4 @@
         });
     }
 
-    function despuesDeGuardar(IDX) {
-        temp = IDX;
-        HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
-        });
-        $.ajax({
-            url: master_url + 'getSerieByID',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                ID: temp
-            }
-        }).done(function (data, x, jq) {
-
-            pnlEditar.find("input").val("");
-            pnlEditar.find("select").val("").trigger('change');
-            $.each(data[0], function (k, v) {
-                pnlEditar.find("#" + k).val(v);
-                pnlEditar.find("#" + k).val(v).trigger('change');
-            });
-            pnlTablero.addClass("d-none");
-            pnlEditar.removeClass('d-none');
-            pnlDetalle.removeClass('d-none');
-            $(':input:text:enabled:visible:first').focus();
-
-            getSeriesDetallebySerieID(temp);
-            getRecords();
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
-    var tblRegistrosDetalleDT;
-    function onEliminarPunto(e) {
-        var tr = $(e).parent().parent();
-        tblRegistrosDetalleDT.row($(tr)).remove().draw();
-    }
 </script>

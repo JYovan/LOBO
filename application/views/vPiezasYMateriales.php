@@ -1,19 +1,19 @@
-
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Piezas Y Materiales</legend>
-        <div align="right">
-            <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
-            <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
-            <button type="button" class="btn btn-dark" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br>ELIMINAR</button>
+        <div class="row">
+            <div class="col-sm-6 float-left">
+                <legend class="float-left">Gestión de Piezas Y Materiales</legend>
+            </div>
+            <div class="col-sm-6 float-right" align="right">
+                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
+            </div>
         </div>
-
         <div class="card-block">
-            <div id="tblRegistros"></div>
+            <div class="table-responsive" id="tblRegistros"></div>
         </div>
     </div>
 </div>
-
 <!--MODALES--> 
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
@@ -42,13 +42,13 @@
         <form id="frmNuevo"> 
             <div class="row">
                 <div class="col-md-4 float-left">
-                    <legend class="float-left">Nuevo Piezas Y Materiales</legend>
+                    <legend class="float-left">Piezas Y Materiales</legend>
                 </div>
                 <div  class="col-md-5 text-center"> 
                 </div>
                 <div class="col-md-3 float-right" align="right">
-                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                    <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                 </div>
             </div>
             <div class="row">
@@ -62,12 +62,12 @@
 
                             <div class="col-sm">
                                 <label for="Estilo">Estilo*</label>
-                                <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
+                                <select class="form-control form-control-sm" id="Estilo"  name="Estilo">  
                                 </select>
                             </div>
                             <div class="col-sm">
                                 <label for="Combinacion">Combinación*</label>
-                                <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
+                                <select class="form-control form-control-sm" id="Combinacion"  name="Combinacion">  
                                 </select>
                             </div>
                         </div>
@@ -86,13 +86,13 @@
                             </div>
                             <div class="col-sm">
                                 <label for="Pieza">Pieza*</label>
-                                <select class="form-control form-control-lg" id="Pieza"  name="Pieza">  
+                                <select class="form-control form-control-sm" id="Pieza"  name="Pieza">  
                                 </select>
                             </div>
                             <div class="col-sm">
                                 <label for="Material">Material*</label>
                                 <div id="MaterialNuevo">
-                                    <select class="form-control form-control-lg test" id="Material"  name="Material">  
+                                    <select class="form-control form-control-sm " id="Material"  name="Material">  
                                     </select>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                             <div class="col-sm">
                                 <label for="Consumo">Consumo*</label>
                                 <input type="number" onKeyDown="if (event.keyCode === 13)
-                                            triggerNuevoAgregar();" id="Consumo" name="Consumo" class="form-control" min="0">
+                                            triggerNuevoAgregar();" id="Consumo" name="Consumo" class="form-control form-control-sm" min="0">
                             </div>
                             <div class="col-sm" >
                                 <br>
@@ -142,18 +142,18 @@
         <form id="frmEditar"> 
             <div class="row">
                 <div class="col-md-4 float-left">
-                    <legend class="float-left">Editar Piezas Y Materiales</legend>
+                    <legend class="float-left">Piezas Y Materiales</legend>
                 </div>
                 <div class="col-md-5 float-right">
 
                 </div>
                 <div class="col-md-3 float-right" align="right">
-                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                    <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                 </div>
             </div>  
             <div class="d-none">
-                <input type="text" class="form-control" id="ID" name="ID" required >
+                <input type="text" class="form-control form-control-sm" id="ID" name="ID" required >
             </div>
             <div class="row">
                 <div class="col w-100">
@@ -166,12 +166,12 @@
 
                             <div class="col-sm">
                                 <label for="EstiloE">Estilo*</label>
-                                <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
+                                <select class="form-control form-control-sm" id="EstiloE"  name="EstiloE">  
                                 </select>
                             </div>
                             <div class="col-sm">
                                 <label for="CombinacionE">Combinación*</label>
-                                <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
+                                <select class="form-control form-control-sm" id="CombinacionE"  name="CombinacionE">  
                                 </select>
                             </div>
                         </div>
@@ -190,19 +190,19 @@
                             </div>
                             <div class="col-sm">
                                 <label for="PiezaE">Pieza*</label>
-                                <select class="form-control form-control-lg" id="PiezaE"  name="PiezaE">  
+                                <select class="form-control form-control-sm" id="PiezaE"  name="PiezaE">  
                                 </select>
                             </div>
                             <div class="col-sm">
                                 <label for="MaterialE">Material*</label>
-                                <select class="form-control form-control-lg" id="MaterialE"  name="MaterialE">  
+                                <select class="form-control form-control-sm" id="MaterialE"  name="MaterialE">  
                                 </select>
                             </div>
 
                             <div class="col-sm">
                                 <label for="ConsumoE">Consumo*</label>
                                 <input type="number" onKeyDown="if (event.keyCode === 13)
-                                            triggerEditarAgregar();" id="ConsumoE" name="ConsumoE" class="form-control" >
+                                            triggerEditarAgregar();" id="ConsumoE" name="ConsumoE" class="form-control form-control-sm" >
                             </div>
                             <div class="col-sm">
                                 <br> 
@@ -251,46 +251,42 @@
     var pnlEditar = $("#pnlEditar");
     var btnModificar = pnlEditar.find("#btnGuardar");
     var btnCancelarModificar = pnlEditar.find("#btnCancelar");
-    var btnRefrescar = $("#btnRefrescar");
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
-
     var tblMaterialesRequeridos, tblMaterialesRequeridosE;
     var super_total = 0.0;
-
     var Estilo = pnlNuevo.find("#Estilo");
     var Combinacion = pnlNuevo.find("#Combinacion");
-
     var EstiloE = pnlEditar.find("#EstiloE");
     var CombinacionE = pnlEditar.find("#CombinacionE");
     var EsNuevo = true;
-
     var AgregarRenglonN = pnlNuevo.find("#btnAgregarMaterial");
     var AgregarRenglonE = pnlEditar.find("#btnAgregarMaterialE");
 
     function triggerNuevoAgregar() {
         AgregarRenglonN.trigger("click");
-        $('#Pieza').select2('open');
+        $("#Pieza")[0].selectize.focus();
+        $("#Pieza")[0].selectize.clear(true);
     }
     function triggerEditarAgregar() {
         AgregarRenglonE.trigger("click");
-        $('#PiezaE').select2('open');
+        $("#PiezaE")[0].selectize.focus();
+        $("#PiezaE")[0].selectize.clear(true);
     }
 
     $(document).ready(function () {
         handleEnter();
-
-
-
-
-        $(document).on('keyup', '.select2-search__field', function (e) {
-            if (e.which === 13) {
+        var query;
+        $('#Material')[0].selectize.on('type', function () {
+            query = this.lastQuery;
+        });
+        $('#MaterialNuevo').on('keydown', function (e) {
+            if (e.which === 32) {
                 e.preventDefault();
-                getMaterialesRequeridos($(this).val().toUpperCase());
+                getMaterialesRequeridos(query.toUpperCase());
             }
         });
-
         Estilo.change(function () {
             onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
         });
@@ -425,7 +421,7 @@
                         getRecords();
 //                        pnlTablero.removeClass("d-none");
 //                        pnlEditar.addClass('d-none');
-                        onEffect(1);
+
 
                         /*OBTENER LOS MATERIALES AGREGADOS*/
                         getPiezasYMaterialesDetalleByID(pnlEditar.find("#ID").val());
@@ -527,7 +523,6 @@
                             getRecords();
                             pnlTablero.removeClass("d-none");
                             pnlNuevo.addClass('d-none');
-                            onEffect(1);
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -536,35 +531,27 @@
                     }
                 } else {
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE AGREGAR MATERIALES A CONSUMIR', 'danger');
-                    onEffect(2);
                 }
             }
-        });
-
-        btnRefrescar.click(function () {
-            getRecords();
-            getEstilos();
-            getCombinaciones();
-            getPiezas();
         });
 
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
             pnlNuevo.removeClass('d-none');
             pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").val("").trigger('change');
-            $('#Estilo').select2('open').select2('close');
+            $.each(pnlNuevo.find("select"), function (k, v) {
+                pnlNuevo.find("select")[k].selectize.clear(true);
+            });
+            $(':input:text:enabled:visible:first').focus();
             $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
                 tblMaterialesRequeridos.row($(this)).remove().draw();
             });
-            onEffect(1);
             EsNuevo = true;
         });
 
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
-            onEffect(3);
         });
 
         btnCancelarModificar.click(function () {
@@ -592,11 +579,10 @@
                         });
                         pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
                         /*FIN CALCULAR SUPER TOTAL*/
-                        onEffect(1);
+
                     }
                 });
             } else {
-                onEffect(2);
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
             }
         });
@@ -617,11 +603,10 @@
                         /*CALCULAR SUPER TOTAL*/
                         onCalcularSuperTotalAlEditar();
                         /*FIN CALCULAR SUPER TOTAL*/
-                        onEffect(1);
+
                     }
                 });
             } else {
-                onEffect(2);
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN REGISTRO', 'danger');
             }
         });
@@ -665,7 +650,7 @@
                                     '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*8*/
                                 ]).draw(false);
 
-                                onEffect(1);/*OK*/
+                                /*OK*/
                                 /*REINICIAR VALORES EN ZERO*/
                                 pnlNuevo.find("#Consumo").val('');
                                 onNotify('<span class="fa fa-check fa-lg"></span>', 'MATERIAL AGREGADO', 'success');
@@ -689,15 +674,13 @@
                             HoldOn.close();
                         });
                     } else {
-                        onEffect(2);/*ERROR*/
+                        /*ERROR*/
                         onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTA PIEZA YA FUE AGREGADA', 'danger');
                     }
-                } else {
-                    onEffect(2);/*ERROR*/
+                } else {/*ERROR*/
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO', 'danger');
                 }
-            } else {
-                onEffect(2);/*ERROR*/
+            } else {/*ERROR*/
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN MATERIAL', 'danger');
             }
         });
@@ -738,7 +721,7 @@
                                     '<strong><span class="text-info">' + dtm.TIPO + '</span></strong>', /*7*/
                                     '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*8*/
                                 ]).draw(false);
-                                onEffect(1);/*OK*/
+                                /*OK*/
                                 /*REINICIAR VALORES EN ZERO*/
                                 pnlEditar.find("#ConsumoE").val('');
                                 pnlEditar.find("#tblMaterialesRequeridosE tbody tr").removeClass("selected_row");
@@ -762,22 +745,22 @@
                         }).always(function () {
                             HoldOn.close();
                         });
-                    } else {
-                        onEffect(2);/*ERROR*/
+                    } else {/*ERROR*/
                         onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'ESTA PIEZA YA FUE AGREGADA', 'danger');
                     }
-                } else {
-                    onEffect(2);/*ERROR*/
+                } else {/*ERROR*/
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ESTABLECER UN CONSUMO', 'danger');
                 }
-            } else {
-                onEffect(2);/*ERROR*/
+            } else {/*ERROR*/
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE SELECCIONAR UN MATERIAL', 'danger');
             }
         });
 
         /*CALLS*/
-        btnRefrescar.trigger('click');
+        getRecords();
+        getEstilos();
+        getCombinaciones();
+        getPiezas();
         tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tableOptionsDetalleInfinito);
         tblMaterialesRequeridosE = pnlEditar.find("#tblMaterialesRequeridosE").DataTable(tableOptionsDetalleInfinito);
 
@@ -787,7 +770,8 @@
             $(this).addClass("success");
             $(this).addClass("row_for_delete");
         });
-    });
+    }
+    );
 
     function getRecords() {
         temp = 0;
@@ -864,7 +848,6 @@
                                 /*OBTENER LOS MATERIALES AGREGADOS*/
                                 getPiezasYMaterialesDetalleByID(dtm.ID);
                                 /*FIN OBTENER MATERIALES AGREGADOS*/
-                                onEffect(1);
                                 EsNuevo = false;
                             }
                         }).fail(function (x, y, z) {
@@ -908,31 +891,31 @@
                     Descripcion: Descripcion
                 }
             }).done(function (data, x, jq) {
-                var options = '<option></option>';
                 $.each(data, function (k, v) {
-                    options += '<option value="' + v.ID + '">' + v.Material + '</option>';
+                    pnlNuevo.find("#Material")[0].selectize.addOption({text: v.Material, value: v.ID});
                 });
-
-                if (EsNuevo) {
-                    pnlNuevo.find("#Material").select2("destroy");
-                    pnlNuevo.find("#Material").select2({
-                        placeholder: "SELECCIONE UNA OPCIÓN",
-                        allowClear: true
-                    });
-                    pnlNuevo.find("#Material").html(options);
-                    pnlNuevo.find("#Material").select2('open');
-
-
-                } else {
-                    pnlEditar.find("#MaterialE").select2("destroy");
-                    pnlEditar.find("#MaterialE").select2({
-                        placeholder: "SELECCIONE UNA OPCIÓN",
-                        allowClear: true
-                    });
-                    pnlEditar.find("#MaterialE").html(options);
-                    pnlEditar.find("#MaterialE").select2('open');
-
-                }
+                pnlNuevo.find("#Material")[0].selectize.focus();
+               
+//                if (EsNuevo) {
+//                    pnlNuevo.find("#Material").select2("destroy");
+//                    pnlNuevo.find("#Material").select2({
+//                        placeholder: "SELECCIONE UNA OPCIÓN",
+//                        allowClear: true
+//                    });
+//                    pnlNuevo.find("#Material").html(options);
+//                    pnlNuevo.find("#Material").select2('open');
+//
+//
+//                } else {
+//                    pnlEditar.find("#MaterialE").select2("destroy");
+//                    pnlEditar.find("#MaterialE").select2({
+//                        placeholder: "SELECCIONE UNA OPCIÓN",
+//                        allowClear: true
+//                    });
+//                    pnlEditar.find("#MaterialE").html(options);
+//                    pnlEditar.find("#MaterialE").select2('open');
+//
+//                }
 
 
 
@@ -1006,10 +989,10 @@
                     Consumo_temporal = 0;
                     var cells = $(this).find("td");
                     var Consumo = (cells.eq(6).text().replace(/\s+/g, '') !== '' && parseFloat(cells.eq(6).text().replace(/\s+/g, '')) > 0) ? parseFloat(cells.eq(6).text().replace(/\s+/g, '')) : '1';
-                    cells.eq(6).html('<input type="number" id="CeldaConsumo" name="CeldaConsumo" class="form-control">');
+                    cells.eq(6).html('<input type="number" id="CeldaConsumo" name="CeldaConsumo" class="form-control form-control-sm">');
                     Consumo_temporal = Consumo;
                     cells.eq(6).find("#CeldaConsumo").val(Consumo);
-                    onEffect(1);
+
                     cells.eq(6).find("#CeldaConsumo").focus();
                     cells.eq(6).find("#CeldaConsumo").keyup(function (e) {
                         var code = e.which; // recommended to use e.which, it's normalized across browsers
@@ -1020,7 +1003,6 @@
                                 cells.eq(8).html('<strong><span class="text-success">$' + $.number(Precio * Consumo, 2, '.', ',') + '</span></strong>');
                                 onRemoverEditoresInactivos();
                             } else {
-                                onEffect(2);
                                 cells.eq(6).html('<strong><span class="text-danger">' + Consumo_temporal + '</span></strong>');
                             }
                         }
@@ -1038,7 +1020,6 @@
                         if (cells.eq(6).find("#CeldaConsumo").val() !== '' && parseFloat(cells.eq(6).find("#CeldaConsumo").val()) > 0) {
                             onRemoverEditoresInactivos();
                         } else {
-                            onEffect(2);
                             cells.eq(6).html('<strong><span class="text-danger">' + Consumo_temporal + '</span></strong>');
                         }
                     });
@@ -1068,13 +1049,10 @@
 
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
-
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+                pnlNuevo.find("[name='Estilo']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                pnlEditar.find("[name='EstiloE']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            pnlNuevo.find("#Estilo").html(options);
-            pnlEditar.find("#EstiloE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -1084,13 +1062,10 @@
 
     function getCombinaciones() {
         $.getJSON(master_url + 'getCombinaciones').done(function (data, x, jq) {
-
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+                pnlNuevo.find("[name='Combinacion']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                pnlEditar.find("[name='CombinacionE']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            pnlNuevo.find("#Combinacion").html(options);
-            pnlEditar.find("#CombinacionE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -1100,13 +1075,10 @@
 
     function getPiezas() {
         $.getJSON(master_url + 'getPiezas').done(function (data, x, jq) {
-
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+                pnlNuevo.find("[name='Pieza']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                pnlEditar.find("[name='PiezaE']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            pnlNuevo.find("#Pieza").html(options);
-            pnlEditar.find("#PiezaE").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -1124,10 +1096,8 @@
                         Estilo.val("").trigger('change');
                         Combinacion.val("").trigger('change');
                     }
-                    onEffect(2);
                     guardar = false;
                 } else {
-                    onEffect(4);
                     guardar = true;
                 }
             }).fail(function (x, y, z) {
@@ -1161,14 +1131,4 @@
         /*FIN CALCULAR SUPER TOTAL*/
     }
 
-    function onEffect(e) {
-        /*
-         * 1 - CLIP
-         * 2 - ERROR
-         * 3 - BAD ERROR
-         * 
-         */
-        var audio = new Audio('<?php print base_url(); ?>media/' + e + '.mp3');
-        audio.play();
-    }
 </script>

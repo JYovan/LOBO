@@ -8,6 +8,10 @@
  *******************************************************************************/
 var temp = 0;
 /*******************************************************************************
+ * VAR FOR VALID DATA
+ *******************************************************************************/
+var valido = false;
+/*******************************************************************************
  * EVENT FOR CLICK ROW
  *******************************************************************************/
 var selected = [];
@@ -72,11 +76,11 @@ var tableOptions = {
     "bLengthChange": false,
     "deferRender": true,
 //    "scrollY": false,
-    "scrollX": true,
+//    "scrollX": true,
     "scrollCollapse": false,
     "bSort": true,
     "aaSorting": [
-        [0, 'desc']
+        [1, 'desc']
     ]
             //    ,
             //    "columnDefs": [
@@ -241,7 +245,7 @@ var tableOptionsMiniTables = {
 function getTable(tblname, data) {
     var column = '';
     var i = 0;
-    var div = "<div class=\" table-responsive \">";
+    var div = "<div class=\" \">";
     div = "<table id=\"" + tblname + "\" class=\" table table-sm  \"  width=\"100%\">";
     //Create header
     div += "<thead>";
@@ -284,15 +288,15 @@ function handleEnter() {
     });
 
 
-    $('body').on('keydown', 'input, select, textarea,select2', function (e) {
+    $('body').on('keydown', 'input, select, textarea', function (e) {
 
         var self = $(this)
-                , form = self.parents('form:eq(0)')
+                , form = self.parents('body')
                 , focusable
                 , next
                 ;
         if (e.keyCode === 13) {
-            focusable = form.find('input,a,select,button,textarea,select2').filter(':visible');
+            focusable = form.find('input,a,select,button,textarea').filter(':visible:enabled');
             next = focusable.eq(focusable.index(this) + 1);
             if (next.length) {
                 next.focus();

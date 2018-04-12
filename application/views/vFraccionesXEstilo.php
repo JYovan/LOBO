@@ -1,14 +1,16 @@
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Fracciones X Estilo</legend>
-        <div align="right">
-            <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
-            <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
-            <button type="button" class="btn btn-dark" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br>ELIMINAR</button>
+        <div class="row">
+            <div class="col-sm-6 float-left">
+                <legend class="float-left">Fracciones Por Estilo</legend>
+            </div>
+            <div class="col-sm-6 float-right" align="right">
+                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
+            </div>
         </div>
-
         <div class="card-block">
-            <div id="tblRegistros"></div>
+            <div class="table-responsive" id="tblRegistros"></div>
         </div>
     </div>
 </div>
@@ -82,9 +84,8 @@
     </div>
 </div>
 
-
 <!--GUARDAR-->
-<div class="card border-0  d-none" id="pnlNuevo">
+<div class="card border-0  d-none" id="pnlDatos">
     <div class="card-body text-dark"> 
         <form id="frmNuevo">
             <div class="row">
@@ -94,8 +95,8 @@
                 <div class="col-md-6 float-right">
                 </div>
                 <div class="col-md-3 float-right" align="right">
-                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                    <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                 </div>
             </div>
             <br>
@@ -104,63 +105,23 @@
                     <strong>DATOS</strong>
                 </div>
                 <div class="card-body row">
+                    <div class="d-none">
+                        <input type="text" class="" id="ID" name="ID"  >
+                    </div>
                     <div class="col-sm">
                         <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="EstiloN" name="Estilo" required>  
+                        <select class="form-control form-control-sm required " id="Estilo" name="Estilo" required>  
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-lg"  name="Estatus" required> 
+                        <select class="form-control form-control-sm required"  name="Estatus" required> 
                             <option value=""></option>  
                             <option>ACTIVO</option>
                             <option>INACTIVO</option> 
                         </select>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div> 
-</div> 
-<!--EDITAR-->
-<div class="card border-0  d-none" id="pnlEditar">
-    <div class="card-body text-dark"> 
-        <form id="frmEditar">
-            <div class="row">
-                <div class="col-md-3 float-left">
-                    <legend class="float-left">Fracciones por Estilo</legend>
-                </div>
-                <div class="col-md-6 float-right">
-
-                </div>
-                <div class="col-md-3 float-right" align="right">
-                    <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                    <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                </div>
-            </div>
-            <br>
-            <div class="d-none">
-                <input type="text" class="form-control" id="ID" name="ID" required >
-            </div>
-            <div class="card border-dark">
-                <div class="card-header text-center">
-                    <strong>DATOS</strong>
-                </div>
-                <div class="card-body row">
-                    <div class="col-sm">
-                        <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="Estilo" name="Estilo" required>  
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-lg" id="Estatus" name="Estatus" required> 
-                            <option value=""></option>  
-                            <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
-                        </select>
-                    </div>
-                </div>  
             </div>
         </form>
     </div> 
@@ -192,35 +153,26 @@
 <script>
     var master_url = base_url + 'index.php/FraccionesXEstilo/';
 
-    var pnlNuevo = $("#pnlNuevo");
+    var pnlDatos = $("#pnlDatos");
     var pnlTablero = $("#pnlTablero");
     var pnlDetalle = $("#pnlDetalle");
     var btnNuevo = $("#btnNuevo");
-    var btnGuardar = pnlNuevo.find("#btnGuardar");
-    var btnCancelar = pnlNuevo.find("#btnCancelar");
-    var pnlEditar = $("#pnlEditar");
-    var btnModificar = pnlEditar.find("#btnModificar");
-    var btnCancelarModificar = pnlEditar.find("#btnCancelar");
-    var btnRefrescar = $("#btnRefrescar");
+    var btnGuardar = pnlDatos.find("#btnGuardar");
+    var btnCancelar = pnlDatos.find("#btnCancelar");
+    var btnModificar = pnlDatos.find("#btnModificar");
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
-
-    var EstiloN = pnlNuevo.find("#EstiloN");
-    var EstiloE = pnlEditar.find("#Estilo");
-
+    var Estilo = pnlDatos.find("#Estilo");
     var mdlConfirmarEliminarRenglon = $("#mdlConfirmarEliminarRenglon");
     var btnEliminarRenglon = $("#btnEliminarRenglon");
-
     var tempDetalle = 0;
-
     var btnNuevoRenglon = $('#btnNuevoRenglon');
     var mdlNuevoRenglon = $('#mdlNuevoRenglon');
     var IdMovimiento = 0;
+    var guardar;
 
     $(document).ready(function () {
- 
-
         btnNuevoRenglon.click(function () {
             temp = 0;
             HoldOn.open({
@@ -350,49 +302,15 @@
                 HoldOn.close();
             });
         });
-        btnModificar.click(function () {
 
-                $.validator.setDefaults({
-                    ignore: []
-                });
-                $('#frmEditar').validate({
-                    errorClass: 'myErrorClass',
-                    errorPlacement: function (error, element) {
-                        var elem = $(element);
-                        error.insertAfter(element);
-                    },
-                    rules: {
-                        Estilo: 'required',
-                        Estatus: 'required'
-                    },
-                    // The select element, which would otherwise get the class, is hidden from
-                    // view.
-                    highlight: function (element, errorClass, validClass) {
-                        var elem = $(element);
-                        if (elem.hasClass("select2-offscreen")) {
-                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                        } else {
-                            elem.addClass(errorClass);
-                        }
-                    },
+        /*COMPRUEBA SI EL ESTILO Y LA COMBINACION YA HAN SIDO REGISTRADOS*/
 
-                    //When removing make the same adjustments as when adding
-                    unhighlight: function (element, errorClass, validClass) {
-                        var elem = $(element);
-                        if (elem.hasClass("select2-offscreen")) {
-                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                        } else {
-                            elem.removeClass(errorClass);
-                        }
-                    }
-                });
-                //Regresa si es valido para los select2
-                $('select').on('change', function () {
-                    $(this).valid();
-                });
-                //Si es verdadero que hacer
-                if ($('#frmEditar').valid()) {
-                    var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
+
+        btnGuardar.click(function () {
+            isValid('pnlDatos');
+            if (valido) {
+                var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
+                if (!nuevo) {
                     $.ajax({
                         url: master_url + 'onModificar',
                         type: "POST",
@@ -402,82 +320,50 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                        btnRefrescar.trigger('click');
-                        pnlEditar.addClass('d-none');
-                        pnlTablero.removeClass('d-none');
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
-                }
-
-        });
-        btnGuardar.click(function () {
-            onComprobarExisteEstilo(EstiloN);
-            if (guardar) {
-                $.validator.setDefaults({
-                    ignore: []
-                });
-                $('#frmNuevo').validate({
-                    errorClass: 'myErrorClass',
-                    errorPlacement: function (error, element) {
-                        var elem = $(element);
-                        error.insertAfter(element);
-                    },
-                    rules: {
-                        Estilo: 'required',
-                        Estatus: 'required'
-                    },
-                    // The select element, which would otherwise get the class, is hidden from
-                    // view.
-                    highlight: function (element, errorClass, validClass) {
-                        var elem = $(element);
-                        if (elem.hasClass("select2-offscreen")) {
-                            $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                        } else {
-                            elem.addClass(errorClass);
-                        }
-                    },
-
-                    //When removing make the same adjustments as when adding
-                    unhighlight: function (element, errorClass, validClass) {
-                        var elem = $(element);
-                        if (elem.hasClass("select2-offscreen")) {
-                            $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                        } else {
-                            elem.removeClass(errorClass);
-                        }
-                    }
-                });
-                //Regresa si es valido para los select2
-                $('select').on('change', function () {
-                    $(this).valid();
-                });
-                //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-                //Si es verdadero que hacer
-                if ($('#frmNuevo').valid()) {
-                    var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
-
-                    $.ajax({
-                        url: master_url + 'onAgregar',
-                        type: "POST",
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: frm
-                    }).done(function (data, x, jq) {
-
-                        pnlNuevo.addClass('d-none');
                         getRecords();
-                        despuesDeGuardar(data);
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
                         HoldOn.close();
                     });
+                } else {
+                    var valEstilo = Estilo[0].selectize.getValue();
+                    $.getJSON(master_url + 'onComprobarExisteEstilo', {Estilo: valEstilo}).done(function (data, x, jq) {
+                        if (parseInt(data[0].EXISTE) > 0) {
+                            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL ESTILO YA EXISTE', 'danger');
+                            pnlDatos.find("[name='Estilo']")[0].selectize.refreshOptions();
+                        } else {
+                            $.ajax({
+                                url: master_url + 'onAgregar',
+                                type: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: frm
+                            }).done(function (data, x, jq) {
+                                onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+nuevo=false;
+                                getRecords();
+                                Estilo[0].selectize.disable();
+                                pnlDetalle.removeClass('d-none');
+                                IdMovimiento = data;
+                                getFraccionesXEstiloDetallebyFraccionesXEstilo(data);
+                                nuevo=false;
+                            }).fail(function (x, y, z) {
+                                console.log(x, y, z);
+                            }).always(function () {
+                                HoldOn.close();
+                            });
+                        }
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+
                 }
+
+
             }
         });
         btnConfirmarEliminar.click(function () {
@@ -503,9 +389,9 @@
                 }).done(function (data, x, jq) {
                     mdlConfirmar.modal('hide');
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
-                    pnlEditar.addClass("d-none");
+                    pnlDatos.addClass("d-none");
                     pnlTablero.removeClass("d-none");
-                    btnRefrescar.trigger('click');
+                    getRecords();
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -536,62 +422,32 @@
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
             }
         });
-        btnRefrescar.click(function () {
-            getRecords();
-        });
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
-            pnlNuevo.removeClass('d-none');
-            pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").val("").trigger('change');
-            $('#EstiloN').select2('open').select2('close');
+            pnlDatos.removeClass('d-none');
+            pnlDatos.find("input").val("");
+            $.each(pnlDatos.find("select"), function (k, v) {
+                pnlDatos.find("select")[k].selectize.clear(true);
+            });
+            $(':input:text:enabled:visible:first').focus();
+            nuevo = true;
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
-            pnlNuevo.addClass('d-none');
-        });
-        btnCancelarModificar.click(function () {
-            pnlEditar.addClass("d-none");
+            pnlDatos.addClass('d-none');
             pnlDetalle.addClass('d-none');
-            pnlTablero.removeClass("d-none");
+            nuevo = true;
         });
         getRecords();
         getEstilos();
         handleEnter();
     });
 
-
-    /*COMPRUEBA SI EL ESTILO Y LA COMBINACION YA HAN SIDO REGISTRADOS*/
-    var guardar = false;
-    function onComprobarExisteEstilo(Estilo) {
-        if (Estilo.val() !== '') {
-            $.getJSON(master_url + 'onComprobarExisteEstilo', {Estilo: Estilo.val()}).done(function (data, x, jq) {
-                if (parseInt(data[0].EXISTE) > 0) {
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL ESTILO YA EXISTE', 'danger');
-                    if (ID === 0) {
-                        Estilo.val("").trigger('change');
-                    }
-                    guardar = false;
-                } else {
-                    guardar = true;
-                }
-            }).fail(function (x, y, z) {
-                console.log(x, y, z);
-            }).always(function () {
-                HoldOn.close();
-
-            });
-        }
-    }
-
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+                pnlDatos.find("[name='Estilo']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            pnlNuevo.find("#EstiloN").html(options);
-            pnlEditar.find("#Estilo").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -709,44 +565,6 @@
         });
     }
 
-    function despuesDeGuardar(ID) {
-        IdMovimiento = ID;
-        if (IdMovimiento !== 0 && IdMovimiento !== undefined && IdMovimiento > 0) {
-            HoldOn.open({
-                theme: "sk-bounce",
-                message: "CARGANDO DATOS..."
-            });
-            $.ajax({
-                url: master_url + 'getFraccionXEstiloByID',
-                type: "POST",
-                dataType: "JSON",
-                data: {
-                    ID: IdMovimiento
-                }
-            }).done(function (data, x, jq) {
-
-                pnlEditar.find("input").val("");
-                pnlEditar.find("select").val("").trigger('change');
-                $.each(data[0], function (k, v) {
-                    pnlEditar.find("#" + k).val(v);
-                    pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
-                });
-
-                getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
-                pnlTablero.addClass("d-none");
-                pnlDetalle.removeClass('d-none');
-                pnlEditar.removeClass('d-none');
-                $('#Estilo').select2('open').select2('close');
-            }).fail(function (x, y, z) {
-                console.log(x, y, z);
-            }).always(function () {
-                HoldOn.close();
-            });
-        } else {
-            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-        }
-    }
-
     function getRecords() {
         temp = 0;
         HoldOn.open({
@@ -795,6 +613,7 @@
                     }
                     var dtm = tblSelected.row(this).data();
                     if (temp !== 0 && temp !== undefined && temp > 0) {
+                        nuevo = false;
                         HoldOn.open({
                             theme: "sk-bounce",
                             message: "CARGANDO DATOS..."
@@ -808,18 +627,21 @@
                             }
                         }).done(function (data, x, jq) {
 
-                            pnlEditar.find("input").val("");
-                            pnlEditar.find("select").val("").trigger('change');
-                            $.each(data[0], function (k, v) {
-                                pnlEditar.find("#" + k).val(v);
-                                pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
+                            pnlDatos.find("input").val("");
+                            $.each(pnlDatos.find("select"), function (k, v) {
+                                pnlDatos.find("select")[k].selectize.clear(true);
                             });
-
+                            Estilo[0].selectize.disable();
+                            $.each(data[0], function (k, v) {
+                                pnlDatos.find("[name='" + k + "']").val(v);
+                                if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                    pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+                                }
+                            });
                             getFraccionesXEstiloDetallebyFraccionesXEstilo(temp);
                             pnlTablero.addClass("d-none");
                             pnlDetalle.removeClass('d-none');
-                            pnlEditar.removeClass('d-none');
-                            $('#Estilo').select2('open').select2('close');
+                            pnlDatos.removeClass('d-none');
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {

@@ -2,14 +2,14 @@
     <div class="card-body">
         <legend class="float-left">Reportes Diseño y Desarrollo</legend>
         <!--        <div align="right">
-                    <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-file-pdf-o"></span><br>VER REPORTE</button>
+                    <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-file-pdf-o"></span><br>VER REPORTE</button>
                 </div>-->
 
         <div class="card-block">
             <div class="card-body row">
                 <div class="col-sm">
                     <label for="Reporte">Selecciona el reporte que deseas visualizar*</label>
-                    <select class="form-control form-control-lg" id="Reporte" name="Reporte" required> 
+                    <select class="form-control form-control-sm" id="Reporte" name="Reporte" required> 
                         <option value=""></option>
                         <option value="mdlImprimirFichaTecnica">FICHA TÉCNICA</option>
                         <option value="onReporteManoObra">MANO DE OBRA</option> 
@@ -38,7 +38,7 @@
                             <label for="Estilo">Estilo*</label>
                             
                             
-                            <select class="form-control form-control-lg" id="Estilo"   name="Estilo">  
+                            <select class="form-control form-control-sm" id="Estilo"   name="Estilo">  
                                 <option value=""></option>
                             </select>
                         </div>
@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="Combinacion">Combinación*</label>
-                            <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion"> 
+                            <select class="form-control form-control-sm" id="Combinacion"  name="Combinacion"> 
                                 <option value=""></option>
                             </select>
                         </div>

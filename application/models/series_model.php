@@ -12,7 +12,7 @@ class series_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("U.ID, U.Descripcion, U.PuntoInicial AS 'Punto Inicial', U.PuntoFinal AS 'Punto Final' ", false);
+            $this->db->select("U.ID, U.Clave,'DEL '+ CONVERT(VARCHAR(25),U.PuntoInicial)+' AL '+ CONVERT(VARCHAR(25),U.PuntoFinal) AS 'Numeración' ", false);
             $this->db->from('sz_Series AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $this->db->order_by("U.ID", "asc");
@@ -30,7 +30,7 @@ class series_model extends CI_Model {
 
     public function getSeries() {
         try {
-            $this->db->select("U.ID, U.Descripcion", false);
+            $this->db->select("U.ID, U.Clave+ ' DEL '+ CONVERT(VARCHAR(25),U.PuntoInicial)+' AL '+ CONVERT(VARCHAR(25),U.PuntoFinal) AS 'Clave' ", false);
             $this->db->from('sz_Series AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -38,25 +38,6 @@ class series_model extends CI_Model {
              * FOR DEBUG ONLY
              */
             $str = $this->db->last_query();
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-    
-    public function getSeriesDetallebySerieID($ID) {
-        try {
-            $this->db->select("U.ID AS ID, U.Serie_ID, U.Talla, U.Cantidad, CONCAT('<button type=\"button\" class=\"btn btn-dark\" id=\"btnEliminarPunto\" onclick=\"onEliminarPunto(this)\">','<span class=\"fa fa-minus\"></span></button>') AS ELIMINAR", false);
-            $this->db->from('sz_SeriesDetalle AS U');
-            $this->db->where_in('U.Serie_ID', $ID);
-            $this->db->order_by("U.Talla", "ASC");
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-            //print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {
@@ -76,32 +57,10 @@ class series_model extends CI_Model {
         }
     }
 
-    public function onAgregarDetalle($array) {
-        try {
-            $this->db->insert("sz_SeriesDetalle", $array);
-            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
-            $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
-            return $row['IDL'];
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
             $this->db->update("sz_Series", $DATA);
-//            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onModificarDetalle($ID, $DATA) {
-        try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_SeriesDetalle", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -114,26 +73,6 @@ class series_model extends CI_Model {
             $this->db->where('ID', $ID);
             $this->db->update("sz_Series");
 //            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onEliminarDetalle($ID) {
-        try {
-            $this->db->where('Estatus', 'INACTIVO');
-            $this->db->where('Serie_ID', $ID);
-            $this->db->delete("sz_SeriesDetalle");
-//            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-    public function onDesactivar($ID) {
-        try {
-            $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('Serie_ID', $ID);
-            $this->db->update("sz_SeriesDetalle");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

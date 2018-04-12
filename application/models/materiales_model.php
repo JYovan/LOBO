@@ -49,7 +49,7 @@ class materiales_model extends CI_Model {
             $this->db->insert("sz_Materiales", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            PRINT "\n ID IN MODEL: $LastIdInserted \n";
             return $row['IDL'];
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -3,13 +3,13 @@
     <div class="card-body">
         <legend class="float-left">Gestión de Materiales Por Combinación</legend>
         <div align="right">
-            <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
-            <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
-            <button type="button" class="btn btn-dark" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br>ELIMINAR</button>
+            <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span></button>
+            
+            <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span></button>
         </div>
 
         <div class="card-block">
-            <div id="tblRegistros"></div>
+            <div class="table-responsive" id="tblRegistros"></div>
         </div>
     </div>
 </div>
@@ -48,19 +48,19 @@
                     <div  class="col-md-5 text-center"> 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="Estilo"  name="Estilo">  
+                        <select class="form-control form-control-sm" id="Estilo"  name="Estilo">  
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="Combinacion">Combinación*</label>
-                        <select class="form-control form-control-lg" id="Combinacion"  name="Combinacion">  
+                        <select class="form-control form-control-sm" id="Combinacion"  name="Combinacion">  
                         </select>
                     </div>
                     <div class="w-100"></div>
@@ -76,20 +76,20 @@
                                 </div>
                                 <div class="col-12">
                                     <label for="Consumo">Consumo*</label>
-                                    <input type="number" id="Consumo" name="Consumo" class="form-control" min="0">
+                                    <input type="number" id="Consumo" name="Consumo" class="form-control form-control-sm" min="0">
                                 </div>
                                 <div class="w-100"></div> 
                                 <br>
                                 <div id="Materiales" class="col-5 fixed">
                                 </div>
                                 <div class="col-1"><br>
-                                    <button type="button" class="btn btn-dark" id="btnAgregarMaterial"><span class="fa fa-arrow-right"></span></button>
+                                    <button type="button" class="btn btn-primary" id="btnAgregarMaterial"><span class="fa fa-arrow-right"></span></button>
                                     <div class="w-100"></div>
                                     <br>
-                                    <button type="button" class="btn btn-dark" id="btnRefrescarMateriales" onclick="getMaterialesRequeridos()"><span class="fa fa-refresh"></span></button>
+                                    <button type="button" class="btn btn-primary" id="btnRefrescarMateriales" onclick="getMaterialesRequeridos()"><span class="fa fa-refresh"></span></button>
                                     <div class="w-100"></div>
                                     <br>
-                                    <button type="button" class="btn btn-dark" id="btnEliminarMaterial"><span class="fa fa-minus"></span></button>
+                                    <button type="button" class="btn btn-primary" id="btnEliminarMaterial"><span class="fa fa-minus"></span></button>
                                 </div> 
                                 <div id="MaterialesRequeridos" class="col-6">
                                     <table id="tblMaterialesRequeridos" name="tblMaterialesRequeridos" class="table table-hover">
@@ -130,23 +130,23 @@
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>  
                 <div class="d-none">
-                    <input type="text" class="form-control" id="ID" name="ID" required >
+                    <input type="text" class="form-control form-control-sm" id="ID" name="ID" required >
                 </div>
 
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estilo">Estilo*</label>
-                        <select class="form-control form-control-lg" id="EstiloE"  name="EstiloE">  
+                        <select class="form-control form-control-sm" id="EstiloE"  name="EstiloE">  
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="Combinacion">Combinación*</label>
-                        <select class="form-control form-control-lg" id="CombinacionE"  name="CombinacionE">  
+                        <select class="form-control form-control-sm" id="CombinacionE"  name="CombinacionE">  
                         </select>
                     </div>
                     <div class="w-100"></div>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="col-12">
                                     <label for="Consumo">Consumo*</label>
-                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control" min="0">
+                                    <input type="number" id="ConsumoE" name="ConsumoE" class="form-control form-control-sm" min="0">
                                 </div>
 
                                 <div class="w-100"></div> 
@@ -170,13 +170,13 @@
                                 <div id="MaterialesE" class="col-5">
                                 </div>
                                 <div class="col-1"><br>
-                                    <button type="button" class="btn btn-dark" id="btnAgregarMaterialE"><span class="fa fa-arrow-right"></span></button>
+                                    <button type="button" class="btn btn-primary" id="btnAgregarMaterialE"><span class="fa fa-arrow-right"></span></button>
                                     <div class="w-100"></div>
                                     <br>
-                                    <button type="button" class="btn btn-dark" id="btnRefrescarMaterialesE" onclick="getMaterialesRequeridosE()"><span class="fa fa-refresh"></span></button>
+                                    <button type="button" class="btn btn-primary" id="btnRefrescarMaterialesE" onclick="getMaterialesRequeridosE()"><span class="fa fa-refresh"></span></button>
                                     <div class="w-100"></div>
                                     <br>
-                                    <button type="button" class="btn btn-dark" id="btnEliminarMaterialE"><span class="fa fa-minus"></span></button>
+                                    <button type="button" class="btn btn-primary" id="btnEliminarMaterialE"><span class="fa fa-minus"></span></button>
                                 </div> 
                                 <div id="MaterialesRequeridosE" class="col-6">
                                     <table id="tblMaterialesRequeridosE" name="tblMaterialesRequeridosE" class="table table-hover">

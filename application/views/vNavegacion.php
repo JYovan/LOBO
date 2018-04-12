@@ -1,7 +1,4 @@
-
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
     <a class="navbar-brand" href="<?php print base_url(); ?>">
         <img src="<?php print base_url(); ?>img/LS.png" width="30px">
     </a>
@@ -48,9 +45,9 @@
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Reportes
                 </a>
-                <ul class="dropdown-menu dropdown-submenu">
+                <ul class="dropdown-menu">
                     <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Generales
                         </a>
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
@@ -89,9 +86,9 @@
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Configuración
                 </a>
-                <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+                <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php print base_url('Usuarios') ?>">Usuarios</a></li>
                             <div class="dropdown-divider" ></div>
@@ -101,7 +98,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle  "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Generales
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -117,7 +114,7 @@
                             <div class="dropdown-divider" href="#"></div>
 
                             <li class="nav-item dropdown dropdown-submenu">
-                                <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Producción
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

@@ -1,15 +1,16 @@
-
 <div class="card " id="pnlTablero">
     <div class="card-body">
-        <legend class="float-left">Gestión de Materiales</legend>
-        <div align="right">
-            <button type="button" class="btn btn-dark" id="btnNuevo"><span class="fa fa-plus"></span><br>AGREGAR</button>
-            <button type="button" class="btn btn-dark" id="btnRefrescar"><span class="fa fa-refresh"></span><br>REFRESCAR</button>
-            <button type="button" class="btn btn-dark" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br>ELIMINAR</button>
+        <div class="row">
+            <div class="col-sm-6 float-left">
+                <legend class="float-left">Gestión de Materiales</legend>
+            </div>
+            <div class="col-sm-6 float-right" align="right">
+                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
+            </div>
         </div>
-
         <div class="card-block">
-            <div id="tblRegistros"></div>
+            <div class="table-responsive" id="tblRegistros"></div>
         </div>
     </div>
 </div>
@@ -34,46 +35,46 @@
         </div>
     </div>
 </div>
-
 <!--GUARDAR-->
 <div id="" class="container-fluid">
-    <div class="card border-0  d-none" id="pnlNuevo">
+    <div class="card border-0  d-none" id="pnlDatos">
         <div class="card-body text-dark"> 
             <form id="frmNuevo">
-
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Nuevo</legend>
+                        <legend class="float-left">Materiales</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                        <button type="button" class="btn btn-dark" id="btnGuardar"><span class="fa fa-check"></span><br>GUARDAR</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
-
+                    <div class="d-none">
+                        <input type="text" class="" id="ID" name="ID"  >
+                    </div>
                     <div class="col-sm">
                         <label for="Material">Material*</label>  
-                        <input type="text" maxlength="15" class="form-control" id="Material" name="Material" required >
+                        <input type="text" maxlength="15" class="form-control form-control-sm" id="Material" name="Material" required >
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>  
-                        <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
+                        <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="UnidadCompra">Unidad de Compra*</label>
-                        <select class="form-control form-control-lg"  name="UnidadCompra" required=""> 
+                        <select class="form-control form-control-sm required"  name="UnidadCompra" required=""> 
                             <option value=""></option>  
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="UnidadConsumo">Unidad de Consumo*</label>
-                        <select class="form-control form-control-lg"  name="UnidadConsumo" required=""> 
+                        <select class="form-control form-control-sm required"  name="UnidadConsumo" required=""> 
                             <option value=""></option>  
                         </select>
                     </div>
@@ -81,13 +82,13 @@
                 <div class="row">
                     <div class="col-sm">
                         <label for="Familia">Familia*</label>
-                        <select class="form-control form-control-lg"  name="Familia" required=""> 
+                        <select class="form-control form-control-sm required"  name="Familia" required=""> 
                             <option value=""></option>  
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="Departamento">Departamento*</label>
-                        <select class="form-control form-control-lg"  name="Departamento" required=""> 
+                        <select class="form-control form-control-sm required"  name="Departamento" required=""> 
                             <option value=""></option>  
                         </select>
                     </div>
@@ -95,7 +96,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <label for="Tipo">Tipo*</label>
-                        <select class="form-control form-control-lg"  name="Tipo" required=""> 
+                        <select class="form-control form-control-sm required"  name="Tipo" required=""> 
                             <option value=""></option>  
                             <option value="DIR">DIRECTO</option>  
                             <option value="IND">INDIRECTO</option>  
@@ -106,39 +107,39 @@
 
                     <div class="col-sm">
                         <label for="Minimo">Mínimo</label>  
-                        <input type="number" class="form-control" id="Minimo" name="Minimo"  >
+                        <input type="number" class="form-control form-control-sm" id="Minimo" name="Minimo"  >
                     </div>
                     <div class="col-sm">
                         <label for="Maximo">Máximo</label>  
-                        <input type="number" class="form-control" id="Maximo" name="Maximo"  >
+                        <input type="number" class="form-control form-control-sm" id="Maximo" name="Maximo"  >
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="col-sm">
                         <label for="PrecioLista">Precio Lista</label>  
-                        <input type="number" class="form-control" id="PrecioLista" name="PrecioLista"  >
+                        <input type="number" class="form-control form-control-sm" id="PrecioLista" name="PrecioLista"  >
                     </div>
                     <div class="col-sm">
                         <label for="PrecioTope">Precio Máximo</label>  
-                        <input type="number" class="form-control" id="PrecioTope" name="PrecioTope"  >
+                        <input type="number" class="form-control form-control-sm" id="PrecioTope" name="PrecioTope"  >
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="col-sm">
                         <label for="FechaUltimoInventario">Fecha Último Inventario</label>  
-                        <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control" placeholder="XX/XX/XXXX" data-provide="datepicker" data-date-format="dd/mm/yyyy" readonly="">
+                        <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control form-control-sm" placeholder="XX/XX/XXXX" data-provide="datepicker" data-date-format="dd/mm/yyyy" readonly="">
                     </div>
                     <div class="col-sm">
                         <label for="Existencia">Existencia</label>  
-                        <input type="number" class="form-control" id="Existencia" name="Existencia"  >
+                        <input type="number" class="form-control form-control-sm" id="Existencia" name="Existencia"  >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-lg"  name="Estatus" required=""> 
+                        <select class="form-control form-control-sm required"  name="Estatus" required=""> 
                             <option value=""></option>  
                             <option>ACTIVO</option>
                             <option>INACTIVO</option> 
@@ -149,263 +150,60 @@
         </div> 
     </div> 
 </div>
-<!--EDITAR-->
-<div id="" class="container-fluid">
-    <div class="card border-0  d-none" id="pnlEditar">
-        <div class="card-body text-dark"> 
-            <div class="card-body text-dark"> 
-                <form id="frmEditar">
-                    <div class="row">
-                        <div class="col-md-2 float-left">
-                            <legend class="float-left">Editar </legend>
-                        </div>
-                        <div class="col-md-7 float-right">
-
-                        </div>
-                        <div class="col-md-3 float-right" align="right">
-                            <button type="button" class="btn btn-default" id="btnCancelar"><span class="fa fa-undo"></span><br>CANCELAR</button>
-                            <button type="button" class="btn btn-dark" id="btnModificar"><span class="fa fa-check"></span><br>GUARDAR</button>
-                        </div>
-                    </div>
-                    <div class="d-none">
-                        <input type="text" class="form-control" id="ID" name="ID" required >
-                    </div>
-                    <div class="row">
-
-                        <div class="col-sm">
-                            <label for="Material">Material*</label>  
-                            <input type="text" maxlength="15" class="form-control" id="Material" name="Material" required >
-                        </div>
-                        <div class="col-sm">
-                            <label for="Descripcion">Descripción*</label>  
-                            <input type="text" class="form-control" id="Descripcion" name="Descripcion" required >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="UnidadCompra">Unidad de Compra*</label>
-                            <select class="form-control form-control-lg"  name="UnidadCompra" required=""> 
-                                <option value=""></option>  
-                            </select>
-                        </div>
-                        <div class="col-sm">
-                            <label for="UnidadConsumo">Unidad de Consumo*</label>
-                            <select class="form-control form-control-lg"  name="UnidadConsumo" required=""> 
-                                <option value=""></option>  
-                            </select>
-                        </div>
-                    </div> 
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Familia">Familia*</label>
-                            <select class="form-control form-control-lg"  name="Familia" required=""> 
-                                <option value=""></option>  
-                            </select>
-                        </div>
-                        <div class="col-sm">
-                            <label for="Departamento">Departamento*</label>
-                            <select class="form-control form-control-lg"  name="Departamento" required=""> 
-                                <option value=""></option>  
-                            </select>
-                        </div>
-                    </div> 
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Tipo">Tipo*</label>
-                            <select class="form-control form-control-lg"  name="Tipo" required=""> 
-                                <option value=""></option>  
-                                <option value="DIR">DIRECTO</option>  
-                                <option value="IND">INDIRECTO</option>  
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Minimo">Mínimo</label>  
-                            <input type="number" class="form-control" id="Minimo" name="Minimo"  >
-                        </div>
-                        <div class="col-sm">
-                            <label for="Maximo">Máximo</label>  
-                            <input type="number" class="form-control" id="Maximo" name="Maximo"  >
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-sm">
-                            <label for="PrecioLista">Precio Lista</label>  
-                            <input type="number" class="form-control" id="PrecioLista" name="PrecioLista"  >
-                        </div>
-                        <div class="col-sm">
-                            <label for="PrecioTope">Precio Máximo</label>  
-                            <input type="number" class="form-control" id="PrecioTope" name="PrecioTope"  >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="FechaUltimoInventario">Fecha Último Inventario</label>  
-                            <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control" placeholder="XX/XX/XXXX" data-provide="datepicker" data-date-format="dd/mm/yyyy" readonly="">
-                        </div>
-                        <div class="col-sm">
-                            <label for="Existencia">Existencia</label>  
-                            <input type="number" class="form-control" id="Existencia" name="Existencia"  >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="Estatus">Estatus*</label>
-                            <select class="form-control form-control-lg"  name="Estatus" required=""> 
-                                <option value=""></option>  
-                                <option>ACTIVO</option>
-                                <option>INACTIVO</option> 
-                            </select>
-                        </div>
-                    </div> 
-                </form>
-            </div> 
-        </div> 
-    </div> 
-</div>
 
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/Materiales/';
-    var pnlNuevo = $("#pnlNuevo");
+    var pnlDatos = $("#pnlDatos");
     var pnlTablero = $("#pnlTablero");
     var btnNuevo = $("#btnNuevo");
-    var btnGuardar = pnlNuevo.find("#btnGuardar");
-    var btnCancelar = pnlNuevo.find("#btnCancelar");
-    var pnlEditar = $("#pnlEditar");
-    var btnModificar = pnlEditar.find("#btnModificar");
-    var btnCancelarModificar = pnlEditar.find("#btnCancelar");
-    var btnRefrescar = $("#btnRefrescar");
+    var btnGuardar = pnlDatos.find("#btnGuardar");
+    var btnCancelar = pnlDatos.find("#btnCancelar");
     var btnEliminar = $("#btnEliminar");
     var btnConfirmarEliminar = $("#btnConfirmarEliminar");
     var mdlConfirmar = $("#mdlConfirmar");
+    var nuevo = true;
 
     $(document).ready(function () {
-        btnModificar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmEditar').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Material: 'required',
-                    Descripcion: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
-                }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Si es verdadero que hacer
-            if ($('#frmEditar').valid()) {
-                var frm = new FormData(pnlEditar.find("#frmEditar")[0]);
-                $.ajax({
-                    url: master_url + 'onModificar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                    btnRefrescar.trigger('click');
-                    pnlEditar.addClass('d-none');
-                    pnlTablero.removeClass('d-none');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
-            }
-        });
         btnGuardar.click(function () {
-            $.validator.setDefaults({
-                ignore: []
-            });
-            $('#frmNuevo').validate({
-                errorClass: 'myErrorClass',
-                errorPlacement: function (error, element) {
-                    var elem = $(element);
-                    error.insertAfter(element);
-                },
-                rules: {
-                    Material: 'required',
-                    Descripcion: 'required'
-                },
-                // The select element, which would otherwise get the class, is hidden from
-                // view.
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").addClass(errorClass);
-                    } else {
-                        elem.addClass(errorClass);
-                    }
-                },
-
-                //When removing make the same adjustments as when adding
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-offscreen")) {
-                        $("#s2id_" + elem.attr("id") + " ul").removeClass(errorClass);
-                    } else {
-                        elem.removeClass(errorClass);
-                    }
+            isValid('pnlDatos');
+            if (valido) {
+                var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
+                if (!nuevo) {
+                    $.ajax({
+                        url: master_url + 'onModificar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                        getRecords();
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                } else {
+                    $.ajax({
+                        url: master_url + 'onAgregar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+nuevo=false;
+                        getRecords();
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
                 }
-            });
-            //Regresa si es valido para los select2
-            $('select').on('change', function () {
-                $(this).valid();
-            });
-            //Regresa verdadero si ya se cumplieron las reglas, si no regresa falso
-            //Si es verdadero que hacer
-            if ($('#frmNuevo').valid()) {
-                var frm = new FormData(pnlNuevo.find("#frmNuevo")[0]);
 
-                $.ajax({
-                    url: master_url + 'onAgregar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: frm
-                }).done(function (data, x, jq) {
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                    getRecords();
-                    pnlTablero.removeClass("d-none");
-                    pnlNuevo.addClass('d-none');
-                    console.log(data, x, jq);
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
             }
         });
         //Evento clic del boton confirmar borrar
@@ -430,12 +228,11 @@
                         ID: temp
                     }
                 }).done(function (data, x, jq) {
-                    console.log(data);
                     mdlConfirmar.modal('hide');
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
-                    pnlEditar.addClass("d-none");
+                    pnlDatos.addClass("d-none");
                     pnlTablero.removeClass("d-none");
-                    btnRefrescar.trigger('click');
+                    getRecords();
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -445,24 +242,20 @@
                 onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
             }
         });
-
-        btnRefrescar.click(function () {
-            getRecords();
-        });
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
-            pnlNuevo.removeClass('d-none');
-            pnlNuevo.find("input").val("");
-            pnlNuevo.find("select").val("").trigger('change');
+            pnlDatos.removeClass('d-none');
+            pnlDatos.find("input").val("");
+            $.each(pnlDatos.find("select"), function (k, v) {
+                pnlDatos.find("select")[k].selectize.clear(true);
+            });
             $(':input:text:enabled:visible:first').focus();
+            nuevo = true;
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
-            pnlNuevo.addClass('d-none');
-        });
-        btnCancelarModificar.click(function () {
-            pnlEditar.addClass("d-none");
-            pnlTablero.removeClass("d-none");
+            pnlDatos.addClass('d-none');
+            nuevo = true;
         });
 
         getRecords();
@@ -499,9 +292,7 @@
             });
             var tblSelected = $('#tblMateriales').DataTable(tableOptions);
             $('#tblMateriales_filter input[type=search]').focus();
-
             $('#tblMateriales tbody').on('click', 'tr', function () {
-
                 $("#tblMateriales tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var dtm = tblSelected.row(this).data();
@@ -520,6 +311,7 @@
                 }
                 var dtm = tblSelected.row(this).data();
                 if (temp !== 0 && temp !== undefined && temp > 0) {
+                    nuevo = false;
                     HoldOn.open({
                         theme: "sk-bounce",
                         message: "CARGANDO DATOS..."
@@ -532,16 +324,18 @@
                             ID: temp
                         }
                     }).done(function (data, x, jq) {
-
-                        pnlEditar.find("input").val("");
-                        pnlEditar.find("select").val("").trigger('change');
+                        pnlDatos.find("input").val("");
+                        $.each(pnlDatos.find("select"), function (k, v) {
+                            pnlDatos.find("select")[k].selectize.clear(true);
+                        });
                         $.each(data[0], function (k, v) {
-                            pnlEditar.find("#" + k).val(v);
-                            //pnlEditar.find("#" + k).val(v).trigger('change');
-                            pnlEditar.find("[name='" + k + "']").val(v).trigger('change');
+                            pnlDatos.find("[name='" + k + "']").val(v);
+                            if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+                            }
                         });
                         pnlTablero.addClass("d-none");
-                        pnlEditar.removeClass('d-none');
+                        pnlDatos.removeClass('d-none');
                         $(':input:text:enabled:visible:first').focus();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -574,12 +368,9 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+                pnlDatos.find("[name='Departamento']")[0].selectize.addOption({text: v.SValue, value: v.ID});
             });
-            pnlNuevo.find("[name='Departamento']").html(options);
-            pnlEditar.find("[name='Departamento']").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -593,12 +384,9 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+                pnlDatos.find("[name='Familia']")[0].selectize.addOption({text: v.SValue, value: v.ID});
             });
-            pnlNuevo.find("[name='Familia']").html(options);
-            pnlEditar.find("[name='Familia']").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -612,14 +400,10 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.SValue + '</option>';
+                pnlDatos.find("[name='UnidadConsumo']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+                pnlDatos.find("[name='UnidadCompra']")[0].selectize.addOption({text: v.SValue, value: v.ID});
             });
-            pnlNuevo.find("[name='UnidadConsumo']").html(options);
-            pnlEditar.find("[name='UnidadConsumo']").html(options);
-            pnlNuevo.find("[name='UnidadCompra']").html(options);
-            pnlEditar.find("[name='UnidadCompra']").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
