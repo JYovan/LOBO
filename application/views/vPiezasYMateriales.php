@@ -214,16 +214,18 @@
 
     $(document).ready(function () {
         handleEnter();
-        var query;
-        $('#Material')[0].selectize.on('type', function () {
-            query = this.lastQuery;
+        var busqueda;
+        pnlNuevo.find('#Material')[0].selectize.on('type', function () {
+            busqueda = this.lastQuery;
         });
-        $('#MaterialNuevo').on('keydown', function (e) {
+        
+        pnlNuevo.find('#MaterialNuevo').on('keydown', function (e) {
             if (e.which === 32) {
                 e.preventDefault();
-                getMaterialesRequeridos(query.toUpperCase());
+                getMaterialesRequeridos(busqueda.toUpperCase());
             }
         });
+        
         Estilo.change(function () {
 //            onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
         });
@@ -320,6 +322,7 @@
                                     getRecords();
                                     pnlTablero.removeClass("d-none");
                                     pnlNuevo.addClass('d-none');
+                                    pnlNuevo.find("#tblMaterialesRequeridos > tbody").html("");
                                 }).fail(function (x, y, z) {
                                     console.log(x, y, z);
                                 }).always(function () {
@@ -379,6 +382,8 @@
                 tblMaterialesRequeridos.row($(this)).remove().draw();
             });
             EsNuevo = true;
+
+            tblMaterialesRequeridos = pnlNuevo.find("#tblMaterialesRequeridos").DataTable(tblInicial);
         });
 
         btnCancelar.click(function () {
@@ -388,7 +393,7 @@
 
 
         pnlNuevo.find("#btnEliminarMaterial").on('click', function () {
-            console.log(EsNuevo)
+            console.log(EsNuevo);
             var seleccionado = false;
             $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
                 if ($(this).hasClass("success")) {
@@ -470,8 +475,6 @@
                                 super_total = 0.0;
                                 $.each(pnlNuevo.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
                                     var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
-                                    $(this).find("td").eq(0).addClass("d-none");
-                                    $(this).find("td").eq(2).addClass("d-none");
                                     super_total += sub;
                                 });
                                 pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
