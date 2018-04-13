@@ -175,4 +175,44 @@
                 }
             });
         }
+        var valido = false;
+        function isValid(p) {
+            var inputs = $('#' + p).find("div.card-body").find("input.form-control:required").length;
+            var selects = $('#' + p).find("div.card-body").find("select.required").length;
+            var valid_inputs = 0;
+            var valid_selects = 0;
+
+            $.each($('#' + p).find("div.card-body").find("input.form-control:required"), function () {
+                var e = $(this).parent().find("small.text-danger");
+                if ($(this).val() === '' && e.length === 0) {
+                    $(this).parent().find("label").after("<small class=\"text-danger\"> Este campo es obligatorio</small>");
+                    $(this).css("border", "1px solid #d01010");
+                    valido = false;
+                } else {
+                    if ($(this).val() !== '') {
+                        $(this).css("border", "1px solid #ccc");
+                        $(this).parent().find("small.text-danger").remove();
+                        valid_inputs += 1;
+                    }
+                }
+            });
+            $.each($('#' + p).find("div.card-body").find("select.required"), function () {
+                var e = $(this).parent().find("small.text-danger");
+                if ($(this).val() === '' && e.length === 0) {
+                    $(this).after("<small class=\"text-danger\"> Este campo es obligatorio</small>");
+                    $(this).parent().find(".selectize-input").css("border", "1px solid #d01010");
+                    valido = false;
+                } else {
+                    if ($(this).val() !== '') {
+                        $(this).parent().find(".selectize-input").css("border", "1px solid #ccc");
+                        $(this).parent().find("small.text-danger").remove();
+                        valid_selects += 1;
+                    }
+                }
+            });
+
+            if (valid_inputs === inputs && valid_selects === selects) {
+                valido = true;
+            }
+        }
     </script>

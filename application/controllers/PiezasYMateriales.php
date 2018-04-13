@@ -93,7 +93,7 @@ class PiezasYMateriales extends CI_Controller {
 
     public function getPiezasYMaterialesDetalleByID() {
         try {
-            print json_encode($this->piezasymateriales_model->getPiezasYMaterialesDetalleByID($this->input->post('ID')));
+            print json_encode($this->piezasymateriales_model->getPiezasYMaterialesDetalleByID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
