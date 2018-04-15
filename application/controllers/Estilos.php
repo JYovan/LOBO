@@ -165,6 +165,7 @@ class Estilos extends CI_Controller {
                     $this->estilos_model->onModificar($ID, $DATA);
                 }
             }
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

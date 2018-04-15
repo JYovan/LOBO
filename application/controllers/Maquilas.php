@@ -57,7 +57,8 @@ class Maquilas extends CI_Controller {
                 'Contacto' => ($this->input->post('Contacto') !== NULL) ? $this->input->post('Contacto') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $this->maquilas_model->onAgregar($data);
+            $ID=$this->maquilas_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

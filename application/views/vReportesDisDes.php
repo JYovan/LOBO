@@ -114,13 +114,9 @@
 
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
-          
-
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+                 $('#mdlImprimirFichaTecnica').find("#Estilo")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            $('#mdlImprimirFichaTecnica').find("#Estilo").html(options);
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
@@ -139,12 +135,9 @@
                 Estilo: Estilo
             }
         }).done(function (data, x, jq) {
-            var options = '<option></option>';
             $.each(data, function (k, v) {
-                options += '<option value="' + v.ID + '">' + v.Descripcion + '</option>';
+                  $('#mdlImprimirFichaTecnica').find("#Combinacion")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            $('#mdlImprimirFichaTecnica').find("#Combinacion").html(options);
-
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {

@@ -77,7 +77,8 @@ class Lineas extends CI_Controller {
                 'TipoEstiloCat' => ($this->input->post('TipoEstiloCat') !== NULL) ? $this->input->post('TipoEstiloCat') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $this->lineas_model->onAgregar($data);
+            $ID=$this->lineas_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

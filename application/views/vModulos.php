@@ -108,7 +108,6 @@
                         ID: temp
                     }
                 }).done(function (data, x, jq) {
-
                     mdlConfirmar.modal('hide');
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'PERMISO ELIMINADO', 'danger');
                     pnlDatos.addClass("d-none");
@@ -153,7 +152,8 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-nuevo=false;
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);

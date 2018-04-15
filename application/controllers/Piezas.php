@@ -65,7 +65,8 @@ class Piezas extends CI_Controller {
                 'DepartamentoCat' => ($this->input->post('DepartamentoCat') !== NULL) ? $this->input->post('DepartamentoCat') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $this->piezas_model->onAgregar($data);
+            $ID=$this->piezas_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

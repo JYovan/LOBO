@@ -147,8 +147,10 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
+                        pnlDatos.find('#ID').val(data);
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-nuevo=false;
+pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);

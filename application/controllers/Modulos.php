@@ -47,7 +47,8 @@ class Modulos extends CI_Controller {
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'Registro' => Date('d/m/Y h:i:s a')
             );
-            $this->modulos_model->onAgregar($data);
+            $ID=$this->modulos_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

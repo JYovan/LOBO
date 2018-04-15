@@ -52,8 +52,9 @@ class Usuarios extends CI_Controller {
                 'Correo' => ($this->input->post('Correo') !== NULL) ? $this->input->post('Correo') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'Registro' => Date('d/m/Y h:i:s a')
-            ); 
-            $this->usuario_model->onAgregar($data);
+            );
+            $ID = $this->usuario_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

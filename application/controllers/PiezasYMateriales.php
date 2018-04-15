@@ -110,8 +110,8 @@ class PiezasYMateriales extends CI_Controller {
 
             $ID = $this->piezasymateriales_model->onAgregar($data);
 
-            $viviendas = json_decode($this->input->post("Materiales"));
-            foreach ($viviendas as $key => $v) {
+            $materiales = json_decode($this->input->post("Materiales"));
+            foreach ($materiales as $key => $v) {
                 $data = array(
                     'PiezasYMateriales' => $ID,
                     'Pieza' => $v->Pieza,
@@ -124,6 +124,7 @@ class PiezasYMateriales extends CI_Controller {
                 );
                 $this->piezasymateriales_model->onAgregarDetalle($data);
             }
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

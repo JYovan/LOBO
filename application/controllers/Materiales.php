@@ -95,7 +95,8 @@ class Materiales extends CI_Controller {
                 'Existencia' => ($this->input->post('Existencia') !== NULL) ? $this->input->post('Existencia') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $this->materiales_model->onAgregar($data);
+            $ID=$this->materiales_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -58,7 +58,8 @@ class Generales extends CI_Controller {
                 'Valor_Text' => ($this->input->post('Valor_Text') !== NULL) ? $this->input->post('Valor_Text') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $this->generales_model->onAgregar($data);
+            $ID=$this->generales_model->onAgregar($data);
+            print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

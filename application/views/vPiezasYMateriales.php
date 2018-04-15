@@ -218,14 +218,14 @@
         pnlNuevo.find('#Material')[0].selectize.on('type', function () {
             busqueda = this.lastQuery;
         });
-        
+
         pnlNuevo.find('#MaterialNuevo').on('keydown', function (e) {
             if (e.which === 32) {
                 e.preventDefault();
                 getMaterialesRequeridos(busqueda.toUpperCase());
             }
         });
-        
+
         Estilo.change(function () {
 //            onComprobarEstiloXCombinacion(0, Estilo, Combinacion);
         });
@@ -318,10 +318,10 @@
                                     processData: false,
                                     data: f
                                 }).done(function (data, x, jq) {
-                                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AGREGADO UN REGISTRO', 'success');
+                                    onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                                    pnlDatos.find('#ID').val(data);
+                                    EsNuevo=false;
                                     getRecords();
-                                    pnlTablero.removeClass("d-none");
-                                    pnlNuevo.addClass('d-none');
                                     pnlNuevo.find("#tblMaterialesRequeridos > tbody").html("");
                                 }).fail(function (x, y, z) {
                                     console.log(x, y, z);
@@ -340,8 +340,6 @@
                                 }).done(function (data, x, jq) {
                                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO UN REGISTRO', 'success');
                                     getRecords();
-                                    pnlTablero.removeClass("d-none");
-                                    pnlNuevo.addClass('d-none');
                                     EsNuevo = false;
                                     pnlNuevo.find("#tblMaterialesRequeridos > tbody").html("");
                                     /*OBTENER LOS MATERIALES AGREGADOS*/
