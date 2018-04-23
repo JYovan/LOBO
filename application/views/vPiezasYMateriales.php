@@ -320,7 +320,7 @@
                                 }).done(function (data, x, jq) {
                                     onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
                                     pnlDatos.find('#ID').val(data);
-                                    EsNuevo=false;
+                                    EsNuevo = false;
                                     getRecords();
                                     pnlNuevo.find("#tblMaterialesRequeridos > tbody").html("");
                                 }).fail(function (x, y, z) {
@@ -449,9 +449,6 @@
                          * */
                         $.getJSON(master_url + 'getUnidadPrecioTipoXMaterialID', {ID: pnlNuevo.find("#Material").val()}).done(function (data, x, jq) {
                             var dtm = data[0];
-                            console.log('**** DTM ****');
-                            console.log(dtm);
-                            console.log('**** FIN DTM ****');
                             if (data !== null && data.length > 0) {
                                 tblMaterialesRequeridos.row.add([
                                     Pieza, /*1*/
@@ -475,7 +472,11 @@
                                     var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                                     super_total += sub;
                                 });
-                                pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(super_total, 3, '.', ',') + '</strong></h2>');
+                                var tt = 0.0;
+                                $.each(tblMaterialesRequeridos.rows().data(), function () { 
+                                    tt += getNumberFloat($($(this)[8]).find("span.text-success").text());
+                                });
+                                pnlNuevo.find("#SuperTotal").html('<h2 class="text-success"><strong> $' + $.number(tt, 3, '.', ',') + '</strong></h2>');
                                 /*FIN CALCULAR SUPER TOTAL*/
                             }
                         }).fail(function (x, y, z) {
@@ -576,7 +577,7 @@
                             }
                         }).done(function (data, x, jq) {
                             if (data.length > 0) {
-                                console.log(data)
+                                console.log(data);
                                 var dtm = data[0];
                                 pnlNuevo.find("input").val("");
                                 pnlNuevo.find("select").val("").trigger('change');
@@ -585,8 +586,6 @@
                                 pnlNuevo.find("#Combinacion").val(dtm.Combinacion).trigger('change');
                                 pnlTablero.addClass("d-none");
                                 pnlNuevo.removeClass('d-none');
-
-
                                 $.each(pnlNuevo.find("select"), function (k, v) {
                                     pnlNuevo.find("select")[k].selectize.clear(true);
                                 });
@@ -596,7 +595,6 @@
                                         pnlNuevo.find("[name='" + k + "']")[0].selectize.setValue(v);
                                     }
                                 });
-
                                 /*OBTENER LOS MATERIALES AGREGADOS*/
                                 getPiezasYMaterialesDetalleByID(dtm.ID);
                                 /*FIN OBTENER MATERIALES AGREGADOS*/
@@ -739,7 +737,6 @@
             cells.eq(4).find("#CeldaConsumo").keyup(function (e) {
                 var code = e.which; // recommended to use e.which, it's normalized across browsers
                 if (code === 13) {
-                    console.log(cells.eq(4).find("#CeldaConsumo").val())
                     if (cells.eq(4).find("#CeldaConsumo").val() !== '' && parseFloat(cells.eq(4).find("#CeldaConsumo").val()) > 0) {
                         var Precio = getNumberFloat(cells.eq(3).text());
                         var Consumo = getNumberFloat(cells.eq(4).find("#CeldaConsumo").val());
@@ -818,11 +815,13 @@
             HoldOn.close();
         });
     }
+
     /*COMPRUEBA SI EL ESTILO Y LA COMBINACION YA HAN SIDO REGISTRADOS*/
     var guardar = false;
     function onComprobarEstiloXCombinacion(ID, Estilo, Combinacion) {
 
     }
+
     function onRemoverEditoresInactivos() {
         /*REMOVER EDITORES EN OTRAS CELDAS*/
         $.each($.find('#tblMaterialesRequeridos tbody tr'), function (k, v) {
