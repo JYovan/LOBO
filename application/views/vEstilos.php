@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -38,8 +38,8 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
-            <form id="frmNuevo"> 
+        <div class="card-body text-dark">
+            <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-2 float-left">
                         <legend class="float-left">Estilos</legend>
@@ -47,14 +47,14 @@
                     <div class="col-md-7 float-right">
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
-                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
-                </div> 
+                </div>
                 <div class="row"><!--START ROW-->
                     <div class="d-none">
                         <input type="text" class="" id="ID" name="ID"  >
-                    </div> 
+                    </div>
                     <div class="col-md has-success">
                         <label for="Clave">Clave*</label>
                         <input type="text" class="form-control form-control-sm" placeholder="" id="Clave" name="Clave" required="">
@@ -70,39 +70,39 @@
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Linea">Linea*</label>
-                        <select class="form-control form-control-sm required"   name="Linea" required="">  
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"   name="Linea" required="">
+                            <option value=""></option>
                         </select>
-                    </div>  
+                    </div>
                     <div class="col-md">
                         <label for="Serie">Serie*</label>
-                        <select class="form-control form-control-sm required"  name="Serie" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="Serie" required="">
+                            <option value=""></option>
                         </select>
-                    </div>  
+                    </div>
                     <div class="col-md">
                         <label for="Horma">Horma*</label>
-                        <select class="form-control form-control-sm required"   name="Horma" required="">  
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"   name="Horma" required="">
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Familia">Familia*</label>
-                        <select class="form-control form-control-sm required"   name="Familia" required="">  
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"   name="Familia" required="">
+                            <option value=""></option>
                         </select>
-                    </div>  
+                    </div>
                     <div class="col-md">
                         <label for="Temporada">Temporada*</label>
-                        <select class="form-control form-control-sm required"   name="Temporada" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"   name="Temporada" required="">
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="col-md">
                         <label for="Tipo">Tipo de Estilo*</label>
-                        <select class="form-control form-control-sm required"   name="Tipo" required="">  
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"   name="Tipo" required="">
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="w-100"></div> <!--SALTO-->
@@ -116,13 +116,13 @@
                     </div>
                     <div class="col-md">
                         <label for="Genero">Género</label>
-                        <select class="form-control form-control-sm"   name="Genero"> 
-                            <option value=""></option>  
-                            <option value="UNISEX">UNISEX</option> 
-                            <option value="MASCULINO">MASCULINO</option>   
-                            <option value="FEMENINO">FEMENINO</option>   
+                        <select class="form-control form-control-sm"   name="Genero">
+                            <option value=""></option>
+                            <option value="UNISEX">UNISEX</option>
+                            <option value="MASCULINO">MASCULINO</option>
+                            <option value="FEMENINO">FEMENINO</option>
                         </select>
-                    </div>  
+                    </div>
                     <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <label for="Herramental">Herramental</label>
@@ -135,8 +135,8 @@
 
                     <div class="col-md">
                         <label for="Maquila">Maquila</label>
-                        <select class="form-control form-control-sm"  name="Maquila"> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm"  name="Maquila">
+                            <option value=""></option>
                         </select>
                     </div>
 
@@ -147,30 +147,30 @@
                     </div>
                     <div class="col-md">
                         <label for="Estatus">Maquila o Plantilla</label>
-                        <select class="form-control form-control-sm"   name="MaquilaPlantilla"> 
-                            <option value=""></option>  
-                            <option value="MAQUILA">MAQUILA</option>  
+                        <select class="form-control form-control-sm"   name="MaquilaPlantilla">
+                            <option value=""></option>
+                            <option value="MAQUILA">MAQUILA</option>
                             <option value="PLANTILLA">PLANTILLA</option>
                             <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
                         </select>
                     </div>
                     <div class="col-md">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm required"   name="Estatus" required=""> 
-                            <option value=""></option>  
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
+                        <select class="form-control form-control-sm required"   name="Estatus" required="">
+                            <option value=""></option>
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
                         </select>
                     </div>
 
-                    <div class="w-100"></div> <!--SALTO--> 
+                    <div class="w-100"></div> <!--SALTO-->
                     <div class="col-md">
                         <BR>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" >
                             <label class="custom-control-label" for="Liberado">Liberado</label>
                         </div>
-                    </div>  
+                    </div>
                 </div><!--FIN ROW-->
                 <!-- FOTO -->
                 <div for="" align="center">
@@ -186,8 +186,8 @@
                 </div>
                 <!-- FIN FOTO -->
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 
 <!--SCRIPT-->
@@ -305,8 +305,8 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
-nuevo=false;
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -565,7 +565,7 @@ nuevo=false;
             dataType: "JSON"
         }).done(function (data, x, jq) {
             $.each(data, function (k, v) {
-                pnlDatos.find("[name='Serie']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                pnlDatos.find("[name='Serie']")[0].selectize.addOption({text: v.Clave, value: v.ID});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);

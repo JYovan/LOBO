@@ -49,8 +49,8 @@
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
-                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
