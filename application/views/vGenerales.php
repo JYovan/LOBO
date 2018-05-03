@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
-                <legend class="float-left">Catálogos Fijos</legend>
+                <legend class="float-left" id="TituloTablero"></legend>
             </div>
             <div class="col-sm-6 float-right" align="right">
                 <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span></button>
@@ -163,6 +163,7 @@ nuevo=false;
     }
 
     function getRecords() {
+        pnlTablero.find('#TituloTablero').html(getParameterByName('modulo'));
         temp = 0;
         HoldOn.open({
             theme: "sk-bounce",

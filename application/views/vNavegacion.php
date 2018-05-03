@@ -20,44 +20,6 @@
                     <div class="dropdown-divider" ></div>
                     <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes') ?>">Reportes</a></li>
 
-                    <!--
-                                        <li class="nav-item dropdown dropdown-submenu">
-                                            <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Reportes
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle text-dark " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Generales</a>
-                                                    <ul class="dropdown-menu ">
-                                                        <li><a class="dropdown-item" href="#">Ficha Técnica</a></li>
-                                                        <div class="dropdown-divider" ></div>
-                                                        <li><a class="dropdown-item" href="#">Materiales</a></li>
-                                                        <li><a class="dropdown-item" href="#">Fracciones</a></li>
-                                                    </ul>
-                                                </li>
-                    
-                                            </ul>
-                                        </li>-->
-                </ul>
-            </li>
-
-            <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Reportes
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Generales
-                        </a>
-                        <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Reporte 1</a></li>
-                            <div class="dropdown-divider" ></div>
-                            <li><a class="dropdown-item" href="#">Reporte 2</a></li>
-                            <li><a class="dropdown-item" href="#">Reporte 3</a></li>
-
-                        </ul>
-                    </li>
                 </ul>
             </li>
 
@@ -87,8 +49,10 @@
                     Configuración
                 </a>
                 <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+                    <li class="nav-item dropdown dropdown-submenu">
+                        <a class="nav-link dropdown-toggle  text-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuarios
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php print base_url('Usuarios') ?>">Usuarios</a></li>
                             <div class="dropdown-divider" ></div>
@@ -97,15 +61,15 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown dropdown-submenu">
+                        <a class="nav-link dropdown-toggle text-dark "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Generales
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES PAGO') ?>">Condiciones de Pago</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES DE PAGO') ?>">Condiciones de Pago</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=BANCOS') ?>">Bancos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Trasnportes</a></li>
@@ -114,7 +78,7 @@
                             <div class="dropdown-divider" href="#"></div>
 
                             <li class="nav-item dropdown dropdown-submenu">
-                                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Producción
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -143,7 +107,6 @@
 
 
         <ul class="navbar-nav navbar-right">
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Bienvenido : <?php echo $this->session->userdata('USERNAME') ?>
@@ -154,13 +117,8 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
                 </div>
-
             </li>
         </ul>
-
-
-
-
 
     </div>
 </nav>

@@ -119,7 +119,7 @@
   display: inline-block;
 }
 .selectize-input {
-  border: 1px solid #cccccc;
+  border: 1px solid #ced4da;
   padding: 3px 7px;
   display: inline-block;
   width: 100%;
@@ -131,9 +131,9 @@
   box-sizing: border-box;
   -webkit-box-shadow: none;
   box-shadow: none;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+      border-radius: 0.2rem;
 }
 .selectize-control.multi .selectize-input.has-items {
   padding: 5px 12px 2px;
@@ -273,6 +273,9 @@
 .selectize-control.single .selectize-input,
 .selectize-control.single .selectize-input input {
   cursor: pointer;
+   overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 .selectize-control.single .selectize-input.input-active,
 .selectize-control.single .selectize-input.input-active input {
@@ -283,7 +286,7 @@
   display: block;
   position: absolute;
   top: 50%;
-  right: 17px;
+  right: 8px;
   margin-top: -3px;
   width: 0;
   height: 0;

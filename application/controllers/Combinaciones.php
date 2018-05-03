@@ -9,7 +9,6 @@ class Combinaciones extends CI_Controller {
         $this->load->library('session');
         $this->load->model('combinaciones_model');
         $this->load->model('estilos_model');
-        $this->load->model('lineas_model');
     }
 
     public function index() {
@@ -47,17 +46,7 @@ class Combinaciones extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
-    public function getLineas() {
-        try {
-            extract($this->input->post());
-            $data = $this->lineas_model->getLineas();
-            print json_encode($data);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-    
+
     public function getEstilos() {
         try {
             extract($this->input->post());
@@ -71,10 +60,12 @@ class Combinaciones extends CI_Controller {
     public function onAgregar() {
         try {
             $data = array(
+                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
+                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL
             );
-            $ID=$this->combinaciones_model->onAgregar($data);
+            $ID = $this->combinaciones_model->onAgregar($data);
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -85,8 +76,10 @@ class Combinaciones extends CI_Controller {
         try {
             extract($this->input->post());
             $DATA = array(
+                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
+                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL
             );
             $this->combinaciones_model->onModificar($ID, $DATA);
         } catch (Exception $exc) {

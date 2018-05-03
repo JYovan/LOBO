@@ -1,26 +1,92 @@
-@media screen and (max-width: 767px) {
 
-    .table-responsive {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-        border: 1px solid #DDD;
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 0.5px solid #dee2e6;
+}
+
+
+.input-group-text {
+    height: 22px;
+/*    padding: 0.1rem 0.25rem;*/
+    font-size: 17px;
+    border-radius: 0.25rem;
+}
+
+.btnSpace {
+    margin-right: 1em;
+}
+
+div.datatable-wide {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+html{
+    background-color: #DCE1E5;
+}
+
+body{
+    background-color: #DCE1E5;
+    line-height: 1.4;
+    font-size: 0.8375rem;
+}
+.card-body {
+    background-color: #DCE1E5;
+}
+
+.form-control {
+    color: #000 !important;
+}
+
+/*Modal FullScreen*/
+.modal.modal-fullscreen .modal-dialog {
+    width: 75%;
+    height: auto;
+    max-width: none; 
+}
+
+.modal.modal-fullscreen .modal-content {
+    height: auto;
+    min-height: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .modal.modal-fullscreen .modal-dialog {
+        width: 95%;
+        height: auto;
+        max-width: none; 
     }
 }
+
+
+/*Tablas mas angostas*/
+.table th {
+    padding: 0.3rem; 
+    background-color: white;
+}
+table td {
+    padding: 0.0rem; 
+    background-color: white;
+}
+
+.table-sm td {
+    padding: 0.0rem;
+    background-color: white;
+}
 /*Fuente Nav Submenu*/
-.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
-    font-size: 0.8203125rem;
+/*.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+    font-size: 17px;
 }
 .navbar-dark .navbar-nav .nav-link {
-    font-size: 0.8203125rem;
-}
+    font-size: 17px;
+}*/
 
 /*Controles pequeños*/
 label {
-    margin-bottom: .1rem; 
+    margin-bottom: 0rem;
+}
+label, .control-label, .help-block, .checkbox, .radio, .form-control-feedback {
+    font-size: 0.72rem;
 }
 
 .selectize-input {
@@ -28,27 +94,21 @@ label {
 }
 .selectize-input {
     padding: 0px 7px;
+    padding-right: 18px;
 }
 
 .form-control-sm, .input-group-sm > .form-control, .input-group-sm > .input-group-prepend > .input-group-text, .input-group-sm > .input-group-append > .input-group-text, .input-group-sm > .input-group-prepend > .btn, .input-group-sm > .input-group-append > .btn {
-    height: 22.5px;
+    height: 21.6px;
     font-size: 11.5px;
 }
-/*Tallas en Compras y Ventas*/
+
+
+/*Tallas Ventas y Compras*/
 .table.Tallas th, .table.Tallas td {
     padding: .09rem; 
     vertical-align: top;
     border-top: 0px solid #dee2e6;
 }
-
-.table th {
-    padding: .1rem; 
-}
-
-.table td {
-    padding: .1rem; 
-}
-
 
 /*No edición en controles*/
 .disabledForms{
@@ -56,7 +116,12 @@ label {
     pointer-events: none;
 }
 
+
 /*Tablas*/
+.table{
+   text-align: center;
+}
+
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     vertical-align: middle !important;
 }

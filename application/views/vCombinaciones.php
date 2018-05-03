@@ -1,12 +1,11 @@
-<div class="card " id="pnlTablero">
+<div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
-                <legend class="float-left">Gestión de Combinaciones</legend>
+                <legend class="float-left">Gestión de Colores</legend>
             </div>
             <div class="col-sm-6 float-right" align="right">
-                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
-                <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="left" title="Agregar"><span class="fa fa-plus"></span><br></button>
             </div>
         </div>
         <div class="card-block">
@@ -14,43 +13,21 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
-<!--Confirmacion-->
-<div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirmar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Deseas eliminar el registro?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
-                <button type="button" class="btn btn-raised btn-primary" id="btnEliminar">ACEPTAR</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
 
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Combinaciones</legend>
+                        <legend class="float-left">Colores</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">SALIR</button>
                         <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
@@ -59,25 +36,34 @@
                         <input type="text" class="" id="ID" name="ID"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Descripcion">Descripción*</label>  
+                        <label for="Estilo">Estilo*</label>
+                        <select class="form-control form-control-sm "  name="Estilo" required="">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <label for="Clave">Clave*</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly " id="Clave" name="Clave" required >
+                    </div>
+                    <div class="col-sm">
+                        <label for="Descripcion">Descripción*</label>
                         <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm required"  name="Estatus" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="Estatus" required="">
+                            <option value=""></option>
                             <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
+                            <option>INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
-
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/Combinaciones/';
@@ -86,10 +72,6 @@
     var btnNuevo = $("#btnNuevo");
     var btnGuardar = pnlDatos.find("#btnGuardar");
     var btnCancelar = pnlDatos.find("#btnCancelar");
-    var btnModificar = pnlDatos.find("#btnModificar");
-    var btnEliminar = $("#btnEliminar");
-    var btnConfirmarEliminar = $("#btnConfirmarEliminar");
-    var mdlConfirmar = $("#mdlConfirmar");
     var nuevo = true;
     $(document).ready(function () {
         btnGuardar.click(function () {
@@ -132,43 +114,8 @@
                         HoldOn.close();
                     });
                 }
-            }
-        });
-        //Evento clic del boton confirmar borrar
-        btnConfirmarEliminar.click(function () {
-            if (temp !== 0 && temp !== undefined && temp > 0) {
-                //Muestra el modal
-                mdlConfirmar.modal('show');
             } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-            }
-        });
-        btnEliminar.click(function () {
-            if (temp !== 0 && temp !== undefined && temp > 0) {
-                HoldOn.open({
-                    theme: "sk-bounce",
-                    message: "CARGANDO DATOS..."
-                });
-                $.ajax({
-                    url: master_url + 'onEliminar',
-                    type: "POST",
-                    data: {
-                        ID: temp
-                    }
-                }).done(function (data, x, jq) {
-                    console.log(data);
-                    mdlConfirmar.modal('hide');
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
-                    pnlDatos.addClass("d-none");
-                    pnlTablero.removeClass("d-none");
-                    getRecords();
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+                onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
             }
         });
         btnNuevo.click(function () {
@@ -186,8 +133,8 @@
             pnlDatos.addClass('d-none');
             nuevo = true;
         });
-
         getRecords();
+        getEstilos();
         handleEnter();
     });
 
@@ -202,7 +149,6 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            console.log(data);
 
             if (data.length > 0) {
 
@@ -211,14 +157,14 @@
                 $('#tblCombinaciones tfoot th').each(function () {
                     $(this).html('');
                 });
-//                var thead = $('#tblCombinaciones thead th');
-//                var tfoot = $('#tblCombinaciones tfoot th');
-//                thead.eq(0).addClass("d-none");
-//                tfoot.eq(0).addClass("d-none");
-//                $.each($.find('#tblCombinaciones tbody tr'), function (k, v) {
-//                    var td = $(v).find("td");
-//                    td.eq(0).addClass("d-none");
-//                });
+                var thead = $('#tblCombinaciones thead th');
+                var tfoot = $('#tblCombinaciones tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                $.each($.find('#tblCombinaciones tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                });
                 var tblSelected = $('#tblCombinaciones').DataTable(tableOptions);
                 $('#tblCombinaciones_filter input[type=search]').focus();
 
@@ -294,5 +240,20 @@
             HoldOn.close();
         });
     }
-
+    function getEstilos() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getEstilos',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='Estilo']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
 </script>

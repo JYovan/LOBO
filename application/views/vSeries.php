@@ -1,11 +1,11 @@
-<div class="card " id="pnlTablero">
+<div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
                 <legend class="float-left">Gestión de Series</legend>
             </div>
             <div class="col-sm-6 float-right" align="right">
-                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="left" title="Agregar"><span class="fa fa-plus"></span><br></button>
             </div>
         </div>
         <div class="card-block">
@@ -16,7 +16,7 @@
 <!--GUARDAR-->
 <div  class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
 
                 <div class="row">
@@ -27,21 +27,21 @@
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar">CANCELAR</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">SALIR</button>
                         <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Clave">Clave*</label>  
+                        <label for="Clave">Clave*</label>
                         <input type="text" class="form-control form-control-sm" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="PuntoInicial">Punto Inicial*</label>  
+                        <label for="PuntoInicial">Punto Inicial*</label>
                         <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" id="PuntoInicial" name="PuntoInicial" required >
                     </div>
                     <div class="col-sm">
-                        <label for="PuntoFinal">Punto Final*</label>  
+                        <label for="PuntoFinal">Punto Final*</label>
                         <input type="text"  class="form-control form-control-sm numbersOnly" maxlength="4" id="PuntoFinal" name="PuntoFinal" required >
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="MediosPuntos" checked="">
@@ -81,16 +81,16 @@
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm "  name="Estatus"> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm "  name="Estatus">
+                            <option value=""></option>
                             <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
+                            <option>INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 
 <!--SCRIPT-->
