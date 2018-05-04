@@ -16,6 +16,7 @@
                         <tr> 
                             <th>ID</th>
                             <th>DESCRIPCIÓN</th> 
+                            <th>ESTILOS EN LA LISTA</th> 
                             <th>ESTATUS</th>  
                         </tr>
                     </thead>
@@ -24,6 +25,7 @@
                         <tr> 
                             <th>ID</th>
                             <th>DESCRIPCIÓN</th> 
+                            <th>ESTILOS EN LA LISTA</th> 
                             <th>ESTATUS</th>   
                         </tr>
                     </tfoot>
@@ -52,7 +54,7 @@
                 </div>  
                 <div class="row">
                     <div class="d-none">
-                        <input type="text" class="" id="ID" name="ID">
+                        <input type="text" class="form-control" id="ID" name="ID">
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">DESCRIPCIÓN*</label>
@@ -153,7 +155,36 @@
     var ListasDePrecios;
     var btnEliminar = mdlConfirmar.find("#btnEliminar");
     var nuevo = false;
-
+    var lang = {
+        processing: "Proceso en curso...",
+        search: "Buscar:",
+        lengthMenu: "Mostrar _MENU_ Elementos",
+        info: "Mostrando  _START_ de _END_ , de _TOTAL_ Elementos.",
+        infoEmpty: "Mostrando 0 de 0 A 0 Elementos.",
+        infoFiltered: "(Filtrando un total _MAX_ Elementos. )",
+        infoPostFix: "",
+        loadingRecords: "Procesando los datos...",
+        zeroRecords: "No se encontro nada.",
+        emptyTable: "No existen datos en la tabla.",
+        paginate: {
+            first: "Primero",
+            previous: "Anterior",
+            next: "Siguiente",
+            last: "&Uacute;ltimo"
+        },
+        aria: {
+            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+        },
+        buttons: {
+            copyTitle: 'Registros copiados a portapapeles',
+            copyKeys: 'Copiado con teclas clave.',
+            copySuccess: {
+                _: ' %d Registros copiados',
+                1: ' 1 Registro copiado'
+            }
+        }
+    };
     // IIFE - Immediately Invoked Function Expression
     (function (yourcode) {
         // The global jQuery object is passed as a parameter
@@ -200,36 +231,7 @@
                         "visible": false,
                         "searchable": false
                     }],
-                language: {
-                    processing: "Proceso en curso...",
-                    search: "Buscar:",
-                    lengthMenu: "Mostrar _MENU_ Elementos",
-                    info: "Mostrando  _START_ de _END_ , de _TOTAL_ Elementos.",
-                    infoEmpty: "Mostrando 0 de 0 A 0 Elementos.",
-                    infoFiltered: "(Filtrando un total _MAX_ Elementos. )",
-                    infoPostFix: "",
-                    loadingRecords: "Procesando los datos...",
-                    zeroRecords: "No se encontro nada.",
-                    emptyTable: "No existen datos en la tabla.",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Anterior",
-                        next: "Siguiente",
-                        last: "&Uacute;ltimo"
-                    },
-                    aria: {
-                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                    },
-                    buttons: {
-                        copyTitle: 'Registros copiados a portapapeles',
-                        copyKeys: 'Copiado con teclas clave.',
-                        copySuccess: {
-                            _: ' %d Registros copiados',
-                            1: ' 1 Registro copiado'
-                        }
-                    }
-                }
+                language: lang
             });
 
             btnNuevo.click(function () {
@@ -254,14 +256,16 @@
                     if (Estilo.val() !== '' && Precio.val() !== '') {
                         if (parseFloat(Precio.val()) >= 0) {
                             tblLista.row.add([0,
-                                Estilo.val(),
-                                Estilo.text(),
+                                Estilo.val(), Estilo.text(),
                                 "$" + $.number(Precio.val(), 2, '.', ','),
                                 '<button type="button" class="btn btn-outline-danger" onclick="onRemover(this)">\n\
-                            <span class="fa fa-trash fa-2x"></span>\n\
-                         </button>',
-                                orden/*orden descendente*/
+                                    <span class="fa fa-trash fa-2x"></span>\n\
+                                </button>', orden/*orden descendente*/
                             ]).draw(false);
+                            agregados.push({
+                                Estilo: Estilo.val(),
+                                Precio: Precio.val()
+                            });
                             pnlDatos.find("[name='Precio']").val('');
                             pnlDatos.find("[name='Estilo']")[0].selectize.clear(true);
                             pnlDatos.find("[name='Estilo']")[0].selectize.focus();
@@ -315,6 +319,15 @@
                             });
                         } else {
                             f.append('ID', pnlDatos.find("#ID").val());
+                            f.append('Descripcion', pnlDatos.find("#Descripcion").val());
+                            f.append('Estatus', pnlDatos.find("#Estatus").val());
+                            f.append('Agregados', JSON.stringify(agregados));
+                            f.append('Removidos', JSON.stringify(removidos));
+                            console.log('* AGREGADOS *');
+                            console.log(agregados);
+                            console.log('* REMOVIDOS *');
+                            console.log(removidos);
+                            console.log('* FIN AGREGADOS REMOVIDOS *');
                             $.ajax({
                                 url: master_url + 'onModificar',
                                 type: "POST",
@@ -324,6 +337,7 @@
                                 data: f
                             }).done(function (data, x, jq) {
                                 console.log(data);
+                                tblLista.clear().draw();
                                 swal('ÉXITO', 'SE HA MODIFICADO UNA LISTA DE PRECIOS', 'success');
                                 getRecords();
                                 btnCancelar.trigger('click');
@@ -351,18 +365,18 @@
                 pnlTablero.removeClass("d-none");
                 pnlDatos.find("#Descripcion").val('');
                 pnlDatos.find("#Estatus")[0].selectize.clear(true);
+                removidos = [];
+                agregados = [];
             });
 
             btnConfirmarEliminar.click(function () {
                 if (temp !== 0 && temp !== undefined && temp > 0) {
-                    //Muestra el modal
                     mdlConfirmar.modal('show');
                 } else {
                     onBeep(2);
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
                 }
             });
-
 
             btnEliminar.click(function () {
                 if (temp !== 0 && temp !== undefined && temp > 0) {
@@ -398,8 +412,17 @@
                 theme: 'sk-cube',
                 message: 'CARGANDO...'
             });
+            $.fn.dataTable.ext.errMode = 'throw';
+
             if ($.fn.DataTable.isDataTable('#tblListas')) {
                 tblListas.DataTable().destroy();
+                $.getJSON(master_url + 'getRecords').done(function (data) {
+                    console.log(data)
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+
+                });
                 ListasDePrecios = tblListas.DataTable({
                     "dom": 'Bfrtip',
                     buttons: [
@@ -431,39 +454,10 @@
                     "columns": [
                         {"data": "ID"},
                         {"data": "DESCRIPCIÓN"},
+                        {"data": "PRODUCTOS EN LA LISTA"},
                         {"data": "ESTATUS"}
                     ],
-
-                    language: {
-                        processing: "Proceso en curso...",
-                        search: "Buscar:",
-                        lengthMenu: "Mostrar _MENU_ Elementos",
-                        info: "Mostrando  _START_ de _END_ , de _TOTAL_ Elementos.",
-                        infoEmpty: "Mostrando 0 de 0 A 0 Elementos.",
-                        infoFiltered: "(Filtrando un total _MAX_ Elementos. )",
-                        infoPostFix: "",
-                        loadingRecords: "Procesando los datos...",
-                        zeroRecords: "No se encontro nada.",
-                        emptyTable: "No existen datos en la tabla.",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                            last: "&Uacute;ltimo"
-                        },
-                        aria: {
-                            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                        },
-                        buttons: {
-                            copyTitle: 'Registros copiados a portapapeles',
-                            copyKeys: 'Copiado con teclas clave.',
-                            copySuccess: {
-                                _: ' %d Registros copiados',
-                                1: ' 1 Registro copiado'
-                            }
-                        }
-                    },
+                    language: lang,
                     "autoWidth": true,
                     "colReorder": true,
                     "displayLength": 20,
@@ -475,13 +469,14 @@
                         [0, 'desc']/*ID*/
                     ]
                 });
+
                 tblListas.find('tbody').on('click', 'tr', function () {
                     tblListas.find("tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var dtm = ListasDePrecios.row(this).data();
                     temp = parseInt(dtm.ID);
-                    console.log(dtm);
                 });
+
                 tblListas.find('tbody').on('dblclick', 'tr', function () {
                     nuevo = false;
                     tblListas.find("tbody tr").removeClass("success");
@@ -496,21 +491,18 @@
                     });
                     $.getJSON(master_url + 'getListaByID', {ID: temp}).done(function (data, x, jq) {
                         var l = data[0];
-                        console.log(data);
-                        pnlDatos.find("#ID").val(l.ID);
+                        pnlDatos.find("#ID").val(l.IDE);
                         pnlDatos.find("#Descripcion").val(l["DESCRIPCIÓN"]);
                         pnlDatos.find("#Estatus")[0].selectize.setValue(l.ESTATUS);
                         /*OBTENER DETALLE*/
-                        $.getJSON(master_url + 'getListaDetalleByID', {ID: temp}).done(function (data, x, jq) {
-                            $.each(data, function (k, v) {
-                                tblLista.row.add([v.ID,
-                                    v.ID_ESTILO,
-                                    v.ESTILO,
+                        $.getJSON(master_url + 'getListaDetalleByID', {ID: temp}).done(function (dtm, x, jq) {
+                            tblLista.clear().draw();
+                            $.each(dtm, function (k, v) {
+                                tblLista.row.add([v.ID, v.ID_ESTILO, v.ESTILO,
                                     "$" + $.number(v.PRECIO, 2, '.', ','),
                                     '<button type="button" class="btn btn-outline-danger" onclick="onRemover(this)">\n\
-                            <span class="fa fa-trash fa-2x"></span>\n\
-                         </button>',
-                                    v.ID/*orden descendente*/
+                                        <span class="fa fa-trash fa-2x"></span>\n\
+                                </button>', v.ID/*orden descendente*/
                                 ]).draw(false);
                             });
                         }).fail(function (x, y, z) {
@@ -531,7 +523,6 @@
 
         function getEstilos() {
             $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
-                console.log('Data');
                 $.each(data, function (k, v) {
                     pnlDatos.find("#Estilo")[0].selectize.addOption({text: v.Estilo, value: v.ID});
                 });
@@ -543,7 +534,13 @@
         }
     }));
 
+    var removidos = [];
+    var agregados = [];
     function onRemover(e) {
+        var row = tblLista.row($(e).parents('tr')).data();
+        removidos.push({
+            ID: parseInt(row[0])
+        });
         tblLista.row($(e).parents('tr')).remove().draw();
     }
 </script>

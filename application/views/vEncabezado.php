@@ -60,6 +60,8 @@
         <script src="<?php echo base_url(); ?>js/timepicker/bootstrap-timepicker.min.js"></script>
         <!--jQuery Number Format-->
         <script src="<?php echo base_url(); ?>js/jnumber/jquery.number.min.js"></script>
+        <!--UnderScore JS-->
+        <script src="<?php echo base_url(); ?>js/underscorejs/underscore-min.js"></script>
 
         <!-- Custom styles for this template -->
         <link href="<?php print base_url('css/style.css') ?>" rel="stylesheet">
