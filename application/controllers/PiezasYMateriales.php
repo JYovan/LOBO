@@ -11,6 +11,7 @@ class PiezasYMateriales extends CI_Controller {
         $this->load->model('piezas_model');
         $this->load->model('estilos_model');
         $this->load->model('combinaciones_model');
+        $this->load->model('generales_model');
     }
 
     public function index() {
@@ -44,16 +45,26 @@ class PiezasYMateriales extends CI_Controller {
     }
 
     public function getMaterialesRequeridos() {
-        try { 
-            print json_encode($this->piezasymateriales_model->getMaterialesRequeridos($this->input->post('Descripcion')));
+        try {
+            print json_encode($this->piezasymateriales_model->getMaterialesRequeridos($this->input->post('Familia')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getCombinaciones() {
+    public function getCombinacionesXEstilo() {
         try {
-            print json_encode($this->combinaciones_model->getCombinaciones());
+            print json_encode($this->combinaciones_model->getCombinacionesXEstilo($this->input->post('Estilo')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getFamilias() {
+        try {
+            extract($this->input->post());
+            $data = $this->generales_model->getCatalogosByFielID('FAMILIAS');
+            print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -117,9 +128,7 @@ class PiezasYMateriales extends CI_Controller {
                     'Pieza' => $v->Pieza,
                     'Material' => $v->Material,
                     'Consumo' => $v->Consumo,
-                    'Tipo' => $v->Tipo,
                     'Estatus' => 'ACTIVO',
-                    'Registro' => Date('d/m/Y h:i:s a'),
                     'Precio' => $v->Precio
                 );
                 $this->piezasymateriales_model->onAgregarDetalle($data);
@@ -162,7 +171,6 @@ class PiezasYMateriales extends CI_Controller {
                         'Material' => $v->Material,
                         'Consumo' => $v->Consumo,
                         'Estatus' => 'ACTIVO',
-                        'Registro' => Date('d/m/Y h:i:s a'),
                         'Precio' => $v->Precio
                     );
                     $this->piezasymateriales_model->onAgregarDetalle($data);

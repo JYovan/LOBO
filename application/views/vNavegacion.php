@@ -90,6 +90,7 @@
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TIPOS ESTILO') ?>">Tipos de Estilo</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PLANTILLAS') ?>">Plantillas</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEFECTOS') ?>">Defectos</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=FAMILIAS') ?>">Familias</a></li>
 
                                 </ul>
                             </li>

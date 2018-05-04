@@ -14,14 +14,15 @@ class piezasymateriales_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("PYM.ID
-      ,E.Descripcion AS Estilo
-      ,C.Descripcion AS Combinacion, CONCAT('<span class=\"badge badge-success\">$',CONVERT(varchar, CAST(SUM(PYMD.Consumo * PYMD.Precio) AS money), 1),'</span>')AS Total
-      ,PYM.Registro AS Registro ", false);
+      ,E.Clave+'-'+E.Descripcion AS Estilo
+      ,C.Clave+'-'+C.Descripcion AS Combinacion
+      ,'<strong>$'+CONVERT(varchar, CAST(SUM(PYMD.Consumo * PYMD.Precio) AS money), 1)+'</strong>' AS Importe,
+     ,PYM.Registro AS Registro ", false);
             $this->db->from('sz_PiezasYMateriales AS PYM ');
             $this->db->join('sz_Estilos AS E', 'PYM.Estilo = E.ID', 'left');
             $this->db->join('sz_Combinaciones AS C', 'PYM.Combinacion = C.ID', 'left');
             $this->db->join('sz_PiezasYMaterialesDetalle AS PYMD', 'PYMD.PiezasYMateriales = PYM.ID', 'left');
-            $this->db->group_by('PYM.ID,E.Descripcion,C.Descripcion,PYM.Registro');
+            $this->db->group_by('PYM.ID,E.Clave,E.Descripcion,C.Clave,C.Descripcion,PYM.Registro');
             $this->db->where_in('PYM.Estatus', array('ACTIVO'));
             $query = $this->db->get();
             /*
@@ -63,13 +64,13 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
-    public function getMaterialesRequeridos($Descripcion) {
+    public function getMaterialesRequeridos($Familia) {
         try {
             $this->db->select("M.[ID] AS ID,M.Material+'-'+ M.Descripcion AS Material", false);
             $this->db->from('sz_Materiales AS M');
             //$this->db->like('M.Descripcion', $Descripcion);
-            $this->db->where("(M.Descripcion LIKE '%$Descripcion%' OR M.Material LIKE '%$Descripcion%')");
             $this->db->where_in('M.Estatus', array('ACTIVO'));
+            $this->db->where_in('M.Familia', $Familia);
             $this->db->order_by("M.Material", "ASC");
             $query = $this->db->get();
             /*
@@ -104,7 +105,6 @@ class piezasymateriales_model extends CI_Model {
         }
     }
 
-    
     public function getPiezas() {
         try {
             $this->db->select("U.ID, U.Clave+'-'+ U.Descripcion AS Pieza", false);
@@ -241,12 +241,11 @@ class piezasymateriales_model extends CI_Model {
 
     public function getPiezasYMaterialesDetalleByID($ID) {
         try {
-            $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza, 
+            $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza,
                 PYMD.Material ID, M.Material+\'-\'+M.Descripcion AS Material,
-                CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M", 
-                CONCAT(\'<strong><span class="text-primary">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio, 
+                CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M",
+                CONCAT(\'<strong><span class="text-primary">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
                  CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
-	   CONCAT(\'<strong><span class="text-info">\',M.Tipo,\'</span></strong>\') AS Tipo,  
            CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false);
             $this->db->from('sz_PiezasYMaterialesDetalle AS PYMD ');
             $this->db->join('sz_Materiales AS M', 'PYMD.Material = M.ID');
@@ -256,7 +255,7 @@ class piezasymateriales_model extends CI_Model {
             $this->db->like('C.Estatus', 'ACTIVO');
             $this->db->where('PYMD.PiezasYMateriales', $ID);
             $this->db->where_in('PYMD.Estatus', 'ACTIVO');
-            $this->db->order_by('PYMD.ID', 'DESC');
+//            $this->db->order_by('PYMD.ID', 'DESC');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

@@ -10,6 +10,7 @@ class FraccionesXEstilo extends CI_Controller {
         $this->load->model('fraccionesxestilo_model');
         $this->load->model('estilos_model');
         $this->load->model('fracciones_model');
+        $this->load->model('generales_model');
     }
 
     public function index() {
@@ -33,7 +34,27 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
+    public function getDepartamentos() {
+        try {
+            extract($this->input->post());
+            $data = $this->generales_model->getCatalogosByFielID('DEPARTAMENTOS');
+            print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getFraccionesXDepto() {
+        try {
+            extract($this->input->post());
+            $data = $this->fracciones_model->getFraccionesXDepto($this->input->post('DepartamentoCat'));
+            print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getFraccionesSeleccionar() {
         try {
             print json_encode($this->fracciones_model->getFraccionesSeleccionar());
@@ -41,7 +62,7 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onComprobarExisteEstilo() {
         try {
             print json_encode($this->fraccionesxestilo_model->onComprobarExisteEstilo($this->input->get('Estilo')));
@@ -49,11 +70,20 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getFraccionByID() {
         try {
             extract($this->input->post());
             print json_encode($this->fracciones_model->getFraccionByID($ID));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getEstiloByID() {
+        try {
+            extract($this->input->post());
+            print json_encode($this->estilos_model->getEstiloByID($Estilo));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -66,7 +96,7 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getFraccionesXEstiloDetallebyFraccionesXEstilo() {
         try {
             extract($this->input->post());
@@ -94,22 +124,22 @@ class FraccionesXEstilo extends CI_Controller {
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'Registro' => Date('d/m/Y h:i:s a')
             );
-            $ID=$this->fraccionesxestilo_model->onAgregar($data);
+            $ID = $this->fraccionesxestilo_model->onAgregar($data);
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onAgregarDetalle() {
         try {
             $data = array(
                 'FraccionXEstilo' => ($this->input->post('FraccionXEstilo') !== NULL) ? $this->input->post('FraccionXEstilo') : NULL,
                 'Fraccion' => ($this->input->post('Fraccion') !== NULL) ? $this->input->post('Fraccion') : NULL,
-                'Precio' => NULL,
+                'Precio' => ($this->input->post('Precio') !== NULL) ? $this->input->post('Precio') : NULL,
                 'Vale' => NULL,
                 'Orden' => NULL,
-                'Cantidad' => NULL
+                'Cantidad' => ($this->input->post('Cantidad') !== NULL) ? $this->input->post('Cantidad') : NULL
             );
             $this->fraccionesxestilo_model->onAgregarDetalle($data);
         } catch (Exception $exc) {
@@ -128,17 +158,17 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onModificarDetalle() {
         try {
-            
+
             extract($this->input->post());
             unset($_POST['ID']);
             $this->fraccionesxestilo_model->onModificarDetalle($ID, $this->input->post());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }    
+    }
 
     public function onEliminar() {
         try {
@@ -148,7 +178,7 @@ class FraccionesXEstilo extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onEliminarRenglonDetalle() {
         try {
             extract($this->input->post());

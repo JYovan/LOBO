@@ -26,6 +26,11 @@ div.datatable-wide {
     background-color: #fff;
 }
 
+.modal .custom-control-label::before {
+ 
+    background-color: #DCE1E5;
+}
+
 html{
     background-color: #DCE1E5;
 }
