@@ -9,10 +9,10 @@
             <div class="card-body row">
                 <div class="col-sm">
                     <label for="Reporte">Selecciona el reporte que deseas visualizar*</label>
-                    <select class="form-control form-control-sm" id="Reporte" name="Reporte" required> 
+                    <select class="form-control form-control-sm" id="Reporte" name="Reporte" required>
                         <option value=""></option>
                         <option value="mdlImprimirFichaTecnica">FICHA TÉCNICA</option>
-                        <option value="onReporteManoObra">MANO DE OBRA</option> 
+                        <option value="onReporteManoObra">MANO DE OBRA</option>
                         <option value="onReporteMateriales">MATERIALES</option>
                     </select>
                 </div>
@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion Eliminar Concepto-->
 <div class="modal" id="mdlImprimirFichaTecnica"  role="dialog">
     <div class="modal-dialog" role="document">
@@ -36,9 +36,9 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="Estilo">Estilo*</label>
-                            
-                            
-                            <select class="form-control form-control-sm" id="Estilo"   name="Estilo">  
+
+
+                            <select class="form-control form-control-sm" id="Estilo"   name="Estilo">
                                 <option value=""></option>
                             </select>
                         </div>
@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="Combinacion">Combinación*</label>
-                            <select class="form-control form-control-sm" id="Combinacion"  name="Combinacion"> 
+                            <select class="form-control form-control-sm" id="Combinacion"  name="Combinacion">
                                 <option value=""></option>
                             </select>
                         </div>
@@ -68,12 +68,14 @@
 
     $(document).ready(function () {
         getEstilos();
-        
-        $("#Estilo").change(function () {
-            getCombinacionesXPiezaMaterial($(this).val());
+
+        $('#mdlImprimirFichaTecnica').find("#Estilo").change(function () {
+            $('#mdlImprimirFichaTecnica').find("#Combinacion")[0].selectize.clear(true);
+            $('#mdlImprimirFichaTecnica').find("#Combinacion")[0].selectize.clearOptions();
+            getCombinacionesXEstilo($(this).val());
         });
-        
-        
+
+
         //Abrir modales para filtros
         $("#Reporte").change(function () {
             var modal = $(this).val();
@@ -115,7 +117,7 @@
     function getEstilos() {
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
             $.each(data, function (k, v) {
-                 $('#mdlImprimirFichaTecnica').find("#Estilo")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                $('#mdlImprimirFichaTecnica').find("#Estilo")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);
@@ -124,11 +126,11 @@
         });
     }
 
-    function getCombinacionesXPiezaMaterial(Estilo) {
-        
-         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+    function getCombinacionesXEstilo(Estilo) {
+
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
-            url: master_url + 'getCombinacionesXPiezaMaterial',
+            url: master_url + 'getCombinacionesXEstilo',
             type: "POST",
             dataType: "JSON",
             data: {
@@ -136,15 +138,16 @@
             }
         }).done(function (data, x, jq) {
             $.each(data, function (k, v) {
-                  $('#mdlImprimirFichaTecnica').find("#Combinacion")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                $('#mdlImprimirFichaTecnica').find("#Combinacion")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
+            $('#mdlImprimirFichaTecnica').find("#Combinacion")[0].selectize.open();
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
             HoldOn.close();
         });
-        
-      
+
+
     }
 
 </script>

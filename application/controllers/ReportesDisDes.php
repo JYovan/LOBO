@@ -40,10 +40,10 @@ class ReportesDisDes extends CI_Controller {
         }
     }
 
-    public function getCombinacionesXPiezaMaterial() {
+    public function getCombinacionesXEstilo() {
         try {
             extract($this->input->post());
-            print json_encode($this->reportes_disdes_model->getCombinacionesXPiezaMaterial($Estilo));
+            print json_encode($this->reportes_disdes_model->getCombinacionesXEstilo($Estilo));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -73,7 +73,7 @@ class ReportesDisDes extends CI_Controller {
             $pdf->Cell(100, 4, utf8_decode("Fecha. " . Date('d/m/Y')), 0/* BORDE */, 1, 'L');
             $pdf->Rect(43.5/* X */, 14/* Y */, 110/* W */, 13.5/* H */);
             /* RECT PARA DETERMINAR EN QUE POSICION SE DEBE DE DAR EL SALTO A LA SIG PÁGINA */
-//            $pdf->Rect(1/* X */, 1/* Y */, 233/* W */, 260/* H */); 
+//            $pdf->Rect(1/* X */, 1/* Y */, 233/* W */, 260/* H */);
             $pdf->SetFont('Arial', 'B', 7);
             /* LINEA */
             $pdf->SetY(14);
@@ -538,9 +538,9 @@ class ReportesDisDes extends CI_Controller {
             $pdf->MultiCell($anchos[4] - 10, 4, utf8_decode("Mano de obra"), 0/* BORDER */, 'C'/* ALIGN */, 0/* FILL */);
             $pdf->SetXY(114.7, $YY);
             $pdf->MultiCell(40, 4, utf8_decode("Total de materiales de este estilo"), 0/* BORDER */, 'l'/* ALIGN */, 0/* FILL */);
-            
-            
-            
+
+
+
 
             /* TOTAL FINAL CONSUMO */
 //            $pdf->SetXY($posiciones[6], $YY);
@@ -650,7 +650,7 @@ class ReportesDisDes extends CI_Controller {
             $url = $path . '/' . $file_name . '.pdf';
             /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/FichasTecnicas/')) {
-                
+
             }
             $pdf->Output($url);
             print base_url() . $url;

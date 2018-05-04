@@ -232,6 +232,7 @@
 
     $(document).ready(function () {
         handleEnter();
+
         Estilo.change(function () {
             pnlNuevo.find("[name='Combinacion']")[0].selectize.clear(true);
             pnlNuevo.find("[name='Combinacion']")[0].selectize.clearOptions();
@@ -391,6 +392,7 @@
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
             pnlNuevo.addClass('d-none');
+            pnlDetalle.addClass('d-none');
         });
 
         pnlNuevo.find("#btnEliminarMaterial").on('click', function () {

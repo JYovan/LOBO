@@ -52,28 +52,27 @@ class reportes_disdes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
-    public function getCombinacionesXPiezaMaterial($Estilo){
+
+    public function getCombinacionesXEstilo($Estilo) {
         try {
             $this->db->select(''
-                    . 'C.ID AS ID, C.Descripcion As Descripcion '
+                    . "C.ID AS ID, C.Clave+'-'+C.Descripcion As Descripcion "
                     . ' ', false);
             $this->db->from('sz_PiezasYMateriales AS PYM');
-            $this->db->join('sz_Combinaciones AS C', 'PYM.Combinacion =  C.ID');
+            $this->db->join('sz_Combinaciones AS C', 'PYM.Combinacion =  C.ID', 'left');
             $this->db->where('PYM.Estilo', $Estilo);
-            $this->db->order_by("C.Descripcion", "ASC");
+            $this->db->order_by("C.Clave", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
              */
             $str = $this->db->last_query();
-//        print $str;
+            //print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-        
     }
 
 }
