@@ -40,7 +40,8 @@
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="<?php print base_url('Fracciones') ?>">Mano de Obra (Fracciones)</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Materiales') ?>">Materiales</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Piezas') ?>">Piezas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Piezas') ?>">Piezas</a></li> <li>
+                        <a class="dropdown-item" href="<?php print base_url('ListaDePrecios') ?>">Listas de precios</a></li>
                 </ul>
             </li>
 
