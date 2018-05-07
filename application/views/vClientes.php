@@ -147,6 +147,12 @@
                             <option value=""></option>
                         </select>
                     </div>
+                    <div class="col-sm">
+                        <label for="ListaDePrecios">Lista de precios</label>
+                        <select class="form-control form-control-sm"  name="ListaDePrecio" >
+                            <option value=""></option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
@@ -228,6 +234,7 @@
                 $("#RFC").val("");
             }
         });
+        
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {
@@ -290,6 +297,7 @@
         });
         getRecords();
         getRegimenesFiscales();
+        getListasDePrecios();
         handleEnter();
     });
 
@@ -423,6 +431,23 @@
         }).done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatos.find("[name='RegimenFiscal']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+    function getListasDePrecios() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getListasDePrecios',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='ListaDePrecio']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);

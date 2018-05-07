@@ -44,6 +44,23 @@ class clientes_model extends CI_Model {
         }
     }
 
+    public function getListasDePrecios() {
+        try {
+            $this->db->select("LDP.ID, LDP.Descripcion AS Descripcion ", false);
+            $this->db->from('sz_ListaDePrecios AS LDP');
+            $this->db->where_in('LDP.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onAgregar($array) {
         try {
             $this->db->insert("sz_Clientes", $array);

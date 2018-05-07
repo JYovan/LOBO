@@ -26,7 +26,44 @@
                 </button>
             </div>
             <div class="modal-body">
-
+                <div class="row">
+                    <div class="col-4">
+                        <label for="">Folio</label>
+                        <input type="text" id="Folio" name="Folio" class="form-control" placeholder="0001">
+                    </div>
+                    
+                    <div class="col-4">
+                        <label for="">Fecha Entrega</label>
+                        <input type="text" id="Folio" name="Folio" class="form-control" placeholder="0001">
+                    </div>
+                    
+                    <div class="col-4">
+                        <label for="">Cliente*</label>
+                        <select class="form-control form-control-sm"  name="Cliente" >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="w-100 d-none"></div>
+                    <div class="col-4">
+                        <label for="">Transporte*</label>
+                        <select class="form-control form-control-sm"  name="Transporte" >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="">Orden de compra*</label>
+                        <select class="form-control form-control-sm"  name="Transporte" >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="">Estatus*</label>
+                        <select class="form-control form-control-sm"  name="Estatus" >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    
+                </div>
             </div>
             <div class="modal-footer"> 
                 <button type="button" class="btn btn-raised btn-primary" id="btnGuardar">GUARDAR</button>

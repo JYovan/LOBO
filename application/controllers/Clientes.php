@@ -51,6 +51,14 @@ class Clientes extends CI_Controller {
         }
     }
 
+    public function getListasDePrecios() {
+        try {
+            print json_encode($this->clientes_model->getListasDePrecios());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getClienteByID() {
         try {
             extract($this->input->post());
@@ -80,7 +88,8 @@ class Clientes extends CI_Controller {
                 'Correo' => ($this->input->post('Correo') !== NULL) ? $this->input->post('Correo') : NULL,
                 'LimiteCredito' => ($this->input->post('LimiteCredito') !== NULL) ? $this->input->post('LimiteCredito') : 0,
                 'PlazoPagos' => ($this->input->post('PlazoPagos') !== NULL) ? $this->input->post('PlazoPagos') : 0,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL, 
+                'ListaDePrecios' => ($this->input->post('ListaDePrecio') !== NULL) ? $this->input->post('ListaDePrecio') : NULL
             );
             $ID = $this->clientes_model->onAgregar($data);
 
@@ -134,7 +143,8 @@ class Clientes extends CI_Controller {
                 'Correo' => ($this->input->post('Correo') !== NULL) ? $this->input->post('Correo') : NULL,
                 'LimiteCredito' => ($this->input->post('LimiteCredito') !== NULL) ? $this->input->post('LimiteCredito') : 0,
                 'PlazoPagos' => ($this->input->post('PlazoPagos') !== NULL) ? $this->input->post('PlazoPagos') : 0,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
+                'ListaDePrecios' => ($this->input->post('ListaDePrecio') !== NULL) ? $this->input->post('ListaDePrecio') : NULL
             );
             $this->clientes_model->onModificar($ID, $DATA);
             /* MODIFICAR FOTO */
