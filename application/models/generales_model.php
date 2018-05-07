@@ -97,5 +97,24 @@ class generales_model extends CI_Model {
         }
     }
     
-
+    public function getCatalogosDescripcionByFielID($FieldId) {
+        try {
+            $this->db->select('U.ID, CONVERT(varchar(10), U.IValue)+\'-\'+U.SValue+\'-\'+U.Valor_Text AS SValue', false);
+            $this->db->from('sz_Catalogos AS U');
+            $this->db->where('U.FieldId', $FieldId);
+            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->order_by("U.IValue", "ASC");
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
 }

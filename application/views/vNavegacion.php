@@ -9,6 +9,10 @@
     <div class="collapse navbar-collapse cursor-hand" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
+            <li class="nav-item">
+                <a class="nav-link" href="<?php print base_url('Pedido') ?>">Pedido</a>
+            </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Diseño y Desarrollo
@@ -28,7 +32,7 @@
                     Catálogos
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Clientes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Clientes') ?>">Clientes</a></li>
                     <li><a class="dropdown-item" href="#">Proveedores</a></li>
                     <li><a class="dropdown-item" href="#">Almacenes</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a></li>
