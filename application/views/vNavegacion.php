@@ -9,9 +9,18 @@
     <div class="collapse navbar-collapse cursor-hand" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item">
-                <a class="nav-link" href="<?php print base_url('Pedido') ?>">Pedido</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ped y Prog
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?php print base_url('Pedidos') ?>">Pedidos</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Programacion') ?>">Programación</a></li>
+                    <div class="dropdown-divider" ></div>
+                    <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg') ?>">Reportes</a></li>
+                </ul>
             </li>
+
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
