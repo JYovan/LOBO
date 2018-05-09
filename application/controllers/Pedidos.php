@@ -8,7 +8,7 @@ class Pedidos extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
-        $this->load->model('pedido_model');
+        $this->load->model('pedidos_model');
     }
 
     public function index() {

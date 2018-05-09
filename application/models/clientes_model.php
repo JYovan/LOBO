@@ -61,6 +61,17 @@ class clientes_model extends CI_Model {
         }
     }
 
+    public function onAgregarMagnus($array) {
+        try {
+            $this->db->insert("Clientes", $array);
+            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
+            $row = $query->row_array();
+//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            return $row['IDL'];
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
     public function onAgregar($array) {
         try {
             $this->db->insert("sz_Clientes", $array);

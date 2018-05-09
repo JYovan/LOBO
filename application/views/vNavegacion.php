@@ -42,7 +42,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="<?php print base_url('Clientes') ?>">Clientes</a></li>
-                    <li><a class="dropdown-item" href="#">Proveedores</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores')?>">Proveedores</a></li>
                     <li><a class="dropdown-item" href="#">Almacenes</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a></li>
                     <div class="dropdown-divider" ></div>
