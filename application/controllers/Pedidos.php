@@ -9,8 +9,11 @@ class Pedidos extends CI_Controller {
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
         $this->load->model('pedidos_model');
+<<<<<<< HEAD
         $this->load->model('estilos_model');
         $this->load->model('combinaciones_model');
+=======
+>>>>>>> d1550f306d94d5d51de464a3b75ba92e47ab4967
     }
 
     public function index() {
