@@ -43,6 +43,17 @@
 
         <script src="<?php print base_url(); ?>js/pace.min.js"></script>
         <link href="<?php print base_url(); ?>css/pace.css" rel="stylesheet" />
+        <!--MasekdAll-->
+        <script src="<?php print base_url(); ?>js/inputmask/dependencyLibs/inputmask.dependencyLib.jquery.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/jquery.inputmask.bundle.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/inputmask.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/inputmask.extensions.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/inputmask.numeric.extensions.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/inputmask.date.extensions.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/inputmask.phone.extensions.js"></script>
+        <script src="<?php print base_url(); ?>js/inputmask/jquery.inputmask.min.js"></script>
+
+
         <!--Masked number format money etc-->
         <script src="<?php print base_url(); ?>js/jquery.maskedinput.min.js"></script>
         <!--Masked number format money etc-->

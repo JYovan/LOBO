@@ -285,23 +285,21 @@ function getExt(filename) {
         return "";
     return filename.substr(dot_pos + 1).toLowerCase();
 }
+
+
+
 function handleEnter() {
-
-
-    $('input').keyup(function () {
+    $('input:not(.notEnter)').keyup(function () {
         $(this).val($(this).val().toUpperCase());
     });
-
-
     $('body').on('keydown', 'input, select, textarea', function (e) {
-
         var self = $(this)
                 , form = self.parents('body')
                 , focusable
                 , next
                 ;
         if (e.keyCode === 13) {
-            focusable = form.find('input,a,select,button,textarea').filter(':visible:enabled');
+            focusable = form.find('input,a,select,button,textarea').filter(':visible:enabled').not('.disabledForms');
             next = focusable.eq(focusable.index(this) + 1);
             if (next.length) {
                 next.focus();
