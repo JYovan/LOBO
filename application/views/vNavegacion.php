@@ -42,7 +42,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="<?php print base_url('Clientes') ?>">Clientes</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores')?>">Proveedores</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores') ?>">Proveedores</a></li>
                     <li><a class="dropdown-item" href="#">Almacenes</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a></li>
                     <div class="dropdown-divider" ></div>
@@ -53,8 +53,8 @@
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="<?php print base_url('Fracciones') ?>">Mano de Obra (Fracciones)</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Materiales') ?>">Materiales</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Piezas') ?>">Piezas</a></li> <li>
-                        <a class="dropdown-item" href="<?php print base_url('ListaDePrecios') ?>">Listas de precios</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Piezas') ?>">Piezas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('ListaDePrecios') ?>">Listas de precios</a></li>
                 </ul>
             </li>
 
@@ -89,6 +89,7 @@
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Trasnportes</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=RUTAS') ?>">Rutas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=ZONAS') ?>">Zonas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=AGENTES') ?>">Agentes</a></li>
                             <div class="dropdown-divider" href="#"></div>
 
                             <li class="nav-item dropdown dropdown-submenu">

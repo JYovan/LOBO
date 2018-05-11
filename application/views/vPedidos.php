@@ -36,8 +36,8 @@
                             <input type="text" class="" id="ID" name="ID"  >
                         </div>
                         <div class="col-12 col-md-1">
-                            <label for="Folio">No.*</label>
-                            <input type="text" class="form-control form-control-sm numbersOnly " maxlength="10" id="Folio" name="Folio" disabled="">
+                            <label for="Folio">Folio*</label>
+                            <input type="text" class="form-control form-control-sm numbersOnly " maxlength="10" id="Folio" name="Folio" required="">
                         </div>
                         <div class="col-12 col-md-2">
                             <label for="Cliente">Cliente* (F9) Actualizar</label>
@@ -52,22 +52,22 @@
                         </div>
                         <div class="col-sm-2 col-12">
                             <label for="Agente                                                                                                              ">Agente</label>
-                            <select class="form-control form-control-sm" id="Agente" name="Agente">
+                            <select class="form-control form-control-sm required" id="Agente" name="Agente">
                                 <option value=""></option>
                             </select>
                         </div>
                         <div class="col-12 col-md-2">
                             <label for="FechaMov">Fec Pedido*</label>
-                            <input type="text" class="form-control form-control-sm required  notEnter" name="FechaPedido" id="FechaPedido" >
+                            <input type="text" class="form-control form-control-sm notEnter" name="FechaPedido" id="FechaPedido" required="">
 
                         </div>
                         <div class="col-sm-2 col-12">
                             <label for="FechaMov">Fec Recep*</label>
-                            <input type="text" class="form-control form-control-sm required notEnter" id="FechaRec" name="FechaRec" >
+                            <input type="text" class="form-control form-control-sm notEnter" id="FechaRec" name="FechaRec" required="">
                         </div>
                         <div class="col-sm-2 col-12">
                             <label for="RecibioX">Recibido*</label>
-                            <select class="form-control form-control-sm " id="RecibioX" name="RecibioX" required="">
+                            <select class="form-control form-control-sm required" id="RecibidoX" name="RecibidoX">
                                 <option value=""></option>
                                 <option value="1">1 AGENTE</option>
                                 <option value="2">2 FAX</option>
@@ -162,28 +162,28 @@
                                         <td>Pares</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex1"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex2"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex3"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex4"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex5"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex6"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex7"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex8"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex9"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex10"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex11"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex12"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex13"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex14"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex15"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex16"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex17"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex18"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex19"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex20"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex21"></td>
-                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="Ex22"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C1"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C2"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C3"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C4"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C5"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C6"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C7"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C8"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C9"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C10"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C11"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C12"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C13"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C14"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C15"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C16"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C17"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C18"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C19"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C20"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C21"></td>
+                                        <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C22"></td>
                                         <td><input type="text" style="width: 55px;" maxlength="4" class="numbersOnly" disabled=""  name="TPares"></td>
                                     </tr>
                                 </tbody>
@@ -248,6 +248,7 @@
     var btnCancelar = pnlDatos.find("#btnCancelar");
     var btnEliminar = $("#btnEliminar");
     var nuevo = true;
+    var idMov = 0;
     /*DATATABLE GLOBAL*/
     var tblInicial = {
         "dom": 'frt',
@@ -266,14 +267,12 @@
             search: "Buscar:"
         }
     };
-
     $(document).ready(function () {
 
         //Mascaras fechas
         pnlDatos.find("#FechaPedido").inputmask({alias: "date"});
         pnlDatos.find("#FechaRec").inputmask({alias: "date"});
         pnlDatos.find("#FechaEntrega").inputmask({alias: "date"});
-
         //Evento que controla la insercion de filas a la tabla cuando se termina de capturar los pares
         $.each(pnlDatosDetalle.find("#tblTallas > tbody > tr").find("input.numbersOnly"), function () {
             $(this).keyup(function (e) {
@@ -282,17 +281,12 @@
                     var Combinacion = pnlDatosDetalle.find("[name='Combinacion']");
                     var talla = pnlDatosDetalle.find("#tblTallas > tbody > tr").find("input").eq($(this).parent().index()).val();
                     if (talla <= 0 && Estilo.val() !== '' && Combinacion.val() !== '') {
-                        onAgregarFila();
-                        $("[name='Estilo']")[0].selectize.focus();
-                        $("[name='Estilo']")[0].selectize.clear(true);
-                        $("[name='Combinacion']")[0].selectize.clear(true);
-                        $("[name='Combinacion']")[0].selectize.clearOptions();
+                        btnGuardar.trigger('click');
                     }
                 }
                 onAutoSumarPares();
             });
         });
-
         //Evento en el select de estilo para traer las tallas y los colores
         pnlDatosDetalle.find("[name='Estilo']").change(function () {
             $("[name='Combinacion']")[0].selectize.clear(true);
@@ -300,97 +294,57 @@
             getCombinacionesXEstilo($(this).val());
             getSerieXEstilo($(this).val());
         });
-
-        pnlDatosDetalle.find("[name='Combinacion']").change(function () {
-            onComprobarEstiloCombinacion(pnlDatosDetalle.find("[name='Estilo']").val(), pnlDatosDetalle.find("[name='Combinacion']").val());
-        });
         //Evento botones
         btnGuardar.click(function () {
-            swal({
-                buttons: ["Cancelar", "Aceptar"],
-                title: 'Estas Seguro?',
-                text: "Al guardar el movimiento ya no podrás realizar cambios",
-                icon: "info"
-            }).then((result) => {
-                if (result) {
-                    isValid('pnlDatos');
-                    if (valido) {
-                        HoldOn.open({
-                            theme: "sk-bounce",
-                            message: "GUARDANDO DATOS..."
-                        });
-                        var f = new FormData(pnlDatos.find("#frmNuevo")[0]);
-                        if (!nuevo) {
-                            $.ajax({
-                                url: master_url + 'onModificar',
-                                type: "POST",
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                data: f
-                            }).done(function (data, x, jq) {
-                                $('#Encabezado').addClass('disabledForms');
-                                $('#ControlesDetalle').addClass('disabledForms');
-                                btnGuardar.addClass('d-none');
-                                swal('INFO', 'EXISTENCIAS ACTUALIZADAS', 'success');
-
-                                onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                                getRecords();
-                            }).fail(function (x, y, z) {
-                                console.log(x, y, z);
-                            }).always(function () {
-                                HoldOn.close();
-                            });
-                        } else {
-                            /*AGREGAR DETALLE*/
-                            var detalle = [];
-                            //Destruye la instancia de datatable
-                            tblDetalleCompra.destroy();
-                            //Iteramos en la tabla natural
-                            pnlDatosDetalle.find("#tblDetalle > tbody > tr").each(function (k, v) {
-                                var row = $(this).find("td");
-                                //Se declara y llena el objeto obteniendo su valor por el indice y se elimina cualquier espacio
-                                var material = {
-                                    Estilo: row.eq(0).text().replace(/\s+/g, ''),
-                                    Color: row.eq(1).text().replace(/\s+/g, ''),
-                                    Precio: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
-                                    Talla: row.eq(4).text().replace(/\s+/g, ''),
-                                    Cantidad: (row.eq(5).text().replace(/\s+/g, '') !== '') ? row.eq(5).text().replace(/\s+/g, '') : 0,
-                                    Subtotal: (row.eq(7).text().replace(/\s+/g, '') !== '') ? getNumberFloat(row.eq(7).text()) : 0,
-                                    EsCoTa: row.eq(10).text().replace(/\s+/g, '')
-                                };
-                                //Se mete el objeto al arreglo
-                                detalle.push(material);
-                            });
-                            //Convertimos a cadena el objeto en formato json
-                            f.append('Detalle', JSON.stringify(detalle));
-                            f.append('Existencias', JSON.stringify(existencias));
-                            $.ajax({
-                                url: master_url + 'onAgregar',
-                                type: "POST",
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                data: f
-                            }).done(function (data, x, jq) {
-                                nuevo = false;
-                                pnlDatos.find('#ID').val(data);
-                                $('#Encabezado').addClass('disabledForms');
-                                $('#ControlesDetalle').addClass('disabledForms');
-                                btnGuardar.addClass('d-none');
-                                onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                                getRecords();
-                            }).fail(function (x, y, z) {
-                                console.log(x, y, z);
-                            }).always(function () {
-                                HoldOn.close();
-                            });
-                        }
-                    } else {
-                        onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
-                    }
+            isValid('pnlDatos');
+            if (valido) {
+                HoldOn.open({
+                    theme: "sk-bounce",
+                    message: "GUARDANDO DATOS..."
+                });
+                var f = new FormData(pnlDatos.find("#frmNuevo")[0]);
+                if (!nuevo) {
+                    $.ajax({
+                        url: master_url + 'onModificar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: f
+                    }).done(function (data, x, jq) {
+                        onAgregarFila();
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                        getRecords();
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                } else {
+                    $.ajax({
+                        url: master_url + 'onAgregar',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: f
+                    }).done(function (data, x, jq) {
+                        nuevo = false;
+                        pnlDatos.find('#ID').val(data);
+                        idMov = data;
+                        onAgregarFila();
+                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                        getRecords();
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
                 }
-            });
+            } else {
+                onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
+            }
+
         });
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
@@ -451,9 +405,143 @@
             }
         });
         getRecords();
+        getClientes();
         getEstilos();
+        getAgentes();
         handleEnter();
     });
+
+    var cellEstilo = 0;
+    var tblDetalleCaptura;
+    function getDetalleByID(IDX) {
+        $.ajax({
+            url: master_url + 'getDetalleByID',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                ID: IDX
+            }
+        }).done(function (data, x, jq) {
+            if (data.length > 0) {
+                pnlDatosDetalle.find("#RegistrosDetalle").html(getTable('tblRegistrosDetalle', data));
+                $('#tblRegistrosDetalle tfoot th').each(function () {
+                    $(this).addClass("d-none");
+                });
+                $('#tblRegistrosDetalle thead th').each(function () {
+                    $(this).addClass("d-none");
+                });
+                var thead = $('#tblRegistrosDetalle thead th');
+                var tfoot = $('#tblRegistrosDetalle tfoot th');
+                thead.eq(0).addClass("d-none");
+                tfoot.eq(0).addClass("d-none");
+                thead.eq(1).addClass("d-none");
+                tfoot.eq(1).addClass("d-none");
+                thead.eq(2).addClass("d-none");
+                tfoot.eq(2).addClass("d-none");
+
+                $.each($('#tblRegistrosDetalle tbody tr'), function (k, v) {
+                    var td = $(v).find("td");
+                    td.eq(0).addClass("d-none");
+                    td.eq(1).addClass("d-none");
+                    td.eq(2).addClass("d-none");
+                });
+
+                $.each($('#tblRegistrosDetalle tbody tr td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(29)):not(:nth-child(30)):not(:nth-child(31))'), function (k, v) {
+                    if (parseFloat($(this).text()) === 0) {
+                        $(this).text('-');
+
+                    } else if (parseFloat($(this).text()) > 0) {
+                        $(this).addClass('exists');
+                    }
+                });
+                tblDetalleCaptura = pnlDatosDetalle.find("#tblRegistrosDetalle").DataTable(tblInicial);
+                //Sombreado de la fila
+                pnlDatosDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
+                    //Recrea los encabezados, desocultando solo los necesarios
+                    $('#tblRegistrosDetalle thead th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3))').each(function () {
+                        $(this).removeClass("d-none");
+                    });
+                    var thead = $('#tblRegistrosDetalle thead th');
+                    thead.eq(3).text('Estilo');
+                    thead.eq(4).text('Sem');
+                    thead.eq(5).text('Maq');
+                    thead.eq(28).text('Pares');
+                    thead.eq(29).text('Precio');
+                    thead.eq(30).text('Fecha Entrega');
+
+                    $("#tblRegistrosDetalle tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var cells = $(this).find("td");
+                    cellEstilo = cells.eq(1).text();
+
+
+                    $.ajax({
+                        url: master_url + 'getEncabezadoSerieXEstilo',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            Estilo: cellEstilo
+                        }
+                    }).done(function (data, x, jq) {
+                        var cont = 6;
+                        $.each(data[0], function (k, v) {
+                            if (parseInt(v) <= 0) {
+                                thead.eq(cont).text('');
+                            } else {
+                                thead.eq(cont).text(v);
+                            }
+                            cont++;
+                        });
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+
+                });
+                $("[name='Estilo']").focus();
+                onCalcularMontos();
+
+            } else {
+                pnlDatosDetalle.find("#RegistrosDetalle").html("");
+            }
+            HoldOn.close();
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+
+        });
+    }
+
+    function getEncabezadoSerieXEstilo(Estilo) {
+
+        $.ajax({
+            url: master_url + 'getEncabezadoSerieXEstilo',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                Estilo: Estilo
+            }
+        }).done(function (data, x, jq) {
+            $('#tblRegistrosDetalle thead th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3))').each(function () {
+                $(this).removeClass("d-none");
+            });
+            var thead = $('#tblRegistrosDetalle thead th');
+            thead.eq(3).text('Estilo');
+            var cont = 4;
+            $.each(data[0], function (k, v) {
+                if (parseInt(v) <= 0) {
+                    thead.eq(cont).text('');
+                } else {
+                    thead.eq(cont).text(v);
+                }
+                cont++;
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+        });
+    }
 
     function getRecords() {
         temp = 0;
@@ -524,25 +612,12 @@
                                 }
                             });
                             //Cargar Detalle
+                            getDetalleByID(temp);
 
-                            /*FIN DETALLE*/
-
-                            //Validar que este afectado
-                            if (data[0].Estatus === 'AFECTADO') {
-                                $('#Encabezado').addClass('disabledForms');
-                                $('#ControlesDetalle').addClass('disabledForms');
-                                btnGuardar.addClass('d-none');
-                            } else {
-                                $('#Encabezado').addClass('disabledForms');
-                                $('#ControlesDetalle').addClass('disabledForms');
-                                btnGuardar.removeClass('d-none');
-
-                            }
                             /*MOSTRAR PANEL PRINCIPAL*/
                             pnlTablero.addClass("d-none");
                             pnlDatos.removeClass('d-none');
                             pnlDatosDetalle.removeClass("d-none");
-
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -579,11 +654,34 @@
                 Estilo: Estilo
             }
         }).done(function (data, x, jq) {
-
-
             if (data.length > 0) {
-                var c = 0;
-                //var dEstilo = data[0];
+                var dtm = data[0];
+                if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
+                    var ext = getExt(dtm.Foto);
+                    if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
+                        swal({
+                            icon: base_url + dtm.Foto
+                        }).then((result) => {
+                            $("[name='Combinacion']")[0].selectize.focus();
+                            $("[name='Combinacion']")[0].selectize.open();
+                        });
+                    }
+                    if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
+                        swal({
+                            icon: base_url + dtm.Foto
+                        }).then((result) => {
+                            $("[name='Combinacion']")[0].selectize.focus();
+                            $("[name='Combinacion']")[0].selectize.open();
+                        });
+                    }
+                } else {
+                    swal({
+                        icon: base_url + dtm.Foto
+                    }).then((result) => {
+                        $("[name='Combinacion']")[0].selectize.focus();
+                        $("[name='Combinacion']")[0].selectize.open();
+                    });
+                }
                 //pnlControlesDetalle.find("[name='Precio']").val(dEstilo.PrecioLista);
                 $.each(data[0], function (k, v) {
 
@@ -591,12 +689,9 @@
                     if (parseInt(v) <= 0) {
                         pnlDatosDetalle.find("[name='" + k + "']").val('');
                         pnlDatosDetalle.find("[name='" + k + "']").prop("disabled", 'disabled');
-
                     } else if (parseInt(v) > 0) {
                         pnlDatosDetalle.find("[name='" + k + "']").val(v);
                     }
-
-
                 });
             } else {
                 pnlDatosDetalle.find('#tblTallas').find("input").val("");
@@ -647,6 +742,41 @@
             HoldOn.close();
         });
     }
+
+    function getClientes() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getClientes',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='Cliente']")[0].selectize.addOption({text: v.Nombre, value: v.ID});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+    function getAgentes() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getAgentes',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            console.log(data);
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='Agente']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
     /*AUTOSUMAR PARES*/
     function onAutoSumarPares() {
         var rows = pnlDatosDetalle.find("#tblTallas > tbody > tr");
@@ -665,101 +795,100 @@
     }
     /*FIN AUTOSUMAR PARES*/
     /*AGREGAR ESTILO-COLOR*/
-    var n = 1;
     function onAgregarFila() {
-        n = (n > 0) ? n : 1;
         var rows = pnlDatosDetalle.find("#tblTallas > tbody > tr");
         var Estilo = pnlDatosDetalle.find("[name='Estilo']");
         var Combinacion = pnlDatosDetalle.find("[name='Combinacion']");
-        var Costo = pnlDatosDetalle.find("[name='Precio']");
-
-        if (Costo.val() !== '' && parseFloat(Costo.val()) > 0) {
-            /*COMPROBAR ESTILO Y COMBINACION*/
-            var estilo_combinacion_existen = false;
-            $.each(tblDetalleCompra.rows().data(), function () {
-                var xEstilo = $(this)[1];
-                var xCombinacion = $(this)[2];
-                if (xEstilo === Estilo.val() && xCombinacion === Combinacion.val()) {
-                    estilo_combinacion_existen = true;
-                    return false;
-                }
-            });
-            /*FIN COMPROBAR ESTILO Y COMBINACION*/
-            /*VALIDAR ESTILO Y COMBINACION*/
-            if (!estilo_combinacion_existen) {
-                if (Estilo.val() !== ''
-                        && Combinacion.val() !== ''
-                        && Estilo.find("option:selected").text() !== ''
-                        && Combinacion.find("option:selected").text() !== '') {
+        var Precio = pnlDatosDetalle.find("[name='Precio']");
+        var FechaEntrega = pnlDatosDetalle.find("[name='FechaEntrega']");
+        var Maquila = pnlDatosDetalle.find("[name='Maquila']");
+        var Semana = pnlDatosDetalle.find("[name='Semana']");
+        var Recio = pnlDatosDetalle.find("[name='Recio']");
+        //var Observaciones = pnlDatosDetalle.find("[name='Observaciones']");
+        var Desc = pnlDatosDetalle.find("[name='Desc']");
+        $.getJSON(master_url + 'onComprobarEstiloXCombinacion', {ID: idMov, E: Estilo.val(), C: Combinacion.val()}).done(function (data, x, jq) {
+            if (parseInt(data[0].EXISTE) > 0) {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'YA SE HA AGREGADO EL ESTILO DE ESTE COLOR', 'danger');
+            } else {
+                if (Precio.val() !== '' && parseFloat(Precio.val()) > 0) {
+                    var frm = new FormData();
                     $.each(rows.find("input.numbersOnly:enabled"), function () {
                         var talla = rows.find("input").eq($(this).parent().index()).val();
-                        if (talla > 0 && Estilo.val() !== ''
-                                && Combinacion.val() !== ''
-                                && Estilo.find("option:selected").text() !== ''
-                                && Combinacion.find("option:selected").text() !== '') {
-                            var par = parseInt($(this).val());
-                            if (par > 0) {
-                                var cbTalla = talla;
-                                if (cbTalla.length <= 2) {
-                                    cbTalla = padLeft(talla, 4);
-                                }
+                        if (talla > 0) {
+                            var cant = parseInt($(this).val());
+                            if (cant > 0) {
+                                var detalle = [];
+                                var registros = {
+                                    Pedido: idMov,
+                                    Estilo: Estilo.val(),
+                                    Combinacion: Combinacion.val(),
+                                    Posicion: $(this).attr("name"),
+                                    Cantidad: $(this).val(),
+                                    FechaEntrega: FechaEntrega.val(),
+                                    Maq: Maquila.val(),
+                                    Sem: Semana.val(),
+                                    Recio: Recio.val(),
+                                    Precio: Precio.val(),
+                                    Descuento: Desc.val()
+                                };
+                                detalle.push(registros);
+                                frm.append('Detalle', JSON.stringify(detalle));
 
-                                var EsCoTa;
-                                EsCoTa = padLeft(Estilo.val(), 5) + '' + padLeft(Combinacion.val(), 2) + '' + cbTalla;
-                                tblDetalleCompra.row.add([
-                                    Estilo.val(),
-                                    Combinacion.val(),
-                                    Estilo.find("option:selected").text(),
-                                    Combinacion.find("option:selected").text(),
-                                    talla,
-                                    $(this).val(),
-                                    "$" + $.number(Costo.val(), 2, '.', ','),
-                                    "$" + $.number((par * Costo.val()), 2, '.', ','),
-                                    0,
-                                    n,
-                                    EsCoTa
-                                ]).draw(false);
-                                $(this).val('');
-                                n += 1;
+                                $.ajax({
+                                    url: master_url + 'onAgregarDetalle',
+                                    type: "POST",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    data: frm
+                                }).done(function (data, x, jq) {
+                                    getDetalleByID(idMov);
+                                    $("[name='Estilo']")[0].selectize.focus();
+                                    $("[name='Estilo']")[0].selectize.clear(true);
+                                    $("[name='Combinacion']")[0].selectize.clear(true);
+                                    $("[name='Combinacion']")[0].selectize.clearOptions();
+                                    HoldOn.close();
+                                }).fail(function (x, y, z) {
+                                    console.log(x, y, z);
+                                }).always(function () {
+                                    HoldOn.close();
+                                });
+
                             }
                         }
                     });
-                    onNotify('<span class="fa fa-check fa-lg"></span>', 'REGISTROS AGREGADOS', 'success');
-                    onCalcularMontos();
                 } else {
-                    swal('ATENCIÓN', 'YA SE HA AGREGADO ESTA COMBINACIÓN', 'warning');
-                    onBeep(2);
+                    onNotify('<span class="fa fa-times fa-lg"></span>', 'DEBE DE ESTABLECER UN COSTO', 'danger');
+                    pnlDatos.find("input[name='Precio']").focus();
                 }
-            } else {
-                swal('ATENCIÓN', 'YA SE HA AGREGADO ESTA COMBINACIÓN', 'warning');
-                onBeep(2);
-            }
-            /*VALIDAR ESTILO Y COMBINACION*/
-        } else {
-            onNotify('<span class="fa fa-times fa-lg"></span>', 'DEBE DE ESTABLECER UN COSTO', 'danger');
-            pnlDatos.find("input[name='PrecioMov']").focus();
-        }
 
+            }
+        });
     }
 
     function onCalcularMontos() {
         var pares = 0;
         var total = 0.0;
-        $.each(tblDetalleCompra.rows().data(), function () {
-            pares += parseInt($(this)[5]);
-            total += getNumberFloat($(this)[7]);
+        $.each(tblDetalleCaptura.rows().data(), function () {
+            pares += parseInt($(this)[28]);
+            //total += getNumberFloat($(this)[7]);
         });
-        if (pnlDatosDetalle.find("#tblDetalle > tbody > tr").length > 1) {
+        if (pnlDatosDetalle.find("#tblRegistrosDetalle > tbody > tr").length > 1) {
             pnlDatosDetalle.find("#Pares").find("strong").text(pares);
-            pnlDatosDetalle.find("#SubTotal").find("strong").text('$' + $.number(total, 2, '.', ','));
+            //pnlDatosDetalle.find("#SubTotal").find("strong").text('$' + $.number(total, 2, '.', ','));
         }
-        if (parseInt(pnlDatos.find("input[name='TipoDoc']").val()) === 1) {
-            pnlDatosDetalle.find("#IVA").find("strong").text('$' + $.number(total * 0.16, 2, '.', ','));
-            pnlDatosDetalle.find("#Total").find("strong").text('$' + $.number(total * 1.16, 2, '.', ','));
-        } else {
-            pnlDatosDetalle.find("#IVA").find("strong").text('$' + $.number(0, 2, '.', ','));
-            pnlDatosDetalle.find("#Total").find("strong").text('$' + $.number(total, 2, '.', ','));
-        }
+//        if (parseInt(pnlDatos.find("input[name='TipoDoc']").val()) === 1) {
+//            pnlDatosDetalle.find("#IVA").find("strong").text('$' + $.number(total * 0.16, 2, '.', ','));
+//            pnlDatosDetalle.find("#Total").find("strong").text('$' + $.number(total * 1.16, 2, '.', ','));
+//        } else {
+//            pnlDatosDetalle.find("#IVA").find("strong").text('$' + $.number(0, 2, '.', ','));
+//            pnlDatosDetalle.find("#Total").find("strong").text('$' + $.number(total, 2, '.', ','));
+//        }
     }
 
 </script>
+<style>
+    .swal-icon img {
+        width: 220px;
+    }
+</style>

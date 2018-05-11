@@ -154,28 +154,18 @@ table thead tr{
     cursor: pointer;
 }
 
-.table tr:hover{
-    background-color: #eee !important;
-}
-
-.table-hover>tbody>tr.success:hover>td,
-.table-hover>tbody>tr.success:hover>th,
-.table-hover>tbody>tr:hover>.success,
-.table-hover>tbody>tr>td.success:hover,
-.table-hover>tbody>tr>th.success:hover {
-    background-color: #eee;
-}
-
 .table>tbody>tr>td.success,
-.table>tfoot>tr>td.success,
 .table>tbody>tr>th.success,
-.table>tfoot>tr>th.success,
 .table>tbody>tr.success>td,
-.table>tfoot>tr.success>td,
-.table>tbody>tr.success>th,
-.table>tfoot>tr.success>th {
+.table>tbody>tr.success>th {
     background-color: #eee;
     color: #000;
+}
+
+.table>tbody>tr>td.exists,
+.table>tbody>tr.exists>td{
+    background-color: #18BC9C ;
+    color: #fff;
 }
 
 

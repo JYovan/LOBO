@@ -102,7 +102,7 @@ class estilos_model extends CI_Model {
 
     public function getSerieXEstilo($Estilo) {
         try {
-            $this->db->select("S.*, E.Clave AS ClaveEstilo", false);
+            $this->db->select("S.*, E.Clave AS ClaveEstilo, E.Foto", false);
             $this->db->from('sz_Estilos AS E');
             $this->db->join('sz_Series AS S', 'E.Serie = S.ID', 'left');
             $this->db->where('E.ID', $Estilo);

@@ -70,6 +70,7 @@ class listasdeprecios_model extends CI_Model {
         try {
             $this->db->select("E.ID AS ID, CONCAT(E.Clave,'-',E.Descripcion) AS Estilo ", false);
             $this->db->from('sz_Estilos AS E');
+            $this->db->where('E.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -133,6 +134,5 @@ class listasdeprecios_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
 
 }
