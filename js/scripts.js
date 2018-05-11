@@ -15,36 +15,9 @@ var valido = false;
  * EVENT FOR CLICK ROW
  *******************************************************************************/
 var selected = [];
-/*******************************************************************************
- * OPTIONS FOR TABLES
- *******************************************************************************/
-var tableOptions = {
-    "dom": 'Bfrtip',
-     buttons: [
-        {
-            extend: 'excelHtml5',
-            text: ' <i class="fa fa-file-excel"></i>',
-            titleAttr: 'Excel',
-            exportOptions: {
-                columns: ':visible'
-            }
-        }
-        ,
-        {
 
-            extend: 'colvis',
-            text: '<i class="fa fa-columns"></i>',
-            titleAttr: 'Seleccionar Columnas',
-            exportOptions: {
-                modifier: {
-                    page: 'current'
-                },
-                columns: ':visible'
-            }
-        }
 
-    ],
-    language: {
+var lang = {
         processing: "Proceso en curso...",
         search: "Buscar:",
         lengthMenu: "Mostrar _MENU_ Elementos",
@@ -73,7 +46,38 @@ var tableOptions = {
                 1: ' 1 Registro copiado'
             }
         }
-    },
+    };
+var buttons =[
+        {
+            extend: 'excelHtml5',
+            text: ' <i class="fa fa-file-excel"></i>',
+            titleAttr: 'Excel',
+            exportOptions: {
+                columns: ':visible'
+            }
+        }
+        ,
+        {
+
+            extend: 'colvis',
+            text: '<i class="fa fa-columns"></i>',
+            titleAttr: 'Seleccionar Columnas',
+            exportOptions: {
+                modifier: {
+                    page: 'current'
+                },
+                columns: ':visible'
+            }
+        }
+
+    ];
+/*******************************************************************************
+ * OPTIONS FOR TABLES
+ *******************************************************************************/
+var tableOptions = {
+    "dom": 'Bfrtip',
+     buttons: buttons,
+    language: lang,
     "autoWidth": true,
     "colReorder": true,
     "displayLength": 20,

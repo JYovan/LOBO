@@ -425,28 +425,7 @@
                 });
                 ListasDePrecios = tblListas.DataTable({
                     "dom": 'Bfrtip',
-                    buttons: [
-                        {
-                            extend: 'excelHtml5',
-                            text: ' <i class="fa fa-file-excel"></i>',
-                            titleAttr: 'Excel',
-                            exportOptions: {
-                                columns: ':visible'
-                            }
-                        }
-                        ,
-                        {
-                            extend: 'colvis',
-                            text: '<i class="fa fa-columns"></i>',
-                            titleAttr: 'Seleccionar Columnas',
-                            exportOptions: {
-                                modifier: {
-                                    page: 'current'
-                                },
-                                columns: ':visible'
-                            }
-                        }
-                    ],
+                    buttons: buttons,
                     "ajax": {
                         "url": master_url + 'getRecords',
                         "dataSrc": ""
