@@ -149,7 +149,7 @@
                     </div>
                     <div class="col-sm">
                         <label for="ListaDePrecios">Lista de precios</label>
-                        <select class="form-control form-control-sm"  name="ListaDePrecio" >
+                        <select class="form-control form-control-sm"  name="ListaDePrecios" >
                             <option value=""></option>
                         </select>
                     </div>
@@ -234,7 +234,7 @@
                 $("#RFC").val("");
             }
         });
-        
+
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {
@@ -248,7 +248,9 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                        console.log(data);
+                        onBeep(4);
+                        swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL CLIENTE', 'success');
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -265,7 +267,8 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                        onBeep(4);
+                        swal('ÉXITO', 'SE HAN AGREGADO EL CLIENTE', 'success');
                         pnlDatos.find('#ID').val(data);
                         nuevo = false;
                         getRecords();
@@ -276,6 +279,7 @@
                     });
                 }
             } else {
+                onBeep(2);
                 onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
             }
         });
@@ -363,6 +367,8 @@
                                 ID: temp
                             }
                         }).done(function (data, x, jq) {
+                            console.log('*DTA*')
+                            console.log(data)
                             var dtm = data[0];
                             pnlDatos.find("input").val("");
                             $.each(pnlDatos.find("select"), function (k, v) {
@@ -401,6 +407,7 @@
                             HoldOn.close();
                         });
                     } else {
+                        onBeep(2);
                         onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
                     }
                 });
@@ -447,7 +454,7 @@
             dataType: "JSON"
         }).done(function (data, x, jq) {
             $.each(data, function (k, v) {
-                pnlDatos.find("[name='ListaDePrecio']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
+                pnlDatos.find("[name='ListaDePrecios']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);
