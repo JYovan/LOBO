@@ -9,7 +9,32 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive" id="tblRegistros"></div>
+            <div id="Clientes" class="table-responsive table-sm">
+                <table id="tblClientes" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CLAVE</th> 
+                            <th>NOMBRE</th> 
+                            <th>RFC</th> 
+                            <th>TELEFONO</th>  
+                            <th>ESTATUS</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>CLAVE</th> 
+                            <th>NOMBRE</th> 
+                            <th>RFC</th> 
+                            <th>TELEFONO</th>  
+                            <th>ESTATUS</th>  
+                        </tr>
+                    </tfoot>
+                </table>
+            </div> 
         </div>
     </div>
 </div>
@@ -294,7 +319,7 @@
             $(':input:text:enabled:visible:first').focus();
             nuevo = true;
         });
-        btnCancelar.click(function () {
+        btnCancelar.click(function () { pnlDatos.find("#VistaPrevia").html('');
             pnlTablero.removeClass("d-none");
             pnlDatos.addClass('d-none');
             nuevo = true;
@@ -304,129 +329,97 @@
         getListasDePrecios();
         handleEnter();
     });
+    var Clientes, tblClientes = $("#tblClientes");
 
     function getRecords() {
-        temp = 0;
         HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
+            theme: 'sk-cube',
+            message: 'CARGANDO...'
         });
-        $.ajax({
-            url: master_url + 'getRecords',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                $("#tblRegistros").html(getTable('tblClientes', data));
-                $('#tblClientes tfoot th').each(function () {
-                    $(this).html('');
+        $.fn.dataTable.ext.errMode = 'throw';
+        if ($.fn.DataTable.isDataTable('#tblClientes')) {
+            tblClientes.DataTable().destroy();
+            Clientes = tblClientes.DataTable({
+                "dom": 'Bfrtip',
+                buttons: buttons,
+                "ajax": {
+                    "url": master_url + 'getRecords',
+                    "dataSrc": ""
+                },
+                "columns": [
+                    {"data": "ID"},
+                    {"data": "CLAVE"},
+                    {"data": "NOMBRE"},
+                    {"data": "RFC"},
+                    {"data": "TELEFONO"},
+                    {"data": "ESTATUS"}
+                ],
+                language: lang,
+                "autoWidth": true,
+                "colReorder": true,
+                "displayLength": 20,
+                "bLengthChange": false,
+                "deferRender": true,
+                "scrollCollapse": false,
+                "bSort": true,
+                "aaSorting": [
+                    [0, 'desc']/*ID*/
+                ]
+            });
+
+            tblClientes.find('tbody').on('click', 'tr', function () {
+                tblClientes.find("tbody tr").removeClass("success");
+                $(this).addClass("success");
+                var dtm = Clientes.row(this).data();
+                temp = parseInt(dtm.ID);
+            });
+
+            tblClientes.find('tbody').on('dblclick', 'tr', function () {
+                nuevo = false;
+                tblClientes.find("tbody tr").removeClass("success");
+                $(this).addClass("success");
+                var dtm = Clientes.row(this).data();
+                temp = parseInt(dtm.ID);
+                pnlDatos.removeClass("d-none");
+                pnlTablero.addClass("d-none");
+                HoldOn.open({
+                    theme: 'sk-bounce',
+                    message: 'CARGANDO...'
                 });
-                var thead = $('#tblClientes thead th');
-                var tfoot = $('#tblClientes tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                $.each($.find('#tblClientes tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                });
-
-
-                var tblSelected = $('#tblClientes').DataTable(tableOptions);
-                $('#tblClientes_filter input[type=search]').focus();
-
-                $('#tblClientes tbody').on('click', 'tr', function () {
-
-                    $("#tblClientes tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var dtm = tblSelected.row(this).data();
-                    temp = parseInt(dtm[0]);
-                });
-
-                $('#tblClientes tbody').on('dblclick', 'tr', function () {
-                    $("#tblClientes tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var id = this.id;
-                    var index = $.inArray(id, selected);
-                    if (index === -1) {
-                        selected.push(id);
-                    } else {
-                        selected.splice(index, 1);
-                    }
-                    var dtm = tblSelected.row(this).data();
-                    if (temp !== 0 && temp !== undefined && temp > 0) {
-                        nuevo = false;
-                        HoldOn.open({
-                            theme: "sk-bounce",
-                            message: "CARGANDO DATOS..."
-                        });
-                        $.ajax({
-                            url: master_url + 'getClienteByID',
-                            type: "POST",
-                            dataType: "JSON",
-                            data: {
-                                ID: temp
+                $.getJSON(master_url + 'getClienteByID', {ID: temp}).done(function (data, x, jq) {
+                    console.log(data);
+                    var dtm = data[0];
+                    pnlDatos.find("#ID").val(dtm.ID);
+                    $.each(data[0], function (k, v) {
+                        if (k !== 'Foto') {
+                            pnlDatos.find("[name='" + k + "']").val(v);
+                            if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
                             }
-                        }).done(function (data, x, jq) {
-                            console.log('*DTA*')
-                            console.log(data)
-                            var dtm = data[0];
-                            pnlDatos.find("input").val("");
-                            $.each(pnlDatos.find("select"), function (k, v) {
-                                pnlDatos.find("select")[k].selectize.clear(true);
-                            });
-                            $.each(data[0], function (k, v) {
-                                if (k !== 'Foto') {
-                                    pnlDatos.find("[name='" + k + "']").val(v);
-                                    if (pnlDatos.find("[name='" + k + "']").is('select')) {
-                                        pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
-                                    }
-                                }
-                            });
-                            /*COLOCAR FOTO*/
-                            if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
-                                var ext = getExt(dtm.Foto);
-                                if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
-                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
-                                }
-                                if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
-                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
-                                }
-                                if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
-                                    pnlDatos.find("#VistaPrevia").html('<h1>NO EXISTE ARCHIVO ADJUNTO</h1>');
-                                }
-                            } else {
-                                pnlDatos.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
-                            }
-                            /*FIN COLOCAR FOTO*/
-                            pnlTablero.addClass("d-none");
-                            pnlDatos.removeClass('d-none');
-                            $(':input:text:enabled:visible:first').focus();
-                        }).fail(function (x, y, z) {
-                            console.log(x, y, z);
-                        }).always(function () {
-                            HoldOn.close();
-                        });
-                    } else {
-                        onBeep(2);
-                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                    }
-                });
-                // Apply the search
-                tblSelected.columns().every(function () {
-                    var that = this;
-                    $('input', this.footer()).on('keyup change', function () {
-                        if (that.search() !== this.value) {
-                            that.search(this.value).draw();
                         }
-                    });
+                    });/*COLOCAR FOTO*/
+                    if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
+                        var ext = getExt(dtm.Foto);
+                        if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
+                            pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
+                        }
+                        if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
+                            pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
+                        }
+                        if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
+                            pnlDatos.find("#VistaPrevia").html('<h1>NO EXISTE ARCHIVO ADJUNTO</h1>');
+                        }
+                    } else {
+                        pnlDatos.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
+                    }
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                    HoldOn.close();
                 });
-
-            }
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
+            });
+        }
+        HoldOn.close();
     }
 
     function getRegimenesFiscales() {

@@ -206,7 +206,7 @@
     var pnlDatos = $("#pnlDatos");
     var btnGuardar = $("#btnGuardar");
     var Proveedores, tblProveedores = $('#tblProveedores');
-    
+
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -238,7 +238,8 @@
                             processData: false,
                             data: frm
                         }).done(function (data, x, jq) {
-                            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                            onBeep(4);
+                            swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL PROVEEDOR', 'success');
                             getRecords();
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
@@ -254,17 +255,19 @@
                             processData: false,
                             data: frm
                         }).done(function (data, x, jq) {
-                            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                            onBeep(4);
+                            swal('ÉXITO', 'SE HA AGREGADO UN NUEVO PROVEEDOR', 'success');
                             pnlDatos.find('#ID').val(data);
                             nuevo = false;
                             getRecords();
-                        }).fail(function (x, y, z) { 
+                        }).fail(function (x, y, z) {
                             console.log(x.responseText);
                         }).always(function () {
                             HoldOn.close();
                         });
                     }
                 } else {
+                    onBeep(2);
                     onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
                 }
             });
@@ -279,37 +282,9 @@
             $.fn.dataTable.ext.errMode = 'throw';
             if ($.fn.DataTable.isDataTable('#tblProveedores')) {
                 tblProveedores.DataTable().destroy();
-                $.getJSON(master_url + 'getRecords').done(function (data) {
-                    console.log(data);
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    console.log('getrecords');
-                });
                 Proveedores = tblProveedores.DataTable({
                     "dom": 'Bfrtip',
-                    buttons: [
-                        {
-                            extend: 'excelHtml5',
-                            text: ' <i class="fa fa-file-excel"></i>',
-                            titleAttr: 'Excel',
-                            exportOptions: {
-                                columns: ':visible'
-                            }
-                        }
-                        ,
-                        {
-                            extend: 'colvis',
-                            text: '<i class="fa fa-columns"></i>',
-                            titleAttr: 'Seleccionar Columnas',
-                            exportOptions: {
-                                modifier: {
-                                    page: 'current'
-                                },
-                                columns: ':visible'
-                            }
-                        }
-                    ],
+                    buttons: buttons,
                     "ajax": {
                         "url": master_url + 'getRecords',
                         "dataSrc": ""

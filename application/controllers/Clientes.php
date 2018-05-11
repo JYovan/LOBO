@@ -36,8 +36,8 @@ class Clientes extends CI_Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
-    
+    }
+
     public function getRegimenesFiscales() {
         try {
             print json_encode($this->clientes_model->getRegimenesFiscales());
@@ -56,11 +56,12 @@ class Clientes extends CI_Controller {
 
     public function getClienteByID() {
         try {
-            print json_encode($this->clientes_model->getClienteByID($this->input->post('ID')));
+            print json_encode($this->clientes_model->getClienteByID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
+ 
 
     public function onAgregar() {
         try {
@@ -149,17 +150,17 @@ class Clientes extends CI_Controller {
         try {
             $x = $this->input;
             /* MODIFICAR EN MAGNUS */
-            $data = array(  
+            $data = array(
                 'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : NULL,
                 'Status' => ($x->post('Estatus') !== NULL) ? ($x->post('Estatus') === 'ACTIVO') ? 'A' : 'I' : NULL,
                 'Nombre' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : NULL,
                 'NombreComercial' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : NULL,
                 'Direccion' => ($x->post('Direccion') !== NULL) ? $x->post('Direccion') : NULL,
-                'Colonia' => ($x->post('Colonia') !== NULL) ? $x->post('Colonia') : NULL,  
-                'CodigoPostal' => ($x->post('CP') !== NULL) ? $x->post('CP') : NULL, 
-                'LimiteCredito' => ($x->post('LimiteCredito') !== NULL && $x->post('LimiteCredito') !== '') ? $x->post('LimiteCredito') : 0, 
+                'Colonia' => ($x->post('Colonia') !== NULL) ? $x->post('Colonia') : NULL,
+                'CodigoPostal' => ($x->post('CP') !== NULL) ? $x->post('CP') : NULL,
+                'LimiteCredito' => ($x->post('LimiteCredito') !== NULL && $x->post('LimiteCredito') !== '') ? $x->post('LimiteCredito') : 0,
             );
-//            $this->clientes_model->onModificarMagnus($this->input->post('ID'), $data);
+            $this->clientes_model->onModificarMagnus($this->clientes_model->getMagnusID($this->input->post('ID'))[0]->MAGNUS, $data);
             $data = array(
                 'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'RazonSocial' => ($this->input->post('RazonSocial') !== NULL) ? $this->input->post('RazonSocial') : NULL,
@@ -180,9 +181,10 @@ class Clientes extends CI_Controller {
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'ListaDePrecios' => ($this->input->post('ListaDePrecios') !== NULL) ? $this->input->post('ListaDePrecios') : NULL
             );
-            $this->clientes_model->onModificar($x->post('ID'), $data);
+//            $this->clientes_model->onModificar($x->post('ID'), $data);
             /* MODIFICAR FOTO */
             $Foto = $this->input->post('Foto');
+            $ID = $this->input->post('ID');
             if (empty($Foto)) {
                 if ($_FILES["Foto"]["tmp_name"] !== "") {
                     $URL_DOC = 'uploads/Clientes';

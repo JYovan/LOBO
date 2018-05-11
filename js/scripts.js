@@ -47,13 +47,7 @@ var lang = {
             }
         }
     };
-
-/*******************************************************************************
- * OPTIONS FOR TABLES
- *******************************************************************************/
-var tableOptions = {
-    "dom": 'Bfrtip',
-     buttons: [
+var buttons =[
         {
             extend: 'excelHtml5',
             text: ' <i class="fa fa-file-excel"></i>',
@@ -76,7 +70,13 @@ var tableOptions = {
             }
         }
 
-    ],
+    ];
+/*******************************************************************************
+ * OPTIONS FOR TABLES
+ *******************************************************************************/
+var tableOptions = {
+    "dom": 'Bfrtip',
+     buttons: buttons,
     language: lang,
     "autoWidth": true,
     "colReorder": true,
