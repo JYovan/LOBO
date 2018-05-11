@@ -21,18 +21,7 @@
                             <th>ESTATUS</th>  
                         </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>CLAVE</th> 
-                            <th>NOMBRE</th> 
-                            <th>RFC</th> 
-                            <th>TELEFONO</th>  
-                            <th>ESTATUS</th>  
-                        </tr>
-                    </tfoot>
+                    <tbody></tbody>
                 </table>
             </div> 
         </div>
@@ -220,115 +209,130 @@
     var btnArchivo = pnlDatos.find("#btnArchivo");
     var VistaPrevia = pnlDatos.find("#VistaPrevia");
     var nuevo = true;
-    $(document).ready(function () {
+    // IIFE - Immediately Invoked Function Expression
+    (function (yc) {
+        // The global jQuery object is passed as a parameter
+        yc(window.jQuery, window, document);
+    }(function ($, window, document) {
+        // The $ is now locally scoped 
+        // Listen for the jQuery ready event on the document
+        $(function () {
+            // The DOM is ready!
 
-        /*NUEVO ARCHIVO*/
-        btnArchivo.on("click", function () {
-            Archivo.change(function () {
-                HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
-                var imageType = /image.*/;
-                if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match(imageType)) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="400px"><div class="caption"><p>' + Archivo[0].files[0].name + '</p></div>';
-                        VistaPrevia.html(preview);
-                    };
-                    reader.readAsDataURL(Archivo[0].files[0]);
-                } else {
-                    if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match('application/pdf')) {
-                        var readerpdf = new FileReader();
-                        readerpdf.onload = function (e) {
-                            VistaPrevia.html('<div><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br> <embed src="' + readerpdf.result + '" type="application/pdf" width="90%" height="800px"' +
-                                    ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>');
+            /*NUEVO ARCHIVO*/
+            btnArchivo.on("click", function () {
+                Archivo.change(function () {
+                    HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
+                    var imageType = /image.*/;
+                    if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match(imageType)) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="400px"><div class="caption"><p>' + Archivo[0].files[0].name + '</p></div>';
+                            VistaPrevia.html(preview);
                         };
-                        readerpdf.readAsDataURL(Archivo[0].files[0]);
+                        reader.readAsDataURL(Archivo[0].files[0]);
                     } else {
-                        VistaPrevia.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
+                        if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match('application/pdf')) {
+                            var readerpdf = new FileReader();
+                            readerpdf.onload = function (e) {
+                                VistaPrevia.html('<div><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br> <embed src="' + readerpdf.result + '" type="application/pdf" width="90%" height="800px"' +
+                                        ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>');
+                            };
+                            readerpdf.readAsDataURL(Archivo[0].files[0]);
+                        } else {
+                            VistaPrevia.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
+                        }
                     }
-                }
-                HoldOn.close();
+                    HoldOn.close();
+                });
+                Archivo.trigger('click');
             });
-            Archivo.trigger('click');
-        });
-        //Valida RFC
-        pnlDatos.find("#RFC").blur(function () {
-            var rfc = $(this).val().trim(); // -Elimina los espacios que pueda tener antes o después
-            var rfcCorrecto = rfcValido(rfc);   //Comprobar RFC
-            if (rfcCorrecto) {
-            } else {
-                $("#RFC").val("");
-            }
-        });
-
-        btnGuardar.click(function () {
-            isValid('pnlDatos');
-            if (valido) {
-                var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
-                if (!nuevo) {
-                    $.ajax({
-                        url: master_url + 'onModificar',
-                        type: "POST",
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: frm
-                    }).done(function (data, x, jq) {
-                        console.log(data);
-                        onBeep(4);
-                        swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL CLIENTE', 'success');
-                        getRecords();
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
-
+            //Valida RFC
+            pnlDatos.find("#RFC").blur(function () {
+                var rfc = $(this).val().trim(); // -Elimina los espacios que pueda tener antes o después
+                var rfcCorrecto = rfcValido(rfc);   //Comprobar RFC
+                if (rfcCorrecto) {
                 } else {
-                    $.ajax({
-                        url: master_url + 'onAgregar',
-                        type: "POST",
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: frm
-                    }).done(function (data, x, jq) {
-                        onBeep(4);
-                        swal('ÉXITO', 'SE HAN AGREGADO EL CLIENTE', 'success');
-                        pnlDatos.find('#ID').val(data);
-                        nuevo = false;
-                        getRecords();
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
+                    $("#RFC").val("");
                 }
-            } else {
-                onBeep(2);
-                onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
-            }
-        });
-
-        btnNuevo.click(function () {
-            pnlTablero.addClass("d-none");
-            pnlDatos.removeClass('d-none');
-            pnlDatos.find("input").val("");
-            $.each(pnlDatos.find("select"), function (k, v) {
-                pnlDatos.find("select")[k].selectize.clear(true);
             });
-            $(':input:text:enabled:visible:first').focus();
-            nuevo = true;
+
+            btnGuardar.click(function () {
+                isValid('pnlDatos');
+                if (valido) {
+                    var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
+                    if (!nuevo) {
+                        $.ajax({
+                            url: master_url + 'onModificar',
+                            type: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: frm
+                        }).done(function (data, x, jq) {
+                            console.log(data);
+                            onBeep(4);
+                            swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL CLIENTE', 'success');
+                            getRecords();
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+
+                    } else {
+                        $.ajax({
+                            url: master_url + 'onAgregar',
+                            type: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: frm
+                        }).done(function (data, x, jq) {
+                            onBeep(4);
+                            swal('ÉXITO', 'SE HAN AGREGADO EL CLIENTE', 'success');
+                            pnlDatos.find('#ID').val(data);
+                            nuevo = false;
+                            getRecords();
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+                    }
+                } else {
+                    onBeep(2);
+                    onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
+                }
+            });
+
+            btnNuevo.click(function () {
+                pnlTablero.addClass("d-none");
+                pnlDatos.removeClass('d-none');
+                pnlDatos.find("input").val("");
+                $.each(pnlDatos.find("select"), function (k, v) {
+                    pnlDatos.find("select")[k].selectize.clear(true);
+                });
+                $(':input:text:enabled:visible:first').focus();
+                nuevo = true;
+                onBeep(1);
+            });
+            btnCancelar.click(function () {
+                pnlDatos.find("#VistaPrevia").html('');
+                pnlTablero.removeClass("d-none");
+                pnlDatos.addClass('d-none');
+                nuevo = true;
+                onBeep(3);
+            });
+            getRecords();
+            getRegimenesFiscales();
+            getListasDePrecios();
+            handleEnter();
+
+
         });
-        btnCancelar.click(function () { pnlDatos.find("#VistaPrevia").html('');
-            pnlTablero.removeClass("d-none");
-            pnlDatos.addClass('d-none');
-            nuevo = true;
-        });
-        getRecords();
-        getRegimenesFiscales();
-        getListasDePrecios();
-        handleEnter();
-    });
+    }));
+
     var Clientes, tblClientes = $("#tblClientes");
 
     function getRecords() {
@@ -375,6 +379,7 @@
             });
 
             tblClientes.find('tbody').on('dblclick', 'tr', function () {
+                onBeep(1);
                 nuevo = false;
                 tblClientes.find("tbody tr").removeClass("success");
                 $(this).addClass("success");

@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="Proveedores" class="table-responsive">
+            <div id="Proveedores" class="table-responsive table-sm">
                 <table id="tblProveedores" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
                     <thead>
                         <tr>
@@ -22,15 +22,6 @@
                     </thead>
                     <tbody>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>CLAVE</th>
-                            <th>PROVEEDOR</th>
-                            <th>RFC</th>
-                            <th>ESTATUS</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div> 
         </div>
@@ -187,7 +178,7 @@
                 </div>
                 <div class="col-md-12" align="center">
                     <input type="file" id="Foto" name="Foto" class="d-none">
-                    <button type="button" class="btn btn-default" id="btnArchivo" name="btnArchivo">
+                    <button type="button" class="btn btn-default" id="btnFoto" name="btnFoto">
                         <span class="fa fa-upload fa-1x"></span> SELECCIONA EL ARCHIVO
                     </button>
                     <br><hr>
@@ -205,8 +196,12 @@
     var btnNuevo = pnlTablero.find("#btnNuevo");
     var pnlDatos = $("#pnlDatos");
     var btnGuardar = $("#btnGuardar");
+    var btnCancelar = $("#btnCancelar");
     var Proveedores, tblProveedores = $('#tblProveedores');
-
+    var Foto = pnlDatos.find("#Foto");
+    var btnFoto = pnlDatos.find("#btnFoto");
+    var VistaPrevia = pnlDatos.find("#VistaPrevia");
+    
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -217,11 +212,50 @@
         $(function () {
             // The DOM is ready!
             getRecords();
+            getRegimenesFiscales();
+
+            Foto.change(function () {
+                HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
+                var imageType = /image.*/;
+                if (Foto[0].files[0] !== undefined && Foto[0].files[0].type.match(imageType)) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="400px"><div class="caption"><p>' + Foto[0].files[0].name + '</p></div>';
+                        VistaPrevia.html(preview);
+                    };
+                    reader.readAsDataURL(Foto[0].files[0]);
+                } else {
+                    if (Foto[0].files[0] !== undefined && Foto[0].files[0].type.match('application/pdf')) {
+                        var readerpdf = new FileReader();
+                        readerpdf.onload = function (e) {
+                            VistaPrevia.html('<div><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br> <embed src="' + readerpdf.result + '" type="application/pdf" width="90%" height="800px"' +
+                                    ' pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>');
+                        };
+                        readerpdf.readAsDataURL(Foto[0].files[0]);
+                    } else {
+                        VistaPrevia.html('EL ARCHIVO SE SUBIRÁ, PERO NO ES POSIBLE RECONOCER SI ES UN PDF O UNA IMAGEN');
+                    }
+                }
+                HoldOn.close();
+            });
+            
+            btnFoto.on("click", function () {
+                Foto.trigger('click');
+            });
+
+            btnCancelar.click(function () {
+                pnlTablero.removeClass("d-none");
+                pnlDatos.addClass('d-none');
+                nuevo = true;
+                onBeep(3);
+            });
+
             btnNuevo.click(function () {
                 nuevo = true;
                 pnlDatos.removeClass("d-none");
                 pnlTablero.addClass("d-none");
                 pnlDatos.find("#Clave").focus();
+                onBeep(1);
             });
 
             btnGuardar.click(function () {
@@ -317,6 +351,7 @@
                 });
 
                 tblProveedores.find('tbody').on('dblclick', 'tr', function () {
+                    onBeep(1);
                     nuevo = false;
                     tblProveedores.find("tbody tr").removeClass("success");
                     $(this).addClass("success");
@@ -329,10 +364,44 @@
                         message: 'CARGANDO...'
                     });
                     $.getJSON(master_url + 'getProveedorByID', {ID: temp}).done(function (data, x, jq) {
-                        var l = data[0];
-                        pnlDatos.find("#ID").val(l.IDE);
-                        pnlDatos.find("#Descripcion").val(l["DESCRIPCIÓN"]);
-                        pnlDatos.find("#Estatus")[0].selectize.setValue(l.ESTATUS);
+                        console.log(data.length);
+                        if (data.length > 0) {
+                            var dtm = data[0];
+                            pnlDatos.find("input").val("");
+                            $.each(pnlDatos.find("select"), function (k, v) {
+                                pnlDatos.find("select")[k].selectize.clear(true);
+                            });
+                            $.each(data[0], function (k, v) {
+                                if (k !== 'Foto') {
+                                    pnlDatos.find("[name='" + k + "']").val(v);
+                                    if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                        pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+                                    }
+                                }
+                            });
+                            /*COLOCAR FOTO*/
+                            if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
+                                var ext = getExt(dtm.Foto);
+                                if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
+                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
+                                }
+                                if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
+                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
+                                }
+                                if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
+                                    pnlDatos.find("#VistaPrevia").html('<h1>NO EXISTE ARCHIVO ADJUNTO</h1>');
+                                }
+                            } else {
+                                pnlDatos.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
+                            }
+                            /*FIN COLOCAR FOTO*/
+                            pnlTablero.addClass("d-none");
+                            pnlDatos.removeClass('d-none');
+                            $(':input:text:enabled:visible:first').focus();
+                        } else {
+                            swal('ATENCIÓN', 'EL REGISTRO SOLICITADO NO ESTA DISPONIBLE', 'warning');
+                            onBeep(2);
+                        }
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
@@ -342,7 +411,25 @@
             }
             HoldOn.close();
         }
+ 
+        function getRegimenesFiscales() {
+            HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+            $.getJSON(master_url + 'getRegimenesFiscales').done(function (data, x, jq) { 
+                $.each(data, function (k, v) {
+                    pnlDatos.find("[name='RegimenFiscal']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+                });
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+            });
+        }
     }));
+    function onRemovePreview(e) {
+        $(e).parent().parent("#VistaPrevia").html("");
+        pnlDatos.find('#Foto').attr("type", "text");
+        pnlDatos.find('#Foto').val('N');
+    }
 </script>
 <style>
     .swal-icon img {

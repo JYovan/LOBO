@@ -7,8 +7,7 @@ class Proveedores extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('proveedores_model');
-        $this->load->model('generales_model');
+        $this->load->model('proveedores_model'); 
     }
 
     public function index() {
@@ -31,6 +30,15 @@ class Proveedores extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function getRegimenesFiscales() {
+        try {
+            print json_encode($this->proveedores_model->getRegimenesFiscales());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
     public function getProveedorByID() {
         try {
             print json_encode($this->proveedores_model->getProveedorByID($this->input->get('ID')));
@@ -100,17 +108,18 @@ class Proveedores extends CI_Controller {
                 'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : '',
                 'Direccion' => ($x->post('Direccion') !== NULL) ? $x->post('Direccion') : '',
                 'NoExt' => ($x->post('NoExt') !== NULL) ? $x->post('NoExt') : '',
-                'NoInt' => ($x->post('noInterior') !== NULL) ? $x->post('noInterior') : '',
+                'NoInt' => ($x->post('NoInt') !== NULL) ? $x->post('NoInt') : '',
                 'Colonia' => ($x->post('Colonia') !== NULL) ? $x->post('Colonia') : '',
                 'Ciudad' => ($x->post('Ciudad') !== NULL) ? $x->post('Ciudad') : '',
                 'Estado' => ($x->post('Estado') !== NULL) ? $x->post('Estado') : '',
                 'Pais' => ($x->post('Pais') !== NULL) ? $x->post('Pais') : '',
+                'Correo' => ($x->post('Correo') !== NULL) ? $x->post('Correo') : '',
                 'CP' => ($x->post('CP') !== NULL) ? $x->post('CP') : '',
                 'RegimenFiscal' => ($x->post('RegimenFiscal') !== NULL) ? $x->post('RegimenFiscal') : '',
                 'Telefono' => ($x->post('Telefono') !== NULL) ? $x->post('Telefono') : '',
                 'LimiteCredito' => ($x->post('LimiteCredito') !== NULL) ? $x->post('LimiteCredito') : '',
                 'PlazoPagos' => ($x->post('PlazoPagos') !== NULL) ? $x->post('PlazoPagos') : '',
-                'Estatus' => 'A'
+                'Estatus' => ($x->post('Estatus') !== NULL) ? ($x->post('Estatus') === 'ACTIVO') ? 'ACTIVO' : 'INACTIVO' : NULL
             );
             $this->proveedores_model->onAgregar($data);
 
@@ -144,4 +153,67 @@ class Proveedores extends CI_Controller {
         }
     }
 
+    public function onModificar() {
+        try {
+            $x = $this->input;
+            $data = array(
+                'Clave' => $x->post('Clave'), 
+                'RazonSocial' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : '',
+                'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : '',
+                'Direccion' => ($x->post('Direccion') !== NULL) ? $x->post('Direccion') : '',
+                'NoExt' => ($x->post('NoExt') !== NULL) ? $x->post('NoExt') : '',
+                'NoInt' => ($x->post('NoInt') !== NULL) ? $x->post('NoInt') : '',
+                'Colonia' => ($x->post('Colonia') !== NULL) ? $x->post('Colonia') : '',
+                'Ciudad' => ($x->post('Ciudad') !== NULL) ? $x->post('Ciudad') : '',
+                'Estado' => ($x->post('Estado') !== NULL) ? $x->post('Estado') : '',
+                'Pais' => ($x->post('Pais') !== NULL) ? $x->post('Pais') : '',
+                'Correo' => ($x->post('Correo') !== NULL) ? $x->post('Correo') : '',
+                'CP' => ($x->post('CP') !== NULL) ? $x->post('CP') : '',
+                'RegimenFiscal' => ($x->post('RegimenFiscal') !== NULL) ? $x->post('RegimenFiscal') : '',
+                'Telefono' => ($x->post('Telefono') !== NULL) ? $x->post('Telefono') : '',
+                'LimiteCredito' => ($x->post('LimiteCredito') !== NULL) ? $x->post('LimiteCredito') : '',
+                'PlazoPagos' => ($x->post('PlazoPagos') !== NULL) ? $x->post('PlazoPagos') : '',
+                'Estatus' => ($x->post('Estatus') !== NULL) ? ($x->post('Estatus') === 'ACTIVO') ? 'ACTIVO' : 'INACTIVO' : NULL
+            );
+            $this->proveedores_model->onModificar($x->post('ID'), $data);
+            /* MODIFICAR FOTO */
+            $Foto = $this->input->post('Foto');
+            $ID = $this->input->post('ID');
+            if (empty($Foto)) {
+                if ($_FILES["Foto"]["tmp_name"] !== "") {
+                    $URL_DOC = 'uploads/Proveedores';
+                    $master_url = $URL_DOC . '/';
+                    if (isset($_FILES["Foto"]["name"])) {
+                        if (!file_exists($URL_DOC)) {
+                            mkdir($URL_DOC, 0777, true);
+                        }
+                        if (!file_exists(utf8_decode($URL_DOC . '/' . $ID))) {
+                            mkdir(utf8_decode($URL_DOC . '/' . $ID), 0777, true);
+                        }
+                        if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
+                            $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                            $DATA = array(
+                                'Foto' => ($img),
+                            );
+                            $this->proveedores_model->onModificar($ID, $DATA);
+                        } else {
+                            $DATA = array(
+                                'Foto' => (null),
+                            );
+                            $this->proveedores_model->onModificar($ID, $DATA);
+                        }
+                    }
+                }
+            } else {
+                $DATA = array(
+                    'Foto' => (null),
+                );
+                $this->proveedores_model->onModificar($ID, $DATA);
+            }
+            /* FIN MODIFICAR FOTO */
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
 }
