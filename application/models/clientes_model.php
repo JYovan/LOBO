@@ -13,7 +13,7 @@ class clientes_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("U.ID, U.Clave, U.RazonSocial as 'Nombre' ", false);
-            $this->db->from('sz_Clientes AS U');
+            $this->db->from('Clientes AS U');
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*

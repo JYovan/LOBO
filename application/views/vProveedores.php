@@ -9,18 +9,42 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive" id="tblRegistros"></div>
+            <div id="Proveedores" class="table-responsive">
+                <table id="tblProveedores" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CLAVE</th> 
+                            <th>PROVEEDOR</th> 
+                            <th>RFC</th> 
+                            <th>ESTATUS</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>CLAVE</th>
+                            <th>PROVEEDOR</th>
+                            <th>RFC</th>
+                            <th>ESTATUS</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div> 
         </div>
     </div>
 </div>
 <!--GUARDAR-->
+
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
         <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Proveedores</legend>
+                        <legend class="float-left">Gestión de Proveedores</legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -48,7 +72,6 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-sm">
                         <label for="Direccion">Dirección*</label>
                         <input type="text" class="form-control form-control-sm"  maxlength="150"  id="Direccion" name="Direccion" required >
@@ -61,7 +84,6 @@
                         <label for="NoInt">Num. Int.</label>
                         <input type="text" class="form-control form-control-sm"  maxlength="10"  id="NoInt" name="NoInt"  >
                     </div>
-
                 </div>
                 <div class="row">
 
@@ -75,7 +97,7 @@
                     </div>
                     <div class="col-sm">
                         <label for="Estado">Estado</label>
-                        <select class="form-control form-control-sm "  id="Estado" name="Estado" >
+                        <select class="form-control form-control-sm required"  id="Estado" name="Estado" required="">
                             <option value=""></option>
                             <option value="Aguascalientes">Aguascalientes</option>
                             <option value="Baja California">Baja California</option>
@@ -123,7 +145,7 @@
                     </div>
                     <div class="col-sm">
                         <label for="Telefono">Teléfono</label>
-                        <input type="tel" class="form-control form-control-sm"  maxlength="15"  id="Telefono" name="Telefono"  >
+                        <input type="tel" class="form-control form-control-sm" placeholder="4771408263" maxlength="15"  id="Telefono" name="Telefono"  >
                     </div>
                 </div>
                 <div class="row">
@@ -142,14 +164,8 @@
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="RegimenFiscal">Regimen Fiscal</label>
-                        <select class="form-control form-control-sm"  name="RegimenFiscal" >
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="ListaDePrecios">Lista de precios</label>
-                        <select class="form-control form-control-sm"  name="ListaDePrecio" >
+                        <label for="RegimenFiscal">Regimen Fiscal*</label>
+                        <select class="form-control form-control-sm "  name="RegimenFiscal" required="">
                             <option value=""></option>
                         </select>
                     </div>
@@ -182,4 +198,180 @@
         </div>
     </div>
 </div>
+<!--SCRIPTS-->
+<script>
+    var master_url = base_url + 'index.php/Proveedores/';
+    var pnlTablero = $("#pnlTablero");
+    var btnNuevo = pnlTablero.find("#btnNuevo");
+    var pnlDatos = $("#pnlDatos");
+    var btnGuardar = $("#btnGuardar");
+    var Proveedores, tblProveedores = $('#tblProveedores');
+    
+    // IIFE - Immediately Invoked Function Expression
+    (function (yc) {
+        // The global jQuery object is passed as a parameter
+        yc(window.jQuery, window, document);
+    }(function ($, window, document) {
+        // The $ is now locally scoped 
+        // Listen for the jQuery ready event on the document
+        $(function () {
+            // The DOM is ready!
+            getRecords();
+            btnNuevo.click(function () {
+                nuevo = true;
+                pnlDatos.removeClass("d-none");
+                pnlTablero.addClass("d-none");
+                pnlDatos.find("#Clave").focus();
+            });
 
+            btnGuardar.click(function () {
+                console.log(nuevo);
+                isValid('pnlDatos');
+                if (valido) {
+                    var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
+                    if (!nuevo) {
+                        $.ajax({
+                            url: master_url + 'onModificar',
+                            type: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: frm
+                        }).done(function (data, x, jq) {
+                            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                            getRecords();
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+                    } else {
+                        $.ajax({
+                            url: master_url + 'onAgregar',
+                            type: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: frm
+                        }).done(function (data, x, jq) {
+                            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                            pnlDatos.find('#ID').val(data);
+                            nuevo = false;
+                            getRecords();
+                        }).fail(function (x, y, z) { 
+                            console.log(x.responseText);
+                        }).always(function () {
+                            HoldOn.close();
+                        });
+                    }
+                } else {
+                    onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
+                }
+            });
+
+        });
+
+        function getRecords() {
+            HoldOn.open({
+                theme: 'sk-cube',
+                message: 'CARGANDO...'
+            });
+            $.fn.dataTable.ext.errMode = 'throw';
+            if ($.fn.DataTable.isDataTable('#tblProveedores')) {
+                tblProveedores.DataTable().destroy();
+                $.getJSON(master_url + 'getRecords').done(function (data) {
+                    console.log(data);
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                    console.log('getrecords');
+                });
+                Proveedores = tblProveedores.DataTable({
+                    "dom": 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: ' <i class="fa fa-file-excel"></i>',
+                            titleAttr: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        ,
+                        {
+                            extend: 'colvis',
+                            text: '<i class="fa fa-columns"></i>',
+                            titleAttr: 'Seleccionar Columnas',
+                            exportOptions: {
+                                modifier: {
+                                    page: 'current'
+                                },
+                                columns: ':visible'
+                            }
+                        }
+                    ],
+                    "ajax": {
+                        "url": master_url + 'getRecords',
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {"data": "ID"},
+                        {"data": "CLAVE"},
+                        {"data": "PROVEEDOR"},
+                        {"data": "RFC"},
+                        {"data": "ESTATUS"}
+                    ],
+                    language: lang,
+                    "autoWidth": true,
+                    "colReorder": true,
+                    "displayLength": 20,
+                    "bLengthChange": false,
+                    "deferRender": true,
+                    "scrollCollapse": false,
+                    "bSort": true,
+                    "aaSorting": [
+                        [0, 'desc']/*ID*/
+                    ]
+                });
+
+                tblProveedores.find('tbody').on('click', 'tr', function () {
+                    tblProveedores.find("tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var dtm = Proveedores.row(this).data();
+                    temp = parseInt(dtm.ID);
+                });
+
+                tblProveedores.find('tbody').on('dblclick', 'tr', function () {
+                    nuevo = false;
+                    tblProveedores.find("tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var dtm = Proveedores.row(this).data();
+                    temp = parseInt(dtm.ID);
+                    pnlDatos.removeClass("d-none");
+                    pnlTablero.addClass("d-none");
+                    HoldOn.open({
+                        theme: 'sk-bounce',
+                        message: 'CARGANDO...'
+                    });
+                    $.getJSON(master_url + 'getProveedorByID', {ID: temp}).done(function (data, x, jq) {
+                        var l = data[0];
+                        pnlDatos.find("#ID").val(l.IDE);
+                        pnlDatos.find("#Descripcion").val(l["DESCRIPCIÓN"]);
+                        pnlDatos.find("#Estatus")[0].selectize.setValue(l.ESTATUS);
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                });
+            }
+            HoldOn.close();
+        }
+    }));
+</script>
+<style>
+    .swal-icon img {
+        width: 480px; 
+        height: 480px;
+    }
+</style>
