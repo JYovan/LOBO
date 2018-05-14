@@ -230,5 +230,4 @@ class Clientes extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }
