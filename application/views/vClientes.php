@@ -130,7 +130,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <label for="Pais">País</label>
-                        <input type="text" class="form-control form-control-sm"  maxlength="60"  id="Colonia" name="Colonia"  >
+                        <input type="text" class="form-control form-control-sm"  maxlength="60"  id="Pais" name="Pais"  >
                     </div>
                     <div class="col-sm">
                         <label for="CP">Código Postal</label>
@@ -248,22 +248,13 @@
                 });
                 Archivo.trigger('click');
             });
-            //Valida RFC
-            pnlDatos.find("#RFC").blur(function () {
-                var rfc = $(this).val().trim(); // -Elimina los espacios que pueda tener antes o después
-                var rfcCorrecto = rfcValido(rfc);   //Comprobar RFC
-                if (rfcCorrecto) {
-                } else {
-                    $("#RFC").val("");
-                }
-            });
 
             btnGuardar.click(function () {
                 isValid('pnlDatos');
                 if (valido) {
                     var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
                     if (!nuevo) {
-                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                        $.getJSON(master_url + 'onComprobarClienteXRFC', {ID: parseInt(pnlDatos.find("#ID").val()), RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
                             var dtm = data[0];
                             if (parseFloat(dtm.EXISTE) <= 0) {
                                 $.ajax({
@@ -284,7 +275,7 @@
                                     HoldOn.close();
                                 });
                             } else {
-                                swal('ATENCIÓN', 'EL PROVEEDOR CON ESTE RFC, YA EXISTE', 'warning');
+                                swal('ATENCIÓN', 'YA EXISTE UN PROVEEDOR CON ESTE RFC', 'warning');
                                 onBeep(2);
                             }
                         }).fail(function (x, y, z) {
@@ -294,21 +285,33 @@
                         });
 
                     } else {
-                        $.ajax({
-                            url: master_url + 'onAgregar',
-                            type: "POST",
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            data: frm
-                        }).done(function (data, x, jq) {
-                            onBeep(4);
-                            swal('ÉXITO', 'SE HAN AGREGADO EL CLIENTE', 'success');
-                            pnlDatos.find('#ID').val(data);
-                            nuevo = false;
-                            getRecords();
+                        $.getJSON(master_url + 'onComprobarClienteXRFC', {ID: 0, RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                            var dtm = data[0];
+                            if (parseFloat(dtm.EXISTE) <= 0) {
+                                $.ajax({
+                                    url: master_url + 'onAgregar',
+                                    type: "POST",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    data: frm
+                                }).done(function (data, x, jq) {
+                                    onBeep(4);
+                                    swal('ÉXITO', 'SE HAN AGREGADO EL CLIENTE', 'success');
+                                    pnlDatos.find('#ID').val(data);
+                                    nuevo = false;
+                                    getRecords();
+                                }).fail(function (x, y, z) {
+                                    console.log(x, y, z);
+                                }).always(function () {
+                                    HoldOn.close();
+                                });
+                            } else {
+                                swal('ATENCIÓN', 'YA EXISTE UN CLIENTE CON ESTE RFC', 'warning');
+                                onBeep(2);
+                            }
                         }).fail(function (x, y, z) {
-                            console.log(x, y, z);
+                            console.log(x.responseText);
                         }).always(function () {
                             HoldOn.close();
                         });
@@ -319,7 +322,7 @@
                 }
             });
 
-            btnNuevo.click(function () { 
+            btnNuevo.click(function () {
                 pnlTablero.addClass("d-none");
                 pnlDatos.removeClass('d-none');
                 pnlDatos.find("input").val("");

@@ -26,12 +26,15 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
-    public function onComprobarProveedorXRFC($RFC) {
+
+    public function onComprobarProveedorXRFC($ID, $RFC) {
         try {
             $this->db->select("COUNT(P.ID) AS EXISTE", false);
             $this->db->from('sz_Proveedores AS P');
             $this->db->where_in('P.RFC', $RFC);
+            if ($ID > 0) {
+                $this->db->where('P.ID <> ' . $ID, null, false);
+            }
             $this->db->where_in('P.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -44,7 +47,7 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getRegimenesFiscales() {
         try {
             $this->db->select('C.ID, CONVERT(varchar(10), C.IValue)+\'-\'+C.SValue+\'-\'+C.Valor_Text AS SValue', false);
@@ -64,7 +67,7 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getProveedorByID($ID) {
         try {
             $this->db->select("P.*", false);
@@ -116,7 +119,7 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onModificarMagnus($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
@@ -126,4 +129,5 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
 }

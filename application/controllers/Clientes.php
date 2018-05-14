@@ -58,7 +58,7 @@ class Clientes extends CI_Controller {
     
     public function onComprobarClienteXRFC() {
         try {
-            print json_encode($this->clientes_model->onComprobarClienteXRFC($this->input->get('RFC')));
+            print json_encode($this->clientes_model->onComprobarClienteXRFC($this->input->get('ID'),$this->input->get('RFC')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

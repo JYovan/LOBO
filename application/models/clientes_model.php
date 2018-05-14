@@ -43,13 +43,13 @@ class clientes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getMagnusID($ID) {
         try {
             $this->db->select("C.IDMAGNUS AS MAGNUS", false);
             $this->db->from('sz_Clientes AS C');
             $this->db->where_in('C.Estatus', 'ACTIVO');
-            $this->db->where('C.ID',$ID);
+            $this->db->where('C.ID', $ID);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -61,7 +61,7 @@ class clientes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-         
+
     public function getRegimenesFiscales() {
         try {
             $this->db->select('U.ID, CONVERT(varchar(10), U.IValue)+\'-\'+U.SValue+\'-\'+U.Valor_Text AS SValue', false);
@@ -110,6 +110,7 @@ class clientes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onAgregar($array) {
         try {
             $this->db->insert("sz_Clientes", $array);
@@ -131,7 +132,7 @@ class clientes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onModificarMagnus($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
@@ -172,11 +173,14 @@ class clientes_model extends CI_Model {
         }
     }
 
-    public function onComprobarProveedorXRFC($RFC) {
+    public function onComprobarClienteXRFC($ID, $RFC) {
         try {
             $this->db->select("COUNT(C.ID) AS EXISTE", false);
             $this->db->from('sz_Clientes AS C');
             $this->db->where_in('C.RFC', $RFC);
+            if ($ID > 0) {
+                $this->db->where('C.ID <> '.$ID, null,false);
+            }
             $this->db->where_in('C.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
@@ -188,5 +192,5 @@ class clientes_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }    
+    }
 }

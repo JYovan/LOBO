@@ -41,7 +41,7 @@ class Proveedores extends CI_Controller {
     }
     public function onComprobarProveedorXRFC() {
         try {
-            print json_encode($this->proveedores_model->onComprobarProveedorXRFC($this->input->get('RFC')));
+            print json_encode($this->proveedores_model->onComprobarProveedorXRFC($this->input->get('ID'),$this->input->get('RFC')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

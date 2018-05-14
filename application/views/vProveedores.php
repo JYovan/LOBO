@@ -127,7 +127,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <label for="Pais">País</label>
-                        <input type="text" class="form-control form-control-sm"  maxlength="60"  id="Colonia" name="Colonia"  >
+                        <input type="text" class="form-control form-control-sm"  maxlength="60"  id="Pais" name="Pais"  >
                     </div>
                     <div class="col-sm">
                         <label for="CP">Código Postal</label>
@@ -268,7 +268,7 @@
                 if (valido) {
                     var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
                     if (!nuevo) {
-                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {ID: pnlDatos.find("#ID").val(), RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
                             var dtm = data[0];
                             if (parseFloat(dtm.EXISTE) <= 0) {
                                 $.ajax({
@@ -288,7 +288,7 @@
                                     HoldOn.close();
                                 });
                             } else {
-                                swal('ATENCIÓN', 'EL PROVEEDOR CON ESTE RFC, YA EXISTE', 'warning');
+                                swal('ATENCIÓN', 'YA EXISTE UN PROVEEDOR CON ESTE RFC', 'warning');
                                 onBeep(2);
                             }
                         }).fail(function (x, y, z) {
@@ -297,7 +297,7 @@
                             HoldOn.close();
                         });
                     } else {
-                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {ID: 0, RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
                             var dtm = data[0];
                             if (parseFloat(dtm.EXISTE) <= 0) {
                                 if (data[0])
@@ -321,7 +321,7 @@
                                         HoldOn.close();
                                     });
                             } else {
-                                swal('ATENCIÓN', 'EL PROVEEDOR CON ESTE RFC, YA EXISTE', 'warning');
+                                swal('ATENCIÓN', 'YA EXISTE UN PROVEEDOR CON ESTE RFC', 'warning');
                                 onBeep(2);
                             }
                         }).fail(function (x, y, z) {
