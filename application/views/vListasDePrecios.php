@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="Listas" class="table-responsive">
+            <div id="Listas" class="table-responsive table-sm">
                 <table id="tblListas" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
                     <thead>
                         <tr> 
@@ -21,14 +21,6 @@
                         </tr>
                     </thead>
                     <tbody></tbody>
-                    <tfoot>
-                        <tr> 
-                            <th>ID</th>
-                            <th>DESCRIPCIÓN</th> 
-                            <th>ESTILOS EN LA LISTA</th> 
-                            <th>ESTATUS</th>   
-                        </tr>
-                    </tfoot>
                 </table>
             </div> 
         </div>
@@ -86,7 +78,7 @@
                         <hr>
                     </div>
 
-                    <div id="Lista" class="table-responsive">
+                    <div id="Lista" class="table-responsive table-responsive-xl">
                         <table id="tblLista" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
                             <thead>
                                 <tr> 
@@ -99,16 +91,6 @@
                                 </tr>
                             </thead>
                             <tbody></tbody>
-                            <tfoot>
-                                <tr> 
-                                    <th>ID</th>
-                                    <th>ID_ESTILO</th>
-                                    <th>ESTILO</th>
-                                    <th>PRECIO</th>  
-                                    <th>ACCIONES</th> 
-                                    <th>ORDEN</th>  
-                                </tr>
-                            </tfoot>
                         </table>
                     </div> 
                 </div>
@@ -428,6 +410,7 @@
                     buttons: buttons,
                     "ajax": {
                         "url": master_url + 'getRecords',
+                        "dataType": "jsonp",
                         "dataSrc": ""
                     },
                     "columns": [

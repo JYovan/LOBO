@@ -6,6 +6,7 @@ class Clientes extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
         $this->load->model('clientes_model');  
     }
@@ -25,7 +26,7 @@ class Clientes extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->clientes_model->getRecords());
+            print $_GET['callback']. '(' . json_encode($this->clientes_model->getRecords()). ');'; /*JSONP*/
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -50,6 +51,14 @@ class Clientes extends CI_Controller {
     public function getClienteByID() {
         try {
             print json_encode($this->clientes_model->getClienteByID($this->input->get('ID')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    public function onComprobarClienteXRFC() {
+        try {
+            print json_encode($this->clientes_model->onComprobarClienteXRFC($this->input->get('ID'),$this->input->get('RFC')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -221,5 +230,4 @@ class Clientes extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }

@@ -26,7 +26,7 @@ class ListaDePrecios extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->listasdeprecios_model->getRecords());
+            print $_GET['callback'] . '(' . json_encode($this->listasdeprecios_model->getRecords()) . ');'; /* JSONP */
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -91,7 +91,7 @@ class ListaDePrecios extends CI_Controller {
             $data = array('Descripcion' => $this->input->post('Descripcion'),
                 'Estatus' => $this->input->post('Estatus'));
             $this->listasdeprecios_model->onModificar($this->input->post('ID'), $data);
-            
+
             /* NUEVOS */
             $lista = json_decode($this->input->post("Agregados"));
             foreach ($lista as $key => $v) {
@@ -103,7 +103,7 @@ class ListaDePrecios extends CI_Controller {
                 );
                 $this->listasdeprecios_model->onAgregarDetalle($data);
             }
-            
+
             /* ELIMINADOS */
             $removidos = json_decode($this->input->post("Removidos"));
             foreach ($removidos as $key => $v) {
@@ -113,5 +113,4 @@ class ListaDePrecios extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }
