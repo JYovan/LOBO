@@ -14,15 +14,15 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>CLAVE</th>
-                            <th>PROVEEDOR</th>
+                            <th>Clave</th>
+                            <th>Proveedor</th>
                             <th>RFC</th>
-                            <th>ESTATUS</th>
+                            <th>Estatus</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -40,8 +40,8 @@
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -206,7 +206,7 @@
         // The global jQuery object is passed as a parameter
         yc(window.jQuery, window, document);
     }(function ($, window, document) {
-        // The $ is now locally scoped 
+        // The $ is now locally scoped
         // Listen for the jQuery ready event on the document
         $(function () {
             // The DOM is ready!
@@ -464,7 +464,7 @@
 </script>
 <style>
     .swal-icon img {
-        width: 480px; 
+        width: 480px;
         height: 480px;
     }
 </style>

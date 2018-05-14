@@ -23,7 +23,7 @@
                     <h5>PEDIDO</h5>
                 </div>
                 <div class="col-md-6 float-right" align="right">
-                    <button type="button" onclick="" class="btn btn-info btn-sm" id="btnImprimirPedido"><span class="fa fa-barcode"></span> IMPRIMIR</button>
+                    <button type="button" onclick="" class="btn btn-info btn-sm" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
                     <button type="button" class="btn btn-danger btn-sm" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
                     <button type="button" class="btn btn-primary btn-sm" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
                 </div>

@@ -1,4 +1,4 @@
- 
+
 <div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
@@ -15,16 +15,16 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>CLAVE</th> 
-                            <th>NOMBRE</th> 
-                            <th>RFC</th> 
-                            <th>TELEFONO</th>  
-                            <th>ESTATUS</th>  
+                            <th>Clave</th>
+                            <th>Nombre</th>
+                            <th>RFC</th>
+                            <th>Teléfono</th>
+                            <th>Estatus</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -41,8 +41,8 @@
 
                     </div>
                     <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-default" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -215,7 +215,7 @@
         // The global jQuery object is passed as a parameter
         yc(window.jQuery, window, document);
     }(function ($, window, document) {
-        // The $ is now locally scoped 
+        // The $ is now locally scoped
         // Listen for the jQuery ready event on the document
         $(function () {
             // The DOM is ready!

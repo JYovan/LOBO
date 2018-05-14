@@ -13,16 +13,16 @@
             <div id="Listas" class="table-responsive table-sm">
                 <table id="tblListas" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
                     <thead>
-                        <tr> 
+                        <tr>
                             <th>ID</th>
-                            <th>DESCRIPCIÓN</th> 
-                            <th>ESTILOS EN LA LISTA</th> 
-                            <th>ESTATUS</th>  
+                            <th>Descripción</th>
+                            <th>Estilos</th>
+                            <th>Estatus</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -30,8 +30,8 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
-            <form id="frmNuevo"> 
+        <div class="card-body text-dark">
+            <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-2 float-left">
                         <legend class="float-left">Lista de precios</legend>
@@ -43,7 +43,7 @@
                         <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
                         <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
-                </div>  
+                </div>
                 <div class="row">
                     <div class="d-none">
                         <input type="text" class="form-control" id="ID" name="ID">
@@ -51,12 +51,12 @@
                     <div class="col-sm">
                         <label for="Descripcion">DESCRIPCIÓN*</label>
                         <input type="text" id="Descripcion" name="Descripcion" class="form-control form-control-sm" placeholder="NOMBRE DE LA LISTA..." required="">
-                    </div>  
+                    </div>
                     <div class="col-sm">
-                        <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-sm required" id="Estatus"  name="Estatus"> 
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
+                        <label for="Estatus">Estatus*</label>
+                        <select class="form-control form-control-sm required" id="Estatus"  name="Estatus">
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
                         </select>
                     </div>
                     <div class="col-12 text-center" align="center">
@@ -78,25 +78,25 @@
                         <hr>
                     </div>
 
-                    <div id="Lista" class="table-responsive table-responsive-xl">
-                        <table id="tblLista" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
+                    <div id="Lista" class="table-responsive">
+                        <table id="tblLista" class="table table-sm">
                             <thead>
-                                <tr> 
+                                <tr>
                                     <th>ID</th>
                                     <th>ID_ESTILO</th>
-                                    <th>ESTILO</th>
-                                    <th>PRECIO</th>  
-                                    <th>ACCIONES</th> 
-                                    <th>ORDEN</th>  
+                                    <th>Estilo</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                    <th>Orden</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
-                    </div> 
+                    </div>
                 </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 
 <!--Confirmacion-->
@@ -172,7 +172,7 @@
         // The global jQuery object is passed as a parameter
         yourcode(window.jQuery, window, document);
     }(function ($, window, document) {
-        // The $ is now locally scoped 
+        // The $ is now locally scoped
         // Listen for the jQuery ready event on the document
         $(function () {
             // The DOM is ready!
@@ -240,8 +240,8 @@
                             tblLista.row.add([0,
                                 Estilo.val(), Estilo.text(),
                                 "$" + $.number(Precio.val(), 2, '.', ','),
-                                '<button type="button" class="btn btn-outline-danger" onclick="onRemover(this)">\n\
-                                    <span class="fa fa-trash fa-2x"></span>\n\
+                                '<button type="button" class="btn btn-danger btn-sm" onclick="onRemover(this)">\n\
+                                    <span class="fa fa-trash"></span>\n\
                                 </button>', orden/*orden descendente*/
                             ]).draw(false);
                             agregados.push({
@@ -462,8 +462,8 @@
                             $.each(dtm, function (k, v) {
                                 tblLista.row.add([v.ID, v.ID_ESTILO, v.ESTILO,
                                     "$" + $.number(v.PRECIO, 2, '.', ','),
-                                    '<button type="button" class="btn btn-outline-danger" onclick="onRemover(this)">\n\
-                                        <span class="fa fa-trash fa-2x"></span>\n\
+                                    '<button type="button" class="btn btn-danger btn-sm" onclick="onRemover(this)">\n\
+                                        <span class="fa fa-trash"></span>\n\
                                 </button>', v.ID/*orden descendente*/
                                 ]).draw(false);
                             });
