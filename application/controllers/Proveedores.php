@@ -165,6 +165,21 @@ class Proveedores extends CI_Controller {
         try {
             $x = $this->input;
             $data = array(
+                'IdProveedor' => ($x->post('Clave') !== NULL) ? $x->post('Clave') : '',
+                'Status' => ($x->post('Estatus') !== NULL && $x->post('Estatus') === 'ACTIVO') ? 'A' : 'I',
+                'Nombre' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : '',
+                'Direccion' => ($x->post('Direccion') !== NULL) ? $x->post('Direccion') : '',
+                'Colonia' => ($x->post('Colonia') !== NULL) ? $x->post('Colonia') : '',
+                'Poblacion' => ($x->post('Ciudad') !== NULL) ? $x->post('Ciudad') : '',
+                'Pais' => ($x->post('Pais') !== NULL) ? $x->post('Pais') : '',
+                'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : '',
+                'CURP' => ($x->post('CURP') !== NULL) ? $x->post('CURP') : '',
+                'Telefono1' => ($x->post('Telefono') !== NULL) ? $x->post('Telefono') : '', 
+                'Fax' => ($x->post('Fax') !== NULL) ? $x->post('Fax') : '',
+                'CodigoPostal' => ($x->post('CP') !== NULL) ? $x->post('CP') : '',
+            );
+            $this->proveedores_model->onModificarMagnus($this->proveedores_model->getMagnusID($this->input->post('ID'))[0]->MAGNUS, $data);
+            $data = array(
                 'Clave' => $x->post('Clave'), 
                 'RazonSocial' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : '',
                 'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : '',
