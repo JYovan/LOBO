@@ -6,6 +6,7 @@ class Proveedores extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
         $this->load->model('proveedores_model'); 
     }
@@ -25,7 +26,7 @@ class Proveedores extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->proveedores_model->getRecords());
+            print $_GET['callback']. '(' . json_encode($this->proveedores_model->getRecords()). ');'; /*JSONP*/
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -34,6 +35,13 @@ class Proveedores extends CI_Controller {
     public function getRegimenesFiscales() {
         try {
             print json_encode($this->proveedores_model->getRegimenesFiscales());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    public function onComprobarProveedorXRFC() {
+        try {
+            print json_encode($this->proveedores_model->onComprobarProveedorXRFC($this->input->get('RFC')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -1,10 +1,10 @@
 <div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-6 float-left">
+            <div class="col-sm-8 float-left">
                 <legend class="float-left">Gestión de Proveedores</legend>
             </div>
-            <div class="col-sm-6 float-right" align="right">
+            <div class="col-sm-4 float-right" align="right">
                 <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="left" title="Agregar"><span class="fa fa-plus"></span><br></button>
             </div>
         </div>
@@ -14,14 +14,13 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>CLAVE</th> 
-                            <th>PROVEEDOR</th> 
-                            <th>RFC</th> 
-                            <th>ESTATUS</th>  
+                            <th>CLAVE</th>
+                            <th>PROVEEDOR</th>
+                            <th>RFC</th>
+                            <th>ESTATUS</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div> 
         </div>
@@ -201,7 +200,7 @@
     var Foto = pnlDatos.find("#Foto");
     var btnFoto = pnlDatos.find("#btnFoto");
     var VistaPrevia = pnlDatos.find("#VistaPrevia");
-    
+
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -238,7 +237,7 @@
                 }
                 HoldOn.close();
             });
-            
+
             btnFoto.on("click", function () {
                 Foto.trigger('click');
             });
@@ -255,6 +254,11 @@
                 pnlDatos.removeClass("d-none");
                 pnlTablero.addClass("d-none");
                 pnlDatos.find("#Clave").focus();
+                pnlDatos.find("input,textarea").val('');
+                $.each(pnlDatos.find("select"), function () {
+                    $(this)[0].selectize.clear(true);
+                });
+                pnlDatos.find("#VistaPrevia").html('');
                 onBeep(1);
             });
 
@@ -264,36 +268,62 @@
                 if (valido) {
                     var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
                     if (!nuevo) {
-                        $.ajax({
-                            url: master_url + 'onModificar',
-                            type: "POST",
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            data: frm
-                        }).done(function (data, x, jq) {
-                            onBeep(4);
-                            swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL PROVEEDOR', 'success');
-                            getRecords();
+                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                            var dtm = data[0];
+                            if (parseFloat(dtm.EXISTE) <= 0) {
+                                $.ajax({
+                                    url: master_url + 'onModificar',
+                                    type: "POST",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    data: frm
+                                }).done(function (data, x, jq) {
+                                    onBeep(4);
+                                    swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL PROVEEDOR', 'success');
+                                    getRecords();
+                                }).fail(function (x, y, z) {
+                                    console.log(x, y, z);
+                                }).always(function () {
+                                    HoldOn.close();
+                                });
+                            } else {
+                                swal('ATENCIÓN', 'EL PROVEEDOR CON ESTE RFC, YA EXISTE', 'warning');
+                                onBeep(2);
+                            }
                         }).fail(function (x, y, z) {
-                            console.log(x, y, z);
+                            console.log(x.responseText);
                         }).always(function () {
                             HoldOn.close();
                         });
                     } else {
-                        $.ajax({
-                            url: master_url + 'onAgregar',
-                            type: "POST",
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            data: frm
-                        }).done(function (data, x, jq) {
-                            onBeep(4);
-                            swal('ÉXITO', 'SE HA AGREGADO UN NUEVO PROVEEDOR', 'success');
-                            pnlDatos.find('#ID').val(data);
-                            nuevo = false;
-                            getRecords();
+                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                            var dtm = data[0];
+                            if (parseFloat(dtm.EXISTE) <= 0) {
+                                if (data[0])
+                                    $.ajax({
+                                        url: master_url + 'onAgregar',
+                                        type: "POST",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        data: frm
+                                    }).done(function (data, x, jq) {
+                                        onBeep(4);
+                                        swal('ÉXITO', 'SE HA AGREGADO UN NUEVO PROVEEDOR', 'success');
+                                        pnlDatos.find('#ID').val(data);
+                                        nuevo = false;
+                                        getRecords();
+                                        btnCancelar.trigger('click');
+                                    }).fail(function (x, y, z) {
+                                        console.log(x.responseText);
+                                    }).always(function () {
+                                        HoldOn.close();
+                                    });
+                            } else {
+                                swal('ATENCIÓN', 'EL PROVEEDOR CON ESTE RFC, YA EXISTE', 'warning');
+                                onBeep(2);
+                            }
                         }).fail(function (x, y, z) {
                             console.log(x.responseText);
                         }).always(function () {
@@ -321,6 +351,7 @@
                     buttons: buttons,
                     "ajax": {
                         "url": master_url + 'getRecords',
+                        "dataType": "jsonp",
                         "dataSrc": ""
                     },
                     "columns": [
@@ -411,10 +442,10 @@
             }
             HoldOn.close();
         }
- 
+
         function getRegimenesFiscales() {
             HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-            $.getJSON(master_url + 'getRegimenesFiscales').done(function (data, x, jq) { 
+            $.getJSON(master_url + 'getRegimenesFiscales').done(function (data, x, jq) {
                 $.each(data, function (k, v) {
                     pnlDatos.find("[name='RegimenFiscal']")[0].selectize.addOption({text: v.SValue, value: v.ID});
                 });

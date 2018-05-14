@@ -12,7 +12,7 @@ class proveedores_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("P.ID AS ID, P.Clave AS CLAVE, P.RazonSocial AS PROVEEDOR, P.RFC AS RFC, CASE WHEN P.Estatus= 'A' THEN CONCAT('<strong class=\"text-success\">','A','</span>') ELSE 'I' END  AS ESTATUS", false);
+            $this->db->select("P.ID AS ID, P.Clave AS CLAVE, P.RazonSocial AS PROVEEDOR, P.RFC AS RFC, CASE WHEN P.Estatus= 'ACTIVO' THEN CONCAT('<strong class=\"text-success\">','ACTIVO','</span>') ELSE 'INACTIVO' END  AS ESTATUS", false);
             $this->db->from('sz_Proveedores AS P');
             $this->db->where_in('P.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -26,7 +26,25 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
+    
+    public function onComprobarProveedorXRFC($RFC) {
+        try {
+            $this->db->select("COUNT(P.ID) AS EXISTE", false);
+            $this->db->from('sz_Proveedores AS P');
+            $this->db->where_in('P.RFC', $RFC);
+            $this->db->where_in('P.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
     public function getRegimenesFiscales() {
         try {
             $this->db->select('C.ID, CONVERT(varchar(10), C.IValue)+\'-\'+C.SValue+\'-\'+C.Valor_Text AS SValue', false);

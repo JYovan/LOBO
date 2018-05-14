@@ -172,5 +172,21 @@ class clientes_model extends CI_Model {
         }
     }
 
+    public function onComprobarProveedorXRFC($RFC) {
+        try {
+            $this->db->select("COUNT(C.ID) AS EXISTE", false);
+            $this->db->from('sz_Clientes AS C');
+            $this->db->where_in('C.RFC', $RFC);
+            $this->db->where_in('C.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }    
 }
-

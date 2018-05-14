@@ -1,3 +1,4 @@
+ 
 <div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
@@ -262,20 +263,32 @@
                 if (valido) {
                     var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
                     if (!nuevo) {
-                        $.ajax({
-                            url: master_url + 'onModificar',
-                            type: "POST",
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            data: frm
-                        }).done(function (data, x, jq) {
-                            console.log(data);
-                            onBeep(4);
-                            swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL CLIENTE', 'success');
-                            getRecords();
+                        $.getJSON(master_url + 'onComprobarProveedorXRFC', {RFC: pnlDatos.find("#RFC").val().replace(/\s+/g, '')}).done(function (data, x, jq) {
+                            var dtm = data[0];
+                            if (parseFloat(dtm.EXISTE) <= 0) {
+                                $.ajax({
+                                    url: master_url + 'onModificar',
+                                    type: "POST",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    data: frm
+                                }).done(function (data, x, jq) {
+                                    console.log(data);
+                                    onBeep(4);
+                                    swal('ÉXITO', 'SE HAN MODIFICADO LOS DATOS DEL CLIENTE', 'success');
+                                    getRecords();
+                                }).fail(function (x, y, z) {
+                                    console.log(x, y, z);
+                                }).always(function () {
+                                    HoldOn.close();
+                                });
+                            } else {
+                                swal('ATENCIÓN', 'EL PROVEEDOR CON ESTE RFC, YA EXISTE', 'warning');
+                                onBeep(2);
+                            }
                         }).fail(function (x, y, z) {
-                            console.log(x, y, z);
+                            console.log(x.responseText);
                         }).always(function () {
                             HoldOn.close();
                         });
@@ -306,7 +319,7 @@
                 }
             });
 
-            btnNuevo.click(function () {
+            btnNuevo.click(function () { 
                 pnlTablero.addClass("d-none");
                 pnlDatos.removeClass('d-none');
                 pnlDatos.find("input").val("");
@@ -348,6 +361,7 @@
                 buttons: buttons,
                 "ajax": {
                     "url": master_url + 'getRecords',
+                    "dataType": "jsonp",
                     "dataSrc": ""
                 },
                 "columns": [
@@ -466,4 +480,3 @@
         $('#Foto').val('N');
     }
 </script>
-
