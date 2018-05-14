@@ -157,8 +157,9 @@ class Pedidos extends CI_Controller {
                     'Recio' => $v->Recio,
                     'Precio' => $v->Precio,
                     'Estilo' => $v->Estilo,
+                    'Desc_Por' => $v->Desc_Por,
                     'Combinacion' => $v->Combinacion,
-                    // 'Observaciones' => $v->Observaciones,
+                    'Observaciones' => $v->Observaciones,
                     $v->Posicion => $v->Cantidad
                 );
                 $Existe = $this->pedidos_model->onComprobarEstiloXCombinacion($v->Pedido, $v->Estilo, $v->Combinacion);
@@ -183,6 +184,24 @@ class Pedidos extends CI_Controller {
                 'RecibidoX' => ($this->input->post('RecibidoX') !== NULL) ? $this->input->post('RecibidoX') : NULL,
             );
             $this->pedidos_model->onModificar($this->input->post('ID'), $data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onEliminar() {
+        try {
+            extract($this->input->post());
+            $this->pedidos_model->onEliminar($ID);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onEliminarDetalle() {
+        try {
+            extract($this->input->post());
+            $this->pedidos_model->onEliminarDetalle($ID);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

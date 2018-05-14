@@ -14,9 +14,9 @@ class pedidos_model extends CI_Model {
         try {
             $this->db->select("U.ID, ISNULL(U.Folio,'') AS Pedido ,"
                     . "(CASE WHEN  U.Estatus ='ACTIVO' "
-                    . "THEN CONCAT('<span class=''badge badge-info'' style=''font-size: 15px;'' >','ACTIVO','</span>') "
+                    . "THEN CONCAT('<span class=''badge badge-info'' style=''font-size: 15px;'' >','EN FIRME','</span>') "
                     . "WHEN  U.Estatus ='FINALIZADO' "
-                    . "THEN CONCAT('<span class=''badge badge-success'' style=''font-size: 15px;''>','FINALIZADO','</span>') "
+                    . "THEN CONCAT('<span class=''badge badge-success'' style=''font-size: 15px;''>','FACTURADO','</span>') "
                     . "END) AS Estatus ,"
                     . "C.Clave + '-'+C.RazonSocial AS 'Cliente' ,"
                     . "FORMAT(convert(date, U.FechaPedido, 103), 'dd/MM/yyyy')   as 'Fecha Pedido ', "
@@ -45,8 +45,8 @@ class pedidos_model extends CI_Model {
                     . 'U.Estilo AS IdEstilo, '
                     . 'U.Combinacion AS IdColor, '
                     . "E.Clave +'-'+C.Clave+'-'+C.Descripcion AS Estilo, "
-                    . "U.Sem AS Semana,"
-                    . "U.Maq AS Maquila,"
+                    . "U.Sem AS Sem,"
+                    . "U.Maq AS Maq,"
                     . "C1, "
                     . "C2, "
                     . "C3, "
@@ -70,11 +70,13 @@ class pedidos_model extends CI_Model {
                     . "C21, "
                     . "C22,"
                     . "(C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS Pares,"
-                    . "U.Precio,"
-                    . "U.FechaEntrega,"
+                    . "'$'+CONVERT(varchar, CAST(U.Precio AS money), 1) AS Precio , "
+                    . "'$'+CONVERT(varchar, CAST(U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS money), 1) AS Importe , "
+                    . "'$'+CONVERT(varchar, CAST(  (U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22)) * (ISNULL(Desc_Por,0)/100)  AS money), 1) AS 'Desc',"
+                    . "U.FechaEntrega AS Entrega,"
                     . "'<span class=''fa fa-trash-alt'' "
-                    . "onclick=''onEliminarRegistro('+      "
-                    . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS Eliminar "
+                    . "onclick=''onEliminarDetalle('+      "
+                    . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
                     . " ", false);
             $this->db->from('sz_PedidosDetalle AS U');
             $this->db->join('sz_Estilos AS E', 'U.Estilo = E.ID');

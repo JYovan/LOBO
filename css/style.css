@@ -155,11 +155,22 @@ table thead tr{
 }
 
 .table>tbody>tr>td.success,
+.table>tfoot>tr>td.success,
 .table>tbody>tr>th.success,
+.table>tfoot>tr>th.success,
 .table>tbody>tr.success>td,
-.table>tbody>tr.success>th {
-    background-color: #eee;
-    color: #000;
+.table>tfoot>tr.success>td,
+.table>tbody>tr.success>th,
+.table>tfoot>tr.success>th {
+    background-color: #2C3E50 ;
+    color: #fff;
+}
+
+.table>tbody>tr>td.red,
+.table>tbody>tr.red>td{
+    background-color: #fff;
+    color: #E74C3C;
+    font-weight: bold;
 }
 
 .table>tbody>tr>td.exists,

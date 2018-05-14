@@ -103,9 +103,13 @@
                         </div>
                         <div class="col-sm-2 col-12">
                             <label for="FechaMov">Fec Entrega*</label>
-                            <input type="text" class="form-control form-control-sm required notEnter" id="FechaEntrega" name="FechaEntrega" >
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-sm required notEnter" id="FechaEntrega" name="FechaEntrega" >
+                                <div class="input-group-prepend">
+                                    <span onclick="onGuardarObservaciones()" class="input-group-text text-dark" data-toggle="tooltip" data-placement="top" title="Observaciones"><i class="fa fa-comment-alt"></i></span>
+                                </div>
+                            </div>
                         </div>
-
                         <div class="col-sm-1">
                             <label for="Maquila">Maq</label>
                             <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Maquila" >
@@ -126,8 +130,6 @@
                             <label for="Precio">Precio</label>
                             <input type="text" class="form-control form-control-sm numbersOnly" maxlength="9" name="Precio" >
                         </div>
-
-
                     </div>
                     <!--TALLAS-->
                     <div class="row">
@@ -190,8 +192,6 @@
                             </table>
                         </div>
                     </div>
-
-
                 </div>
                 <br>
                 <!--REGISTROS DETALLE-->
@@ -232,7 +232,6 @@
                     </div>
                     <!--FIN DETALLE-->
                 </div>
-
             </div>
         </div>
     </div>
@@ -252,12 +251,13 @@
     /*DATATABLE GLOBAL*/
     var tblInicial = {
         "dom": 'frt',
-        "autoWidth": true,
+        "autoWidth": false,
         "displayLength": 500,
         "colReorder": true,
         "bLengthChange": false,
         "deferRender": true,
         "scrollY": 220,
+        "scrollX": true,
         "scrollCollapse": true,
         "bSort": true,
         "aaSorting": [
@@ -268,7 +268,6 @@
         }
     };
     $(document).ready(function () {
-
         //Mascaras fechas
         pnlDatos.find("#FechaPedido").inputmask({alias: "date"});
         pnlDatos.find("#FechaRec").inputmask({alias: "date"});
@@ -387,12 +386,7 @@
                                 ID: temp
                             }
                         }).done(function (data, x, jq) {
-                            if (data === '1') {
-                                swal("Hecho", "El registro se ha eliminado!", 'success')
-                                getRecords();
-                            } else {
-                                swal("Error al borrar registro!", "El movimiento ya afectó el inventario", "info");
-                            }
+                            getRecords();
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -410,9 +404,24 @@
         getAgentes();
         handleEnter();
     });
-
     var cellEstilo = 0;
     var tblDetalleCaptura;
+    var observaciones = '';
+
+    function onGuardarObservaciones() {
+        swal({
+            text: 'Observaciones',
+            content: "input",
+            button: {
+                text: "Aceptar",
+                closeModal: true
+            }
+        }).then((Observaciones) => {
+            observaciones = Observaciones.toUpperCase();
+            pnlDatosDetalle.find("[name='Precio']").focus();
+        });
+    }
+
     function getDetalleByID(IDX) {
         $.ajax({
             url: master_url + 'getDetalleByID',
@@ -427,9 +436,9 @@
                 $('#tblRegistrosDetalle tfoot th').each(function () {
                     $(this).addClass("d-none");
                 });
-                $('#tblRegistrosDetalle thead th').each(function () {
-                    $(this).addClass("d-none");
-                });
+//                $('#tblRegistrosDetalle thead th').each(function () {
+//                    $(this).addClass("d-none");
+//                });
                 var thead = $('#tblRegistrosDetalle thead th');
                 var tfoot = $('#tblRegistrosDetalle tfoot th');
                 thead.eq(0).addClass("d-none");
@@ -438,21 +447,21 @@
                 tfoot.eq(1).addClass("d-none");
                 thead.eq(2).addClass("d-none");
                 tfoot.eq(2).addClass("d-none");
-
                 $.each($('#tblRegistrosDetalle tbody tr'), function (k, v) {
                     var td = $(v).find("td");
                     td.eq(0).addClass("d-none");
                     td.eq(1).addClass("d-none");
                     td.eq(2).addClass("d-none");
                 });
-
-                $.each($('#tblRegistrosDetalle tbody tr td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(29)):not(:nth-child(30)):not(:nth-child(31))'), function (k, v) {
+                $.each($('#tblRegistrosDetalle tbody tr td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(29)):not(:nth-child(30)):not(:nth-child(31)):not(:nth-child(32)):not(:nth-child(33))'), function (k, v) {
                     if (parseFloat($(this).text()) === 0) {
                         $(this).text('-');
-
                     } else if (parseFloat($(this).text()) > 0) {
                         $(this).addClass('exists');
                     }
+                });
+                $.each($('#tblRegistrosDetalle tbody tr td:nth-child(32)'), function (k, v) {
+                    $(this).addClass('red');
                 });
                 tblDetalleCaptura = pnlDatosDetalle.find("#tblRegistrosDetalle").DataTable(tblInicial);
                 //Sombreado de la fila
@@ -462,19 +471,18 @@
                         $(this).removeClass("d-none");
                     });
                     var thead = $('#tblRegistrosDetalle thead th');
-                    thead.eq(3).text('Estilo');
-                    thead.eq(4).text('Sem');
-                    thead.eq(5).text('Maq');
-                    thead.eq(28).text('Pares');
-                    thead.eq(29).text('Precio');
-                    thead.eq(30).text('Fecha Entrega');
-
+                    thead.eq(3).text('');
+                    thead.eq(4).text('');
+                    thead.eq(5).text('Serie');
+                    thead.eq(28).text('');
+                    thead.eq(29).text('');
+                    thead.eq(30).text('');
+                    thead.eq(31).text('');
+                    thead.eq(32).text('');
                     $("#tblRegistrosDetalle tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var cells = $(this).find("td");
                     cellEstilo = cells.eq(1).text();
-
-
                     $.ajax({
                         url: master_url + 'getEncabezadoSerieXEstilo',
                         type: "POST",
@@ -497,11 +505,9 @@
                     }).always(function () {
                         HoldOn.close();
                     });
-
                 });
                 $("[name='Estilo']").focus();
                 onCalcularMontos();
-
             } else {
                 pnlDatosDetalle.find("#RegistrosDetalle").html("");
             }
@@ -510,36 +516,6 @@
             console.log(x, y, z);
         }).always(function () {
 
-        });
-    }
-
-    function getEncabezadoSerieXEstilo(Estilo) {
-
-        $.ajax({
-            url: master_url + 'getEncabezadoSerieXEstilo',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                Estilo: Estilo
-            }
-        }).done(function (data, x, jq) {
-            $('#tblRegistrosDetalle thead th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3))').each(function () {
-                $(this).removeClass("d-none");
-            });
-            var thead = $('#tblRegistrosDetalle thead th');
-            thead.eq(3).text('Estilo');
-            var cont = 4;
-            $.each(data[0], function (k, v) {
-                if (parseInt(v) <= 0) {
-                    thead.eq(cont).text('');
-                } else {
-                    thead.eq(cont).text(v);
-                }
-                cont++;
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
         });
     }
 
@@ -575,6 +551,7 @@
                     $(this).addClass("success");
                     var dtm = tblSelected.row(this).data();
                     temp = parseInt(dtm[0]);
+                    idMov = parseInt(dtm[0]);
                 });
                 $('#tblPedidos tbody').on('dblclick', 'tr', function () {
                     $("#tblPedidos tbody tr").removeClass("success");
@@ -613,11 +590,12 @@
                             });
                             //Cargar Detalle
                             getDetalleByID(temp);
-
                             /*MOSTRAR PANEL PRINCIPAL*/
                             pnlTablero.addClass("d-none");
                             pnlDatos.removeClass('d-none');
                             pnlDatosDetalle.removeClass("d-none");
+                            pnlDatosDetalle.find("[name='Estilo']")[0].selectize.focus();
+                            pnlDatos.find("[name='Folio']").prop('disabled', 'disabled');
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -659,32 +637,70 @@
                 if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
                     var ext = getExt(dtm.Foto);
                     if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
-                        swal({
+                        $.notify({
+                            // options
                             icon: base_url + dtm.Foto
-                        }).then((result) => {
-                            $("[name='Combinacion']")[0].selectize.focus();
-                            $("[name='Combinacion']")[0].selectize.open();
+                        }, {
+                            // settings
+                            placement: {
+                                from: "bottom",
+                                align: "left"
+                            },
+                            animate: {
+                                enter: 'animated fadeInLeft',
+                                exit: 'animated fadeOutDown'
+                            },
+                            icon_type: 'img',
+                            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                    '<img  data-notify="icon" class="col-12 img-circle pull-left">' +
+                                    '</div>'
                         });
                     }
                     if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
-                        swal({
+                        $.notify({
+                            // options
                             icon: base_url + dtm.Foto
-                        }).then((result) => {
-                            $("[name='Combinacion']")[0].selectize.focus();
-                            $("[name='Combinacion']")[0].selectize.open();
+                        }, {
+                            // settings
+                            placement: {
+                                from: "bottom",
+                                align: "left"
+                            },
+                            animate: {
+                                enter: 'animated fadeInLeft',
+                                exit: 'animated fadeOutDown'
+                            },
+                            icon_type: 'img',
+                            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                    '<img  data-notify="icon" class="col-12 img-circle pull-left">' +
+                                    '</div>'
                         });
                     }
                 } else {
-                    swal({
+                    $.notify({
+                        // options
                         icon: base_url + dtm.Foto
-                    }).then((result) => {
-                        $("[name='Combinacion']")[0].selectize.focus();
-                        $("[name='Combinacion']")[0].selectize.open();
+                    }, {
+                        // settings
+                        placement: {
+                            from: "bottom",
+                            align: "left"
+                        },
+                        animate: {
+                            enter: 'animated fadeInLeft',
+                            exit: 'animated fadeOutDown'
+                        },
+                        icon_type: 'img',
+                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                '<img  data-notify="icon" class="col-12 img-circle pull-left">' +
+                                '</div>'
                     });
                 }
                 //pnlControlesDetalle.find("[name='Precio']").val(dEstilo.PrecioLista);
                 $.each(data[0], function (k, v) {
-
                     var Cant = k.replace('T', 'Ex');
                     if (parseInt(v) <= 0) {
                         pnlDatosDetalle.find("[name='" + k + "']").val('');
@@ -829,11 +845,11 @@
                                     Sem: Semana.val(),
                                     Recio: Recio.val(),
                                     Precio: Precio.val(),
-                                    Descuento: Desc.val()
+                                    Desc_Por: Desc.val(),
+                                    Observaciones: observaciones
                                 };
                                 detalle.push(registros);
                                 frm.append('Detalle', JSON.stringify(detalle));
-
                                 $.ajax({
                                     url: master_url + 'onAgregarDetalle',
                                     type: "POST",
@@ -848,12 +864,12 @@
                                     $("[name='Combinacion']")[0].selectize.clear(true);
                                     $("[name='Combinacion']")[0].selectize.clearOptions();
                                     HoldOn.close();
+                                    observaciones = "";
                                 }).fail(function (x, y, z) {
                                     console.log(x, y, z);
                                 }).always(function () {
                                     HoldOn.close();
                                 });
-
                             }
                         }
                     });
@@ -869,21 +885,45 @@
     function onCalcularMontos() {
         var pares = 0;
         var total = 0.0;
+        var desc = 0.0;
         $.each(tblDetalleCaptura.rows().data(), function () {
             pares += parseInt($(this)[28]);
-            //total += getNumberFloat($(this)[7]);
+            total += getNumberFloat($(this)[30]);
+            desc += getNumberFloat($(this)[31]);
         });
         if (pnlDatosDetalle.find("#tblRegistrosDetalle > tbody > tr").length > 1) {
             pnlDatosDetalle.find("#Pares").find("strong").text(pares);
-            //pnlDatosDetalle.find("#SubTotal").find("strong").text('$' + $.number(total, 2, '.', ','));
+            pnlDatosDetalle.find("#Importe").find("strong").text('$' + $.number(total - desc, 2, '.', ','));
         }
-//        if (parseInt(pnlDatos.find("input[name='TipoDoc']").val()) === 1) {
-//            pnlDatosDetalle.find("#IVA").find("strong").text('$' + $.number(total * 0.16, 2, '.', ','));
-//            pnlDatosDetalle.find("#Total").find("strong").text('$' + $.number(total * 1.16, 2, '.', ','));
-//        } else {
-//            pnlDatosDetalle.find("#IVA").find("strong").text('$' + $.number(0, 2, '.', ','));
-//            pnlDatosDetalle.find("#Total").find("strong").text('$' + $.number(total, 2, '.', ','));
-//        }
+    }
+
+    function onEliminarDetalle(IDX) {
+        if (IDX !== 0 && IDX !== undefined && IDX > 0) {
+            swal({
+                title: "Confirmar",
+                text: "Deseas eliminar el registro?",
+                icon: "warning",
+                buttons: ["Cancelar", "Aceptar"],
+                dangerMode: true
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: master_url + 'onEliminarDetalle',
+                        type: "POST",
+                        data: {
+                            ID: IDX
+                        }
+                    }).done(function (data, x, jq) {
+                        getDetalleByID(idMov);
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                    });
+                }
+            });
+        } else {
+            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+        }
     }
 
 </script>
