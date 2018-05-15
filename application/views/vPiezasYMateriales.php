@@ -176,6 +176,7 @@
         "deferRender": true,
         "scrollY": 220,
         "scrollCollapse": true,
+        keys: true,
         "bSort": true,
         "aaSorting": [
             [8, 'desc']/*ORDER*/

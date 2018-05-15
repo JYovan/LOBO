@@ -383,6 +383,7 @@
                 "deferRender": true,
                 "scrollCollapse": false,
                 "bSort": true,
+                keys: true,
                 "aaSorting": [
                     [0, 'desc']/*ID*/
                 ]

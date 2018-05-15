@@ -47,6 +47,42 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function getClaveFKXID($ID) {
+        try {
+            $this->db->select('P.IdProducto AS IDP', false);
+            $this->db->from('Productos AS P');
+            $this->db->where('P.Id', $ID);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    public function getClaveXEstilo($ID) {
+        try {
+            $this->db->select('E.Clave As Clave', false);
+            $this->db->from('sz_Estilos AS E');
+            $this->db->where('E.ID', $ID);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function getCombinacionesXEstilo($Estilo) {
         try {
@@ -100,6 +136,29 @@ class combinaciones_model extends CI_Model {
         }
     }
 
+    public function onAgregarAlmacenMagnus($array) {
+        try {
+            $this->db->insert("Almacenproductos", $array);
+            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS ID');
+            $row = $query->row_array();
+//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            return $row['ID'];
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    public function onAgregarMagnus($array) {
+        try {
+            $this->db->insert("Productos", $array);
+            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS ID');
+            $row = $query->row_array();
+//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            return $row['ID'];
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
@@ -139,5 +198,4 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
 }

@@ -9,8 +9,19 @@
                 <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
             </div>
         </div>
-        <div class="card-block">
-            <div class="table-responsive" id="tblRegistros"></div>
+        <div class="card-block">           
+            <div id="Materiales" class="table-responsive">
+                <table id="tblMateriales" class="table table-sm display " style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Material</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -195,8 +206,8 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
-nuevo=false;
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -265,52 +276,63 @@ nuevo=false;
         getUnidades();
         handleEnter();
     });
-
+    var tblMaterialesX = $("#tblMateriales"), Materiales;
     function getRecords() {
-        temp = 0;
         HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
+            theme: 'sk-cube',
+            message: 'CARGANDO...'
         });
-        $.ajax({
-            url: master_url + 'getRecords',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            console.log(data);
-            $("#tblRegistros").html(getTable('tblMateriales', data));
+        $.fn.dataTable.ext.errMode = 'throw';
+        if ($.fn.DataTable.isDataTable('#tblMateriales')) {
+            tblMaterialesX.DataTable().destroy();
+            Materiales = tblMaterialesX.DataTable({
+                "dom": 'Bfrtip',
+                buttons: buttons,
+                "ajax": {
+                    "url": master_url + 'getRecords',
+                    "dataType": "jsonp",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    {"data": "ID"},
+                    {"data": "Material"},
+                    {"data": "Descripcion"}
+                ],
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                language: lang,
+                "autoWidth": true,
+                "colReorder": true,
+                "displayLength": 20,
+                "bLengthChange": false,
+                "deferRender": true,
+                "scrollCollapse": false,
+                keys: true,
+                "bSort": true,
+                "aaSorting": [
+                    [0, 'desc']/*ID*/
+                ]
+            });
 
-            $('#tblMateriales tfoot th').each(function () {
-                $(this).html('');
-            });
-            var thead = $('#tblMateriales thead th');
-            var tfoot = $('#tblMateriales tfoot th');
-            thead.eq(0).addClass("d-none");
-            tfoot.eq(0).addClass("d-none");
-            $.each($.find('#tblMateriales tbody tr'), function (k, v) {
-                var td = $(v).find("td");
-                td.eq(0).addClass("d-none");
-            });
-            var tblSelected = $('#tblMateriales').DataTable(tableOptions);
-            $('#tblMateriales_filter input[type=search]').focus();
-            $('#tblMateriales tbody').on('click', 'tr', function () {
-                $("#tblMateriales tbody tr").removeClass("success");
+            tblMaterialesX.find('tbody').on('click', 'tr', function () {
+                tblMaterialesX.find("tbody tr").removeClass("success");
                 $(this).addClass("success");
-                var dtm = tblSelected.row(this).data();
-                temp = parseInt(dtm[0]);
+                var dtm = Materiales.row(this).data();
+                temp = parseInt(dtm.ID);
             });
 
-            $('#tblMateriales tbody').on('dblclick', 'tr', function () {
-                $("#tblMateriales tbody tr").removeClass("success");
+            tblMaterialesX.find('tbody').on('dblclick', 'tr', function () {
+                nuevo = false;
+                tblMaterialesX.find("tbody tr").removeClass("success");
                 $(this).addClass("success");
-                var id = this.id;
-                var index = $.inArray(id, selected);
-                if (index === -1) {
-                    selected.push(id);
-                } else {
-                    selected.splice(index, 1);
-                }
-                var dtm = tblSelected.row(this).data();
+                var dtm = Materiales.row(this).data();
+                temp = parseInt(dtm.ID);
+                pnlDatos.removeClass("d-none");
+                pnlTablero.addClass("d-none");
                 if (temp !== 0 && temp !== undefined && temp > 0) {
                     nuevo = false;
                     HoldOn.open({
@@ -347,21 +369,12 @@ nuevo=false;
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
                 }
             });
-            // Apply the search
-            tblSelected.columns().every(function () {
-                var that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
+        }
+        HoldOn.close();
     }
+
+
+
     function getDepartamentos() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({

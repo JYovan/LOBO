@@ -26,12 +26,8 @@ class Materiales extends CI_Controller {
     }
 
     public function getRecords() {
-        try {
-            extract($this->input->post());
-
-
-            $data = $this->materiales_model->getRecords();
-            print json_encode($data);
+        try { 
+           print $_GET['callback'] . '(' . json_encode($this->materiales_model->getRecords()) . ');'; /* JSONP */
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
