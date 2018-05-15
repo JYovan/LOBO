@@ -13,6 +13,7 @@ class Pedidos extends CI_Controller {
         $this->load->model('clientes_model');
         $this->load->model('combinaciones_model');
         $this->load->model('generales_model');
+        $this->load->model('listasdeprecios_model');
     }
 
     public function index() {
@@ -33,6 +34,14 @@ class Pedidos extends CI_Controller {
             extract($this->input->post());
             $data = $this->estilos_model->getEncabezadoSerieXEstilo($Estilo);
             print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getPrecioListaByEstiloByCliente() {
+        try {
+            print json_encode($this->listasdeprecios_model->getPrecioListaByEstiloByCliente($this->input->post('Estilo'), $this->input->post('Cliente')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

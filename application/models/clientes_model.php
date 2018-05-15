@@ -62,6 +62,23 @@ class clientes_model extends CI_Model {
         }
     }
 
+    public function getListaPrecioByCliente($ID) {
+        try {
+            $this->db->select("C.ListaDePrecios AS Lista", false);
+            $this->db->from('sz_Clientes AS C');
+            $this->db->where('C.ID', $ID);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getRegimenesFiscales() {
         try {
             $this->db->select('U.ID, CONVERT(varchar(10), U.IValue)+\'-\'+U.SValue+\'-\'+U.Valor_Text AS SValue', false);
@@ -179,7 +196,7 @@ class clientes_model extends CI_Model {
             $this->db->from('sz_Clientes AS C');
             $this->db->where_in('C.RFC', $RFC);
             if ($ID > 0) {
-                $this->db->where('C.ID <> '.$ID, null,false);
+                $this->db->where('C.ID <> ' . $ID, null, false);
             }
             $this->db->where_in('C.Estatus', 'ACTIVO');
             $query = $this->db->get();
@@ -193,4 +210,5 @@ class clientes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
 }

@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-sm">
                         <label for="Clave">Clave*</label>
-                        <input type="text" class="form-control form-control-sm numbersOnly " id="Clave" name="Clave" required >
+                        <input type="text" class="form-control form-control-sm numbersOnly disabledForms" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
                         <label for="Descripcion">Descripción*</label>
@@ -73,7 +73,31 @@
     var btnGuardar = pnlDatos.find("#btnGuardar");
     var btnCancelar = pnlDatos.find("#btnCancelar");
     var nuevo = true;
+
+    function getUltimaClave(Estilo) {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getUltimaClave',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                Estilo: Estilo
+            }
+        }).done(function (data, x, jq) {
+            pnlDatos.find("[name='Clave']").val(data);
+            pnlDatos.find("[name='Descripcion']").focus();
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
     $(document).ready(function () {
+        pnlDatos.find("[name='Estilo']").change(function () {
+            getUltimaClave($(this).val());
+        });
+
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {

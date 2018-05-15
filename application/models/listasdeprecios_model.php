@@ -30,6 +30,26 @@ class listasdeprecios_model extends CI_Model {
         }
     }
 
+    public function getPrecioListaByEstiloByCliente($Estilo, $Cliente) {
+        try {
+            $this->db->select("LDPD.Precio", false);
+            $this->db->from('sz_ListaDePreciosDetalle AS LDPD');
+            $this->db->join('sz_ListaDePrecios AS LDP', 'LDP.ID = LDPD.Lista');
+            $this->db->join('sz_Clientes AS CT', 'CT.ListaDePrecios = LDP.ID');
+            $this->db->where('LDPD.Estilo', $Estilo);
+            $this->db->where('CT.ID', $Cliente);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getListaByID($ID) {
         try {
             $this->db->select("LDP.ID AS IDE, LDP.Descripcion AS \"DESCRIPCIÓN\", LDP.Estatus AS ESTATUS", false);

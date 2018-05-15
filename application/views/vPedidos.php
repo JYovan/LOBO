@@ -23,6 +23,7 @@
                     <h5>PEDIDO</h5>
                 </div>
                 <div class="col-md-6 float-right" align="right">
+                    <button type="button" onclick="" class="btn btn-success btn-sm" id="btnExportarPedido"><span class="fa fa-upload"></span> EXPORTAR</button>
                     <button type="button" onclick="" class="btn btn-info btn-sm" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
                     <button type="button" class="btn btn-danger btn-sm" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
                     <button type="button" class="btn btn-primary btn-sm" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
@@ -292,15 +293,12 @@
             $("[name='Combinacion']")[0].selectize.clearOptions();
             getCombinacionesXEstilo($(this).val());
             getSerieXEstilo($(this).val());
+            getPrecioListaByEstiloByCliente($(this).val(), pnlDatos.find("#Cliente").val());
         });
         //Evento botones
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {
-                HoldOn.open({
-                    theme: "sk-bounce",
-                    message: "GUARDANDO DATOS..."
-                });
                 var f = new FormData(pnlDatos.find("#frmNuevo")[0]);
                 if (!nuevo) {
                     $.ajax({
@@ -317,7 +315,6 @@
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
-                        HoldOn.close();
                     });
                 } else {
                     $.ajax({
@@ -337,7 +334,6 @@
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
-                        HoldOn.close();
                     });
                 }
             } else {
@@ -418,7 +414,7 @@
             }
         }).then((Observaciones) => {
             observaciones = Observaciones.toUpperCase();
-            pnlDatosDetalle.find("[name='Precio']").focus();
+            pnlDatosDetalle.find("[name='Maquila']").focus();
         });
     }
 
@@ -623,7 +619,6 @@
     }
 
     function getSerieXEstilo(Estilo) {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
             url: master_url + 'getSerieXEstilo',
             type: "POST",
@@ -717,12 +712,28 @@
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
+        });
+    }
+
+    function getPrecioListaByEstiloByCliente(Estilo, Cliente) {
+        $.ajax({
+            url: master_url + 'getPrecioListaByEstiloByCliente',
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                Estilo: Estilo,
+                Cliente: Cliente
+            }
+        }).done(function (data, x, jq) {
+            pnlDatosDetalle.find("[name='Precio']").val(data[0].Precio);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
             HoldOn.close();
         });
     }
 
     function getCombinacionesXEstilo(Estilo) {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
             url: master_url + 'getCombinacionesXEstilo',
             type: "POST",
@@ -863,12 +874,10 @@
                                     $("[name='Estilo']")[0].selectize.clear(true);
                                     $("[name='Combinacion']")[0].selectize.clear(true);
                                     $("[name='Combinacion']")[0].selectize.clearOptions();
-                                    HoldOn.close();
                                     observaciones = "";
                                 }).fail(function (x, y, z) {
                                     console.log(x, y, z);
                                 }).always(function () {
-                                    HoldOn.close();
                                 });
                             }
                         }

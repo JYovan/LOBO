@@ -25,6 +25,22 @@ class Combinaciones extends CI_Controller {
         }
     }
 
+    public function getUltimaClave() {
+        try {
+            $Datos = $this->combinaciones_model->getUltimaClave($this->input->post('Estilo'));
+            $Clave = $Datos[0]->Clave;
+            if (empty($Clave)) {
+                $Clave = 1;
+            } else {
+                $Clave = $Clave + 1;
+            }
+
+            print $Clave;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getRecords() {
         try {
             extract($this->input->post());

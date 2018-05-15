@@ -10,8 +10,8 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="Listas" class="table-responsive table-sm">
-                <table id="tblListas" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
+            <div id="Listas" class="table-responsive">
+                <table id="tblListas" class="table table-sm display " style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -48,20 +48,16 @@
                     <div class="d-none">
                         <input type="text" class="form-control" id="ID" name="ID">
                     </div>
-                    <div class="col-sm">
-                        <label for="Descripcion">DESCRIPCIÓN*</label>
+                    <div class="col-sm-6">
+                        <label for="Descripcion">Descripción*</label>
                         <input type="text" id="Descripcion" name="Descripcion" class="form-control form-control-sm" placeholder="NOMBRE DE LA LISTA..." required="">
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-6">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-sm required" id="Estatus"  name="Estatus">
                             <option value="ACTIVO">ACTIVO</option>
                             <option value="INACTIVO">INACTIVO</option>
                         </select>
-                    </div>
-                    <div class="col-12 text-center" align="center">
-                        <hr>
-                        <legend class="float-left">Detalle</legend>
                     </div>
                     <div class="col-6">
                         <label for="">*Estilo</label>
@@ -72,7 +68,7 @@
                         <input type="text" id="Precio" name="Precio" class="form-control form-control-sm" placeholder="0.0">
                     </div>
                     <div class="col-1"><br>
-                        <button type="button" class="btn btn-primary" id="btnAgregar"><span class="fa fa-plus"></span><br></button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnAgregar"><span class="fa fa-plus"></span><br></button>
                     </div>
                     <div class="col-12">
                         <hr>
@@ -240,9 +236,8 @@
                             tblLista.row.add([0,
                                 Estilo.val(), Estilo.text(),
                                 "$" + $.number(Precio.val(), 2, '.', ','),
-                                '<button type="button" class="btn btn-danger btn-sm" onclick="onRemover(this)">\n\
-                                    <span class="fa fa-trash"></span>\n\
-                                </button>', orden/*orden descendente*/
+                                '<span class="fa fa-trash" onclick="onRemover(this)"></span>',
+                                orden/*orden descendente*/
                             ]).draw(false);
                             agregados.push({
                                 Estilo: Estilo.val(),
@@ -462,9 +457,8 @@
                             $.each(dtm, function (k, v) {
                                 tblLista.row.add([v.ID, v.ID_ESTILO, v.ESTILO,
                                     "$" + $.number(v.PRECIO, 2, '.', ','),
-                                    '<button type="button" class="btn btn-danger btn-sm" onclick="onRemover(this)">\n\
-                                        <span class="fa fa-trash"></span>\n\
-                                </button>', v.ID/*orden descendente*/
+                                    '<span class="fa fa-trash" onclick="onRemover(this)"></span>',
+                                    v.ID/*orden descendente*/
                                 ]).draw(false);
                             });
                         }).fail(function (x, y, z) {

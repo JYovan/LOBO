@@ -30,6 +30,24 @@ class combinaciones_model extends CI_Model {
         }
     }
 
+    public function getUltimaClave($Estilo) {
+        try {
+            $this->db->select('MAX(U.Clave) As Clave ', false);
+            $this->db->from('sz_Combinaciones AS U');
+            $this->db->where('U.Estilo', $Estilo);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getCombinacionesXEstilo($Estilo) {
         try {
             $this->db->select("U.ID, U.Clave+'-'+ U.Descripcion AS Descripcion ", false);
