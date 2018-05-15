@@ -204,4 +204,46 @@ class pedidos_model extends CI_Model {
         }
     }
 
+    public function getPedidoEncabezadoDetalleByID($ID) {
+        try {
+            $this->db->select('U.*', false);
+            $this->db->from('sz_Pedidos AS U');
+            $this->db->where('U.ID', $ID);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onAgregarPedidoMagnus($array) {
+        try {
+            $this->db->insert("DocPpoEncabezadoVentas", $array);
+            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
+            $row = $query->row_array();
+//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            return $row['IDL'];
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onAgregarDetallePedidoMagnus($array) {
+        try {
+            $this->db->insert("DocPpoPartidasVentas", $array);
+            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
+            $row = $query->row_array();
+//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
+            return $row['IDL'];
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
 }

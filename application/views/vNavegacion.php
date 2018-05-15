@@ -45,6 +45,7 @@
                     <li><a class="dropdown-item" href="<?php print base_url('Proveedores') ?>">Proveedores</a></li>
                     <li><a class="dropdown-item" href="#">Almacenes</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Vendedores') ?>">Vendedores</a></li>
                     <div class="dropdown-divider" ></div>
                     <li><a class="dropdown-item" href="<?php print base_url('Lineas') ?>">Lineas</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Estilos') ?>">Estilos</a></li>
@@ -89,7 +90,7 @@
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Trasnportes</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=RUTAS') ?>">Rutas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=ZONAS') ?>">Zonas</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=AGENTES') ?>">Agentes</a></li>
+<!--                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=AGENTES') ?>">Agentes</a></li>-->
                             <div class="dropdown-divider" href="#"></div>
 
                             <li class="nav-item dropdown dropdown-submenu">

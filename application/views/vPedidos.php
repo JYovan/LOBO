@@ -796,7 +796,7 @@
         }).done(function (data, x, jq) {
             console.log(data);
             $.each(data, function (k, v) {
-                pnlDatos.find("[name='Agente']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+                pnlDatos.find("[name='Agente']")[0].selectize.addOption({text: v.Nombre, value: v.IdVendedor});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);

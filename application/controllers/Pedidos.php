@@ -14,6 +14,7 @@ class Pedidos extends CI_Controller {
         $this->load->model('combinaciones_model');
         $this->load->model('generales_model');
         $this->load->model('listasdeprecios_model');
+        $this->load->model('vendedores_model');
     }
 
     public function index() {
@@ -26,6 +27,27 @@ class Pedidos extends CI_Controller {
             $this->load->view('vEncabezado');
             $this->load->view('vSesion');
             $this->load->view('vFooter');
+        }
+    }
+
+    public function onAgregarPedidoMagnus() {
+        try {
+
+            $data = array(
+                'Cliente' => ($this->input->post('Cliente') !== NULL) ? $this->input->post('Cliente') : NULL,
+                'Agente' => ($this->input->post('Agente') !== NULL) ? $this->input->post('Agente') : NULL,
+                'Registro' => Date('d/m/Y h:i:s a'),
+                'FechaPedido' => ($this->input->post('FechaPedido') !== NULL) ? $this->input->post('FechaPedido') : NULL,
+                'FechaRec' => ($this->input->post('FechaRec') !== NULL) ? $this->input->post('FechaRec') : NULL,
+                'RecibidoX' => ($this->input->post('RecibidoX') !== NULL) ? $this->input->post('RecibidoX') : NULL,
+                'Estatus' => 'ACTIVO',
+                'Folio' => ($this->input->post('Folio') !== NULL) ? $this->input->post('Folio') : NULL,
+                'Usuario' => $this->session->userdata('ID')
+            );
+            $ID = $this->pedidos_model->onAgregar($data);
+            print $ID;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
     }
 
@@ -77,8 +99,7 @@ class Pedidos extends CI_Controller {
 
     public function getAgentes() {
         try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('AGENTES');
+            $data = $this->vendedores_model->getVendedores();
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
