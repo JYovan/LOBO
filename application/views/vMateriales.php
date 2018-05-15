@@ -311,6 +311,7 @@
                 "bLengthChange": false,
                 "deferRender": true,
                 "scrollCollapse": false,
+                keys: true,
                 "bSort": true,
                 "aaSorting": [
                     [0, 'desc']/*ID*/
