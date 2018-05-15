@@ -75,6 +75,7 @@ class Combinaciones extends CI_Controller {
 
     public function onAgregar() {
         try {
+            /* AGREGAR EN SISTEMA LOBO */
             $data = array(
                 'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
@@ -82,6 +83,62 @@ class Combinaciones extends CI_Controller {
                 'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL
             );
             $ID = $this->combinaciones_model->onAgregar($data);
+
+            /* AGREGAR A MAGNUS LOBO */
+            $x = $this->input;
+            $ClaveEstilo = $this->combinaciones_model->getClaveXEstilo($this->input->post('Estilo'))[0]->Clave;
+            $ClaveFinal = $ClaveEstilo . $x->post('Clave');
+            $data = array('IdProducto' => ($x->post('Clave') !== NULL) ? $ClaveFinal : ''
+                , 'CodigoBarras' => ($x->post('Clave') !== NULL) ? $ClaveFinal : NULL
+                , 'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL
+                , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion')
+                , 'TipoProducto' => 'T', 'TipoGrupo' => 'N'
+                , 'IdTalla' => NULL, 'ClaveParteBase' => $ClaveFinal
+                , 'ClaveParteTalla' => '', 'IdUnidad' => 1/* PAR */
+                , 'Empaque' => 0.00, 'Peso' => 0.00
+                , 'Volumen' => 0.00, 'ManejaLotes' => 'F'
+                , 'TipoCosteo' => 'P', 'IdFamilia' => 1
+                , 'IdGrupo' => 1, 'Caracteristica1' => NULL
+                , 'Caracteristica2' => NULL, 'Caracteristica3' => NULL
+                , 'Caracteristica4' => NULL, 'Caracteristica5' => NULL
+                , 'Caracteristica6' => NULL, 'EnlaceSIMAC' => 0
+                , 'RutaImagen' => '', 'IdClienteProveedor' => NULL
+                , 'Empaqueint' => 0.00, 'CalcularPrecio' => 0
+                , 'IdUnidadFactor' => 1, 'IdFactorConsumo' => 1
+                , 'Alto' => 0.00, 'Ancho' => 0.00
+                , 'Mascara' => NULL
+            );
+            $IDM = $this->combinaciones_model->onAgregarMagnus($data);
+
+            /* MODIFICAR EN SISTEMA LOBO */
+            $this->combinaciones_model->onModificar($ID, array('IdMagnus' => $IDM));
+
+            /* OBTIENE LA CLAVE DEL PRODUCTO FK EN PRODUCTOS MAGNUS */
+            $IDP = $this->combinaciones_model->getClaveFKXID($IDM)[0]->IDP;
+
+            /* AGREGAR AL ALMACEN DE PT LOBO */
+            $data = array('IdAlmacen' => 1/* PT */, 'IdProducto' => $IDP,
+                'Estatus' => 'A', 'Ubicacion' => 'APT',
+                'IdMoneda' => 1/* pesos mexicanos */,
+                'Precio1' => 0.000000, 'Precio2' => 0.000000,
+                'Precio3' => 0.000000, 'Precio4' => 0.000000,
+                'Precio5' => 0.000000, 'IdMargen' => 1/* MARGEN 1 */,
+                'PrecioBase' => 0.000000, 'IdImpuesto' => 1,
+                'Existencias' => 0.0000, 'PendienteXSurtir' => 0.0000,
+                'PendienteXRecibir' => 0.0000, 'Apartados' => 0.0000,
+                'CostoPromedio' => 0.0000, 'CostoUltimo' => 0.0000,
+                'TiempoSurtido' => 0, 'Reorden' => 0.0000,
+                'StockMaximo' => 0.0000, 'StockMinimo' => 0.0000,
+                'CompraAnualMonto' => 0.0000, 'CompraAnualCantidad' => 0.0000,
+                'VentaAnualMonto' => 0.0000, 'VentaAnualCantidad' => 0.0000,
+                'CantidadFisica' => 0.0000, 'StatusCambio' => 'S',
+                'CantEnRenta' => 0.0000, 'CantidadFija' => 0.0000,
+                'FechaToma' => NULL, 'UltimaCompra' => NULL,
+                'UltimaVenta' => NULL, 'Clasificacion' => 'B',
+                'Bloqueo' => 0, 'CostoReposicion' => 0.0000,
+                'IdMonedaCostoReposicion' => 1
+            );
+            $this->combinaciones_model->onAgregarAlmacenMagnus($data);
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

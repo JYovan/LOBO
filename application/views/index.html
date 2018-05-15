@@ -1,11 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>403 Forbidden</title>
-</head>
-<body>
-
-<p>Directory access is forbidden.</p>
-
-</body>
-</html>
+[Id]
+      'IdAlmacen'=>($x->post('IdAlmacen')!==NULL)?$x->post('IdAlmacen'):NULL,
+      'IdProducto'=>($x->post('IdProducto')!==NULL)?$x->post('IdProducto'):NULL,
+      'Estatus'=>($x->post('Estatus')!==NULL)?$x->post('Estatus'):NULL,
+      'Ubicacion'=>($x->post('Ubicacion')!==NULL)?$x->post('Ubicacion'):NULL,
+      'IdMoneda'=>($x->post('IdMoneda')!==NULL)?$x->post('IdMoneda'):NULL,
+      'Precio1'=>($x->post('Precio1')!==NULL)?$x->post('Precio1'):NULL,
+      'Precio2'=>($x->post('Precio2')!==NULL)?$x->post('Precio2'):NULL,
+      'Precio3'=>($x->post('Precio3')!==NULL)?$x->post('Precio3'):NULL,
+      'Precio4'=>($x->post('Precio4')!==NULL)?$x->post('Precio4'):NULL,
+      'Precio5'=>($x->post('Precio5')!==NULL)?$x->post('Precio5'):NULL,
+      'IdMargen'=>($x->post('IdMargen')!==NULL)?$x->post('IdMargen'):NULL,
+      'PrecioBase'=>($x->post('PrecioBase')!==NULL)?$x->post('PrecioBase'):NULL,
+      'IdImpuesto'=>($x->post('IdImpuesto')!==NULL)?$x->post('IdImpuesto'):NULL,
+      'Existencias'=>($x->post('Existencias')!==NULL)?$x->post('Existencias'):NULL,
+      'PendienteXSurtir'=>($x->post('PendienteXSurtir')!==NULL)?$x->post('PendienteXSurtir'):NULL,
+      'PendienteXRecibir'=>($x->post('PendienteXRecibir')!==NULL)?$x->post('PendienteXRecibir'):NULL,
+      'Apartados'=>($x->post('Apartados')!==NULL)?$x->post('Apartados'):NULL,
+      'CostoPromedio'=>($x->post('CostoPromedio')!==NULL)?$x->post('CostoPromedio'):NULL,
+      'CostoUltimo'=>($x->post('CostoUltimo')!==NULL)?$x->post('CostoUltimo'):NULL,
+      'TiempoSurtido'=>($x->post('TiempoSurtido')!==NULL)?$x->post('TiempoSurtido'):NULL,
+      'Reorden'=>($x->post('Reorden')!==NULL)?$x->post('Reorden'):NULL,
+      'StockMaximo'=>($x->post('StockMaximo')!==NULL)?$x->post('StockMaximo'):NULL,
+      'StockMinimo'=>($x->post('StockMinimo')!==NULL)?$x->post('StockMinimo'):NULL,
+      'CompraAnualMonto'=>($x->post('CompraAnualMonto')!==NULL)?$x->post('CompraAnualMonto'):NULL,
+      'CompraAnualCantidad'=>($x->post('CompraAnualCantidad')!==NULL)?$x->post('CompraAnualCantidad'):NULL,
+      'VentaAnualMonto'=>($x->post('VentaAnualMonto')!==NULL)?$x->post('VentaAnualMonto'):NULL,
+      'VentaAnualCantidad'=>($x->post('VentaAnualCantidad')!==NULL)?$x->post('VentaAnualCantidad'):NULL,
+      'CantidadFisica'=>($x->post('CantidadFisica')!==NULL)?$x->post('CantidadFisica'):NULL,
+      'StatusCambio'=>($x->post('StatusCambio')!==NULL)?$x->post('StatusCambio'):NULL,
+      'CantEnRenta'=>($x->post('CantEnRenta')!==NULL)?$x->post('CantEnRenta'):NULL,
+      'CantidadFija'=>($x->post('CantidadFija')!==NULL)?$x->post('CantidadFija'):NULL,
+      'FechaToma'=>($x->post('FechaToma')!==NULL)?$x->post('FechaToma'):NULL,
+      'UltimaCompra'=>($x->post('UltimaCompra')!==NULL)?$x->post('UltimaCompra'):NULL,
+      'UltimaVenta'=>($x->post('UltimaVenta')!==NULL)?$x->post('UltimaVenta'):NULL,
+      'Clasificacion'=>($x->post('Clasificacion')!==NULL)?$x->post('Clasificacion'):NULL,
+      'Bloqueo'=>($x->post('Bloqueo')!==NULL)?$x->post('Bloqueo'):NULL,
+      'CostoReposicion'=>($x->post('CostoReposicion')!==NULL)?$x->post('CostoReposicion'):NULL,
+      'IdMonedaCostoReposicion'=>($x->post('IdMonedaCostoReposicion')!==NULL)?$x->post('IdMonedaCostoReposicion'):NULL,
+  FROM [P_LOBOSOLO].[dbo].[Almacenproductos]

@@ -195,8 +195,8 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
-nuevo=false;
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -362,6 +362,14 @@ nuevo=false;
             HoldOn.close();
         });
     }
+    var tblMaterialesX;
+    var Materiales = $("#Materiales");
+    function getSubRecords() {
+    
+    }
+
+
+
     function getDepartamentos() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
