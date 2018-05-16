@@ -20,7 +20,7 @@
             <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-2 float-left">
-                        <legend class="float-left">Catálogos</legend>
+                        <legend class="float-left"><?php print $this->input->get('modulo'); ?></legend>
                     </div>
                     <div class="col-md-7 float-right">
 
@@ -61,7 +61,15 @@
                         <label for="Special">Extra</label>  
                         <input type="text" class="form-control form-control-sm" id="Special" name="Special"  >
                     </div>
-
+                    <?php
+                    if ($this->input->get('modulo') === 'UNIDADES') {
+                        ?>
+                        <div class="col-sm">
+                            <label for="Factor">Factor Consumo</label>  
+                            <input type="number" class="form-control form-control-sm" id="Factor" name="Factor"  >
+                            <input type="text" class="form-control form-control-sm d-none" id="IdMagnus" name="IdMagnus"  >
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="row"> 
                     <div class="col-sm">
@@ -102,7 +110,7 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
+                        swal('ATENCIÓN', 'SE HA MODIFICADO EL REGISTRO', 'success');
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -119,18 +127,18 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         console.log(data, x, jq);
-                        onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
-nuevo=false;
+                        swal('ATENCIÓN', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
+                        console.log(x.responseText);
                         console.log(x, y, z);
                     }).always(function () {
                         HoldOn.close();
                     });
                 }
-
-            }else {
+            } else {
                 onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
             }
         });

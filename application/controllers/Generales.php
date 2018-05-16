@@ -12,7 +12,6 @@ class Generales extends CI_Controller {
     }
 
     public function index() {
-
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
             $this->load->view('vEncabezado');
             $this->load->view('vNavegacion');
@@ -27,11 +26,7 @@ class Generales extends CI_Controller {
 
     public function getRecords() {
         try {
-            extract($this->input->post());
-
-
-            $data = $this->generales_model->getRecords($fieldId);
-            print json_encode($data);
+            print json_encode($this->generales_model->getRecords($this->input->post('fieldId')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -39,9 +34,7 @@ class Generales extends CI_Controller {
 
     public function getCatalogoByID() {
         try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogoByID($ID);
-            print json_encode($data);
+            print json_encode($this->generales_model->getCatalogoByID($this->input->post('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -49,16 +42,46 @@ class Generales extends CI_Controller {
 
     public function onAgregar() {
         try {
+            $x = $this->input;
             $data = array(
-                'FieldId' => ($this->input->post('FieldId') !== NULL) ? $this->input->post('FieldId') : NULL,
-                'IValue' => ($this->input->post('IValue') !== NULL) ? $this->input->post('IValue') : NULL,
-                'SValue' => ($this->input->post('SValue') !== NULL) ? $this->input->post('SValue') : NULL,
-                'Special' => ($this->input->post('Special') !== NULL) ? $this->input->post('Special') : NULL,
-                'Valor_Num' => ($this->input->post('Valor_Num') !== NULL) ? $this->input->post('Valor_Num') : NULL,
-                'Valor_Text' => ($this->input->post('Valor_Text') !== NULL) ? $this->input->post('Valor_Text') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'FieldId' => ($x->post('FieldId') !== NULL) ? $x->post('FieldId') : NULL,
+                'IValue' => ($x->post('IValue') !== NULL) ? $x->post('IValue') : NULL,
+                'SValue' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                'Special' => ($x->post('Special') !== NULL) ? $x->post('Special') : NULL,
+                'Valor_Num' => ($x->post('Valor_Num') !== NULL) ? $x->post('Valor_Num') : NULL,
+                'Valor_Text' => ($x->post('Valor_Text') !== NULL) ? $x->post('Valor_Text') : NULL,
+                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL
             );
-            $ID=$this->generales_model->onAgregar($data);
+            $ID = $this->generales_model->onAgregar($data);
+
+            if ($x->post('FieldId') === 'UNIDADES') {
+                /* AGREGAR EN UNIDADES MAGNUS */
+                $IDU = $this->generales_model->getUltimaUnidad()[0]->MU;
+                $data = array(
+                    'IdUnidad' => $IDU,
+                    'UnidadEntrada' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                    'UnidadSalida' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                    'Factor' => $x->post('Factor') > 0 ? $x->post('Factor') : 0
+                );
+                $this->generales_model->onAgregarUnidadMagnus($data);
+
+                /* AGREGAR EN UNIDADES FACTOR MAGNUS */
+                $data = array(
+                    'Descripcion' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                    'IdUnidad' => $IDU,
+                    'Tipo' => 'N',
+                    'Factor' => $x->post('Factor') > 0 ? $x->post('Factor') : 0,
+                    'OptimisticLockField' => 0,
+                    'GCRecord' => NULL
+                );
+                $this->generales_model->onAgregarUnidadFactorMagnus($data);
+
+                /* MODIFICAR EN SISTEMA LOBO */
+                $data = array(
+                    'IdMagnus' => $IDU
+                );
+                $this->generales_model->onModificar($ID, $data);
+            }
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -67,16 +90,35 @@ class Generales extends CI_Controller {
 
     public function onModificar() {
         try {
-            extract($this->input->post());
+            $x = $this->input;
             $DATA = array(
-                'IValue' => ($this->input->post('IValue') !== NULL) ? $this->input->post('IValue') : NULL,
-                'SValue' => ($this->input->post('SValue') !== NULL) ? $this->input->post('SValue') : NULL,
-                'Special' => ($this->input->post('Special') !== NULL) ? $this->input->post('Special') : NULL,
-                'Valor_Num' => ($this->input->post('Valor_Num') !== NULL) ? $this->input->post('Valor_Num') : NULL,
-                'Valor_Text' => ($this->input->post('Valor_Text') !== NULL) ? $this->input->post('Valor_Text') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
+                'IValue' => ($x->post('IValue') !== NULL) ? $x->post('IValue') : NULL,
+                'SValue' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                'Special' => ($x->post('Special') !== NULL) ? $x->post('Special') : NULL,
+                'Valor_Num' => ($x->post('Valor_Num') !== NULL) ? $x->post('Valor_Num') : NULL,
+                'Valor_Text' => ($x->post('Valor_Text') !== NULL) ? $x->post('Valor_Text') : NULL,
+                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL
             );
-            $this->generales_model->onModificar($ID, $DATA);
+            $this->generales_model->onModificar($this->input->post('ID'), $DATA);
+
+            /**/
+            if ($x->post('FieldId') === 'UNIDADES') {
+                print "\nMODIFICANDO UNIDADES...\n";
+                /* AGREGAR EN UNIDADES MAGNUS */
+                $data = array(
+                    'UnidadEntrada' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                    'UnidadSalida' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                    'Factor' => $x->post('Factor') > 0 ? $x->post('Factor') : 0
+                );
+                $this->generales_model->onModificarUnidadMagnus($this->input->post('IdMagnus'), $data);
+
+                /* AGREGAR EN UNIDADES FACTOR MAGNUS */
+                $data = array(
+                    'Descripcion' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
+                    'Factor' => $x->post('Factor') > 0 ? $x->post('Factor') : 0
+                );
+                $this->generales_model->onModificarUnidadFactorMagnus($this->input->post('IdMagnus'), $data);
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -84,8 +126,7 @@ class Generales extends CI_Controller {
 
     public function onEliminar() {
         try {
-            extract($this->input->post());
-            $this->generales_model->onEliminar($ID);
+            $this->generales_model->onEliminar($this->input->post('ID'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
