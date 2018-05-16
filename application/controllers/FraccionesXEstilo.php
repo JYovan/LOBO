@@ -137,6 +137,7 @@ class FraccionesXEstilo extends CI_Controller {
                 'FraccionXEstilo' => ($this->input->post('FraccionXEstilo') !== NULL) ? $this->input->post('FraccionXEstilo') : NULL,
                 'Fraccion' => ($this->input->post('Fraccion') !== NULL) ? $this->input->post('Fraccion') : NULL,
                 'Precio' => ($this->input->post('Precio') !== NULL) ? $this->input->post('Precio') : NULL,
+                'Tiempo' => ($this->input->post('Tiempo') !== NULL) ? $this->input->post('Tiempo') : NULL,
                 'Vale' => NULL,
                 'Orden' => NULL,
                 'Cantidad' => ($this->input->post('Cantidad') !== NULL) ? $this->input->post('Cantidad') : NULL
@@ -161,7 +162,6 @@ class FraccionesXEstilo extends CI_Controller {
 
     public function onModificarDetalle() {
         try {
-
             extract($this->input->post());
             unset($_POST['ID']);
             $this->fraccionesxestilo_model->onModificarDetalle($ID, $this->input->post());

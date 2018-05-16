@@ -60,6 +60,12 @@ class fraccionesxestilo_model extends CI_Model {
                     . 'END) AS "Cantidad", '
                     //Total SF
                     . 'ISNULL(CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1),0) As TotalSF, '
+                    //Tiempo
+                    . "(CASE WHEN ISNULL(FXED.Tiempo,0) = 0 THEN "
+                    . "'<input type=''text'' id=''#Tiempo'' class=''form-control form-control-sm numbersOnly'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarTiempoFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
+                    . " ELSE "
+                    . "'<input type=''text'' id=''#Tiempo'' class=''form-control form-control-sm numbersOnly'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Tiempo) +' '' onchange=''onModificarTiempoFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
+                    . 'END) AS "Tiempo", '
                     //Total Formateado
                     . 'CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1),\'</span></strong>\')  AS Importe, '
                     //Eliminar
