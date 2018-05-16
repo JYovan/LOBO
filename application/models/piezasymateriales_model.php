@@ -244,7 +244,7 @@ class piezasymateriales_model extends CI_Model {
             $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza,
                 PYMD.Material ID, M.Material+\'-\'+M.Descripcion AS Material,
                 CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M",
-                CONCAT(\'<strong><span class="text-primary">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
+                CONCAT(\'<strong><span class="">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
                  CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
            CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false);
             $this->db->from('sz_PiezasYMaterialesDetalle AS PYMD ');
@@ -262,6 +262,43 @@ class piezasymateriales_model extends CI_Model {
              */
             $str = $this->db->last_query();
 //        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getPiezasMatFichaTecnicaXEstiloXCombinacion($Estilo, $Color) {
+        try {
+            $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza,
+                M.Material+\'-\'+M.Descripcion AS Material,
+                CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M",
+                CONCAT(\'<strong><span class="">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
+                 CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
+           CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe,
+          CONCAT(DEP.IValue,\'-\',DEP.SValue) AS "Depto"
+', false);
+            $this->db->from('sz_PiezasYMaterialesDetalle AS PYMD ');
+            $this->db->join('sz_PiezasYMateriales AS PM', 'PYMD.PiezasYMateriales = PM.ID');
+            $this->db->join('sz_Materiales AS M', 'PYMD.Material = M.ID');
+            $this->db->join('sz_Piezas AS P', 'PYMD.Pieza = P.ID');
+            $this->db->join('sz_Catalogos AS C', 'M.UnidadConsumo = C.ID');
+            $this->db->like('C.FieldId', 'UNIDADES');
+            $this->db->like('C.Estatus', 'ACTIVO');
+            $this->db->join('sz_Catalogos AS DEP', 'P.DepartamentoCat = DEP.ID');
+            $this->db->like('DEP.FieldId', 'DEPARTAMENTOS');
+            $this->db->like('C.Estatus', 'ACTIVO');
+            $this->db->where('PM.Estilo', $Estilo);
+            $this->db->where('PM.Combinacion', $Color);
+            $this->db->where_in('PYMD.Estatus', 'ACTIVO');
+//            $this->db->order_by('PYMD.ID', 'DESC');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {

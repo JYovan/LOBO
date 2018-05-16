@@ -15,6 +15,7 @@ class Pedidos extends CI_Controller {
         $this->load->model('generales_model');
         $this->load->model('listasdeprecios_model');
         $this->load->model('vendedores_model');
+        $this->load->model('piezasymateriales_model');
     }
 
     public function index() {
@@ -30,22 +31,24 @@ class Pedidos extends CI_Controller {
         }
     }
 
-    public function onAgregarPedidoMagnus() {
+    public function onModificarImportes() {
+        try {
+            $data = array(
+                'Importe' => ($this->input->post('Importe') !== NULL) ? $this->input->post('Importe') : NULL,
+                'Pares' => ($this->input->post('Pares') !== NULL) ? $this->input->post('Pares') : NULL,
+                'Descuento' => ($this->input->post('Descuento') !== NULL) ? $this->input->post('Descuento') : NULL
+            );
+            $this->pedidos_model->onModificar($this->input->post('ID'), $data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getPiezasMatFichaTecnicaXEstiloXCombinacion() {
         try {
 
-            $data = array(
-                'Cliente' => ($this->input->post('Cliente') !== NULL) ? $this->input->post('Cliente') : NULL,
-                'Agente' => ($this->input->post('Agente') !== NULL) ? $this->input->post('Agente') : NULL,
-                'Registro' => Date('d/m/Y h:i:s a'),
-                'FechaPedido' => ($this->input->post('FechaPedido') !== NULL) ? $this->input->post('FechaPedido') : NULL,
-                'FechaRec' => ($this->input->post('FechaRec') !== NULL) ? $this->input->post('FechaRec') : NULL,
-                'RecibidoX' => ($this->input->post('RecibidoX') !== NULL) ? $this->input->post('RecibidoX') : NULL,
-                'Estatus' => 'ACTIVO',
-                'Folio' => ($this->input->post('Folio') !== NULL) ? $this->input->post('Folio') : NULL,
-                'Usuario' => $this->session->userdata('ID')
-            );
-            $ID = $this->pedidos_model->onAgregar($data);
-            print $ID;
+            $data = $this->piezasymateriales_model->getPiezasMatFichaTecnicaXEstiloXCombinacion($this->input->post('Estilo'), $this->input->post('Color'));
+            print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

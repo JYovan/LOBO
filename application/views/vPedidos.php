@@ -1,3 +1,29 @@
+<!--MODAL FICHA TÉCNICA-->
+<div class="modal fade modal-fullscreen" id="mdlFichaTecnica" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloFichaTecnica">Ficha Técnica Estilo: <strong></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-block">
+                            <div class="table-responsive" id="tblRegistrosFichaTecnica"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-raised btn-primary" data-dismiss="modal">ACEPTAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card border-0" id="pnlTablero">
     <div class="card-body ">
         <div class="row">
@@ -23,7 +49,7 @@
                     <h5>PEDIDO</h5>
                 </div>
                 <div class="col-md-6 float-right" align="right">
-                    <button type="button" onclick="" class="btn btn-success btn-sm" id="btnExportarPedido"><span class="fa fa-upload"></span> EXPORTAR</button>
+                    <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
                     <button type="button" onclick="" class="btn btn-info btn-sm" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
                     <button type="button" class="btn btn-danger btn-sm" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
                     <button type="button" class="btn btn-primary btn-sm" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
@@ -291,9 +317,15 @@
         pnlDatosDetalle.find("[name='Estilo']").change(function () {
             $("[name='Combinacion']")[0].selectize.clear(true);
             $("[name='Combinacion']")[0].selectize.clearOptions();
+            cellEstilo = $(this).val();
+            nEstilo = pnlDatosDetalle.find("[name='Estilo']").find("option:selected").text()
             getCombinacionesXEstilo($(this).val());
             getSerieXEstilo($(this).val());
             getPrecioListaByEstiloByCliente($(this).val(), pnlDatos.find("#Cliente").val());
+        });
+        pnlDatosDetalle.find("[name='Combinacion']").change(function () {
+            cellColor = $(this).val();
+            nEstilo = nEstilo + ' ' + pnlDatosDetalle.find("[name='Combinacion']").find("option:selected").text()
         });
         //Evento botones
         btnGuardar.click(function () {
@@ -401,8 +433,61 @@
         handleEnter();
     });
     var cellEstilo = 0;
+    var cellColor = 0;
     var tblDetalleCaptura;
+    var nEstilo;
     var observaciones = '';
+
+    function onAbrirModalFichaTecnica() {
+        getPiezasMatFichaTecnicaXEstiloXCombinacion(cellEstilo, cellColor);
+    }
+
+    function getPiezasMatFichaTecnicaXEstiloXCombinacion(Estilo, Color) {
+        if (Estilo !== 0 && Estilo !== undefined && Estilo > 0 && Color !== 0 && Color !== undefined && Color > 0) {
+            HoldOn.open({
+                theme: "sk-bounce",
+                message: "CARGANDO DATOS..."
+            });
+            $.ajax({
+                url: master_url + 'getPiezasMatFichaTecnicaXEstiloXCombinacion',
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    Estilo: Estilo,
+                    Color: Color
+                }
+            }).done(function (data, x, jq) {
+                if (data.length > 0) {
+                    $("#tblRegistrosFichaTecnica").html(getTable('tblPiezasMat', data));
+                    $('#tblPiezasMat tfoot th').each(function () {
+                        $(this).addClass("d-none");
+                    });
+                    var thead = $('#tblPiezasMat thead th');
+                    var tfoot = $('#tblPiezasMat tfoot th');
+                    thead.eq(0).addClass("d-none");
+                    tfoot.eq(0).addClass("d-none");
+                    $.each($('#tblPiezasMat tbody tr'), function (k, v) {
+                        var td = $(v).find("td");
+                        td.eq(0).addClass("d-none");
+                    });
+                    var tblSelected = $('#tblPiezasMat').DataTable(tblInicial);
+
+                    $('#mdlFichaTecnica').find('#TituloFichaTecnica').find('strong').text(nEstilo);
+                    $('#mdlFichaTecnica').modal('show');
+
+                } else {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTE FICHA TÉCNICA DE ESTE ESTILO', 'danger');
+                    $("#tblRegistrosFichaTecnica").html("");
+                }
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+            });
+        } else {
+            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'SELECCIONA UN ESTILO Y UN COLOR', 'danger');
+        }
+    }
 
     function onGuardarObservaciones() {
         swal({
@@ -479,6 +564,8 @@
                     $(this).addClass("success");
                     var cells = $(this).find("td");
                     cellEstilo = cells.eq(1).text();
+                    cellColor = cells.eq(2).text();
+                    nEstilo = cells.eq(3).text();
                     $.ajax({
                         url: master_url + 'getEncabezadoSerieXEstilo',
                         type: "POST",
@@ -891,6 +978,27 @@
         });
     }
 
+    function onModificarImportes(ID, Importe, Pares, Desc) {
+        $.ajax({
+            url: master_url + 'onModificarImportes',
+            type: "POST",
+            data: {
+                ID: ID,
+                Importe: Importe,
+                Pares: Pares,
+                Descuento: Desc
+            }
+        }).done(function (data, x, jq) {
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+    var ImporteT;
+    var ParesT;
+    var DescT;
     function onCalcularMontos() {
         var pares = 0;
         var total = 0.0;
@@ -900,6 +1008,10 @@
             total += getNumberFloat($(this)[30]);
             desc += getNumberFloat($(this)[31]);
         });
+        ImporteT = total;
+        ParesT = pares;
+        DescT = desc;
+        onModificarImportes(idMov, ImporteT, ParesT, DescT);
         if (pnlDatosDetalle.find("#tblRegistrosDetalle > tbody > tr").length > 1) {
             pnlDatosDetalle.find("#Pares").find("strong").text(pares);
             pnlDatosDetalle.find("#Importe").find("strong").text('$' + $.number(total - desc, 2, '.', ','));

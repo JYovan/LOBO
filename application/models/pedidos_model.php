@@ -44,7 +44,7 @@ class pedidos_model extends CI_Model {
             $this->db->select('U.ID AS ID, '
                     . 'U.Estilo AS IdEstilo, '
                     . 'U.Combinacion AS IdColor, '
-                    . "E.Clave +'-'+C.Clave+'-'+C.Descripcion AS Estilo, "
+                    . "E.Clave +'-'+C.Clave+' '+C.Descripcion AS Estilo, "
                     . "U.Sem AS Sem,"
                     . "U.Maq AS Maq,"
                     . "C1, "
@@ -217,30 +217,6 @@ class pedidos_model extends CI_Model {
 //        print $str;
             $data = $query->result();
             return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onAgregarPedidoMagnus($array) {
-        try {
-            $this->db->insert("DocPpoEncabezadoVentas", $array);
-            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
-            $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
-            return $row['IDL'];
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onAgregarDetallePedidoMagnus($array) {
-        try {
-            $this->db->insert("DocPpoPartidasVentas", $array);
-            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
-            $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
-            return $row['IDL'];
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -603,6 +603,7 @@
                                     });
                                     pnlNuevo.find("[name='Combinacion']")[0].selectize.setValue(dtm.Combinacion);
                                     pnlNuevo.find("[name='Combinacion']")[0].selectize.close();
+                                    pnlNuevo.find("[name='Pieza']")[0].selectize.focus();
                                 }).fail(function (x, y, z) {
                                     console.log(x, y, z);
                                 }).always(function () {
@@ -614,7 +615,6 @@
 
                                 /*OBTENER LOS MATERIALES AGREGADOS*/
                                 getPiezasYMaterialesDetalleByID(dtm.ID);
-                                pnlNuevo.find("[name='Pieza']")[0].selectize.focus();
                                 /*FIN OBTENER MATERIALES AGREGADOS*/
                                 EsNuevo = false;
                             }
