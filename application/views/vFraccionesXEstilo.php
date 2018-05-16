@@ -111,6 +111,10 @@
                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="9" name="Precio" >
                 </div>
                 <div class="col-sm-1">
+                    <label for="Tiempo">Tiempo</label>
+                    <input type="text" class="form-control form-control-sm numbersOnly" maxlength="5" name="Tiempo" >
+                </div>
+                <div class="col-sm-1">
                     <label for="Cantidad">Cantidad</label>
                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="5" name="Cantidad" >
                 </div>
@@ -396,6 +400,7 @@
         var Fraccion = pnlControlesDetalle.find("[name='Fraccion']");
         var Precio = pnlControlesDetalle.find("[name='Precio']");
         var Cantidad = pnlControlesDetalle.find("[name='Cantidad']");
+        var Tiempo = pnlControlesDetalle.find("[name='Tiempo']");
         /*COMPROBAR SI YA SE AGREGÓ*/
         var fraccion_existe = false;
         /*VALIDAR QUE ESTEN TODOS LOS CAMPOS LLENOS PARA AGREGARLO*/
@@ -416,6 +421,7 @@
                 frm.append('Fraccion', Fraccion.val());
                 frm.append('Precio', Precio.val());
                 frm.append('Cantidad', Cantidad.val());
+                frm.append('Tiempo', Tiempo.val());
 
                 $.ajax({
                     url: master_url + 'onAgregarDetalle',
@@ -442,6 +448,7 @@
         pnlControlesDetalle.find("[name='Departamento']")[0].selectize.focus();
         pnlControlesDetalle.find("[name='Precio']").val('');
         pnlControlesDetalle.find("[name='Cantidad']").val('');
+        pnlControlesDetalle.find("[name='Tiempo']").val('');
         pnlControlesDetalle.find("[name='Fraccion']")[0].selectize.clear(true);
         pnlControlesDetalle.find("[name='Fraccion']")[0].selectize.clearOptions();
     }
@@ -530,6 +537,24 @@
         }).always(function () {
             HoldOn.close();
         });
+    }
+
+    function onModificarTiempoFraccionXEstilo(value, IDX) {
+        HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
+        $.ajax({
+            url: master_url + 'onModificarDetalle',
+            type: "POST",
+            data: {
+                ID: IDX,
+                Tiempo: value === '' || value === null ? 0 : value
+            }
+        }).done(function (data, x, jq) {
+            getFraccionesXEstiloDetallebyFraccionesXEstilo(IdMovimiento);
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
 
     }
 
@@ -588,7 +613,7 @@
                     total += getNumberFloat(td.eq(5).text());
                 });
 
-                pnlDetalle.find('#ImporteTotal').html('Total: $' + $.number(total, 2, '.', ', '));
+                pnlDetalle.find('#ImporteTotal').find('strong').html('$' + $.number(total, 2, '.', ', '));
                 var tblSelected = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tblInicial);
                 pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
                     $("#tblRegistrosDetalle tbody tr").removeClass("success");

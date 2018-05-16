@@ -44,7 +44,7 @@ class Combinaciones extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->cm->getRecords());
+            print $_GET['callback'] . '(' . json_encode($this->combinaciones_model->getRecords()) . ');'; /* JSONP */
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -154,8 +154,8 @@ class Combinaciones extends CI_Controller {
             $this->combinaciones_model->onModificarMagnus($this->combinaciones_model->getIdMagnusProducto($x->post('ID'))[0]->IDM, $data);
 
             /* MODIFICAR ESTATUS EN PT MAGNUS LOBO */
-            $this->combinaciones_model->onModificarAlmacenMagnus( 
-            $this->combinaciones_model->getIdMagnusAlmacenProductos($x->post('ID'))[0]->IDM
+            $this->combinaciones_model->onModificarAlmacenMagnus(
+                    $this->combinaciones_model->getIdMagnusAlmacenProductos($x->post('ID'))[0]->IDM
                     , array('Estatus' => ($x->post('Estatus') === 'ACTIVO') ? 'A' : 'I'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
