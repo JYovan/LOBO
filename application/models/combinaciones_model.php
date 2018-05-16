@@ -83,6 +83,46 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function getIdMagnusProducto($ID) {
+        try {
+            $this->db->select('P.Id As IDM', false);
+            $this->db->from('sz_Combinaciones AS C');
+            $this->db->join('Productos AS P','C.IdMagnus = P.Id'); 
+            $this->db->where('C.ID', $ID);
+            $this->db->limit(1);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    } 
+    public function getIdMagnusAlmacenProductos($ID) {
+        try {
+            $this->db->select('AP.Id As IDM', false);
+            $this->db->from('sz_Combinaciones AS C');
+            $this->db->join('Productos AS P','C.IdMagnus = P.Id');
+            $this->db->join('Almacenproductos AS AP','P.IdProducto = AP.IdProducto');
+            $this->db->where('C.ID', $ID);
+            $this->db->limit(1);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    } 
 
     public function getCombinacionesXEstilo($Estilo) {
         try {
@@ -164,6 +204,25 @@ class combinaciones_model extends CI_Model {
             $this->db->where('ID', $ID);
             $this->db->update("sz_Combinaciones", $DATA);
 //            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onModificarMagnus($ID, $DATA) {
+        try {
+            $this->db->where('Id', $ID);
+            $this->db->update("Productos", $DATA);
+            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    public function onModificarAlmacenMagnus($ID, $DATA) {
+        try {
+            $this->db->where('Id', $ID);
+            $this->db->update("Almacenproductos", $DATA);
+            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
