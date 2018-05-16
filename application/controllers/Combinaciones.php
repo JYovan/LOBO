@@ -151,11 +151,11 @@ class Combinaciones extends CI_Controller {
                 , 'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL
                 , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion'), 'ClaveParteBase' => $ClaveFinal
             );
-            $this->combinaciones_model->onModificarMagnus($this->combinaciones_model->getIdMagnus($x->post('ID'))[0]->IDM, $data);
+            $this->combinaciones_model->onModificarMagnus($this->combinaciones_model->getIdMagnusProducto($x->post('ID'))[0]->IDM, $data);
 
             /* MODIFICAR ESTATUS EN PT MAGNUS LOBO */
             $this->combinaciones_model->onModificarAlmacenMagnus( 
-            $this->combinaciones_model->getIdMagnus($x->post('ID'))[0]->IDM
+            $this->combinaciones_model->getIdMagnusAlmacenProductos($x->post('ID'))[0]->IDM
                     , array('Estatus' => ($x->post('Estatus') === 'ACTIVO') ? 'A' : 'I'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

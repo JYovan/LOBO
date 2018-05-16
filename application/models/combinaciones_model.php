@@ -84,7 +84,26 @@ class combinaciones_model extends CI_Model {
         }
     }
     
-    public function getIdMagnus($ID) {
+    public function getIdMagnusProducto($ID) {
+        try {
+            $this->db->select('P.Id As IDM', false);
+            $this->db->from('sz_Combinaciones AS C');
+            $this->db->join('Productos AS P','C.IdMagnus = P.Id'); 
+            $this->db->where('C.ID', $ID);
+            $this->db->limit(1);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    } 
+    public function getIdMagnusAlmacenProductos($ID) {
         try {
             $this->db->select('AP.Id As IDM', false);
             $this->db->from('sz_Combinaciones AS C');
