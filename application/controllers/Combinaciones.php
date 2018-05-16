@@ -9,6 +9,7 @@ class Combinaciones extends CI_Controller {
         $this->load->library('session');
         $this->load->model('combinaciones_model');
         $this->load->model('estilos_model');
+        $this->cm = $this->combinaciones_model;
     }
 
     public function index() {
@@ -43,11 +44,7 @@ class Combinaciones extends CI_Controller {
 
     public function getRecords() {
         try {
-            extract($this->input->post());
-
-
-            $data = $this->combinaciones_model->getRecords();
-            print json_encode($data);
+            print json_encode($this->cm->getRecords());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -85,7 +82,7 @@ class Combinaciones extends CI_Controller {
             );
             $ID = $this->combinaciones_model->onAgregar($data);
 
-            /* AGREGAR A MAGNUS LOBO */ 
+            /* AGREGAR A MAGNUS LOBO */
             $ClaveEstilo = $this->combinaciones_model->getClaveXEstilo($x->post('Estilo'))[0]->Clave;
             $ClaveFinal = $ClaveEstilo . $x->post('Clave');
             $data = array('IdProducto' => ($x->post('Clave') !== NULL) ? $ClaveFinal : ''
@@ -120,23 +117,15 @@ class Combinaciones extends CI_Controller {
             $data = array('IdAlmacen' => 1/* PT */, 'IdProducto' => $IDP,
                 'Estatus' => 'A', 'Ubicacion' => 'APT',
                 'IdMoneda' => 1/* pesos mexicanos */,
-                'Precio1' => 0.000000, 'Precio2' => 0.000000,
-                'Precio3' => 0.000000, 'Precio4' => 0.000000,
-                'Precio5' => 0.000000, 'IdMargen' => 1/* MARGEN 1 */,
-                'PrecioBase' => 0.000000, 'IdImpuesto' => 1,
-                'Existencias' => 0.0000, 'PendienteXSurtir' => 0.0000,
-                'PendienteXRecibir' => 0.0000, 'Apartados' => 0.0000,
-                'CostoPromedio' => 0.0000, 'CostoUltimo' => 0.0000,
-                'TiempoSurtido' => 0, 'Reorden' => 0.0000,
-                'StockMaximo' => 0.0000, 'StockMinimo' => 0.0000,
-                'CompraAnualMonto' => 0.0000, 'CompraAnualCantidad' => 0.0000,
+                'Precio1' => 0.000000, 'Precio2' => 0.000000, 'Precio3' => 0.000000, 'Precio4' => 0.000000,
+                'Precio5' => 0.000000, 'IdMargen' => 1/* MARGEN 1 */, 'PrecioBase' => 0.000000, 'IdImpuesto' => 1,
+                'Existencias' => 0.0000, 'PendienteXSurtir' => 0.0000, 'PendienteXRecibir' => 0.0000, 'Apartados' => 0.0000,
+                'CostoPromedio' => 0.0000, 'CostoUltimo' => 0.0000, 'TiempoSurtido' => 0, 'Reorden' => 0.0000,
+                'StockMaximo' => 0.0000, 'StockMinimo' => 0.0000, 'CompraAnualMonto' => 0.0000, 'CompraAnualCantidad' => 0.0000,
                 'VentaAnualMonto' => 0.0000, 'VentaAnualCantidad' => 0.0000,
-                'CantidadFisica' => 0.0000, 'StatusCambio' => 'S',
-                'CantEnRenta' => 0.0000, 'CantidadFija' => 0.0000,
-                'FechaToma' => NULL, 'UltimaCompra' => NULL,
-                'UltimaVenta' => NULL, 'Clasificacion' => 'B',
-                'Bloqueo' => 0, 'CostoReposicion' => 0.0000,
-                'IdMonedaCostoReposicion' => 1
+                'CantidadFisica' => 0.0000, 'StatusCambio' => 'S', 'CantEnRenta' => 0.0000, 'CantidadFija' => 0.0000,
+                'FechaToma' => NULL, 'UltimaCompra' => NULL, 'UltimaVenta' => NULL, 'Clasificacion' => 'B',
+                'Bloqueo' => 0, 'CostoReposicion' => 0.0000, 'IdMonedaCostoReposicion' => 1
             );
             $this->combinaciones_model->onAgregarAlmacenMagnus($data);
             print $ID;
@@ -147,14 +136,27 @@ class Combinaciones extends CI_Controller {
 
     public function onModificar() {
         try {
+            $x = $this->input;
             /* MODIFICAR EN SISTEMA LOBO */
             $DATA = array(
-                'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
-                'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
-                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL
+                'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL,
+                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL
             );
             $this->combinaciones_model->onModificar($this->input->post('ID'), $DATA);
+
+            /* MODIFICAR EN MAGNUS LOBO */
+            $ClaveEstilo = $this->combinaciones_model->getClaveXEstilo($x->post('Estilo'))[0]->Clave;
+            $ClaveFinal = $ClaveEstilo . $x->post('Clave');
+            $data = array('CodigoBarras' => ($x->post('Clave') !== NULL) ? $ClaveFinal : NULL
+                , 'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL
+                , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion'), 'ClaveParteBase' => $ClaveFinal
+            );
+            $this->combinaciones_model->onModificarMagnus($this->combinaciones_model->getIdMagnus($x->post('ID'))[0]->IDM, $data);
+
+            /* MODIFICAR ESTATUS EN PT MAGNUS LOBO */
+            $this->combinaciones_model->onModificarAlmacenMagnus( 
+            $this->combinaciones_model->getIdMagnus($x->post('ID'))[0]->IDM
+                    , array('Estatus' => ($x->post('Estatus') === 'ACTIVO') ? 'A' : 'I'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
