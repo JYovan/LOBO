@@ -241,11 +241,13 @@ class piezasymateriales_model extends CI_Model {
 
     public function getPiezasYMaterialesDetalleByID($ID) {
         try {
-            $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza,
+            $this->db->select('P.ID AS PIEZA_ID,
+                P.Clave+\'-\'+ P.Descripcion AS Pieza,
                 PYMD.Material ID, M.Material+\'-\'+M.Descripcion AS Material,
                 CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M",
                 CONCAT(\'<strong><span class="">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
                  CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
+                 PYMD.PzXPar AS PzXPar,
            CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false);
             $this->db->from('sz_PiezasYMaterialesDetalle AS PYMD ');
             $this->db->join('sz_Materiales AS M', 'PYMD.Material = M.ID');

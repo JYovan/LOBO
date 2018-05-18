@@ -14,7 +14,7 @@
                     <hr>
                 </div>
                 <div class=" dt-buttons" align="left">
-                    <button id="btnOlvidasteContrasena" type="button"  class="btn btn-default">Olvidaste tu contraseña?</button>
+                    <button id="btnOlvidasteContrasena" type="button"  class="btn btn-warning">Olvidaste tu contraseña?</button>
                 </div>
             </form>
         </div>

@@ -83,11 +83,15 @@
                 <select class="form-control form-control-sm " id="Material"  name="Material">
                 </select>
             </div>
+            <div class="col-sm-1">
+                <label for="Consumo">PzXPar</label>
+                <input type="text" id="PzXPar" name="PzXPar" class="form-control form-control-sm numbersOnly" maxlength="4">
+            </div>
 
             <div class="col-sm-1">
                 <label for="Consumo">Consumo</label>
-                <input type="number" onKeyDown="if (event.keyCode === 13)
-                            triggerNuevoAgregar();" id="Consumo" name="Consumo" class="form-control form-control-sm" min="0">
+                <input type="text" onKeyDown="if (event.keyCode === 13)
+                            triggerNuevoAgregar();" id="Consumo" name="Consumo" class="form-control form-control-sm numbersOnly" maxlength="7">
             </div>
             <div class="col-sm" >
                 <br>
@@ -115,6 +119,7 @@
                         <th scope="col">U.M</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Consumo</th>
+                        <th scope="col">PzXPar</th>
                         <th scope="col">Importe</th>
                         <th scope="col" class="d-none">Orden</th>
                     </tr>
@@ -135,11 +140,12 @@
             <div class="col-sm-2 text-danger">
             </div>
             <div class="col-sm-2 text-success">
+            </div>
+            <div class="col-sm-2 text-success">
                 Total: <br>
                 <div id="SuperTotal"><strong>$0.0</strong></div>
             </div>
-            <div class="col-sm-2 text-success">
-            </div>
+
         </div>
     </div>
 </div>
@@ -193,7 +199,7 @@
                 "searchable": false
             },
             {
-                "targets": [8],
+                "targets": [9],
                 "visible": false,
                 "searchable": false
             },
@@ -311,7 +317,8 @@
                                     Pieza: row.eq(0).text().replace(/\s+/g, ''),
                                     Material: row.eq(2).text().replace(/\s+/g, ''),
                                     Precio: row.eq(5).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
-                                    Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", "")
+                                    Consumo: row.eq(6).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""),
+                                    PzXPar: row.eq(7).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", "")
                                 };
                                 detalle.push(material);
                             });
@@ -413,7 +420,7 @@
                             /*CALCULAR SUPER TOTAL*/
                             super_total = 0.0;
                             $.each(pnlDetalle.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                                var sub = parseFloat($(this).find("td").eq(7).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
+                                var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                                 super_total += sub;
                             });
                             pnlDetalle.find("#SuperTotal").html('<strong> $' + $.number(super_total, 3, '.', ',') + '</strong>');
@@ -434,6 +441,7 @@
             var Pieza = pnlNuevo.find("#Pieza").val();
             var PiezaT = pnlNuevo.find("#Pieza option:selected").text();
             var Consumo = pnlNuevo.find("#Consumo").val();
+            var PzXPar = pnlNuevo.find("#PzXPar").val();
             var id_selected = pnlNuevo.find("#Pieza").val();
             var Material = pnlNuevo.find("#Material")[0].selectize.getValue();
             var MaterialT = pnlNuevo.find("#Material option:selected").text();
@@ -468,7 +476,8 @@
                                     '<strong><span class="text-warning">' + dtm.UNIDAD + '</span></strong>', /*5*/
                                     '<strong><span class="text-primary">$' + $.number(dtm.PRECIO, 3, '.', ',') + '</span></strong>', /*6*/
                                     '<strong><span class="text-danger">' + Consumo + '</span></strong>', /*7*/
-                                    '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*8*/,
+                                    '<span class="">' + PzXPar + '</span>', /*8*/
+                                    '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*9*/,
                                     n
                                 ]).draw(false);
 
@@ -480,12 +489,12 @@
                                 /*CALCULAR SUPER TOTAL*/
                                 super_total = 0.0;
                                 $.each(pnlDetalle.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                                    var sub = parseFloat($(this).find("td").eq(7).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
+                                    var sub = parseFloat($(this).find("td").eq(8).text().replace(/\s+/g, '').replace(/,/g, "").replace("$", ""));
                                     super_total += sub;
                                 });
                                 var tt = 0.0;
                                 $.each(tblMaterialesRequeridos.rows().data(), function () {
-                                    tt += getNumberFloat($($(this)[7]).find("span.text-success").text());
+                                    tt += getNumberFloat($($(this)[8]).find("span.text-success").text());
                                 });
                                 pnlDetalle.find("#SuperTotal").html('<strong> $' + $.number(tt, 3, '.', ',') + '</strong>');
                                 /*FIN CALCULAR SUPER TOTAL*/
@@ -693,6 +702,7 @@
                     v.Material,
                     v["U.M"], v.Precio,
                     v.Consumo,
+                    (v.PzXPar > 0) ? v.PzXPar : '',
                     v.Importe,
                     n
                 ]).draw(false);
@@ -838,7 +848,7 @@
         /*CALCULAR SUPER TOTAL*/
         super_total = 0.0;
         $.each(pnlDetalle.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-            sub = getNumberFloat($(this).find("td").eq(5).text());
+            sub = getNumberFloat($(this).find("td").eq(6).text());
             super_total += sub;
         });
         pnlDetalle.find("#SuperTotal").html('<strong> $' + $.number(super_total, 3, '.', ',') + '</strong>');

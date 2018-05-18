@@ -128,6 +128,7 @@ class PiezasYMateriales extends CI_Controller {
                     'Pieza' => $v->Pieza,
                     'Material' => $v->Material,
                     'Consumo' => $v->Consumo,
+                    'PzXPar' => $v->PzXPar,
                     'Estatus' => 'ACTIVO',
                     'Precio' => $v->Precio
                 );
@@ -161,6 +162,7 @@ class PiezasYMateriales extends CI_Controller {
                         'Material' => $v->Material,
                         'Precio' => $v->Precio,
                         'Consumo' => $v->Consumo,
+                        'PzXPar' => $v->PzXPar,
                         'Estatus' => 'ACTIVO'
                     );
                     $this->piezasymateriales_model->onModificarDetalle($v->Material, $v->Pieza, $data, $this->input->post('ID'));
@@ -170,6 +172,7 @@ class PiezasYMateriales extends CI_Controller {
                         'Pieza' => $v->Pieza,
                         'Material' => $v->Material,
                         'Consumo' => $v->Consumo,
+                        'PzXPar' => $v->PzXPar,
                         'Estatus' => 'ACTIVO',
                         'Precio' => $v->Precio
                     );
