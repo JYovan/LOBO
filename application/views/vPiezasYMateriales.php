@@ -450,7 +450,7 @@
                 if (parseFloat(Consumo) > 0 && id_selected !== '') {
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
-                    if (pnlDetalle.find("#tblMaterialesRequeridos tbody tr").length > 0) {
+                    if (tblMaterialesRequeridos.data().count() > 0) {
                         $.each(pnlDetalle.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
                             var id_row = tblMaterialesRequeridos.row($(this)).data();
 
