@@ -64,8 +64,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="">
-                        <input type="text" class="" id="ID" name="ID"  >
+                    <div class="d-none">
+                        <input type="text" class="" id="ID" name="ID" readonly="">
                         <input type="text" class="" id="IdMagnus" name="IdMagnus" readonly="">
                     </div>
                     <div class="col-sm">
@@ -207,7 +207,12 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                        pnlDatos.find('#ID').val(data);
+                        console.log('* JSON *');
+                        console.log(data);
+                        console.log('* JSON *');
+                        var dt = JSON.parse(data);
+                        pnlDatos.find('#ID').val(dt.ID);
+                        pnlDatos.find('#IdMagnus').val(dt.IDM);
                         nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
@@ -374,8 +379,6 @@
         HoldOn.close();
     }
 
-
-
     function getDepartamentos() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
@@ -392,6 +395,7 @@
             HoldOn.close();
         });
     }
+
     function getFamilias() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
@@ -408,6 +412,7 @@
             HoldOn.close();
         });
     }
+
     function getUnidades() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
