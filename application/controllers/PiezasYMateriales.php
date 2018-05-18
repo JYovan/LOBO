@@ -1,7 +1,5 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class PiezasYMateriales extends CI_Controller {
 
     public function __construct() {
@@ -118,9 +116,7 @@ class PiezasYMateriales extends CI_Controller {
                 'Estatus' => 'ACTIVO',
                 'Registro' => Date('d/m/Y h:i:s a')
             );
-
             $ID = $this->piezasymateriales_model->onAgregar($data);
-
             $materiales = json_decode($this->input->post("Materiales"));
             foreach ($materiales as $key => $v) {
                 $data = array(
@@ -133,7 +129,7 @@ class PiezasYMateriales extends CI_Controller {
                     'Precio' => $v->Precio
                 );
                 $this->piezasymateriales_model->onAgregarDetalle($data);
-            }
+            }             
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -195,5 +191,4 @@ class PiezasYMateriales extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }

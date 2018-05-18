@@ -103,8 +103,7 @@ class Generales extends CI_Controller {
 
             /**/
             if ($x->post('FieldId') === 'UNIDADES') {
-                print "\nMODIFICANDO UNIDADES...\n";
-                /* AGREGAR EN UNIDADES MAGNUS */
+                /* MODIFICAR EN UNIDADES MAGNUS */
                 $data = array(
                     'UnidadEntrada' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
                     'UnidadSalida' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
@@ -112,7 +111,7 @@ class Generales extends CI_Controller {
                 );
                 $this->generales_model->onModificarUnidadMagnus($this->input->post('IdMagnus'), $data);
 
-                /* AGREGAR EN UNIDADES FACTOR MAGNUS */
+                /* MODIFICAR EN UNIDADES FACTOR MAGNUS */
                 $data = array(
                     'Descripcion' => ($x->post('SValue') !== NULL) ? $x->post('SValue') : NULL,
                     'Factor' => $x->post('Factor') > 0 ? $x->post('Factor') : 0
