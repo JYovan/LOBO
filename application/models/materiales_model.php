@@ -66,6 +66,16 @@ class materiales_model extends CI_Model {
         }
     }
 
+    public function onModificarMagnus($ID, $DATA) {
+        try {
+            $this->db->where('Id', $ID);
+            $this->db->update("Productos", $DATA);
+//            print $str = $this->db->last_query();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onEliminar($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');

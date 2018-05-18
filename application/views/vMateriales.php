@@ -64,8 +64,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="d-none">
+                    <div class="">
                         <input type="text" class="" id="ID" name="ID"  >
+                        <input type="text" class="" id="IdMagnus" name="IdMagnus" readonly="">
                     </div>
                     <div class="col-sm">
                         <label for="Material">Material*</label>  
