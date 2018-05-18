@@ -169,42 +169,25 @@ class piezasymateriales_model extends CI_Model {
 
     public function getPiezasYMaterialesDetalleByID($ID) {
         try {
-<<<<<<< HEAD
-            $this->db->select('P.ID AS PIEZA_ID,
+            return $this->db->select('P.ID AS PIEZA_ID,
                 P.Clave+\'-\'+ P.Descripcion AS Pieza,
-=======
-            return $this->db->select('P.ID AS PIEZA_ID,  P.Clave+\'-\'+ P.Descripcion AS Pieza,
->>>>>>> acb452460ef4548318aefb44dd567981e3466baa
                 PYMD.Material ID, M.Material+\'-\'+M.Descripcion AS Material,
                 CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "U.M",
                 CONCAT(\'<strong><span class="">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
                  CONCAT(\'<strong><span class="text-danger">\',PYMD.[Consumo],\'</span></strong>\') AS Consumo,
-<<<<<<< HEAD
                  PYMD.PzXPar AS PzXPar,
-           CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false);
-            $this->db->from('sz_PiezasYMaterialesDetalle AS PYMD ');
-            $this->db->join('sz_Materiales AS M', 'PYMD.Material = M.ID');
-            $this->db->join('sz_Piezas AS P', 'PYMD.Pieza = P.ID');
-            $this->db->join('sz_Catalogos AS C', 'M.UnidadConsumo = C.ID');
-            $this->db->like('C.FieldId', 'UNIDADES');
-            $this->db->like('C.Estatus', 'ACTIVO');
-            $this->db->where('PYMD.PiezasYMateriales', $ID);
-            $this->db->where_in('PYMD.Estatus', 'ACTIVO');
-//            $this->db->order_by('PYMD.ID', 'DESC');
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-//        print $str;
-            $data = $query->result();
-            return $data;
-=======
            CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * PYMD.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false)
-            ->from('sz_PiezasYMaterialesDetalle AS PYMD ')
-            ->join('sz_Materiales AS M', 'PYMD.Material = M.ID')->join('sz_Piezas AS P', 'PYMD.Pieza = P.ID')->join('sz_Catalogos AS C', 'M.UnidadConsumo = C.ID')
-            ->like('C.FieldId', 'UNIDADES')->like('C.Estatus', 'ACTIVO')->where('PYMD.PiezasYMateriales', $ID)->where_in('PYMD.Estatus', 'ACTIVO')->get()->result();
->>>>>>> acb452460ef4548318aefb44dd567981e3466baa
+                            ->from('sz_PiezasYMaterialesDetalle AS PYMD ')
+                            ->join('sz_Materiales AS M', 'PYMD.Material = M.ID')
+                            ->join('sz_Piezas AS P', 'PYMD.Pieza = P.ID')
+                            ->join('sz_Catalogos AS C', 'M.UnidadConsumo = C.ID')
+                            ->like('C.FieldId', 'UNIDADES')
+                            ->like('C.Estatus', 'ACTIVO')
+                            ->where('PYMD.PiezasYMateriales', $ID)
+                            ->where_in('PYMD.Estatus', 'ACTIVO')
+//            $this->db->order_by('PYMD.ID', 'DESC');
+                            ->get()
+                            ->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

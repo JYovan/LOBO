@@ -441,7 +441,7 @@
             var Pieza = pnlNuevo.find("#Pieza").val();
             var PiezaT = pnlNuevo.find("#Pieza option:selected").text();
             var Consumo = pnlNuevo.find("#Consumo").val();
-            var PzXPar = pnlNuevo.find("#PzXPar").val();
+            var PzXPar = parseFloat(pnlNuevo.find("#PzXPar").val());
             var id_selected = pnlNuevo.find("#Pieza").val();
             var Material = pnlNuevo.find("#Material")[0].selectize.getValue();
             var MaterialT = pnlNuevo.find("#Material option:selected").text();
@@ -450,15 +450,19 @@
                 if (parseFloat(Consumo) > 0 && id_selected !== '') {
                     /*COMPROBAR SI YA FUE AGREGADO*/
                     var agregado = false;
-                    $.each(pnlDetalle.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
-                        var id_row = tblMaterialesRequeridos.row($(this)).data();
-                        if (parseInt(id_row[0]) === parseInt(id_selected)) {
-                            agregado = true;
-                            return false;
-                        } else {
-                            agregado = false;
-                        }
-                    });
+                    if (pnlDetalle.find("#tblMaterialesRequeridos tbody tr").length > 0) {
+                        $.each(pnlDetalle.find("#tblMaterialesRequeridos tbody tr"), function (k, v) {
+                            var id_row = tblMaterialesRequeridos.row($(this)).data();
+
+                            if (parseInt(id_row[0]) === parseInt(id_selected)) {
+                                agregado = true;
+                                return false;
+                            } else {
+                                agregado = false;
+                            }
+
+                        });
+                    }
                     /*AGREGAR SI NO ESTA AGREGADO*/
                     if (!agregado) {
 
@@ -476,7 +480,7 @@
                                     '<strong><span class="text-warning">' + dtm.UNIDAD + '</span></strong>', /*5*/
                                     '<strong><span class="text-primary">$' + $.number(dtm.PRECIO, 3, '.', ',') + '</span></strong>', /*6*/
                                     '<strong><span class="text-danger">' + Consumo + '</span></strong>', /*7*/
-                                    '<span class="">' + PzXPar + '</span>', /*8*/
+                                    (PzXPar > 0) ? PzXPar : '', /*8*/
                                     '<strong><span class="text-success">$' + $.number((Consumo * parseFloat(dtm.PRECIO)), 3, '.', ',') + '</span></strong>'/*9*/,
                                     n
                                 ]).draw(false);
