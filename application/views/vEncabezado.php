@@ -83,6 +83,8 @@
 
     <script>
         var base_url = "<?php print base_url(); ?>";
+
+
         $(function () {
             $('.money').maskMoney({prefix: '$', allowNegative: false, thousands: ',', decimal: '.', affixesStay: false});
             // $(".btn").addClass("animated shake");
@@ -130,20 +132,31 @@
                 todayHighlight: true
             });
 
-            /*Mensajes de jquery validate*/
-            jQuery.validator.messages.required = 'Este campo es obligatorio';
-            jQuery.validator.messages.number = 'Este campo debe ser numérico';
-            jQuery.validator.messages.email = 'Correo no válido';
 
         });
 
+        function openNav() {
+            $('#myNav').width(230);
+        }
+
+        function closeNav() {
+            $('#myNav').width(0);
+        }
+
+        $(window).click(function () {
+            if (parseInt($('#myNav').width()) > 0) {
+                closeNav();
+            }
+        });
+
+
         function isValid(p) {
-            var inputs = $('#' + p).find("div.card-body").find("input.form-control:required").length;
-            var selects = $('#' + p).find("div.card-body").find("select.required").length;
+            var inputs = $('#' + p).find("input.form-control:required").length;
+            var selects = $('#' + p).find("select.required").length;
             var valid_inputs = 0;
             var valid_selects = 0;
 
-            $.each($('#' + p).find("div.card-body").find("input.form-control:required"), function () {
+            $.each($('#' + p).find("input.form-control:required"), function () {
                 var e = $(this).parent().find("small.text-danger");
                 if ($(this).val() === '' && e.length === 0) {
                     $(this).parent().find("label").after("<small class=\"text-danger\"> Este campo es obligatorio</small>");
@@ -157,7 +170,7 @@
                     }
                 }
             });
-            $.each($('#' + p).find("div.card-body").find("select.required"), function () {
+            $.each($('#' + p).find("select.required"), function () {
                 var e = $(this).parent().find("small.text-danger");
                 if ($(this).val() === '' && e.length === 0) {
                     $(this).after("<small class=\"text-danger\"> Este campo es obligatorio</small>");

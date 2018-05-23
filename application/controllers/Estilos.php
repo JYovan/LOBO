@@ -154,6 +154,13 @@ class Estilos extends CI_Controller {
                 }
                 if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
                     $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                    $this->load->library('image_lib');
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = $img;
+                    $config['maintain_ratio'] = true;
+                    $config['width'] = 850;
+                    $this->image_lib->initialize($config);
+                    $this->image_lib->resize();
                     $DATA = array(
                         'Foto' => ($img),
                     );
@@ -212,6 +219,13 @@ class Estilos extends CI_Controller {
                     }
                     if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
                         $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                        $this->load->library('image_lib');
+                        $config['image_library'] = 'gd2';
+                        $config['source_image'] = $img;
+                        $config['maintain_ratio'] = true;
+                        $config['width'] = 850;
+                        $this->image_lib->initialize($config);
+                        $this->image_lib->resize();
                         $DATA = array(
                             'Foto' => ($img),
                         );

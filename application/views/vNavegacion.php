@@ -1,15 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
-    <a class="navbar-brand" href="<?php print base_url(); ?>">
-        <img src="<?php print base_url(); ?>img/LS.png" width="30px">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<style>
+    .dropdown {
+        cursor:pointer;
+        font-size: 16px !important;
+        color: #FAFAFA;
+    }
+    .dropdown-item {
+        padding: 0.25rem 2.2rem !important;
+        font-size: 14.5px !important;
+        color: #A6A6A6;
+    }
+    .dropdown-menu {
+        background-color: transparent !important;
+        border: 0px !important;
+        border-radius: 0px !important;
+    }
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        background-color: rgba(13, 25, 41, 0.95);
+        overflow-x: hidden;
+        transition: 0.1s;
+    }
+    .overlay-content {
+        position: relative;
+        top: 5%;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .overlay a:hover,
+    .overlay a:focus {
+        color: #F39C12 !important;
+    }
 
-    <div class="collapse navbar-collapse cursor-hand" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    .overlay .closebtn {
+        cursor:pointer;
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        color: #fff !important;
+        font-size: 30px !important;
+    }
+</style>
 
+<div id="myNav" class="overlay">
+    <a class="closebtn " onclick="closeNav()">&times;</a>
+    <div class="overlay-content navbar ">
+        <ul class=" navbar-nav mr-auto">
+            <img src="<?php print base_url(); ?>img/logo_mediano.png" width="160">
+            <br>
             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php echo $this->session->userdata('USERNAME') ?>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
+                    <a class="dropdown-item" href="#">Reportar un problema</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
+                </div>
+            </li>
+            <div class="dropdown-divider"></div>
+            <br>
+            <li class="nav-item dropdown " >
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Ped y Prog
                 </a>
@@ -65,7 +121,7 @@
                 </a>
                 <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
                     <li class="nav-item dropdown dropdown-submenu">
-                        <a class="nav-link dropdown-toggle  text-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Usuarios
                         </a>
                         <ul class="dropdown-menu">
@@ -77,14 +133,14 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown dropdown-submenu">
-                        <a class="nav-link dropdown-toggle text-dark "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Generales
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES DE PAGO') ?>">Condiciones de Pago</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES DE PAGO') ?>">Cond. de Pago</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=BANCOS') ?>">Bancos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Transportes</a></li>
@@ -98,8 +154,8 @@
                                     Producción
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEP-PROD') ?>">Departamentos Producción</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DETALLES_PROD') ?>">Detalles Producción</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEP-PROD') ?>">Deptos. Prod.</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DETALLES_PROD') ?>">Detalles Prod.</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PIEZAS') ?>">Piezas</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TEMPORADAS') ?>">Temporadas</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=HORMAS') ?>">Hormas</a></li>
@@ -107,35 +163,35 @@
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PLANTILLAS') ?>">Plantillas</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEFECTOS') ?>">Defectos</a></li>
                                     <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=FAMILIAS') ?>">Familias</a></li>
-
                                 </ul>
                             </li>
-
-
-
                         </ul>
                     </li>
-
                 </ul>
             </li>
-
-
         </ul>
-
-
-        <ul class="navbar-nav navbar-right">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Bienvenido : <?php echo $this->session->userdata('USERNAME') ?>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
-                    <a class="dropdown-item" >Reportar un problema</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
-                </div>
-            </li>
-        </ul>
-
     </div>
-</nav>
+</div>
+<div class="container-fluid bg-primary">
+    <div class="row">
+        <div class="col-4 ">
+            <button class="btn btn-primary btn-sm" onclick="openNav()">
+                <i class="fa fa-bars"></i> Menú Principal
+            </button>
+        </div>
+        <div class="col-4 text-center">
+
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#myNav > li:not(ul)').click(function (event) {
+            event.stopPropagation();
+        });
+    });
+</script>

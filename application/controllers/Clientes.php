@@ -8,7 +8,7 @@ class Clientes extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
-        $this->load->model('clientes_model');  
+        $this->load->model('clientes_model');
     }
 
     public function index() {
@@ -26,7 +26,7 @@ class Clientes extends CI_Controller {
 
     public function getRecords() {
         try {
-            print $_GET['callback']. '(' . json_encode($this->clientes_model->getRecords()). ');'; /*JSONP*/
+            print $_GET['callback'] . '(' . json_encode($this->clientes_model->getRecords()) . ');'; /* JSONP */
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -55,10 +55,10 @@ class Clientes extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onComprobarClienteXRFC() {
         try {
-            print json_encode($this->clientes_model->onComprobarClienteXRFC($this->input->get('ID'),$this->input->get('RFC')));
+            print json_encode($this->clientes_model->onComprobarClienteXRFC($this->input->get('ID'), $this->input->get('RFC')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -129,6 +129,13 @@ class Clientes extends CI_Controller {
                 }
                 if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
                     $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                    $this->load->library('image_lib');
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = $img;
+                    $config['maintain_ratio'] = true;
+                    $config['width'] = 850;
+                    $this->image_lib->initialize($config);
+                    $this->image_lib->resize();
                     $DATA = array(
                         'Foto' => ($img),
                     );
@@ -199,6 +206,13 @@ class Clientes extends CI_Controller {
                         }
                         if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
                             $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                            $this->load->library('image_lib');
+                            $config['image_library'] = 'gd2';
+                            $config['source_image'] = $img;
+                            $config['maintain_ratio'] = true;
+                            $config['width'] = 850;
+                            $this->image_lib->initialize($config);
+                            $this->image_lib->resize();
                             $DATA = array(
                                 'Foto' => ($img),
                             );
@@ -230,4 +244,5 @@ class Clientes extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }

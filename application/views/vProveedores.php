@@ -214,6 +214,8 @@
             getRegimenesFiscales();
 
             Foto.change(function () {
+                $('#Foto').attr("type", "file");
+                $('#Foto').val('N');
                 HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
                 var imageType = /image.*/;
                 if (Foto[0].files[0] !== undefined && Foto[0].files[0].type.match(imageType)) {

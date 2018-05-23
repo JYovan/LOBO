@@ -8,7 +8,7 @@ class Proveedores extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
-        $this->load->model('proveedores_model'); 
+        $this->load->model('proveedores_model');
     }
 
     public function index() {
@@ -26,12 +26,12 @@ class Proveedores extends CI_Controller {
 
     public function getRecords() {
         try {
-            print $_GET['callback']. '(' . json_encode($this->proveedores_model->getRecords()). ');'; /*JSONP*/
+            print $_GET['callback'] . '(' . json_encode($this->proveedores_model->getRecords()) . ');'; /* JSONP */
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getRegimenesFiscales() {
         try {
             print json_encode($this->proveedores_model->getRegimenesFiscales());
@@ -39,14 +39,15 @@ class Proveedores extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onComprobarProveedorXRFC() {
         try {
-            print json_encode($this->proveedores_model->onComprobarProveedorXRFC($this->input->get('ID'),$this->input->get('RFC')));
+            print json_encode($this->proveedores_model->onComprobarProveedorXRFC($this->input->get('ID'), $this->input->get('RFC')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getProveedorByID() {
         try {
             print json_encode($this->proveedores_model->getProveedorByID($this->input->get('ID')));
@@ -144,6 +145,13 @@ class Proveedores extends CI_Controller {
                 }
                 if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
                     $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                    $this->load->library('image_lib');
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = $img;
+                    $config['maintain_ratio'] = true;
+                    $config['width'] = 850;
+                    $this->image_lib->initialize($config);
+                    $this->image_lib->resize();
                     $DATA = array(
                         'Foto' => ($img),
                     );
@@ -174,13 +182,13 @@ class Proveedores extends CI_Controller {
                 'Pais' => ($x->post('Pais') !== NULL) ? $x->post('Pais') : '',
                 'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : '',
                 'CURP' => ($x->post('CURP') !== NULL) ? $x->post('CURP') : '',
-                'Telefono1' => ($x->post('Telefono') !== NULL) ? $x->post('Telefono') : '', 
+                'Telefono1' => ($x->post('Telefono') !== NULL) ? $x->post('Telefono') : '',
                 'Fax' => ($x->post('Fax') !== NULL) ? $x->post('Fax') : '',
                 'CodigoPostal' => ($x->post('CP') !== NULL) ? $x->post('CP') : '',
             );
             $this->proveedores_model->onModificarMagnus($this->proveedores_model->getMagnusID($this->input->post('ID'))[0]->MAGNUS, $data);
             $data = array(
-                'Clave' => $x->post('Clave'), 
+                'Clave' => $x->post('Clave'),
                 'RazonSocial' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : '',
                 'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : '',
                 'Direccion' => ($x->post('Direccion') !== NULL) ? $x->post('Direccion') : '',
@@ -215,6 +223,13 @@ class Proveedores extends CI_Controller {
                         }
                         if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $URL_DOC . '/' . $ID . '/' . utf8_decode($_FILES["Foto"]["name"]))) {
                             $img = $master_url . $ID . '/' . $_FILES["Foto"]["name"];
+                            $this->load->library('image_lib');
+                            $config['image_library'] = 'gd2';
+                            $config['source_image'] = $img;
+                            $config['maintain_ratio'] = true;
+                            $config['width'] = 850;
+                            $this->image_lib->initialize($config);
+                            $this->image_lib->resize();
                             $DATA = array(
                                 'Foto' => ($img),
                             );
@@ -238,5 +253,5 @@ class Proveedores extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
 }

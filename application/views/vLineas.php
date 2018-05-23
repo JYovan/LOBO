@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -38,7 +38,7 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-2 float-left">
@@ -57,47 +57,28 @@
                         <input type="text" class="" id="ID" name="ID"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Clave">Clave*</label>  
+                        <label for="Clave">Clave*</label>
                         <input type="text" class="form-control form-control-sm numbersOnly" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="Descripcion">Descripción*</label>  
+                        <label for="Descripcion">Descripción*</label>
                         <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="Ano">Año</label>  
-                        <input type="number" class="form-control form-control-sm" id="Ano" name="Ano"  >
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="TemporadaCat">Temporada*</label>
-                        <select class="form-control form-control-sm required"  name="TemporadaCat" required=""> 
-                            <option value=""></option>  
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="TipoEstiloCat">Tipo Estilo*</label>
-                        <select class="form-control form-control-sm required"  name="TipoEstiloCat" required=""> 
-                            <option value=""></option>  
-                        </select>
-                    </div>
-                </div> 
+
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm required"  name="Estatus" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="Estatus" required="">
+                            <option value=""></option>
                             <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
+                            <option>INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 <!--SCRIPT-->
 <script>
@@ -144,8 +125,8 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
-nuevo=false;
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -209,8 +190,6 @@ nuevo=false;
         });
 
         getRecords();
-        getTemporadas();
-        getTiposEstilo();
         handleEnter();
     });
 
@@ -314,36 +293,5 @@ nuevo=false;
             HoldOn.close();
         });
     }
-    function getTemporadas() {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getTemporadas',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            $.each(data, function (k, v) {
-                pnlDatos.find("[name='TemporadaCat']")[0].selectize.addOption({text: v.SValue, value: v.ID});
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
-    function getTiposEstilo() {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getTiposEstilo',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            $.each(data, function (k, v) {
-                pnlDatos.find("[name='TipoEstiloCat']")[0].selectize.addOption({text: v.SValue, value: v.ID});
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
+
 </script>

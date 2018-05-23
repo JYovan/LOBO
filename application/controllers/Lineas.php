@@ -8,7 +8,6 @@ class Lineas extends CI_Controller {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('lineas_model');
-        $this->load->model('generales_model');
     }
 
     public function index() {
@@ -46,38 +45,15 @@ class Lineas extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
-    public function getTemporadas() {
-        try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('TEMPORADAS');
-            print json_encode($data);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-    
-    public function getTiposEstilo() {
-        try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('TIPOS ESTILO');
-            print json_encode($data);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
 
     public function onAgregar() {
         try {
             $data = array(
                 'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Ano' => ($this->input->post('Ano') !== NULL) ? $this->input->post('Ano') : NULL,
-                'TemporadaCat' => ($this->input->post('TemporadaCat') !== NULL) ? $this->input->post('TemporadaCat') : NULL,
-                'TipoEstiloCat' => ($this->input->post('TipoEstiloCat') !== NULL) ? $this->input->post('TipoEstiloCat') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
-            $ID=$this->lineas_model->onAgregar($data);
+            $ID = $this->lineas_model->onAgregar($data);
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -90,9 +66,6 @@ class Lineas extends CI_Controller {
             $DATA = array(
                 'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Ano' => ($this->input->post('Ano') !== NULL) ? $this->input->post('Ano') : NULL,
-                'TemporadaCat' => ($this->input->post('TemporadaCat') !== NULL) ? $this->input->post('TemporadaCat') : NULL,
-                'TipoEstiloCat' => ($this->input->post('TipoEstiloCat') !== NULL) ? $this->input->post('TipoEstiloCat') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->lineas_model->onModificar($ID, $DATA);

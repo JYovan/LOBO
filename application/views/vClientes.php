@@ -222,6 +222,8 @@
 
             /*NUEVO ARCHIVO*/
             btnArchivo.on("click", function () {
+                $('#Foto').attr("type", "file");
+                $('#Foto').val('N');
                 Archivo.change(function () {
                     HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
                     var imageType = /image.*/;

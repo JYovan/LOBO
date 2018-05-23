@@ -44,11 +44,11 @@
     });
 
     function login() {
+        HoldOn.open({
+            theme: 'sk-bounce',
+            message: 'ESPERE...'
+        });
         if (Usuario.val() !== '' && Contrasena.val() !== '') {
-            HoldOn.open({
-                theme: 'sk-bounce',
-                message: 'ESPERE...'
-            });
             setTimeout(function () {
                 var frm = $("#frmIngresar");
                 $.ajax({
@@ -64,10 +64,12 @@
                     } else {
                         onNotify('<span class="fa fa-exclamation fa-lg"></span>', data, 'danger');
                     }
+                    HoldOn.close();
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
-                }).always(function () {
                     HoldOn.close();
+                }).always(function () {
+
                 });
             }, 1000);
         } else {

@@ -800,7 +800,7 @@
             $.each(data, function (k, v) {
                 pnlNuevo.find("[name='Combinacion']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
-            pnlNuevo.find("[name='Combinacion']")[0].selectize.open();
+            //pnlNuevo.find("[name='Combinacion']")[0].selectize.open();
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
