@@ -12,7 +12,6 @@ class Materiales extends CI_Controller {
     }
 
     public function index() {
-
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
             $this->load->view('vEncabezado');
             $this->load->view('vNavegacion');
@@ -35,9 +34,7 @@ class Materiales extends CI_Controller {
 
     public function getMaterialByID() {
         try {
-            extract($this->input->post());
-            $data = $this->materiales_model->getMaterialByID($ID);
-            print json_encode($data);
+            print json_encode($this->materiales_model->getMaterialByID($this->input->post('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -45,9 +42,7 @@ class Materiales extends CI_Controller {
 
     public function getDepartamentos() {
         try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('DEPARTAMENTOS');
-            print json_encode($data);
+            print json_encode($this->generales_model->getCatalogosByFielID('DEPARTAMENTOS'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -55,9 +50,7 @@ class Materiales extends CI_Controller {
 
     public function getFamilias() {
         try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('FAMILIAS');
-            print json_encode($data);
+            print json_encode($this->generales_model->getCatalogosByFielID('FAMILIAS'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -65,9 +58,7 @@ class Materiales extends CI_Controller {
 
     public function getUnidades() {
         try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('UNIDADES');
-            print json_encode($data);
+            print json_encode($this->generales_model->getCatalogosByFielID('UNIDADES'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -181,11 +172,9 @@ class Materiales extends CI_Controller {
 
     public function onEliminar() {
         try {
-            extract($this->input->post());
-            $this->materiales_model->onEliminar($ID);
+            $this->materiales_model->onEliminar($this->input->post('ID'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
 }
