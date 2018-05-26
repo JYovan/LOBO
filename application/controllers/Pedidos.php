@@ -82,9 +82,7 @@ class Pedidos extends CI_Controller {
 
     public function getDetalleByID() {
         try {
-            extract($this->input->post());
-            $data = $this->pedidos_model->getDetalleByID($ID);
-            print json_encode($data);
+            print json_encode($this->pedidos_model->getDetalleByID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -159,7 +157,6 @@ class Pedidos extends CI_Controller {
 
     public function onAgregar() {
         try {
-
             $data = array(
                 'Cliente' => ($this->input->post('Cliente') !== NULL) ? $this->input->post('Cliente') : NULL,
                 'Agente' => ($this->input->post('Agente') !== NULL) ? $this->input->post('Agente') : NULL,
@@ -240,4 +237,11 @@ class Pedidos extends CI_Controller {
         }
     }
 
+    public function getSerieXDetalleByID() {
+        try {
+            print json_encode($this->pedidos_model->getSerieXDetalleByID($this->input->get('ID')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 }

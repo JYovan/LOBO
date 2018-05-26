@@ -47,7 +47,7 @@ class pedidos_model extends CI_Model {
                     . "E.Clave +'-'+C.Clave+' '+C.Descripcion AS Estilo, "
                     . "U.Sem AS Sem,"
                     . "U.Maq AS Maq,"
-                    . "C1, "
+                    . "CASE WHEN C1 <= 0 THEN '-' ELSE C1 END AS C1, "
                     . "C2, "
                     . "C3, "
                     . "C4, "
@@ -77,18 +77,38 @@ class pedidos_model extends CI_Model {
                     . "'<span class=''fa fa-trash-alt'' "
                     . "onclick=''onEliminarDetalle('+      "
                     . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
-                    . " ", false);
+                    . ", S.ID AS Serie", false);
             $this->db->from('sz_PedidosDetalle AS U');
             $this->db->join('sz_Estilos AS E', 'U.Estilo = E.ID');
             $this->db->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID');
             $this->db->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID');
+            $this->db->join('sz_series AS S', 'E.Serie = S.ID');
             $this->db->where('U.Pedido', $Pedido);
             $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
             $str = $this->db->last_query();
-            //print $str;
+//            print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getSerieXDetalleByID($Pedido) {
+        try {
+            $this->db->select("S.ID, S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,
+                                      S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,
+                                      S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false);
+            $this->db->from('sz_PedidosDetalle AS U');
+            $this->db->join('sz_Estilos AS E', 'U.Estilo = E.ID');
+            $this->db->join('sz_series AS S', 'E.Serie = S.ID');
+            $this->db->where('U.Pedido', $Pedido);
+            $this->db->group_by(array('S.ID', 'S.T1', 'S.T2', 'S.T3', 'S.T4', 'S.T5', 'S.T6', 'S.T7', 'S.T8', '
+                                      S.T9', 'S.T10', 'S.T11', 'S.T12', 'S.T13', 'S.T14', 'S.T15', '
+                                      S.T16', 'S.T17', 'S.T18', 'S.T19', 'S.T20', 'S.T21', 'S.T22'));
+            $query = $this->db->get();
+            $str = $this->db->last_query();
+//            print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {
@@ -217,6 +237,21 @@ class pedidos_model extends CI_Model {
 //        print $str;
             $data = $query->result();
             return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getSerieXEstiloTR($Estilo) {
+        try {
+            return $this->db->select("S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,
+                                      S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,
+                                      S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false)
+                            ->from('sz_Estilos AS E')
+                            ->join('sz_Series AS S', 'E.Serie = S.ID', 'left')
+                            ->where('E.ID', $Estilo)
+                            ->get()
+                            ->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

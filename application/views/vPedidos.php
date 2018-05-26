@@ -226,8 +226,48 @@
                     <div class="row">
                         <div class=" col-md-12 ">
                             <div class="row">
-                                <div class="table-responsive" id="RegistrosDetalle">
-
+                                <div class="table-responsive" id="PedidosDetalle">
+                                    <table id="tblPedidosDetalle" class="table table-sm display " style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>IdEstilo</th>
+                                                <th>IdColor</th>
+                                                <th>Estilo</th>
+                                                <th>Semana</th>
+                                                <th>Maq</th>
+                                                <th>	C1	</th>
+                                                <th>	C1	</th>
+                                                <th>	C3	</th>
+                                                <th>	C4	</th>
+                                                <th>	C5	</th>
+                                                <th>	C6	</th>
+                                                <th>	C7	</th>
+                                                <th>	C8	</th>
+                                                <th>	C9	</th>
+                                                <th>	C10	</th>
+                                                <th>	C11	</th>
+                                                <th>	C12	</th>
+                                                <th>	C13	</th>
+                                                <th>	C14	</th>
+                                                <th>	C15	</th>
+                                                <th>	C16	</th>
+                                                <th>	C17	</th>
+                                                <th>	C18	</th>
+                                                <th>	C19	</th>
+                                                <th>	C20	</th>
+                                                <th>	C21	</th>
+                                                <th>	C22	</th>
+                                                <th>	Pares	</th>
+                                                <th>	Precio	</th>
+                                                <th>	Importe	</th>
+                                                <th>	Desc	</th>
+                                                <th>	Entrega	</th>
+                                                <th>	-	</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div class="" align="center" style="background-color: #fff ">
@@ -502,103 +542,87 @@
             pnlDatosDetalle.find("[name='Maquila']").focus();
         });
     }
-
+    var tblPedidosDetalle = $("#tblPedidosDetalle"), tblPedidosDetalleDT;
     function getDetalleByID(IDX) {
-        $.ajax({
-            url: master_url + 'getDetalleByID',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                ID: IDX
-            }
-        }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                pnlDatosDetalle.find("#RegistrosDetalle").html(getTable('tblRegistrosDetalle', data));
-                $('#tblRegistrosDetalle tfoot th').each(function () {
-                    $(this).addClass("d-none");
-                });
-//                $('#tblRegistrosDetalle thead th').each(function () {
-//                    $(this).addClass("d-none");
-//                });
-                var thead = $('#tblRegistrosDetalle thead th');
-                var tfoot = $('#tblRegistrosDetalle tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                thead.eq(1).addClass("d-none");
-                tfoot.eq(1).addClass("d-none");
-                thead.eq(2).addClass("d-none");
-                tfoot.eq(2).addClass("d-none");
-                $.each($('#tblRegistrosDetalle tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                    td.eq(1).addClass("d-none");
-                    td.eq(2).addClass("d-none");
-                });
-                $.each($('#tblRegistrosDetalle tbody tr td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(29)):not(:nth-child(30)):not(:nth-child(31)):not(:nth-child(32)):not(:nth-child(33))'), function (k, v) {
-                    if (parseFloat($(this).text()) === 0) {
-                        $(this).text('-');
-                    } else if (parseFloat($(this).text()) > 0) {
-                        $(this).addClass('exists');
+        var rows;
+        tblPedidosDetalle.find("thead").addClass("d-none");
+        if ($.fn.DataTable.isDataTable('#tblPedidosDetalle')) {
+            tblPedidosDetalle.DataTable().destroy();
+        }
+        tblPedidosDetalleDT = tblPedidosDetalle.DataTable({
+            "dom": 'Bfrtip', 
+            "autoWidth": false,
+            "colReorder": true,
+            "displayLength": 500,
+            "bLengthChange": false,
+            "deferRender": true,
+            "scrollY": 350,
+            "scrollCollapse": false,
+            keys: true,
+            "bSort": false,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [2],
+                    "visible": false,
+                    "searchable": false
+                }],
+            language: lang,
+            "createdRow": function (row, data, index) {
+                $.each($(row).find("td"), function (k, v) {
+                    if ($.isNumeric($(v).text())) {
+                        if (data[0] === "" && parseFloat($(v).text()) > 0) {
+                            $(v).addClass('Serie');
+                        } else if (parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) > 0) {
+                            $(v).addClass('HasStock');
+                        } else if (parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) === 0) {
+                            $(v).addClass('NoHasStock');
+                        }
                     }
                 });
-                $.each($('#tblRegistrosDetalle tbody tr td:nth-child(32)'), function (k, v) {
-                    $(this).addClass('red');
-                });
-                tblDetalleCaptura = pnlDatosDetalle.find("#tblRegistrosDetalle").DataTable(tblInicial);
-                //Sombreado de la fila
-                pnlDatosDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
-                    //Recrea los encabezados, desocultando solo los necesarios
-                    $('#tblRegistrosDetalle thead th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3))').each(function () {
-                        $(this).removeClass("d-none");
-                    });
-                    var thead = $('#tblRegistrosDetalle thead th');
-                    thead.eq(3).text('');
-                    thead.eq(4).text('');
-                    thead.eq(5).text('Serie');
-                    thead.eq(28).text('');
-                    thead.eq(29).text('');
-                    thead.eq(30).text('');
-                    thead.eq(31).text('');
-                    thead.eq(32).text('');
-                    $("#tblRegistrosDetalle tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var cells = $(this).find("td");
-                    cellEstilo = cells.eq(1).text();
-                    cellColor = cells.eq(2).text();
-                    nEstilo = cells.eq(3).text();
-                    $.ajax({
-                        url: master_url + 'getEncabezadoSerieXEstilo',
-                        type: "POST",
-                        dataType: "JSON",
-                        data: {
-                            Estilo: cellEstilo
-                        }
-                    }).done(function (data, x, jq) {
-                        var cont = 6;
-                        $.each(data[0], function (k, v) {
-                            if (parseInt(v) <= 0) {
-                                thead.eq(cont).text('');
-                            } else {
-                                thead.eq(cont).text(v);
-                            }
-                            cont++;
-                        });
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
-                });
-                $("[name='Estilo']").focus();
-                onCalcularMontos();
-            } else {
-                pnlDatosDetalle.find("#RegistrosDetalle").html("");
             }
-            HoldOn.close();
+        });
+        tblPedidosDetalleDT.clear().draw();
+        $.getJSON(master_url + 'getDetalleByID', {ID: IDX}).done(function (detalle) {
+            $.getJSON(master_url + 'getSerieXDetalleByID', {ID: IDX}).done(function (series) {
+                /*SERIE*/
+                $.each(series, function (k, s) {
+                    var b = '<strong>', bc = '</strong>', bs = '<strong class="Serie">';
+                    tblPedidosDetalleDT.row.add([
+                        '', '', '', b + 'Estilo' + bc, b + 'Semana' + bc, b + 'Maq' + bc,
+                        s.T1, s.T2, s.T3, s.T4, s.T5, s.T6, s.T7, s.T8, s.T9, s.T10, s.T11,
+                        s.T12, s.T13, s.T14, s.T15, s.T16, s.T17, s.T18, s.T19, s.T20, s.T21, s.T22,
+                        b + 'Pares' + bc, b + 'Precio' + bc, b + 'Importe' + bc, b + 'Desc' + bc, b + 'Entrega' + bc, '-'
+                    ]).draw(false);
+                    $.each(detalle, function (k, d) {
+                        if (parseInt(s.ID) === parseInt(d.Serie)) {
+                            tblPedidosDetalleDT.row.add([
+                                d.ID, d.IdEstilo, d.IdColor, d.Estilo, d.Sem, d.Maq,
+                                d.C1, d.C2, d.C3, d.C4, d.C5, d.C6, d.C7, d.C8, d.C9, d.C10, d.C11,
+                                d.C12, d.C13, d.C14, d.C15, d.C16, d.C17, d.C18, d.C19, d.C20, d.C21, d.C22,
+                                d.Pares, d.Precio, d.Importe, d.Desc, d.Entrega, d["-"]
+                            ]).draw(false);
+                        }
+                    });
+                });
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+            });
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
-
+            HoldOn.close();
         });
     }
 
@@ -608,6 +632,8 @@
             theme: "sk-bounce",
             message: "CARGANDO DATOS..."
         });
+
+
         $.ajax({
             url: master_url + 'getRecords',
             type: "POST",
@@ -881,7 +907,6 @@
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            console.log(data);
             $.each(data, function (k, v) {
                 pnlDatos.find("[name='Agente']")[0].selectize.addOption({text: v.Nombre, value: v.IdVendedor});
             });
@@ -1051,5 +1076,22 @@
 <style>
     .swal-icon img {
         width: 220px;
+    }
+    .Serie{  
+        font-weight: bold;
+        background-color: #333333 !important;
+        color: #fff;
+    }
+    .Serie:hover{  
+        background-color: #ffff00 !important;
+        color: #000;
+    }
+    .HasStock{ 
+        background-color: #669900 !important;
+        color: #fff !important;
+    }
+    .NoHasStock{ 
+        background-color: #cc0033 !important;
+        color: #fff !important;
     }
 </style>
