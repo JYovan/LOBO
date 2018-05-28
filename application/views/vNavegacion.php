@@ -150,7 +150,7 @@
                             <div class="dropdown-divider" href="#"></div>
 
                             <li class="nav-item dropdown dropdown-submenu">
-                                <a class="nav-link dropdown-toggle text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Producción
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

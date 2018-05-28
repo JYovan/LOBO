@@ -596,9 +596,15 @@
                     }
                 });
                 /*ANCHO*/
-                $(row).find("td").eq(0).css("width", "220px");
-                $(row).find("td").eq(1).css("width", "200px");
-                $(row).find("td").eq(2).css("width", "340px");
+                var celda = $(row).find("td");
+                celda.eq(0).css("width", "360px");
+                celda.eq(1).css("width", "25px");
+                celda.eq(2).css("width", "25px");
+                celda.eq(25).css("width", "55px");
+                celda.eq(26).css("width", "55px");
+                celda.eq(27).css("width", "55px");
+                celda.eq(28).css("width", "55px");
+                celda.eq(29).css("width", "55px");
             }
         });
         tblPedidosDetalleDT.clear().draw();
@@ -608,7 +614,7 @@
                 $.each(series, function (k, s) {
                     var b = '<strong>', bc = '</strong>', bs = '<strong class="Serie">';
                     tblPedidosDetalleDT.row.add([
-                        '', '', '', b + 'Estilo' + bc, b + 'Semana' + bc, b + 'Maq' + bc,
+                        '', '', '', b + 'Estilo' + bc, b + 'Sem' + bc, b + 'Maq' + bc,
                         s.T1, s.T2, s.T3, s.T4, s.T5, s.T6, s.T7, s.T8, s.T9, s.T10, s.T11,
                         s.T12, s.T13, s.T14, s.T15, s.T16, s.T17, s.T18, s.T19, s.T20, s.T21, s.T22,
                         b + 'Pares' + bc, b + 'Precio' + bc, b + 'Importe' + bc, b + 'Desc' + bc, b + 'Entrega' + bc, '-'
@@ -1095,33 +1101,33 @@
         font-weight: bold;
         color: #ff0000;
     }
-    .HasStock{ 
+    .HasStock{
         background-color: #669900 !important;
         color: #fff !important;
     }
-    .HasStock:hover{ 
+    .HasStock:hover{
         background-color: #ffff00 !important;
         color: #000 !important;
         font-weight: bold;
     }
-    .HasStockActive{ 
+    .HasStockActive{
         background-color: #cc0033 !important;
         color: #fff !important;
     }
-    .Serie{  
+    .Serie{
         font-weight: bold;
         background-color: #333333 !important;
         color: #fff;
     }
-    .Serie:hover{  
+    .Serie:hover{
         background-color: #ffff00 !important;
         color: #000;
     }
-    .SerieActive{  
+    .SerieActive{
         background-color: #ffff00 !important;
         color: #000;
     }
-    .NoHasStock{ 
+    .NoHasStock{
         background-color: #fff !important;
         color: #000 !important;
     }

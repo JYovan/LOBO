@@ -8,7 +8,7 @@ class materiales_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
-        $this->dbi = $this->load->database('dbi', true);
+//        $this->dbi = $this->load->database('dbi', true);
     }
 
     public function getRecords() {

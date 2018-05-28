@@ -134,8 +134,11 @@ class Estilos extends CI_Controller {
                 'Temporada' => ($this->input->post('Temporada') !== NULL && $this->input->post('Temporada') !== 'null') ? $this->input->post('Temporada') : NULL,
                 'PuntoCentral' => ($this->input->post('PuntoCentral') !== NULL) ? $this->input->post('PuntoCentral') : NULL,
                 'Tipo' => ($this->input->post('Tipo') !== NULL && $this->input->post('Tipo') !== 'null') ? $this->input->post('Tipo') : NULL,
-                'MaquilaPlantilla' => ($this->input->post('MaquilaPlantilla') !== NULL) ? $this->input->post('MaquilaPlantilla') : NULL,
-                'TipoDeConstruccion' => ($this->input->post('TipoDeConstruccion') !== NULL) ? $this->input->post('TipoDeConstruccion') : NULL,
+                'Plantilla' => ($this->input->post('Plantilla') !== NULL) ? $this->input->post('Plantilla') : NULL,
+                'ConsumoPiel' => ($this->input->post('ConsumoPiel') !== NULL) ? $this->input->post('ConsumoPiel') : NULL,
+                'ConsumoForro' => ($this->input->post('ConsumoForro') !== NULL) ? $this->input->post('ConsumoForro') : NULL,
+                'Observacion' => ($this->input->post('Observacion') !== NULL) ? $this->input->post('Observacion') : NULL,
+                'TipoEstilo' => ($this->input->post('TipoEstilo') !== NULL) ? $this->input->post('TipoEstilo') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'Registro' => Date('d/m/Y h:i:s a')
             );

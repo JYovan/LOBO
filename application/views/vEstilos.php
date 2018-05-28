@@ -1,10 +1,10 @@
 <div class="card " id="pnlTablero">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-6 float-left">
+            <div class="col-sm float-left">
                 <legend class="float-left">Gestión de Estilos</legend>
             </div>
-            <div class="col-sm-6 float-right" align="right">
+            <div class="col-sm float-right" align="right">
                 <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
                 <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
             </div>
@@ -51,140 +51,150 @@
                         <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
-                <div class="row"><!--START ROW-->
-                    <div class="d-none">
-                        <input type="text" class="" id="ID" name="ID"  >
-                    </div>
-                    <div class="col-md has-success">
-                        <label for="Clave">Clave*</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="" id="Clave" name="Clave" required="">
-                    </div>
-                    <div class="col-md">
-                        <label for="Descripción">Descripción*</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="" id="Descripcion" name="Descripcion" required="">
-                    </div>
-                    <div class="col-md">
-                        <label for="Ano">Año*</label>
-                        <input type="number" class="form-control form-control-sm" placeholder="" id="Ano" name="Ano" required="">
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Linea">Linea*</label>
-                        <select class="form-control form-control-sm required"   name="Linea" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Serie">Serie*</label>
-                        <select class="form-control form-control-sm required"  name="Serie" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Horma">Horma*</label>
-                        <select class="form-control form-control-sm required"   name="Horma" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Familia">Familia*</label>
-                        <select class="form-control form-control-sm required"   name="Familia" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Temporada">Temporada*</label>
-                        <select class="form-control form-control-sm required"   name="Temporada" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Tipo">Tipo de Estilo*</label>
-                        <select class="form-control form-control-sm required"   name="Tipo" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Desperdicio">Desperdicio</label>
-                        <input type="number" maxlength="3" class="form-control form-control-sm"  id="Desperdicio" name="Desperdicio">
-                    </div>
-                    <div class="col-md">
-                        <label for="PuntoCentra">Punto Central</label>
-                        <input type="text" class="form-control form-control-sm"  id="PuntoCentral" name="PuntoCentral">
-                    </div>
-                    <div class="col-md">
-                        <label for="Genero">Género</label>
-                        <select class="form-control form-control-sm"   name="Genero">
-                            <option value=""></option>
-                            <option value="UNISEX">UNISEX</option>
-                            <option value="MASCULINO">MASCULINO</option>
-                            <option value="FEMENINO">FEMENINO</option>
-                        </select>
-                    </div>
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Herramental">Herramental</label>
-                        <input type="text" maxlength="3" class="form-control form-control-sm" placeholder="" id="Herramental" name="Herramental">
-                    </div>
-                    <div class="col-md">
-                        <label for="TipoDeConstruccion">Tipo de Construcción</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="" id="TipoDeConstruccion" name="TipoDeConstruccion">
-                    </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-none">
+                            <input type="text" class="" id="ID" name="ID"  >
+                        </div>
+                        <div class="row">
+                            <div class="col-md has-success">
+                                <label for="Clave">Clave*</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="" id="Clave" name="Clave" required="">
+                            </div>
+                            <div class="col-md">
+                                <label for="Descripción">Descripción*</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="" id="Descripcion" name="Descripcion" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Ano">Año*</label>
+                                <input type="text" class="form-control form-control-sm numbersOnly" placeholder="" id="Ano" name="Ano" maxlength="4" required="">
+                            </div>
+                            <div class="col-md">
+                                <label for="Linea">Linea*</label>
+                                <select class="form-control form-control-sm required"   name="Linea" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Serie">Serie*</label>
+                                <select class="form-control form-control-sm required"  name="Serie" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Horma">Horma*</label>
+                                <select class="form-control form-control-sm required"   name="Horma" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Familia">Familia*</label>
+                                <select class="form-control form-control-sm required"   name="Familia" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Temporada">Temporada*</label>
+                                <select class="form-control form-control-sm required"   name="Temporada" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Tipo">Tipo de Estilo*</label>
+                                <select class="form-control form-control-sm required"   name="Tipo" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Genero">Género</label>
+                                <select class="form-control form-control-sm"   name="Genero">
+                                    <option value=""></option>
+                                    <option value="UNISEX">UNISEX</option>
+                                    <option value="MASCULINO">MASCULINO</option>
+                                    <option value="FEMENINO">FEMENINO</option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="TipoDeConstruccion">Tipo de Construcción</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="" id="TipoDeConstruccion" name="TipoDeConstruccion">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Desperdicio">Desperdicio</label>
+                                <input type="number" maxlength="3" class="form-control form-control-sm"  id="Desperdicio" name="Desperdicio">
+                            </div>
+                            <div class="col-md">
+                                <label for="PuntoCentra">Punto Central</label>
+                                <input type="text" class="form-control form-control-sm"  id="PuntoCentral" name="PuntoCentral">
+                            </div>
 
-                    <div class="col-md">
-                        <label for="Maquila">Maquila</label>
-                        <select class="form-control form-control-sm"  name="Maquila">
-                            <option value=""></option>
-                        </select>
-                    </div>
+                            <div class="col-md">
+                                <label for="Herramental">Herramental</label>
+                                <input type="text" maxlength="3" class="form-control form-control-sm" placeholder="" id="Herramental" name="Herramental">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Estatus">Plantilla</label>
+                                <select class="form-control form-control-sm"   name="MaquilaPlantilla">
+                                    <option value=""></option>
+                                    <option value="MAQUILA">MAQUILA</option>
+                                    <option value="PLANTILLA">PLANTILLA</option>
+                                    <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
+                                </select>
+                            </div>
 
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <label for="Notas">Notas</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="" id="Notas" name="Notas">
-                    </div>
-                    <div class="col-md">
-                        <label for="Estatus">Maquila o Plantilla</label>
-                        <select class="form-control form-control-sm"   name="MaquilaPlantilla">
-                            <option value=""></option>
-                            <option value="MAQUILA">MAQUILA</option>
-                            <option value="PLANTILLA">PLANTILLA</option>
-                            <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
-                        </select>
-                    </div>
-                    <div class="col-md">
-                        <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm required"   name="Estatus" required="">
-                            <option value=""></option>
-                            <option value="ACTIVO">ACTIVO</option>
-                            <option value="INACTIVO">INACTIVO</option>
-                        </select>
-                    </div>
+                            <div class="col-md">
+                                <label for="Maquila">Maquila</label>
+                                <select class="form-control form-control-sm"  name="Maquila">
+                                    <option value=""></option>
+                                </select>
+                            </div>
 
-                    <div class="w-100"></div> <!--SALTO-->
-                    <div class="col-md">
-                        <BR>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" >
-                            <label class="custom-control-label" for="Liberado">Liberado</label>
+                            <div class="col-md">
+                                <label for="Notas">Notas</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="" id="Notas" name="Notas">
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <BR>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" >
+                                    <label class="custom-control-label" for="Liberado">Liberado</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Estatus">Estatus*</label>
+                                <select class="form-control form-control-sm required"   name="Estatus" required="">
+                                    <option value=""></option>
+                                    <option value="ACTIVO">ACTIVO</option>
+                                    <option value="INACTIVO">INACTIVO</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div><!--FIN ROW-->
-                <!-- FOTO -->
-                <div for="" align="center">
-                    <h3>Puede subir un archivo PDF, imagen (JPG,GIF,PNG) etc.</h3>
+                    <div class="col-md-4">
+                        <input type="file" id="Foto" name="Foto" class="d-none">
+                        <button type="button" class="btn btn-default" id="btnArchivo" name="btnArchivo">
+                            <span class="fa fa-upload fa-1x"></span> SELECCIONA EL ARCHIVO
+                        </button>
+                        <br><hr>
+                        <div id="VistaPrevia" class="col-md-12" align="center"></div>
+                    </div>
                 </div>
-                <div class="col-md-12" align="center">
-                    <input type="file" id="Foto" name="Foto" class="d-none">
-                    <button type="button" class="btn btn-default" id="btnArchivo" name="btnArchivo">
-                        <span class="fa fa-upload fa-1x"></span> SELECCIONA EL ARCHIVO
-                    </button>
-                    <br><hr>
-                    <div id="VistaPrevia" class="col-md-12" align="center"></div>
-                </div>
-                <!-- FIN FOTO -->
             </form>
         </div>
     </div>
