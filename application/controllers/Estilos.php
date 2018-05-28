@@ -30,16 +30,26 @@ class Estilos extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->estilos_model->getRecords());
+            print $_GET['callback'] . '(' . json_encode($this->estilos_model->getRecords()) . ');'; /* JSONP */
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getFamilias() {
+    public function getPlantillas() {
         try {
             extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('FAMILIAS');
+            $data = $this->generales_model->getCatalogosByFielID('PLANTILLAS');
+            print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getFamiliasProg() {
+        try {
+            extract($this->input->post());
+            $data = $this->generales_model->getCatalogosByFielID('FAMILIAS PROG');
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -86,6 +96,16 @@ class Estilos extends CI_Controller {
         }
     }
 
+    public function getGeneros() {
+        try {
+            extract($this->input->post());
+            $data = $this->generales_model->getCatalogosDescripcionByFielID('GENEROS');
+            print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getSeries() {
         try {
             extract($this->input->post());
@@ -121,7 +141,7 @@ class Estilos extends CI_Controller {
                 'Linea' => ($this->input->post('Linea') !== NULL && $this->input->post('Linea') !== 'null') ? $this->input->post('Linea') : NULL,
                 'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Familia' => ($this->input->post('Familia') !== NULL && $this->input->post('Familia') !== 'null') ? $this->input->post('Familia') : NULL,
+                'FamiliaProg' => ($this->input->post('FamiliaProg') !== NULL && $this->input->post('FamiliaProg') !== 'null') ? $this->input->post('FamiliaProg') : NULL,
                 'Serie' => ($this->input->post('Serie') !== NULL && $this->input->post('Serie') !== 'null') ? $this->input->post('Serie') : NULL,
                 'Horma' => ($this->input->post('Horma') !== NULL && $this->input->post('Horma') !== 'null') ? $this->input->post('Horma') : NULL,
                 'Genero' => ($this->input->post('Genero') !== NULL && $this->input->post('Genero') !== 'null') ? $this->input->post('Genero') : NULL,
@@ -133,12 +153,16 @@ class Estilos extends CI_Controller {
                 'Ano' => ($this->input->post('Ano') !== NULL) ? $this->input->post('Ano') : NULL,
                 'Temporada' => ($this->input->post('Temporada') !== NULL && $this->input->post('Temporada') !== 'null') ? $this->input->post('Temporada') : NULL,
                 'PuntoCentral' => ($this->input->post('PuntoCentral') !== NULL) ? $this->input->post('PuntoCentral') : NULL,
-                'Tipo' => ($this->input->post('Tipo') !== NULL && $this->input->post('Tipo') !== 'null') ? $this->input->post('Tipo') : NULL,
                 'Plantilla' => ($this->input->post('Plantilla') !== NULL) ? $this->input->post('Plantilla') : NULL,
                 'ConsumoPiel' => ($this->input->post('ConsumoPiel') !== NULL) ? $this->input->post('ConsumoPiel') : NULL,
                 'ConsumoForro' => ($this->input->post('ConsumoForro') !== NULL) ? $this->input->post('ConsumoForro') : NULL,
-                'Observacion' => ($this->input->post('Observacion') !== NULL) ? $this->input->post('Observacion') : NULL,
-                'TipoEstilo' => ($this->input->post('TipoEstilo') !== NULL) ? $this->input->post('TipoEstilo') : NULL,
+                'Tipo' => ($this->input->post('Tipo') !== NULL) ? $this->input->post('Tipo') : NULL,
+                'GdoDificultad' => ($this->input->post('GdoDificultad') !== NULL) ? $this->input->post('GdoDificultad') : NULL,
+                'TamEtiTras' => ($this->input->post('TamEtiTras') !== NULL) ? $this->input->post('TamEtiTras') : NULL,
+                'PielEtiTras' => ($this->input->post('PielEtiTras') !== NULL) ? $this->input->post('PielEtiTras') : NULL,
+                'ForroEtiTras' => ($this->input->post('ForroEtiTras') !== NULL) ? $this->input->post('ForroEtiTras') : NULL,
+                'SuelaEtiTras' => ($this->input->post('SuelaEtiTras') !== NULL) ? $this->input->post('SuelaEtiTras') : NULL,
+                'TipoConstruccionEtiTras' => ($this->input->post('TipoConstruccionEtiTras') !== NULL) ? $this->input->post('TipoConstruccionEtiTras') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL,
                 'Registro' => Date('d/m/Y h:i:s a')
             );
@@ -188,24 +212,31 @@ class Estilos extends CI_Controller {
 
         try {
             $data = array(
-                'Linea' => ($this->input->post('Linea') !== NULL) ? $this->input->post('Linea') : NULL,
+                'Linea' => ($this->input->post('Linea') !== NULL && $this->input->post('Linea') !== 'null') ? $this->input->post('Linea') : NULL,
                 'Clave' => ($this->input->post('Clave') !== NULL) ? $this->input->post('Clave') : NULL,
                 'Descripcion' => ($this->input->post('Descripcion') !== NULL) ? $this->input->post('Descripcion') : NULL,
-                'Familia' => ($this->input->post('Familia') !== NULL) ? $this->input->post('Familia') : NULL,
-                'Serie' => ($this->input->post('Serie') !== NULL) ? $this->input->post('Serie') : NULL,
-                'Horma' => ($this->input->post('Horma') !== NULL) ? $this->input->post('Horma') : NULL,
-                'Genero' => ($this->input->post('Genero') !== NULL) ? $this->input->post('Genero') : NULL,
-                'Desperdicio' => ($this->input->post('Desperdicio') !== NULL) ? $this->input->post('Desperdicio') : NULL,
+                'FamiliaProg' => ($this->input->post('FamiliaProg') !== NULL && $this->input->post('FamiliaProg') !== 'null') ? $this->input->post('FamiliaProg') : NULL,
+                'Serie' => ($this->input->post('Serie') !== NULL && $this->input->post('Serie') !== 'null') ? $this->input->post('Serie') : NULL,
+                'Horma' => ($this->input->post('Horma') !== NULL && $this->input->post('Horma') !== 'null') ? $this->input->post('Horma') : NULL,
+                'Genero' => ($this->input->post('Genero') !== NULL && $this->input->post('Genero') !== 'null') ? $this->input->post('Genero') : NULL,
+                'Desperdicio' => ($this->input->post('Desperdicio') !== NULL ) ? $this->input->post('Desperdicio') : NULL,
                 'Liberado' => ($this->input->post('Liberado') !== NULL) ? $this->input->post('Liberado') : NULL,
                 'Herramental' => ($this->input->post('Herramental') !== NULL) ? $this->input->post('Herramental') : NULL,
-                'Maquila' => ($this->input->post('Maquila') !== NULL) ? $this->input->post('Maquila') : NULL,
+                'Maquila' => ($this->input->post('Maquila') !== NULL && $this->input->post('Maquila') !== 'null') ? $this->input->post('Maquila') : NULL,
                 'Notas' => ($this->input->post('Notas') !== NULL) ? $this->input->post('Notas') : NULL,
                 'Ano' => ($this->input->post('Ano') !== NULL) ? $this->input->post('Ano') : NULL,
-                'Temporada' => ($this->input->post('Temporada') !== NULL) ? $this->input->post('Temporada') : NULL,
+                'Temporada' => ($this->input->post('Temporada') !== NULL && $this->input->post('Temporada') !== 'null') ? $this->input->post('Temporada') : NULL,
                 'PuntoCentral' => ($this->input->post('PuntoCentral') !== NULL) ? $this->input->post('PuntoCentral') : NULL,
+                'Plantilla' => ($this->input->post('Plantilla') !== NULL) ? $this->input->post('Plantilla') : NULL,
+                'ConsumoPiel' => ($this->input->post('ConsumoPiel') !== NULL) ? $this->input->post('ConsumoPiel') : NULL,
+                'ConsumoForro' => ($this->input->post('ConsumoForro') !== NULL) ? $this->input->post('ConsumoForro') : NULL,
                 'Tipo' => ($this->input->post('Tipo') !== NULL) ? $this->input->post('Tipo') : NULL,
-                'MaquilaPlantilla' => ($this->input->post('MaquilaPlantilla') !== NULL) ? $this->input->post('MaquilaPlantilla') : NULL,
-                'TipoDeConstruccion' => ($this->input->post('TipoDeConstruccion') !== NULL) ? $this->input->post('TipoDeConstruccion') : NULL,
+                'GdoDificultad' => ($this->input->post('GdoDificultad') !== NULL) ? $this->input->post('GdoDificultad') : NULL,
+                'TamEtiTras' => ($this->input->post('TamEtiTras') !== NULL) ? $this->input->post('TamEtiTras') : NULL,
+                'PielEtiTras' => ($this->input->post('PielEtiTras') !== NULL) ? $this->input->post('PielEtiTras') : NULL,
+                'ForroEtiTras' => ($this->input->post('ForroEtiTras') !== NULL) ? $this->input->post('ForroEtiTras') : NULL,
+                'SuelaEtiTras' => ($this->input->post('SuelaEtiTras') !== NULL) ? $this->input->post('SuelaEtiTras') : NULL,
+                'TipoConstruccionEtiTras' => ($this->input->post('TipoConstruccionEtiTras') !== NULL) ? $this->input->post('TipoConstruccionEtiTras') : NULL,
                 'Estatus' => ($this->input->post('Estatus') !== NULL) ? $this->input->post('Estatus') : NULL
             );
             $this->estilos_model->onModificar($this->input->post('ID'), $data);

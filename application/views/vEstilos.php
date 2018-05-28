@@ -10,8 +10,20 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive" id="tblRegistros"></div>
+            <div id="Registros" class="table-responsive">
+                <table id="tblRegistros" class="table table-sm display " style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Estilo</th>
+                            <th>Linea</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 </div>
 <!--MODALES-->
@@ -58,28 +70,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md has-success">
-                                <label for="Clave">Clave*</label>
+                                <label for="Clave">Estilo*</label>
                                 <input type="text" class="form-control form-control-sm" placeholder="" id="Clave" name="Clave" required="">
                             </div>
                             <div class="col-md">
-                                <label for="Descripción">Descripción*</label>
+                                <label for="Descripción">Nombre*</label>
                                 <input type="text" class="form-control form-control-sm" placeholder="" id="Descripcion" name="Descripcion" required="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <label for="Ano">Año*</label>
-                                <input type="text" class="form-control form-control-sm numbersOnly" placeholder="" id="Ano" name="Ano" maxlength="4" required="">
                             </div>
                             <div class="col-md">
                                 <label for="Linea">Linea*</label>
                                 <select class="form-control form-control-sm required"   name="Linea" required="">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                            <div class="col-md">
-                                <label for="Serie">Serie*</label>
-                                <select class="form-control form-control-sm required"  name="Serie" required="">
                                     <option value=""></option>
                                 </select>
                             </div>
@@ -92,10 +92,87 @@
                                 </select>
                             </div>
                             <div class="col-md">
-                                <label for="Familia">Familia*</label>
-                                <select class="form-control form-control-sm required"   name="Familia" required="">
+                                <label for="Genero">Género</label>
+                                <select class="form-control form-control-sm"   name="Genero">
                                     <option value=""></option>
                                 </select>
+                            </div>
+
+                            <div class="col-md">
+                                <label for="Serie">Serie*</label>
+                                <select class="form-control form-control-sm required"  name="Serie" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Plantilla">Plantilla</label>
+                                <select class="form-control form-control-sm"  name="Plantilla">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="GdoDificultad">Dificultad</label>
+                                <select class="form-control form-control-sm"   name="GdoDificultad">
+                                    <option value=""></option>
+                                    <option value="1">1 NORMAL</option>
+                                    <option value="2">2 DIFÍCIL</option>
+                                    <option value="3">3 EXTREMO</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md">
+                                <label for="FamiliaProg">Fam. Prog*</label>
+                                <select class="form-control form-control-sm required"   name="FamiliaProg" required="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="ConsumoPiel">C. Piel</label>
+                                <input type="text" maxlength="3" class="form-control form-control-sm numbersOnly" placeholder=""  name="ConsumoPiel">
+                            </div>
+                            <div class="col-md">
+                                <label for="ConsumoForro">C. Forro</label>
+                                <input type="text" maxlength="3" class="form-control form-control-sm numbersOnly" placeholder=""  name="ConsumoForro">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Liberado">Liberado</label>
+                                <select class="form-control form-control-sm"   name="Liberado">
+                                    <option value=""></option>
+                                    <option value="1">1 PARA DISEÑO</option>
+                                    <option value="2">2 PARA PRODUCCIÓN</option>
+                                    <option value="3">3 INACTIVO</option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Herramental">Herramental</label>
+                                <select class="form-control form-control-sm"   name="Herramental">
+                                    <option value=""></option>
+                                    <option value="1">1 PATRÓN BASE</option>
+                                    <option value="2">2 CARTÓN Y TESEO</option>
+                                    <option value="3">3 TESEO</option>
+                                    <option value="4">4 SUAJE</option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Maquila">Maquila</label>
+                                <select class="form-control form-control-sm"  name="Maquila">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <label for="Desperdicio">Desperdicio</label>
+                                <input type="text" maxlength="3" class="form-control form-control-sm numbersOnly"  id="Desperdicio" name="Desperdicio">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <label for="Ano">Año*</label>
+                                <input type="text" class="form-control form-control-sm numbersOnly" placeholder="" id="Ano" name="Ano" maxlength="4" required="">
                             </div>
                             <div class="col-md">
                                 <label for="Temporada">Temporada*</label>
@@ -103,77 +180,22 @@
                                     <option value=""></option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <label for="Tipo">Tipo de Estilo*</label>
-                                <select class="form-control form-control-sm required"   name="Tipo" required="">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                            <div class="col-md">
-                                <label for="Genero">Género</label>
-                                <select class="form-control form-control-sm"   name="Genero">
-                                    <option value=""></option>
-                                    <option value="UNISEX">UNISEX</option>
-                                    <option value="MASCULINO">MASCULINO</option>
-                                    <option value="FEMENINO">FEMENINO</option>
-                                </select>
-                            </div>
-                            <div class="col-md">
-                                <label for="TipoDeConstruccion">Tipo de Construcción</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="" id="TipoDeConstruccion" name="TipoDeConstruccion">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <label for="Desperdicio">Desperdicio</label>
-                                <input type="number" maxlength="3" class="form-control form-control-sm"  id="Desperdicio" name="Desperdicio">
-                            </div>
                             <div class="col-md">
                                 <label for="PuntoCentra">Punto Central</label>
                                 <input type="text" class="form-control form-control-sm"  id="PuntoCentral" name="PuntoCentral">
                             </div>
-
                             <div class="col-md">
-                                <label for="Herramental">Herramental</label>
-                                <input type="text" maxlength="3" class="form-control form-control-sm" placeholder="" id="Herramental" name="Herramental">
+                                <label for="Tipo">Tipo*</label>
+                                <select class="form-control form-control-sm required"   name="Tipo" required="">
+                                    <option value=""></option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md">
-                                <label for="Estatus">Plantilla</label>
-                                <select class="form-control form-control-sm"   name="MaquilaPlantilla">
-                                    <option value=""></option>
-                                    <option value="MAQUILA">MAQUILA</option>
-                                    <option value="PLANTILLA">PLANTILLA</option>
-                                    <option value="MAQUILAS EXTERNAS">MAQUILAS EXTERNAS</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md">
-                                <label for="Maquila">Maquila</label>
-                                <select class="form-control form-control-sm"  name="Maquila">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-
-                            <div class="col-md">
-                                <label for="Notas">Notas</label>
+                                <label for="Notas">Observaciones</label>
                                 <input type="text" class="form-control form-control-sm" placeholder="" id="Notas" name="Notas">
                             </div>
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <BR>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Liberado" name="Liberado" >
-                                    <label class="custom-control-label" for="Liberado">Liberado</label>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="row">
                             <div class="col-md">
@@ -290,7 +312,6 @@
             isValid('pnlDatos');
             if (valido) {
                 var frm = new FormData(pnlDatos.find("#frmNuevo")[0]);
-                frm.append('Liberado', pnlDatos.find("#Liberado")[0].checked ? 1 : 0);
                 if (!nuevo) {
                     $.ajax({
                         url: master_url + 'onModificar',
@@ -346,7 +367,9 @@
         /*CALLS*/
         handleEnter();
         getRecords();
-        getFamilias();
+        getPlantillas();
+        getGeneros();
+        getFamiliasProg();
         getHormas();
         getTiposEstilo();
         getTemporadas();
@@ -354,134 +377,163 @@
         getLineas();
         getSeries();
     });
+    var tblRegistrosX = $("#tblRegistros"), Registros;
     function getRecords() {
-        temp = 0;
-        HoldOn.open({
-            theme: "sk-bounce",
-            message: "CARGANDO DATOS..."
-        });
+        $.fn.dataTable.ext.errMode = 'throw';
+        if ($.fn.DataTable.isDataTable('#tblRegistros')) {
+            tblRegistrosX.DataTable().destroy();
+            Registros = tblRegistrosX.DataTable({
+                "dom": 'Bfrtip',
+                buttons: buttons,
+                "ajax": {
+                    "url": master_url + 'getRecords',
+                    "dataType": "jsonp",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    {"data": "ID"},
+                    {"data": "Estilo"},
+                    {"data": "Linea"}
+                ],
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                language: lang,
+                "autoWidth": true,
+                "colReorder": true,
+                "displayLength": 20,
+                "bLengthChange": false,
+                "deferRender": true,
+                "scrollCollapse": false,
+                keys: true,
+                "bSort": true,
+                "aaSorting": [
+                    [0, 'desc']/*ID*/
+                ]
+            });
+
+            tblRegistrosX.find('tbody').on('click', 'tr', function () {
+                tblRegistrosX.find("tbody tr").removeClass("success");
+                $(this).addClass("success");
+                var dtm = Registros.row(this).data();
+                temp = parseInt(dtm.ID);
+            });
+
+            tblRegistrosX.find('tbody').on('dblclick', 'tr', function () {
+                tblRegistrosX.find("tbody tr").removeClass("success");
+                $(this).addClass("success");
+                var id = this.id;
+                var index = $.inArray(id, selected);
+                if (index === -1) {
+                    selected.push(id);
+                } else {
+                    selected.splice(index, 1);
+                }
+                var dtm = Registros.row(this).data();
+                if (temp !== 0 && temp !== undefined && temp > 0) {
+                    nuevo = false;
+                    HoldOn.open({
+                        theme: "sk-bounce",
+                        message: "CARGANDO DATOS..."
+                    });
+                    $.ajax({
+                        url: master_url + 'getEstiloByID',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            ID: temp
+                        }
+                    }).done(function (data, x, jq) {
+                        if (data.length > 0) {
+                            var dtm = data[0];
+                            pnlDatos.find("input").val("");
+                            $.each(pnlDatos.find("select"), function (k, v) {
+                                pnlDatos.find("select")[k].selectize.clear(true);
+                            });
+                            $.each(data[0], function (k, v) {
+                                if (k !== 'Foto') {
+                                    pnlDatos.find("[name='" + k + "']").val(v);
+                                    if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                        pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+                                    }
+                                }
+                            });
+                            if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
+                                var ext = getExt(dtm.Foto);
+                                if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
+                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
+                                }
+                                if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
+                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
+                                }
+                                if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
+                                    pnlDatos.find("#VistaPrevia").html('<h1>NO EXISTE ARCHIVO ADJUNTO</h1>');
+                                }
+                            } else {
+                                pnlDatos.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
+                            }
+                            pnlTablero.addClass("d-none");
+                            pnlDatos.removeClass('d-none');
+                            $(':input:text:enabled:visible:first').focus();
+                        }
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                } else {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+                }
+            });
+        }
+        HoldOn.close();
+
+
+    }
+    function getFamiliasProg() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
-            url: master_url + 'getRecords',
+            url: master_url + 'getFamiliasProg',
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                $("#tblRegistros").html(getTable('tblEstilos', data));
-
-                $('#tblEstilos tfoot th').each(function () {
-                    $(this).html('');
-                });
-                var thead = $('#tblEstilos thead th');
-                var tfoot = $('#tblEstilos tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                $.each($.find('#tblEstilos tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                });
-                var tblSelected = $('#tblEstilos').DataTable(tableOptions);
-                $('#tblEstilos_filter input[type=search]').focus();
-                $('#tblEstilos tbody').on('click', 'tr', function () {
-                    $("#tblEstilos tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var dtm = tblSelected.row(this).data();
-                    temp = parseInt(dtm[0]);
-                });
-
-                $('#tblEstilos tbody').on('dblclick', 'tr', function () {
-                    $("#tblEstilos tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var id = this.id;
-                    var index = $.inArray(id, selected);
-                    if (index === -1) {
-                        selected.push(id);
-                    } else {
-                        selected.splice(index, 1);
-                    }
-                    var dtm = tblSelected.row(this).data();
-                    if (temp !== 0 && temp !== undefined && temp > 0) {
-                        nuevo = false;
-                        HoldOn.open({
-                            theme: "sk-bounce",
-                            message: "CARGANDO DATOS..."
-                        });
-                        $.ajax({
-                            url: master_url + 'getEstiloByID',
-                            type: "POST",
-                            dataType: "JSON",
-                            data: {
-                                ID: temp
-                            }
-                        }).done(function (data, x, jq) {
-                            if (data.length > 0) {
-                                var dtm = data[0];
-                                pnlDatos.find("input").val("");
-                                $.each(pnlDatos.find("select"), function (k, v) {
-                                    pnlDatos.find("select")[k].selectize.clear(true);
-                                });
-                                $.each(data[0], function (k, v) {
-                                    if (k !== 'Foto') {
-                                        pnlDatos.find("[name='" + k + "']").val(v);
-                                        if (pnlDatos.find("[name='" + k + "']").is('select')) {
-                                            pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
-                                        }
-                                    }
-                                });
-                                if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
-                                    var ext = getExt(dtm.Foto);
-                                    if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
-                                        pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
-                                    }
-                                    if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
-                                        pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
-                                    }
-                                    if (ext !== "gif" && ext !== "jpg" && ext !== "jpeg" && ext !== "png" && ext !== "PDF" && ext !== "Pdf" && ext !== "pdf") {
-                                        pnlDatos.find("#VistaPrevia").html('<h1>NO EXISTE ARCHIVO ADJUNTO</h1>');
-                                    }
-                                } else {
-                                    pnlDatos.find("#VistaPrevia").html('<h3>NO EXISTE ARCHIVO ADJUNTO</h3>');
-                                }
-                                pnlTablero.addClass("d-none");
-                                pnlDatos.removeClass('d-none');
-                                $(':input:text:enabled:visible:first').focus();
-                            }
-                        }).fail(function (x, y, z) {
-                            console.log(x, y, z);
-                        }).always(function () {
-                            HoldOn.close();
-                        });
-                    } else {
-                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                    }
-                });
-                // Apply the search
-                tblSelected.columns().every(function () {
-                    var that = this;
-                    $('input', this.footer()).on('keyup change', function () {
-                        if (that.search() !== this.value) {
-                            that.search(this.value).draw();
-                        }
-                    });
-                });
-            } else {
-                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO SE ENCONTRARON REGISTROS', 'danger');
-            }
-
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='FamiliaProg']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+            });
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
             HoldOn.close();
         });
     }
-    function getFamilias() {
+    function getGeneros() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({
-            url: master_url + 'getFamilias',
+            url: master_url + 'getGeneros',
             type: "POST",
             dataType: "JSON"
         }).done(function (data, x, jq) {
             $.each(data, function (k, v) {
-                pnlDatos.find("[name='Familia']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+                pnlDatos.find("[name='Genero']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    function getPlantillas() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getPlantillas',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='Plantilla']")[0].selectize.addOption({text: v.SValue, value: v.ID});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);

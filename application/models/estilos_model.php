@@ -13,8 +13,12 @@ class estilos_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("E.ID, "
+                    . "CONCAT(E.Clave ,'-',E.Descripcion) AS Estilo, "
                     . "CASE "
-                    . "WHEN E.Linea IS NULL THEN '<span class=\"badge badge-danger\">SIN LINEA</span>' ELSE L.Descripcion END AS Linea, E.Clave AS Clave, E.Descripcion AS Descripción, E.Estatus AS Estatus,  E.Registro AS Registro", false);
+                    . "WHEN E.Linea IS NULL "
+                    . "THEN '<span class=\"badge badge-danger\">SIN LINEA</span>' "
+                    . "ELSE CONCAT(L.CLAVE,'-',L.Descripcion) END AS Linea "
+                    . "", false);
             $this->db->from('sz_Estilos AS E');
             $this->db->join('sz_Lineas AS L', 'E.Linea = L.ID', 'left');
             $this->db->where_in('E.Estatus', array('ACTIVO'));
