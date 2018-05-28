@@ -544,13 +544,14 @@
     }
     var tblPedidosDetalle = $("#tblPedidosDetalle"), tblPedidosDetalleDT;
     function getDetalleByID(IDX) {
+        console.log('ID', IDX);
         var rows;
         tblPedidosDetalle.find("thead").addClass("d-none");
         if ($.fn.DataTable.isDataTable('#tblPedidosDetalle')) {
             tblPedidosDetalle.DataTable().destroy();
         }
         tblPedidosDetalleDT = tblPedidosDetalle.DataTable({
-            "dom": 'Bfrtip', 
+            "dom": 'Bfrtip',
             "autoWidth": false,
             "colReorder": true,
             "displayLength": 500,
@@ -579,16 +580,25 @@
             language: lang,
             "createdRow": function (row, data, index) {
                 $.each($(row).find("td"), function (k, v) {
+                    if (data[0] === "") {
+                        $(v).addClass('Serie');
+                    }
                     if ($.isNumeric($(v).text())) {
-                        if (data[0] === "" && parseFloat($(v).text()) > 0) {
+                        if (data[0] === "" && parseFloat($(v).text()) <= 0) {
                             $(v).addClass('Serie');
+                            $(v).text("-");
                         } else if (parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) > 0) {
                             $(v).addClass('HasStock');
-                        } else if (parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) === 0) {
+                        } else if (data[0] !== "" && parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) === 0) {
                             $(v).addClass('NoHasStock');
+                            $(v).text("-");
                         }
                     }
                 });
+                /*ANCHO*/
+                $(row).find("td").eq(0).css("width", "220px");
+                $(row).find("td").eq(1).css("width", "200px");
+                $(row).find("td").eq(2).css("width", "340px");
             }
         });
         tblPedidosDetalleDT.clear().draw();
@@ -951,12 +961,12 @@
             } else {
                 if (Precio.val() !== '' && parseFloat(Precio.val()) > 0) {
                     var frm = new FormData();
+                    var detalle = [];
                     $.each(rows.find("input.numbersOnly:enabled"), function () {
                         var talla = rows.find("input").eq($(this).parent().index()).val();
                         if (talla > 0) {
                             var cant = parseInt($(this).val());
                             if (cant > 0) {
-                                var detalle = [];
                                 var registros = {
                                     Pedido: idMov,
                                     Estilo: Estilo.val(),
@@ -972,27 +982,27 @@
                                     Observaciones: observaciones
                                 };
                                 detalle.push(registros);
-                                frm.append('Detalle', JSON.stringify(detalle));
-                                $.ajax({
-                                    url: master_url + 'onAgregarDetalle',
-                                    type: "POST",
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    data: frm
-                                }).done(function (data, x, jq) {
-                                    getDetalleByID(idMov);
-                                    $("[name='Estilo']")[0].selectize.focus();
-                                    $("[name='Estilo']")[0].selectize.clear(true);
-                                    $("[name='Combinacion']")[0].selectize.clear(true);
-                                    $("[name='Combinacion']")[0].selectize.clearOptions();
-                                    observaciones = "";
-                                }).fail(function (x, y, z) {
-                                    console.log(x, y, z);
-                                }).always(function () {
-                                });
                             }
                         }
+                    });
+                    frm.append('Detalle', JSON.stringify(detalle));
+                    $.ajax({
+                        url: master_url + 'onAgregarDetalle',
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: frm
+                    }).done(function (data, x, jq) {
+                        getDetalleByID(idMov);
+                        $("[name='Estilo']")[0].selectize.focus();
+                        $("[name='Estilo']")[0].selectize.clear(true);
+                        $("[name='Combinacion']")[0].selectize.clear(true);
+                        $("[name='Combinacion']")[0].selectize.clearOptions();
+                        observaciones = "";
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
                     });
                 } else {
                     onNotify('<span class="fa fa-times fa-lg"></span>', 'DEBE DE ESTABLECER UN COSTO', 'danger');
@@ -1077,6 +1087,27 @@
     .swal-icon img {
         width: 220px;
     }
+    .Stock{
+        font-weight: bold;
+        color: #78a864;
+    }
+    .NoStock {
+        font-weight: bold;
+        color: #ff0000;
+    }
+    .HasStock{ 
+        background-color: #669900 !important;
+        color: #fff !important;
+    }
+    .HasStock:hover{ 
+        background-color: #ffff00 !important;
+        color: #000 !important;
+        font-weight: bold;
+    }
+    .HasStockActive{ 
+        background-color: #cc0033 !important;
+        color: #fff !important;
+    }
     .Serie{  
         font-weight: bold;
         background-color: #333333 !important;
@@ -1086,12 +1117,12 @@
         background-color: #ffff00 !important;
         color: #000;
     }
-    .HasStock{ 
-        background-color: #669900 !important;
-        color: #fff !important;
+    .SerieActive{  
+        background-color: #ffff00 !important;
+        color: #000;
     }
     .NoHasStock{ 
-        background-color: #cc0033 !important;
-        color: #fff !important;
+        background-color: #fff !important;
+        color: #000 !important;
     }
 </style>
