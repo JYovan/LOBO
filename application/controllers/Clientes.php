@@ -8,7 +8,7 @@ class Clientes extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
-        $this->load->model('clientes_model', 'cm')->model('vendedores_model');
+        $this->load->model('clientes_model')->model('vendedores_model');
     }
 
     public function index() {
