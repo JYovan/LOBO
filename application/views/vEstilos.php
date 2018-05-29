@@ -188,6 +188,10 @@
                                 <label for="Tipo">Tipo*</label>
                                 <select class="form-control form-control-sm required"   name="Tipo" required="">
                                     <option value=""></option>
+                                    <option value="0">0 PRODUCCIÓN</option>
+                                    <option value="1">1 PROTOTIPO</option>
+                                    <option value="2">2 MUESTRA</option>
+                                    <option value="3">3 EXTENCIÓN</option>
                                 </select>
                             </div>
                         </div>
@@ -416,7 +420,6 @@
         getGeneros();
         getFamiliasProg();
         getHormas();
-        getTiposEstilo();
         getTemporadas();
         getMaquilas();
         getLineas();
@@ -618,22 +621,7 @@
             HoldOn.close();
         });
     }
-    function getTiposEstilo() {
-        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getTiposEstilo',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
-            $.each(data, function (k, v) {
-                pnlDatos.find("[name='Tipo']")[0].selectize.addOption({text: v.SValue, value: v.ID});
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-            HoldOn.close();
-        });
-    }
+
     function getLineas() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
         $.ajax({

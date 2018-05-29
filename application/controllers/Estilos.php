@@ -76,16 +76,6 @@ class Estilos extends CI_Controller {
         }
     }
 
-    public function getTiposEstilo() {
-        try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('TIPOS ESTILO');
-            print json_encode($data);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
     public function getMaquilas() {
         try {
             extract($this->input->post());
