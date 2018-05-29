@@ -8,19 +8,14 @@ class Clientes extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session');
-        $this->load->model('clientes_model');
+        $this->load->model('clientes_model', 'cm')->model('vendedores_model');
     }
 
     public function index() {
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vClientes');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vClientes')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
@@ -43,6 +38,14 @@ class Clientes extends CI_Controller {
     public function getListasDePrecios() {
         try {
             print json_encode($this->clientes_model->getListasDePrecios());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getAgentes() {
+        try {
+            print json_encode($this->vendedores_model->getVendedores());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -114,7 +117,8 @@ class Clientes extends CI_Controller {
                 'LimiteCredito' => ($x->post('LimiteCredito') !== NULL) ? $x->post('LimiteCredito') : 0,
                 'PlazoPagos' => ($x->post('PlazoPagos') !== NULL) ? $x->post('PlazoPagos') : 0,
                 'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL,
-                'ListaDePrecios' => ($x->post('ListaDePrecio') !== NULL) ? $x->post('ListaDePrecio') : NULL
+                'ListaDePrecios' => ($x->post('ListaDePrecio') !== NULL) ? $x->post('ListaDePrecio') : NULL,
+                'Agente' => ($x->post('Agente') !== NULL) ? $x->post('Agente') : NULL
             );
             $this->clientes_model->onAgregar($data);
             /* SUBIR FOTO */
@@ -187,7 +191,8 @@ class Clientes extends CI_Controller {
                 'LimiteCredito' => ($this->input->post('LimiteCredito') !== NULL) ? $this->input->post('LimiteCredito') : 0,
                 'PlazoPagos' => ($this->input->post('PlazoPagos') !== NULL) ? $this->input->post('PlazoPagos') : 0,
                 'Estatus' => ($x->post('Estatus') !== NULL) ? ($x->post('Estatus') === 'ACTIVO') ? 'ACTIVO' : 'INACTIVO' : NULL,
-                'ListaDePrecios' => ($this->input->post('ListaDePrecios') !== NULL) ? $this->input->post('ListaDePrecios') : NULL
+                'ListaDePrecios' => ($this->input->post('ListaDePrecios') !== NULL) ? $this->input->post('ListaDePrecios') : NULL,
+                'Agente' => ($x->post('Agente') !== NULL) ? $x->post('Agente') : NULL
             );
             $this->clientes_model->onModificar($x->post('ID'), $data);
             /* MODIFICAR FOTO */
@@ -244,5 +249,4 @@ class Clientes extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }

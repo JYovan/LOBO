@@ -250,8 +250,19 @@ class pedidos_model extends CI_Model {
                             ->from('sz_Estilos AS E')
                             ->join('sz_Series AS S', 'E.Serie = S.ID', 'left')
                             ->where('E.ID', $Estilo)
-                            ->get()
-                            ->result();
+                            ->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getAgenteXCliente($ID) {
+        try {
+            return $this->db->select("V.ID AS AGENTE", false)
+                            ->from('sz_Clientes AS V')
+                            ->where('V.ID', $ID)
+                            ->where_in('V.Estatus', 'ACTIVO')
+                            ->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

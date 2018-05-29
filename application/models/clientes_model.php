@@ -44,6 +44,18 @@ class clientes_model extends CI_Model {
         }
     }
 
+    public function getVendedores() {
+        try {
+            return $this->db->select("V.ID, V.Clave+'-'+VRazonSocial AS Nombre ", false)
+                            ->from('sz_Clientes AS V')
+                            ->where_in('V.Estatus', 'ACTIVO')
+                            ->get()
+                            ->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getMagnusID($ID) {
         try {
             $this->db->select("C.IDMAGNUS AS MAGNUS", false);

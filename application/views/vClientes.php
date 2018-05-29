@@ -163,6 +163,12 @@
                         </select>
                     </div>
                     <div class="col-sm">
+                        <label for="Agente">Agente</label>
+                        <select class="form-control form-control-sm"  name="Agente" >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
                         <label for="ListaDePrecios">Lista de precios</label>
                         <select class="form-control form-control-sm"  name="ListaDePrecios" >
                             <option value=""></option>
@@ -345,6 +351,7 @@
             getRecords();
             getRegimenesFiscales();
             getListasDePrecios();
+            getAgentes();
             handleEnter();
 
 
@@ -480,6 +487,20 @@
             HoldOn.close();
         });
     }
+
+    function getAgentes() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.getJSON(master_url + 'getAgentes').done(function (data, x, jq) {
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='Agente']")[0].selectize.addOption({text: v.Nombre, value: v.IdVendedor});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+    
     function onRemovePreview(e) {
         $(e).parent().parent("#VistaPrevia").html("");
         $('#Foto').attr("type", "text");
