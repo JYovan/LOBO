@@ -32,6 +32,9 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="d-none">
+                        <input type="text" class="" id="ID" name="ID" >
+                    </div>
                     <div class="col-sm">
                         <label for="Clave">Clave*</label>
                         <input type="text" class="form-control form-control-sm" id="Clave" name="Clave" required >

@@ -5,6 +5,7 @@
 }
 
 
+
 .input-group-text {
     height: 22px;
 /*    padding: 0.1rem 0.25rem;*/
@@ -148,6 +149,7 @@ label, .control-label, .help-block, .checkbox, .radio, .form-control-feedback {
 
 table tbody tr{
     cursor: pointer;
+    font-size: 12px !important;
 
 }
 table thead tr{
