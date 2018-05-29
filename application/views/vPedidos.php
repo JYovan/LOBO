@@ -58,12 +58,6 @@
             <br>
             <div id="accordion">
                 <div class="card">
-                    <div class="card-header" id="headingOne" align="center">
-                        <h5 class="mb-0">
-                            <a class="badge badge-success" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Datos del pedido</a>
-                        </h5>
-                    </div>
                     <div class="card-body">
                         <div id="Encabezado">
                             <form id="frmNuevo">
@@ -118,14 +112,8 @@
                         </div>
                     </div> 
                 </div>
+                <br>
                 <div class="card">
-                    <div class="card-header" id="headingOne" align="center">
-                        <h5 class="mb-0">
-                            <a class="badge badge-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                Detalle del pedido</a>
-                        </h5>
-                    </div>
-
                     <div class="card-body">
                         <!--GENERAL DETALLE-->
                         <div class=" d-none" id="pnlDatosDetalle">
@@ -321,9 +309,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
                 <!--FIN DETALLE-->
             </div>
@@ -368,7 +354,9 @@
                 if (cliente !== '') {
                     $.getJSON(master_url + 'getAgenteXCliente', {Cliente: cliente}).done(function (data) {
                         console.log(data);
-                        pnlDatos.find("#Agente")[0].selectize.setValue(data[0].AGENTE);
+                        if (temp <= 0) {
+                            pnlDatos.find("#Agente")[0].selectize.focus();
+                        }
                     }).fail(function (x, y, z) {
                         console.log(x.responseText);
                     }).always(function () {
@@ -425,7 +413,6 @@
                         }).done(function (data, x, jq) {
                             onAgregarFila();
                             onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA MODIFICADO EL REGISTRO', 'success');
-                            getRecords();
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -444,7 +431,6 @@
                             idMov = data;
                             onAgregarFila();
                             onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-                            getRecords();
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -453,7 +439,6 @@
                 } else {
                     onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
                 }
-
             });
             btnNuevo.click(function () {
                 pnlTablero.addClass("d-none");
@@ -694,8 +679,6 @@
                 theme: "sk-bounce",
                 message: "CARGANDO DATOS..."
             });
-
-
             $.ajax({
                 url: master_url + 'getRecords',
                 type: "POST",
@@ -737,10 +720,6 @@
                         var dtm = tblSelected.row(this).data();
                         if (temp !== 0 && temp !== undefined && temp > 0) {
                             nuevo = false;
-                            HoldOn.open({
-                                theme: "sk-bounce",
-                                message: "CARGANDO DATOS..."
-                            });
                             $.ajax({
                                 url: master_url + 'getPedidoByID',
                                 type: "POST",
@@ -883,7 +862,6 @@
                     pnlDatosDetalle.find('#tblTallas').find("input").val("");
                     pnlDatosDetalle.find("[name='Precio']").val("");
                 }
-
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
             }).always(function () {
@@ -900,7 +878,11 @@
                     Cliente: Cliente
                 }
             }).done(function (data, x, jq) {
-                pnlDatosDetalle.find("[name='Precio']").val(data[0].Precio);
+                if (data.length > 0) {
+                    pnlDatosDetalle.find("[name='Precio']").val(data[0].Precio);
+                } else {
+                    console.log('NO SE ENCONTRO PRECIO EN EL ESTILO ' + Estilo + ', CLIENTE ' + Cliente)
+                }
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
             }).always(function () {
@@ -1060,7 +1042,6 @@
                         onNotify('<span class="fa fa-times fa-lg"></span>', 'DEBE DE ESTABLECER UN COSTO', 'danger');
                         pnlDatos.find("input[name='Precio']").focus();
                     }
-
                 }
             });
         }

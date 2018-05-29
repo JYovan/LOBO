@@ -12,20 +12,20 @@ class pedidos_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("U.ID, ISNULL(U.Folio,'') AS Pedido ,"
-                    . "(CASE WHEN  U.Estatus ='ACTIVO' "
+            $this->db->select("P.ID, ISNULL(P.Folio,'') AS Pedido ,"
+                    . "(CASE WHEN  P.Estatus ='ACTIVO' "
                     . "THEN CONCAT('<span class=''badge badge-info'' style=''font-size: 15px;'' >','EN FIRME','</span>') "
-                    . "WHEN  U.Estatus ='FINALIZADO' "
+                    . "WHEN  P.Estatus ='FINALIZADO' "
                     . "THEN CONCAT('<span class=''badge badge-success'' style=''font-size: 15px;''>','FACTURADO','</span>') "
                     . "END) AS Estatus ,"
                     . "C.Clave + '-'+C.RazonSocial AS 'Cliente' ,"
-                    . "FORMAT(convert(date, U.FechaPedido, 103), 'dd/MM/yyyy')   as 'Fecha Pedido ', "
+                    . "FORMAT(convert(date, P.FechaPedido, 103), 'dd/MM/yyyy')   as 'Fecha Pedido ', "
                     . "US.Usuario AS 'Usuario' ", false);
-            $this->db->from('sz_Pedidos AS U');
-            $this->db->join('sz_Clientes AS C', 'U.Cliente = C.ID', 'left');
-            $this->db->join('sz_Usuarios AS US', 'U.Usuario = US.ID', 'left');
-            $this->db->where_in('U.Estatus', array('ACTIVO', 'FINALIZADO'));
-            $this->db->order_by("U.Folio", "ASC");
+            $this->db->from('sz_Pedidos AS P');
+            $this->db->join('sz_Clientes AS C', 'P.Cliente = C.ID', 'left');
+            $this->db->join('sz_Usuarios AS US', 'P.Usuario = US.ID', 'left');
+            $this->db->where_in('P.Estatus', array('ACTIVO', 'FINALIZADO'));
+            $this->db->order_by("P.Folio", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
