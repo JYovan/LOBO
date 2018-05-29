@@ -579,7 +579,7 @@
                 tblPedidosDetalle.DataTable().destroy();
             }
             tblPedidosDetalleDT = tblPedidosDetalle.DataTable({
-                "dom": 'Bfrtip',
+                "dom": 'frt',
                 "autoWidth": false,
                 "colReorder": true,
                 "displayLength": 500,
@@ -1178,7 +1178,7 @@
             color: #fff !important;
             background-color: transparent !important;
         }
-        .row-info{   
+        .row-info{
             -webkit-transition: all .2s ease-in-out;
             transition: all .2s ease-in-out;
         }
@@ -1188,5 +1188,5 @@
             color: #fff;
             -webkit-transform: scale(1.75);
             transform: scale(1.75);
-        } 
+        }
     </style>

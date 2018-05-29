@@ -197,6 +197,51 @@
                                 <input type="text" class="form-control form-control-sm" placeholder="" id="Notas" name="Notas">
                             </div>
                         </div>
+
+
+                        <div class="card-header" id="headingOne" align="center">
+                            <h5 class="mb-0">
+                                <a class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <span>Datos etiqueta trasabalidad</span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="row">
+                                <div class="col-md">
+                                    <label for="GdoDificultad">Tam. Etiqueta</label>
+                                    <select class="form-control form-control-sm"   name="TamEtiTras">
+                                        <option value=""></option>
+                                        <option value="0">0 - SIN ETIQUETA</option>
+                                        <option value="1">1 - 3X3.5</option>
+                                        <option value="2">2 - 1.5X3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <label for="PielEtiTras">Piel</label>
+                                    <input type="text" class="form-control form-control-sm" name="PielEtiTras">
+                                </div>
+                                <div class="col-md">
+                                    <label for="ForroEtiTras">Forro</label>
+                                    <input type="text" class="form-control form-control-sm"  name="ForroEtiTras">
+                                </div>
+                                <div class="col-md">
+                                    <label for="SuelaEtiTras">Suela</label>
+                                    <input type="text" class="form-control form-control-sm"   name="SuelaEtiTras">
+                                </div>
+                                <div class="col-md">
+                                    <label for="TipoConstruccionEtiTras">Tipo Construcción</label>
+                                    <select class="form-control form-control-sm"   name="TipoConstruccionEtiTras">
+                                        <option value=""></option>
+                                        <option value="1">1 OPANCA</option>
+                                        <option value="2">2 PEGADO</option>
+                                        <option value="3">3 OPANCA Y PEGADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="row">
                             <div class="col-md">
                                 <label for="Estatus">Estatus*</label>
@@ -243,14 +288,14 @@
 
         btnArchivo.on("click", function () {
             $('#Foto').attr("type", "file");
-            $('#Foto').val('N');
+            $('#Foto').val('');
             Archivo.change(function () {
                 HoldOn.open({theme: "sk-bounce", message: "POR FAVOR ESPERE..."});
                 var imageType = /image.*/;
                 if (Archivo[0].files[0] !== undefined && Archivo[0].files[0].type.match(imageType)) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="400px"><div class="caption"><p>' + Archivo[0].files[0].name + '</p></div>';
+                        var preview = '<button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br><img src="' + reader.result + '" class="img-responsive" width="300px"><div class="caption"><p>' + Archivo[0].files[0].name + '</p></div>';
                         VistaPrevia.html(preview);
                     };
                     reader.readAsDataURL(Archivo[0].files[0]);
@@ -464,7 +509,7 @@
                             if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
                                 var ext = getExt(dtm.Foto);
                                 if (ext === "gif" || ext === "jpg" || ext === "png" || ext === "jpeg") {
-                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div><div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="400px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
+                                    pnlDatos.find("#VistaPrevia").html('<div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><img id="trtImagen" src="' + base_url + dtm.Foto + '" class ="img-responsive" width="300px"  onclick="printImg(\' ' + base_url + dtm.Foto + ' \')"  />');
                                 }
                                 if (ext === "PDF" || ext === "Pdf" || ext === "pdf") {
                                     pnlDatos.find("#VistaPrevia").html('<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn btn-default" id="btnQuitarVP" name="btnQuitarVP" onclick="onRemovePreview(this)"><span class="fa fa-times fa-2x danger-icon"></span></button><br></div><embed src="' + base_url + dtm.Foto + '" type="application/pdf" width="90%" height="800px" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">');
