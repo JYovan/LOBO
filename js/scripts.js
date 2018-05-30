@@ -28,6 +28,9 @@ var lang = {
     loadingRecords: "Procesando los datos...",
     zeroRecords: "No se encontro nada.",
     emptyTable: "No existen datos en la tabla.",
+    select: {
+            rows: "%d Registros seleccionados"
+        },
     paginate: {
         first: "Primero",
         previous: "Anterior",
@@ -80,10 +83,11 @@ var tableOptions = {
     language: lang,
     "autoWidth": true,
     "colReorder": true,
+    "select": true,
     "displayLength": 20,
     "bStateSave": true,
     "bLengthChange": false,
-    "deferRender": true, keys: true,
+    "deferRender": true,
 //    "scrollY": false,
 //    "scrollX": true,
     "scrollCollapse": false,

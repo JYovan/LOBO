@@ -8,7 +8,7 @@
 
 .input-group-text {
     height: 22px;
-/*    padding: 0.1rem 0.25rem;*/
+    /*    padding: 0.1rem 0.25rem;*/
     font-size: 17px;
     border-radius: 0.25rem;
 }
@@ -23,12 +23,12 @@ div.datatable-wide {
 }
 /*Color del cuadro checkbox*/
 .custom-control-label::before {
- 
+
     background-color: #fff;
 }
 
 .modal .custom-control-label::before {
- 
+
     background-color: #DCE1E5;
 }
 
@@ -130,7 +130,7 @@ label, .control-label, .help-block, .checkbox, .radio, .form-control-feedback {
 
 /*Tablas*/
 .table{
-   text-align: center;
+    text-align: center;
 }
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
@@ -178,6 +178,12 @@ table thead tr{
 .table>tbody>tr>td.exists,
 .table>tbody>tr.exists>td{
     background-color: #18BC9C ;
+    color: #fff;
+}
+
+/*Selected*/
+tr.selected td {
+   background-color: #2C3E50 ;
     color: #fff;
 }
 
