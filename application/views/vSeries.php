@@ -96,6 +96,9 @@
     </div>
 </div>
 
+
+
+
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/Series/';
@@ -320,3 +323,9 @@
     }
 
 </script>
+
+<style>
+    #menu {
+        display: none;
+    }
+</style>

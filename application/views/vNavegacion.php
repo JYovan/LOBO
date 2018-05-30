@@ -1,15 +1,15 @@
 <style>
-    .dropdown {
+    .overlay .dropdown {
         cursor:pointer;
-        font-size: 16px !important;
+        font-size: 15.5px !important;
         color: #FAFAFA;
     }
-    .dropdown-item {
-        padding: 0.25rem 2.2rem !important;
+    .overlay .dropdown-item {
+        padding: 0.25rem 1rem !important;
         font-size: 14.5px !important;
         color: #A6A6A6;
     }
-    .dropdown-menu {
+    .overlay .dropdown-menu {
         background-color: transparent !important;
         border: 0px !important;
         border-radius: 0px !important;
