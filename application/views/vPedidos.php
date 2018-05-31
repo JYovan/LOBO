@@ -36,7 +36,21 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive" id="tblRegistros"></div>
+            <div id="Pedidos" class="table-responsive">
+                <table id="tblPedidos" class="table table-sm display " style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Pedido</th>
+                            <th>Estatus</th>
+                            <th>Cliente</th>
+                            <th>Fecha Pedido</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -326,6 +340,8 @@
         var btnGuardar = pnlDatos.find("#btnGuardar");
         var btnCancelar = pnlDatos.find("#btnCancelar");
         var btnEliminar = $("#btnEliminar");
+        var tblPedidos = $('#tblPedidos');
+        var Pedidos;
         var nuevo = true;
         var idMov = 0;
         /*DATATABLE GLOBAL*/
@@ -348,6 +364,10 @@
             }
         };
         $(document).ready(function () {
+
+            $("#btnObtener").click(function () {
+
+            });
 
             pnlDatos.find("#Cliente").change(function () {
                 var cliente = $(this).val();
@@ -635,6 +655,9 @@
                     celda.eq(29).css("width", "55px");
                     $(row).find("td:eq(25)").css("font-weight", "bolder");
                     $(row).find("td:gt(24)").addClass("zoom");
+                    $(row).tooltip({
+                        content: "Awesome title!"
+                    });
                 }
             });
             tblPedidosDetalleDT.clear().draw();
@@ -676,100 +699,106 @@
         function getRecords() {
             temp = 0;
             HoldOn.open({
-                theme: "sk-bounce",
-                message: "CARGANDO DATOS..."
+                theme: 'sk-cube',
+                message: 'CARGANDO...'
             });
-            $.ajax({
-                url: master_url + 'getRecords',
-                type: "POST",
-                dataType: "JSON"
-            }).done(function (data, x, jq) {
-                if (data.length > 0) {
-                    $("#tblRegistros").html(getTable('tblPedidos', data));
-                    $('#tblPedidos tfoot th').each(function () {
-                        $(this).html('');
-                    });
-                    var thead = $('#tblPedidos thead th');
-                    var tfoot = $('#tblPedidos tfoot th');
-                    thead.eq(0).addClass("d-none");
-                    tfoot.eq(0).addClass("d-none");
-                    $.each($.find('#tblPedidos tbody tr'), function (k, v) {
-                        var td = $(v).find("td");
-                        td.eq(0).addClass("d-none");
-                    });
-                    var tblSelected = $('#tblPedidos').DataTable(tableOptions);
-                    $('#tblPedidos_filter input[type=search]').focus();
-                    $('#tblPedidos tbody').on('click', 'tr', function () {
+            $.fn.dataTable.ext.errMode = 'throw';
 
-                        $("#tblPedidos tbody tr").removeClass("success");
-                        $(this).addClass("success");
-                        var dtm = tblSelected.row(this).data();
-                        temp = parseInt(dtm[0]);
-                        idMov = parseInt(dtm[0]);
-                    });
-                    $('#tblPedidos tbody').on('dblclick', 'tr', function () {
-                        $("#tblPedidos tbody tr").removeClass("success");
-                        $(this).addClass("success");
-                        var id = this.id;
-                        var index = $.inArray(id, selected);
-                        if (index === -1) {
-                            selected.push(id);
-                        } else {
-                            selected.splice(index, 1);
-                        }
-                        var dtm = tblSelected.row(this).data();
-                        if (temp !== 0 && temp !== undefined && temp > 0) {
-                            nuevo = false;
-                            $.ajax({
-                                url: master_url + 'getPedidoByID',
-                                type: "POST",
-                                dataType: "JSON",
-                                data: {
-                                    ID: temp
-                                }
-                            }).done(function (data, x, jq) {
-                                pnlDatos.find("input").val("");
-                                $.each(pnlDatos.find("select"), function (k, v) {
-                                    pnlDatos.find("select")[k].selectize.clear(true);
-                                });
-                                $.each(data[0], function (k, v) {
-                                    pnlDatos.find("[name='" + k + "']").val(v);
-                                    if (pnlDatos.find("[name='" + k + "']").is('select')) {
-                                        pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
-                                    }
-                                });
-                                //Cargar Detalle
-                                getDetalleByID(temp);
-                                /*MOSTRAR PANEL PRINCIPAL*/
-                                pnlTablero.addClass("d-none");
-                                pnlDatos.removeClass('d-none');
-                                pnlDatosDetalle.removeClass("d-none");
-                                pnlDatosDetalle.find("[name='Estilo']")[0].selectize.focus();
-                                pnlDatos.find("[name='Folio']").prop('disabled', 'disabled');
-                            }).fail(function (x, y, z) {
-                                console.log(x, y, z);
-                            }).always(function () {
-                                HoldOn.close();
-                            });
-                        } else {
-                            onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                        }
-                    });
-                    // Apply the search
-                    tblSelected.columns().every(function () {
-                        var that = this;
-                        $('input', this.footer()).on('keyup change', function () {
-                            if (that.search() !== this.value) {
-                                that.search(this.value).draw();
+            if ($.fn.DataTable.isDataTable('#tblPedidos')) {
+                tblPedidos.DataTable().destroy();
+                $.getJSON(master_url + 'getRecords').done(function (data) {
+                    console.log(data)
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+
+                });
+                Pedidos = tblPedidos.DataTable({
+                    "dom": 'Bfrtip',
+                    buttons: buttons,
+                    "ajax": {
+                        "url": master_url + 'getRecords',
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {"data": "ID"},
+                        {"data": "Pedido"},
+                        {"data": "Estatus"},
+                        {"data": "Cliente"},
+                        {"data": "Fecha Pedido"},
+                        {"data": "Usuario"}
+                    ], "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        }, ],
+                    language: lang,
+                    select: true,
+                    "autoWidth": true,
+                    "colReorder": true,
+                    "displayLength": 20,
+                    "bLengthChange": false,
+                    "deferRender": true,
+                    "scrollCollapse": false,
+                    "bSort": true,
+                    "aaSorting": [
+                        [0, 'desc']/*ID*/
+                    ]
+                });
+                tblPedidos.find('tbody').on('click', 'tr', function () {
+                    tblPedidos.find("tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var dtm = Pedidos.row(this).data();
+                    temp = parseInt(dtm.ID);
+                });
+
+                tblPedidos.find('tbody').on('dblclick', 'tr', function () {
+                    nuevo = false;
+                    tblPedidos.find("tbody tr").removeClass("success");
+                    $(this).addClass("success");
+                    var dtm = Pedidos.row(this).data();
+                    temp = parseInt(dtm.ID);
+                    if (temp !== 0 && temp !== undefined && temp > 0) {
+                        nuevo = false;
+                        $.ajax({
+                            url: master_url + 'getPedidoByID',
+                            type: "POST",
+                            dataType: "JSON",
+                            data: {
+                                ID: temp
                             }
+                        }).done(function (data, x, jq) {
+                            pnlDatos.find("input").val("");
+                            $.each(pnlDatos.find("select"), function (k, v) {
+                                pnlDatos.find("select")[k].selectize.clear(true);
+                            });
+                            $.each(data[0], function (k, v) {
+                                pnlDatos.find("[name='" + k + "']").val(v);
+                                if (pnlDatos.find("[name='" + k + "']").is('select')) {
+                                    pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+                                }
+                            });
+                            //Cargar Detalle
+                            getDetalleByID(temp);
+                            /*MOSTRAR PANEL PRINCIPAL*/
+                            pnlTablero.addClass("d-none");
+                            pnlDatos.removeClass('d-none');
+                            pnlDatosDetalle.removeClass("d-none");
+                            pnlDatosDetalle.find("[name='Estilo']")[0].selectize.focus();
+                            pnlDatos.find("[name='Folio']").prop('disabled', 'disabled');
+                        }).fail(function (x, y, z) {
+                            console.log(x, y, z);
+                        }).always(function () {
+                            HoldOn.close();
                         });
-                    });
-                }
-            }).fail(function (x, y, z) {
-                console.log(x, y, z);
-            }).always(function () {
-                HoldOn.close();
-            });
+                    } else {
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+                    }
+                    console.log('editando...');
+                });
+            }
+            HoldOn.close();
         }
 
         function getSerieXEstilo(Estilo) {
@@ -1183,5 +1212,5 @@
             color: #fff;
             -webkit-transform: scale(1.75);
             transform: scale(1.75);
-        }
+        }  
     </style>

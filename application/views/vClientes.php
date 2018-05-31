@@ -389,10 +389,8 @@
                 "colReorder": true,
                 "displayLength": 20,
                 "bLengthChange": false,
-                "deferRender": true,
-                "scrollCollapse": false,
+                "deferRender": true,,
                 "bSort": true,
-                keys: true,
                 "aaSorting": [
                     [0, 'desc']/*ID*/
                 ]
@@ -500,7 +498,7 @@
             HoldOn.close();
         });
     }
-    
+
     function onRemovePreview(e) {
         $(e).parent().parent("#VistaPrevia").html("");
         $('#Foto').attr("type", "text");
