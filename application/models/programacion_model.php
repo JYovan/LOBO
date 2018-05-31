@@ -16,219 +16,22 @@ class programacion_model extends CI_Model {
                                     . 'U.Estilo AS IdEstilo, '
                                     . 'U.Combinacion AS IdColor, '
                                     . "E.Clave +'-'+C.Clave+' '+C.Descripcion AS Estilo, "
+                                    . "PE.Folio AS Pedido,"
+                                    . "PE.[FechaPedido] AS \"Fecha Pedido\","
+                                    . "PE.[FechaRec] AS \"Fecha Entrega\","
+                                    . "PE.[Registro] AS \"Fecha Captura\","
                                     . "U.Sem AS Semana,"
                                     . "U.Maq AS Maq,"
-                                    . "CASE WHEN C1 <= 0 THEN '-' ELSE C1 END AS C1, "
-                                    . "C2, "
-                                    . "C3, "
-                                    . "C4, "
-                                    . "C5, "
-                                    . "C6, "
-                                    . "C7, "
-                                    . "C8, "
-                                    . "C9, "
-                                    . "C10, "
-                                    . "C11, "
-                                    . "C12, "
-                                    . "C13, "
-                                    . "C14, "
-                                    . "C15, "
-                                    . "C16, "
-                                    . "C17, "
-                                    . "C18, "
-                                    . "C19, "
-                                    . "C20, "
-                                    . "C21, "
-                                    . "C22,"
+                                    . "CL.Clave + '-'+ CL.RazonSocial AS Cliente,"
                                     . "(C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS Pares,"
                                     . "'$'+CONVERT(varchar, CAST(U.Precio AS money), 1) AS Precio , "
                                     . "'$'+CONVERT(varchar, CAST(U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS money), 1) AS Importe , "
                                     . "'$'+CONVERT(varchar, CAST(  (U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22)) * (ISNULL(Desc_Por,0)/100)  AS money), 1) AS 'Desc',"
                                     . "U.FechaEntrega AS Entrega,"
-                                    . "'<span class=''fa fa-trash-alt'' "
-                                    . "onclick=''onEliminarDetalle('+      "
-                                    . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
-                                    . ", S.ID AS Serie", false)
-                            ->from('sz_PedidosDetalle AS U')
-                            ->join('sz_Estilos AS E', 'U.Estilo = E.ID')
-                            ->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID')
-                            ->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID')
-                            ->join('sz_series AS S', 'E.Serie = S.ID')
-                            ->get()->result();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function getSerieXDetalleByID($Pedido) {
-        try {
-            $this->db->select("S.ID, S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,
-                                      S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,
-                                      S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false);
-            $this->db->from('sz_PedidosDetalle AS U');
-            $this->db->join('sz_Estilos AS E', 'U.Estilo = E.ID');
-            $this->db->join('sz_series AS S', 'E.Serie = S.ID');
-            $this->db->where('U.Pedido', $Pedido);
-            $this->db->group_by(array('S.ID', 'S.T1', 'S.T2', 'S.T3', 'S.T4', 'S.T5', 'S.T6', 'S.T7', 'S.T8', '
-                                      S.T9', 'S.T10', 'S.T11', 'S.T12', 'S.T13', 'S.T14', 'S.T15', '
-                                      S.T16', 'S.T17', 'S.T18', 'S.T19', 'S.T20', 'S.T21', 'S.T22'));
-            $query = $this->db->get();
-            $str = $this->db->last_query();
-//            print $str;
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onComprobarEstiloXCombinacion($ID, $E, $C) {
-        try {
-            $this->db->select("COUNT (*) AS EXISTE", false);
-            $this->db->from('sz_PedidosDetalle AS PD');
-            $this->db->where('PD.Pedido', $ID);
-            $this->db->where('PD.Estilo', $E);
-            $this->db->where('PD.Combinacion', $C);
-
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-            //print $str;
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onAgregar($array) {
-        try {
-            $this->db->insert("sz_Pedidos", $array);
-            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
-            $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
-            return $row['IDL'];
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onAgregarDetalle($array) {
-        try {
-            $this->db->insert("sz_PedidosDetalle", $array);
-            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
-            $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
-            return $row['IDL'];
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onModificar($ID, $DATA) {
-        try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Pedidos", $DATA);
-//            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onModificarDetalle($Pedido, $Estilo, $Color, $Posicion, $Cantidad) {
-        try {
-            $DATA = array(
-                $Posicion => $Cantidad
-            );
-            $this->db->where('Estilo', $Estilo);
-            $this->db->where('Combinacion', $Color);
-            $this->db->where('Pedido', $Pedido);
-            $this->db->update("sz_PedidosDetalle", $DATA);
-            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onEliminar($ID) {
-        try {
-            $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Pedidos");
-//            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onEliminarDetalle($ID) {
-        try {
-            $this->db->where('ID', $ID);
-            $this->db->delete("sz_PedidosDetalle");
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function getPedidoByID($ID) {
-        try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_Pedidos AS U');
-            $this->db->where('U.ID', $ID);
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-//        print $str;
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function getPedidoEncabezadoDetalleByID($ID) {
-        try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_Pedidos AS U');
-            $this->db->where('U.ID', $ID);
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-//        print $str;
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function getSerieXEstiloTR($Estilo) {
-        try {
-            return $this->db->select("S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,
-                                      S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,
-                                      S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false)
-                            ->from('sz_Estilos AS E')
-                            ->join('sz_Series AS S', 'E.Serie = S.ID', 'left')
-                            ->where('E.ID', $Estilo)
-                            ->get()->result();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function getAgenteXCliente($ID) {
-        try {
-            return $this->db->select("V.ID AS AGENTE", false)
-                            ->from('sz_Clientes AS V')
-                            ->where('V.ID', $ID)
-                            ->where_in('V.Estatus', 'ACTIVO')
-                            ->get()->result();
+                                    . "CONCAT(S.PuntoInicial ,'/',S.PuntoFinal) AS Serie", false)->from('sz_PedidosDetalle AS U')
+                            ->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID')->join('sz_Clientes AS CL', 'CL.ID = PE.Cliente')
+                            ->join('sz_Estilos AS E', 'U.Estilo = E.ID')->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID')
+                            ->join('sz_series AS S', 'E.Serie = S.ID')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

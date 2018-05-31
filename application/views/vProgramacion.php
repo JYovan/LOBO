@@ -6,6 +6,7 @@
             </div>
             <div class="col-sm-6 float-right" align="right">
                 <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnImprimir" data-toggle="tooltip" data-placement="top" title="Imprimir"><span class="fa fa-print"></span><br></button>
             </div>
         </div>
         <div class="card-block">
@@ -16,14 +17,18 @@
                             <th>ID</th>
                             <th>IdEstilo</th>
                             <th>IdColor</th>
-                            <th>Estilo</th>
-                            <th>Semana</th>
+                            <th>Pedido</th>
+                            <th>Cliente</th>
+                            <th>Estilo</th> 
+                            <th>Serie</th> 
+                            <th>Fecha</th>
+                            <th>Fecha Pedido</th>
+                            <th>Fecha Entrega</th>
+                            <th>Pares</th>
                             <th>Maq</th>
-                            <th>	Pares	</th>
-                            <th>	Precio	</th>
-                            <th>	Importe	</th>
-                            <th>	Desc	</th>
-                            <th>	Entrega	</th> 
+                            <th>Semana</th>
+                            <th>Precio</th>
+                            <th>Importe</th>  
                         </tr>
                         </tr>
                     </thead>
@@ -44,6 +49,7 @@
     var master_url = base_url + 'index.php/Programacion/';
     var Pedidos;
     var tblPedidos = $('#tblPedidos');
+    var btnImprimir = $("#btnImprimir");
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -53,6 +59,12 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
+            btnImprimir.click(function () {
+                console.log('SELECCIONADOS ', Pedidos.rows({selected: true}).data());
+                $.each(Pedidos.rows({selected:true})).data(),function(k,v){
+                    
+                });
+            });
             $('#btnNuevo').on("contextmenu", function (e) {
                 e.preventDefault();
                 var top = e.pageY + 20;
@@ -111,14 +123,18 @@
                     {"data": "ID"},
                     {"data": "IdEstilo"},
                     {"data": "IdColor"},
+                    {"data": "Pedido"},
+                    {"data": "Cliente"},
                     {"data": "Estilo"},
+                    {"data": "Serie"},
+                    {"data": "Fecha Captura"},
+                    {"data": "Fecha Pedido"},
+                    {"data": "Fecha Entrega"},
                     {"data": "Semana"},
                     {"data": "Maq"},
                     {"data": "Pares"},
                     {"data": "Precio"},
-                    {"data": "Importe"},
-                    {"data": "Desc"},
-                    {"data": "Entrega"}
+                    {"data": "Importe"}
                 ],
                 language: lang,
                 select: true,
@@ -157,35 +173,34 @@
                 temp = parseInt(dtm.ID);
                 pnlDatos.removeClass("d-none");
                 pnlTablero.addClass("d-none");
-                HoldOn.open({
-                    theme: 'sk-bounce',
-                    message: 'CARGANDO...'
-                });
-                $.getJSON(master_url + 'getListaByID', {ID: temp}).done(function (data, x, jq) {
-                    var l = data[0];
-                    pnlDatos.find("#ID").val(l.IDE);
-                    pnlDatos.find("#Descripcion").val(l["DESCRIPCIÓN"]);
-                    pnlDatos.find("#Estatus")[0].selectize.setValue(l.ESTATUS);
-                    /*OBTENER DETALLE*/
-                    $.getJSON(master_url + 'getListaDetalleByID', {ID: temp}).done(function (dtm, x, jq) {
-                        tblLista.clear().draw();
-                        $.each(dtm, function (k, v) {
-                            tblLista.row.add([v.ID, v.ID_ESTILO, v.ESTILO,
-                                "$" + $.number(v.PRECIO, 2, '.', ','),
-                                '<span class="fa fa-trash" onclick="onRemover(this)"></span>',
-                                v.ID/*orden descendente*/
-                            ]).draw(false);
-                        });
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                    });
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
+                /*HoldOn.open({
+                 theme: 'sk-bounce',
+                 message: 'CARGANDO...'
+                 });
+                 $.getJSON(master_url + 'getListaByID', {ID: temp}).done(function (data, x, jq) {
+                 var l = data[0];
+                 pnlDatos.find("#ID").val(l.IDE);
+                 pnlDatos.find("#Descripcion").val(l["DESCRIPCIÓN"]);
+                 pnlDatos.find("#Estatus")[0].selectize.setValue(l.ESTATUS);
+                 $.getJSON(master_url + 'getListaDetalleByID', {ID: temp}).done(function (dtm, x, jq) {
+                 tblLista.clear().draw();
+                 $.each(dtm, function (k, v) {
+                 tblLista.row.add([v.ID, v.ID_ESTILO, v.ESTILO,
+                 "$" + $.number(v.PRECIO, 2, '.', ','),
+                 '<span class="fa fa-trash" onclick="onRemover(this)"></span>',
+                 v.ID 
+                 ]).draw(false);
+                 });
+                 }).fail(function (x, y, z) {
+                 console.log(x, y, z);
+                 }).always(function () {
+                 HoldOn.close();
+                 });
+                 }).fail(function (x, y, z) {
+                 console.log(x, y, z);
+                 }).always(function () {
+                 HoldOn.close();
+                 });*/
                 console.log('editando...');
             });
         }
@@ -195,6 +210,9 @@
 </script> 
 <style>
     td.highlight {
+        background-color: whitesmoke !important;
+    }
+    tr.hover{
         background-color: whitesmoke !important;
     }
 </style>
