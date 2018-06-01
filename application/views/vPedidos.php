@@ -251,52 +251,51 @@
             <br>
             <div class="" id="pnlDetalle">
                 <div class="row">
-                    <div class=" col-md-12 ">
-                        <div class="row">
-                            <div class="table-responsive" id="PedidosDetalle">
-                                <table id="tblPedidosDetalle" class="table table-sm display " style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>IdEstilo</th>
-                                            <th>IdColor</th>
-                                            <th>Estilo</th>
-                                            <th>Semana</th>
-                                            <th>Maq</th>
-                                            <th>	C1	</th>
-                                            <th>	C1	</th>
-                                            <th>	C3	</th>
-                                            <th>	C4	</th>
-                                            <th>	C5	</th>
-                                            <th>	C6	</th>
-                                            <th>	C7	</th>
-                                            <th>	C8	</th>
-                                            <th>	C9	</th>
-                                            <th>	C10	</th>
-                                            <th>	C11	</th>
-                                            <th>	C12	</th>
-                                            <th>	C13	</th>
-                                            <th>	C14	</th>
-                                            <th>	C15	</th>
-                                            <th>	C16	</th>
-                                            <th>	C17	</th>
-                                            <th>	C18	</th>
-                                            <th>	C19	</th>
-                                            <th>	C20	</th>
-                                            <th>	C21	</th>
-                                            <th>	C22	</th>
-                                            <th>	Pares	</th>
-                                            <th>	Precio	</th>
-                                            <th>	Importe	</th>
-                                            <th>	Desc	</th>
-                                            <th>	Entrega	</th>
-                                            <th>	-	</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class=" col-md-12 ">  
+                        <div align="center"><div class="loader"></div></div> 
+                        <div class="table-responsive" id="PedidosDetalle">
+                            <table id="tblPedidosDetalle" class="table table-sm display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>IdEstilo</th>
+                                        <th>IdColor</th>
+                                        <th>Estilo</th>
+                                        <th>Semana</th>
+                                        <th>Maq</th>
+                                        <th>	C1	</th>
+                                        <th>	C1	</th>
+                                        <th>	C3	</th>
+                                        <th>	C4	</th>
+                                        <th>	C5	</th>
+                                        <th>	C6	</th>
+                                        <th>	C7	</th>
+                                        <th>	C8	</th>
+                                        <th>	C9	</th>
+                                        <th>	C10	</th>
+                                        <th>	C11	</th>
+                                        <th>	C12	</th>
+                                        <th>	C13	</th>
+                                        <th>	C14	</th>
+                                        <th>	C15	</th>
+                                        <th>	C16	</th>
+                                        <th>	C17	</th>
+                                        <th>	C18	</th>
+                                        <th>	C19	</th>
+                                        <th>	C20	</th>
+                                        <th>	C21	</th>
+                                        <th>	C22	</th>
+                                        <th>	Pares	</th>
+                                        <th>	Precio	</th>
+                                        <th>	Importe	</th>
+                                        <th>	Desc	</th>
+                                        <th>	Entrega	</th>
+                                        <th>	-	</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div> 
                         <br>
                         <div class="" align="center" style="background-color: #fff ">
                             <div class="row">
@@ -333,6 +332,7 @@
     <script>
         var master_url = base_url + 'index.php/Pedidos/';
         var pnlDatos = $("#pnlDatos");
+        var btnImprimirPedido = pnlDatos.find("#btnImprimirPedido");
         var pnlDatosDetalle = $("#pnlDatosDetalle");
         var pnlDetalle = $("#pnlDetalle");
         var pnlTablero = $("#pnlTablero");
@@ -365,8 +365,24 @@
         };
         $(document).ready(function () {
 
-            $("#btnObtener").click(function () {
-
+            btnImprimirPedido.click(function () {
+                if (temp > 0) {
+                    HoldOn.open({
+                        message: 'Espere...',
+                        theme: 'sk-cube'
+                    });
+                    $.get(master_url + 'ImprimirPedido', {ID: temp}).done(function (data) {
+                        console.log(data);
+                        window.open(data, '_blank');
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                } else {
+                    onBeep(2);
+                    swal('ATENCIÓN', 'Para generar un reporte primero debe de guardarlo', 'warning');
+                }
             });
 
             pnlDatos.find("#Cliente").change(function () {
@@ -461,6 +477,9 @@
                 }
             });
             btnNuevo.click(function () {
+                temp = 0;
+                pnlDetalle.find("div.loader").addClass("d-none");
+                $("#PedidosDetalle").removeClass("d-none");
                 pnlTablero.addClass("d-none");
                 pnlDatos.removeClass('d-none');
                 pnlDatosDetalle.removeClass('d-none');
@@ -473,7 +492,9 @@
                 });
                 $(':input:text:enabled:visible:first').focus();
                 nuevo = true;
-                tblPedidosDetalleDT.clear().draw();
+                if ($.fn.DataTable.isDataTable('#tblPedidosDetalle')) {
+                    tblPedidosDetalleDT.clear().draw();
+                }
             });
             btnCancelar.click(function () {
                 pnlTablero.removeClass("d-none");
@@ -661,6 +682,8 @@
                 }
             });
             tblPedidosDetalleDT.clear().draw();
+            pnlDetalle.find("div.loader").removeClass("d-none");
+            $("#PedidosDetalle").addClass("d-none");
             $.getJSON(master_url + 'getDetalleByID', {ID: IDX}).done(function (detalle) {
                 $.getJSON(master_url + 'getSerieXDetalleByID', {ID: IDX}).done(function (series) {
                     /*SERIE*/
@@ -688,6 +711,8 @@
                 }).always(function () {
                     HoldOn.close();
                     onCalcularMontos();
+                    pnlDetalle.find("div.loader").addClass("d-none");
+                    $("#PedidosDetalle").removeClass("d-none");
                 });
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
@@ -1100,10 +1125,8 @@
             var pares = 0;
             var total = 0.0;
             var desc = 0.0;
-            console.log('* CALCULANDO MONTOS *')
+            console.log('* CALCULANDO MONTOS *');
             $.each(tblPedidosDetalleDT.rows().data(), function () {
-                console.log($(this)[30], $.isNumeric($(this)[30]));
-                console.log($(this)[31], $.isNumeric($(this)[31]));
                 pares += ($.isNumeric($(this)[28]) ? parseFloat($(this)[28]) : 0);
                 total += ($.isNumeric(getNumberFloat($(this)[30])) ? getNumberFloat($(this)[30]) : 0);
                 desc += ($.isNumeric(getNumberFloat($(this)[31])) ? getNumberFloat($(this)[31]) : 0);
@@ -1213,4 +1236,104 @@
             -webkit-transform: scale(1.75);
             transform: scale(1.75);
         }  
+        li a{
+            -webkit-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+        }
+        li a:hover {
+            -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+            margin-left: 25px !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 18px;
+            height: 18px;
+        }
+        ::-webkit-scrollbar-button {
+            width: 0px;
+            height: 0px;
+        }
+        ::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:active,::-webkit-scrollbar-thumb:hover { 
+            background: #464646; 
+            border-radius: 10px;  
+            border: solid 2px #464646 !important;
+            cursor: pointer !important;
+        }  
+        ::-webkit-scrollbar-track {
+            background: #eee;
+            border: 0px none #eee;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track:hover {
+            background: #eee;
+        }
+        ::-webkit-scrollbar-track:active {
+            background: #eee;
+        }
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        } 
+        ::-webkit-scrollbar-track { 
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;  
+        }
+        .circle{  
+            animation: circleinfinite 2s infinite; 
+            opacity: 1;
+            order: -1;
+        }
+        @keyframes circleinfinite {
+            from {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+
+            10%, 20% {
+                -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+                transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+            }
+
+            30%, 50%, 70%, 90% {
+                -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+            }
+
+            40%, 60%, 80% {
+                -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+            }
+
+            to {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        } 
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;  
+
+            border-top: 16px solid #333333;
+            border-bottom: 16px solid #333333; 
+
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin .5s linear infinite; 
+            animation: spin .5s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        } 
+
     </style>
