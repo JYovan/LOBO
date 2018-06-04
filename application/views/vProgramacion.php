@@ -3,11 +3,7 @@
         <div class="row">
             <div class="col-sm-6 float-left">
                 <legend class="float-left">Asigna control a pedidos</legend>
-            </div>
-            <!--            <div class="col-sm-6 float-right" align="right">
-                            <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span><br></button>
-                            <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Imprimir"><span class="fa fa-print"></span><br></button>
-                        </div>-->
+            </div> 
         </div>
         <div class="card-block"> 
             <div class="row" style="padding-left: 15px"> 
@@ -26,6 +22,7 @@
                 <div class="col">
                     <button type="button" class="btn btn-info" id="btnSeleccionar" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><span class="fa fa-list"></span><br></button>
                     <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
+                    <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
                 </div>
             </div> 
             <div id="Pedidos" class="table-responsive">
@@ -95,6 +92,7 @@
     var Pedidos;
     var tblPedidos = $('#tblPedidos');
     var btnAsignar = $("#btnAsignar");
+    var btnDeshacer = $("#btnDeshacer");
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -105,32 +103,41 @@
         $(function () {
             getRecords();
             handleEnter();
+
+            btnDeshacer.click(function () {
+                if (Pedidos.rows(({selected: true})).data().count() > 0) {
+                    swal({
+                        title: "Estas seguro?",
+                        text: "Serán desmarcados los registros, una vez completada la acción",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            onMarcarDesMarcar(0);
+                        }
+                    });
+                } else {
+                    swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
+                }
+            });
+
             btnAsignar.click(function () {
-                console.log('* SELECCIONADOS ', Pedidos.rows(({selected: true})).data().count(), ' *');
-                var subcontroles = [];
-                $.each(Pedidos.rows(({selected: true})).data(), function (k, v) {
-                    if (parseInt(v.Marca) < 1) {
-                        subcontroles.push({
-                            ID: v.ID
-                        });
-                    }
-                });
-                var f = new FormData();
-                f.append('SubControles', JSON.stringify(subcontroles));
-                $.ajax({
-                    url: master_url + 'onMarcar',
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: f
-                }).done(function (data, x, jq) {
-                    console.log("\n", data, "\n");
-                    swal('INFO', 'SE HAN MARCADO LOS REGISTROS', 'success');
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                });
+                if (Pedidos.rows(({selected: true})).data().count() > 0) {
+                    swal({
+                        title: "Estas seguro?",
+                        text: "Serán marcados los registros, una vez completada la acción",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            onMarcarDesMarcar(1);
+                        }
+                    });
+                } else {
+                    swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
+                }
             });
             $('#btnNuevo').on("contextmenu", function (e) {
                 e.preventDefault();
@@ -152,6 +159,36 @@
             });
         });
     }));
+
+    function onMarcarDesMarcar(i) {
+        console.log('* SELECCIONADOS ', Pedidos.rows(({selected: true})).data().count(), ' *');
+        var subcontroles = [];
+        $.each(Pedidos.rows(({selected: true})).data(), function (k, v) {
+            if (parseInt(v.Marca) !== i) {
+                subcontroles.push({
+                    ID: v.ID
+                });
+            }
+        });
+        var f = new FormData();
+        f.append('Marca', i);
+        f.append('SubControles', JSON.stringify(subcontroles));
+        $.ajax({
+            url: master_url + 'onMarcarDesMarcar',
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: f
+        }).done(function (data, x, jq) {
+            console.log("\n", data, "\n");
+            swal('INFO', 'SE HAN ' + (i > 0 ? 'MARCADO' : 'DESMARCADO') + ' LOS REGISTROS', 'success');
+            Pedidos.ajax.reload();
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+        });
+    }
 
     function filterColumn(i) {
         tblPedidos.DataTable().column(i).search(
@@ -287,5 +324,5 @@
         transition: all .2s ease-in-out;
         background-color: #669900 !important;
         color: #fff !important;
-    }
+    } 
 </style>

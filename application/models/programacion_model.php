@@ -51,9 +51,9 @@ class programacion_model extends CI_Model {
         }
     }
 
-    public function onModificarDetalle($x) {
+    public function onModificarDetalle($x, $i) {
         try {
-            $this->db->where("ID", $x)->set("McaControl", 1)->update("sz_PedidosDetalle");
+            $this->db->where("ID", $x)->set("McaControl", $i)->update("sz_PedidosDetalle");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

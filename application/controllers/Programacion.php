@@ -26,11 +26,11 @@ class Programacion extends CI_Controller {
         }
     }
 
-    public function onMarcar() {
+    public function onMarcarDesMarcar() {
         try {
             $controles = json_decode($this->input->post('SubControles'));
-            foreach ($controles as $k => $v) {  
-                $this->programacion_model->onModificarDetalle($v->ID);
+            foreach ($controles as $k => $v) {
+                $this->programacion_model->onModificarDetalle($v->ID, $this->input->post('Marca'));
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
