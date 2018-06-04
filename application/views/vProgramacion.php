@@ -10,27 +10,24 @@
                         </div>-->
         </div>
         <div class="card-block"> 
-            <div class="row"> 
+            <div class="row" style="padding-left: 15px"> 
                 <div class="col" data-column="12">
-                    Maquila
+                    <strong>Maquila</strong>
                     <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
                 </div>
                 <div class="col" data-column="13">
-                    Semana
+                    <strong>Semana</strong>
                     <input type="text" class="form-control form-control-sm column_filter" id="col13_filter">
                 </div>
                 <div class="col" data-column="14">
-                    Año
+                    <strong>Año</strong>
                     <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span><br></button>
-                    <button type="button" class="btn btn-primary" id="btnSeleccionar" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><span class="fa fa-check"></span><br></button>
-                    <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-print"></span><br></button>
+                    <button type="button" class="btn btn-info" id="btnSeleccionar" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><span class="fa fa-list"></span><br></button>
+                    <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
                 </div>
-            </div>
-            </tbody>
-            </table>
+            </div> 
             <div id="Pedidos" class="table-responsive">
                 <table id="tblPedidos" class="table table-sm display hover" style="width:100%">
                     <thead>
@@ -54,6 +51,7 @@
                             <th>Maq</th>
                             <th>Sem</th>
                             <th>Año</th>
+                            <th>MC</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -108,9 +106,30 @@
             getRecords();
             handleEnter();
             btnAsignar.click(function () {
-                console.log('* SELECCIONADOS *');
+                console.log('* SELECCIONADOS ', Pedidos.rows(({selected: true})).data().count(), ' *');
+                var subcontroles = [];
                 $.each(Pedidos.rows(({selected: true})).data(), function (k, v) {
-                    console.log($(this));
+                    if (parseInt(v.Marca) < 1) {
+                        subcontroles.push({
+                            ID: v.ID
+                        });
+                    }
+                });
+                var f = new FormData();
+                f.append('SubControles', JSON.stringify(subcontroles));
+                $.ajax({
+                    url: master_url + 'onMarcar',
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: f
+                }).done(function (data, x, jq) {
+                    console.log("\n", data, "\n");
+                    swal('INFO', 'SE HAN MARCADO LOS REGISTROS', 'success');
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
                 });
             });
             $('#btnNuevo').on("contextmenu", function (e) {
@@ -139,6 +158,7 @@
                 $('#col' + i + '_filter').val()
                 ).draw();
     }
+
     function getRecords() {
         HoldOn.open({
             theme: 'sk-cube',
@@ -185,7 +205,8 @@
                     {"data": "Pares"},
                     {"data": "Maq"},
                     {"data": "Semana"},
-                    {"data": "Anio"}
+                    {"data": "Anio"},
+                    {"data": "Marca"}
                 ],
                 language: lang,
                 select: true,
@@ -215,10 +236,16 @@
                                 break;
                         }
                     });
+                    $.each($(row), function (k, v) {
+                        var cells = $(v).find("td");
+                        var mca = parseInt(cells.eq(12).text());
+                        if (mca > 0) {
+                            $(v).addClass('HasMca');
+                        }
+                    });
                 },
                 "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api();//Get access to Datatable API 
-                     
+                    var api = this.api();//Get access to Datatable API                     
                     // Update footer 
                     $(api.column(11).footer()).html(api.column(11, {page: 'current'}).data().reduce(function (a, b) {
                         return parseFloat(a) + parseFloat(b);
@@ -254,5 +281,11 @@
     }
     tr.hover{
         background-color: whitesmoke !important;
+    }
+    tr.HasMca td{ 
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+        background-color: #669900 !important;
+        color: #fff !important;
     }
 </style>

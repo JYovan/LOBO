@@ -26,24 +26,11 @@ class Programacion extends CI_Controller {
         }
     }
 
-    public function onAgregarControl() {
+    public function onMarcar() {
         try {
-
-            $controles = json_decode($this->input->post('Controles'));
-            foreach ($controles as $k => $v) {
-                $data = array(
-                    'Control' => $v->Control
-                    , 'FechaProg' => $v->FechaProg
-                    , 'Estilo' => $v->Estilo
-                    , 'Color' => $v->Color
-                    , 'Serie' => $v->Serie
-                    , 'Cliente' => $v->Cliente
-                    , 'Pares' => $v->Pares
-                    , 'Pedido' => $v->Pedido
-                    , 'PedidoDetalle' => $v->PedidoDetalle
-                    , 'Estatus' => 'ACTIVO'
-                    , 'EstatusDepto' => 1 //'PROGRAMADO'
-                );
+            $controles = json_decode($this->input->post('SubControles'));
+            foreach ($controles as $k => $v) {  
+                $this->programacion_model->onModificarDetalle($v->ID);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
