@@ -171,6 +171,7 @@ class Pedidos extends CI_Controller {
                     'FechaEntrega' => $v->FechaEntrega,
                     'Maq' => $v->Maq,
                     'Sem' => $v->Sem,
+                    'Ano' => Date('Y'),
                     'Recio' => $v->Recio,
                     'Precio' => $v->Precio,
                     'Estilo' => $v->Estilo,
@@ -244,7 +245,7 @@ class Pedidos extends CI_Controller {
             $pdf->SetX(40);
             $pdf->Cell(/* ANCHO */225, 7.5/* ALTO */, 'PEDIDOX'/* CONTENIDO */, 0/* BORDE 0 = N, 1 = Y */, 0/* SALTO LN */, 'L'/* ALINEACION */, false/* RELLENO */);
             $pdf->Rect(40/* POS EN X */, 5/* POS EN Y */, 190/* ANCHO */, 7.5/* ALTO */, 'D');
-            
+
             /* FIN ENCABEZADO */
             /* DETALLE */
 
@@ -267,7 +268,7 @@ class Pedidos extends CI_Controller {
             $url = 'uploads/Pedidos/' . $this->input->get('ID') . '/PEDIDO_' . $this->input->get('ID') . '_' . Date('d') . '_' . Date('m') . '_' . Date('Y') . '.pdf';
 
             if (delete_files('uploads/Pedidos/' . $this->input->get('ID') . '/')) {
-                
+
             }
             $pdf->Output($url);
             print base_url() . $url;
@@ -275,4 +276,5 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }

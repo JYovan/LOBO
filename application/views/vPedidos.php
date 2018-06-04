@@ -69,190 +69,186 @@
                     <button type="button" class="btn btn-primary btn-sm" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
                 </div>
             </div>
-            <br>
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="Encabezado">
-                            <form id="frmNuevo">
-                                <div class="row">
-                                    <div class="d-none">
-                                        <input type="text" class="" id="ID" name="ID"  >
-                                    </div>
-                                    <div class="col-12 col-md-1">
-                                        <label for="Folio">Folio*</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly " maxlength="10" id="Folio" name="Folio" required="">
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <label for="Cliente">Cliente* (F9) Actualizar</label>
-                                        <div class="input-group mb-3">
-                                            <select class="form-control form-control-sm required" id="Cliente" name="Cliente">
-                                                <option value=""></option>
-                                            </select>
-                                            <div class="input-group-prepend">
-                                                <a href="<?php print base_url('Clientes') ?>" target="_blank" class="input-group-text text-dark" data-toggle="tooltip" data-placement="top" title="Ver Clientes"><i class="fa fa-users"></i></a>
-                                            </div>
+
+            <div class="card border-0">
+                <div class="">
+                    <div id="Encabezado">
+                        <form id="frmNuevo">
+                            <div class="row">
+                                <div class="d-none">
+                                    <input type="text" class="" id="ID" name="ID"  >
+                                </div>
+                                <div class="col-12 col-md-1">
+                                    <label for="Folio">Folio*</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly " maxlength="10" id="Folio" name="Folio" required="">
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <label for="Cliente">Cliente* (F9) Actualizar</label>
+                                    <div class="input-group mb-3">
+                                        <select class="form-control form-control-sm required" id="Cliente" name="Cliente">
+                                            <option value=""></option>
+                                        </select>
+                                        <div class="input-group-prepend">
+                                            <a href="<?php print base_url('Clientes') ?>" target="_blank" class="input-group-text text-dark" data-toggle="tooltip" data-placement="top" title="Ver Clientes"><i class="fa fa-users"></i></a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 col-12">
-                                        <label for="Agente                                                                                                              ">Agente</label>
-                                        <select class="form-control form-control-sm required" id="Agente" name="Agente">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <label for="FechaMov">Fec Pedido*</label>
-                                        <input type="text" class="form-control form-control-sm notEnter" name="FechaPedido" id="FechaPedido" required="">
-
-                                    </div>
-                                    <div class="col-sm-2 col-12">
-                                        <label for="FechaMov">Fec Recep*</label>
-                                        <input type="text" class="form-control form-control-sm notEnter" id="FechaRec" name="FechaRec" required="">
-                                    </div>
-                                    <div class="col-sm-2 col-12">
-                                        <label for="RecibioX">Recibido*</label>
-                                        <select class="form-control form-control-sm required" id="RecibidoX" name="RecibidoX">
-                                            <option value=""></option>
-                                            <option value="1">1 AGENTE</option>
-                                            <option value="2">2 FAX</option>
-                                            <option value="3">3 TEL</option>
-                                            <option value="4">4 PER</option>
-                                            <option value="5">5 INT</option>
-                                        </select>
-                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-12">
+                                    <label for="Agente                                                                                                              ">Agente</label>
+                                    <select class="form-control form-control-sm required" id="Agente" name="Agente">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <label for="FechaMov">Fec Pedido*</label>
+                                    <input type="text" class="form-control form-control-sm notEnter" name="FechaPedido" id="FechaPedido" required="">
 
                                 </div>
-                            </form>
-                        </div>
-                    </div> 
+                                <div class="col-sm-2 col-12">
+                                    <label for="FechaMov">Fec Recep*</label>
+                                    <input type="text" class="form-control form-control-sm notEnter" id="FechaRec" name="FechaRec" required="">
+                                </div>
+                                <div class="col-sm-2 col-12">
+                                    <label for="RecibioX">Recibido*</label>
+                                    <select class="form-control form-control-sm required" id="RecibidoX" name="RecibidoX">
+                                        <option value=""></option>
+                                        <option value="1">1 AGENTE</option>
+                                        <option value="2">2 FAX</option>
+                                        <option value="3">3 TEL</option>
+                                        <option value="4">4 PER</option>
+                                        <option value="5">5 INT</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <br>
-                <div class="card">
-                    <div class="card-body">
-                        <!--GENERAL DETALLE-->
-                        <div class=" d-none" id="pnlDatosDetalle">
-                            <!--CONTROLES DETALLE-->
-                            <div id="ControlesDetalle">
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <label for="Clave">% Desc.</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly " maxlength="4" id="Desc" name="Desc"  >
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <label for="Estilo">Estilo*</label>
-                                        <select class="form-control form-control-sm "  name="Estilo" required="">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <label for="Combinacion">Color*</label>
-                                        <select class="form-control form-control-sm "  name="Combinacion" required="">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2 col-12">
-                                        <label for="FechaMov">Fec Entrega*</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control form-control-sm required notEnter" id="FechaEntrega" name="FechaEntrega" >
-                                            <div class="input-group-prepend">
-                                                <span onclick="onGuardarObservaciones()" class="input-group-text text-dark" data-toggle="tooltip" data-placement="top" title="Observaciones"><i class="fa fa-comment-alt"></i></span>
-                                            </div>
+            </div>
+            <div class="card border-0">
+                <div class="">
+                    <!--GENERAL DETALLE-->
+                    <div class=" d-none" id="pnlDatosDetalle">
+                        <!--CONTROLES DETALLE-->
+                        <div id="ControlesDetalle">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <label for="Clave">% Desc.</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly " maxlength="4" id="Desc" name="Desc"  >
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="Estilo">Estilo*</label>
+                                    <select class="form-control form-control-sm "  name="Estilo" required="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="Combinacion">Color*</label>
+                                    <select class="form-control form-control-sm "  name="Combinacion" required="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2 col-12">
+                                    <label for="FechaMov">Fec Entrega*</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control form-control-sm required notEnter" id="FechaEntrega" name="FechaEntrega" >
+                                        <div class="input-group-prepend">
+                                            <span onclick="onGuardarObservaciones()" class="input-group-text text-dark" data-toggle="tooltip" data-placement="top" title="Observaciones"><i class="fa fa-comment-alt"></i></span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
-                                        <label for="Maquila">Maq</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Maquila" >
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <label for="Semana">Sem</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Semana" >
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <label for="Recio">Recio</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" name="Recio" >
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <label for="PMaq">P. Maq</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" name="PMaq" >
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <label for="Precio">Precio</label>
-                                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="9" name="Precio" >
-                                    </div>
                                 </div>
-                                <!--TALLAS-->
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <label for="Mayoreo">Tallas</label>
-                                        <table id="tblTallas" class="table Tallas" style="overflow-x:auto; white-space: nowrap;">
-                                            <thead></thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T1"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T2"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T3"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T4"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T5"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T6"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T7"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T8"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T9"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T10"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T11"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T12"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T13"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T14"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T15"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T16"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T17"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T18"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T19"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T20"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T21"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T22"></td>
-                                                    <td>Pares</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C1"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C2"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C3"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C4"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C5"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C6"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C7"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C8"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C9"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C10"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C11"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C12"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C13"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C14"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C15"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C16"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C17"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C18"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C19"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C20"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C21"></td>
-                                                    <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C22"></td>
-                                                    <td><input type="text" style="width: 55px;" maxlength="4" class="numbersOnly" disabled=""  name="TPares"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="col-sm-1">
+                                    <label for="Maquila">Maq</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Maquila" >
+                                </div>
+                                <div class="col-sm-1">
+                                    <label for="Semana">Sem</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Semana" >
+                                </div>
+                                <div class="col-sm-1">
+                                    <label for="Recio">Recio</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" name="Recio" >
+                                </div>
+                                <div class="col-sm-1">
+                                    <label for="PMaq">P. Maq</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" name="PMaq" >
+                                </div>
+                                <div class="col-sm-1">
+                                    <label for="Precio">Precio</label>
+                                    <input type="text" class="form-control form-control-sm numbersOnly" maxlength="9" name="Precio" >
                                 </div>
                             </div>
-                            <br>
+                            <!--TALLAS-->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="Mayoreo">Tallas</label>
+                                    <table id="tblTallas" class="table Tallas" style="overflow-x:auto; white-space: nowrap;">
+                                        <thead></thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T1"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T2"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T3"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T4"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T5"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T6"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T7"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T8"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T9"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T10"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T11"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T12"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T13"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T14"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T15"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T16"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T17"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T18"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T19"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T20"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T21"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" disabled="" name="T22"></td>
+                                                <td>Pares</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C1"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C2"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C3"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C4"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C5"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C6"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C7"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C8"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C9"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C10"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C11"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C12"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C13"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C14"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C15"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C16"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C17"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C18"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C19"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C20"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C21"></td>
+                                                <td><input type="text" style="width: 35px;" class="numbersOnly" maxlength="3"  name="C22"></td>
+                                                <td><input type="text" style="width: 55px;" maxlength="4" class="numbersOnly" disabled=""  name="TPares"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+                        <br>
                     </div>
                 </div>
             </div>
             <!--REGISTROS DETALLE-->
-            <br>
             <div class="" id="pnlDetalle">
                 <div class="row">
-                    <div class=" col-md-12 ">  
-                        <div align="center"><div class="loader animated fadeIn"></div></div> 
+                    <div class=" col-md-12 ">
+                        <div align="center"><div class="loader animated fadeIn"></div></div>
                         <div class="table-responsive animated fadeIn" id="PedidosDetalle">
                             <table id="tblPedidosDetalle" class="table table-sm display" style="width:100%">
                                 <thead>
@@ -295,7 +291,7 @@
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                        </div> 
+                        </div>
                         <br>
                         <div class="" align="center" style="background-color: #fff ">
                             <div class="row">
@@ -620,13 +616,13 @@
                 tblPedidosDetalle.DataTable().destroy();
             }
             tblPedidosDetalleDT = tblPedidosDetalle.DataTable({
-                "dom": 'frt',
+                "dom": 'rt',
                 "autoWidth": false,
                 "colReorder": true,
                 "displayLength": 500,
                 "bLengthChange": false,
                 "deferRender": true,
-                "scrollY": 350,
+                "scrollY": 285,
                 "scrollCollapse": false,
                 keys: true,
                 "bSort": false,
@@ -1225,17 +1221,17 @@
             color: #fff !important;
             background-color: transparent !important;
         }
-        .zoom{   
+        .zoom{
             -webkit-transition: all .2s ease-in-out;
             transition: all .2s ease-in-out;
         }
-        .zoom:hover{ 
+        .zoom:hover{
             font-weight: bold;
             background-color: #3498DB !important;
             color: #fff;
             -webkit-transform: scale(1.75);
             transform: scale(1.75);
-        }  
+        }
         li a{
             -webkit-transition: all .2s ease-in-out;
             transition: all .2s ease-in-out;
@@ -1246,51 +1242,16 @@
             margin-left: 25px !important;
         }
 
-        ::-webkit-scrollbar {
-            width: 18px;
-            height: 18px;
-        }
-        ::-webkit-scrollbar-button {
-            width: 0px;
-            height: 0px;
-        }
-        ::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:active,::-webkit-scrollbar-thumb:hover { 
-            background: #464646; 
-            border-radius: 10px;  
-            border: solid 2px #464646 !important;
-            cursor: pointer !important;
-        }  
-        ::-webkit-scrollbar-track {
-            background: #eee;
-            border: 0px none #eee;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-track:hover {
-            background: #eee;
-        }
-        ::-webkit-scrollbar-track:active {
-            background: #eee;
-        }
-        ::-webkit-scrollbar-corner {
-            background: transparent;
-        } 
-        ::-webkit-scrollbar-track { 
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            border-radius: 10px;  
-        }
         .loader {
             border: 16px solid #f3f3f3;
-            border-radius: 50%;  
+            border-radius: 50%;
 
             border-top: 16px solid #333333;
-            border-bottom: 16px solid #333333; 
+            border-bottom: 16px solid #333333;
 
             width: 120px;
             height: 120px;
-            -webkit-animation: spin .5s linear infinite; 
+            -webkit-animation: spin .5s linear infinite;
             animation: spin .5s linear infinite;
         }
 
@@ -1303,6 +1264,6 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        } 
+        }
 
     </style>
