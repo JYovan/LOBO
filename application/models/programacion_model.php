@@ -15,7 +15,10 @@ class programacion_model extends CI_Model {
             return $this->db->select('U.ID AS ID, '
                                     . 'U.Estilo AS IdEstilo, '
                                     . 'U.Combinacion AS IdColor, '
-                                    . "E.Clave +'-'+C.Clave+' '+C.Descripcion AS Estilo, "
+                                    . "E.Clave AS Estilo, "
+                                    . "E.Descripcion AS \"Descripcion Estilo\", "
+                                    . "C.Clave AS Color, "
+                                    . "C.Descripcion AS \"Descripcion Color\", "
                                     . "PE.Folio AS Pedido,"
                                     . "PE.[FechaPedido] AS \"Fecha Pedido\","
                                     . "PE.[FechaRec] AS \"Fecha Entrega\","

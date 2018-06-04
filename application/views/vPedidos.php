@@ -252,8 +252,8 @@
             <div class="" id="pnlDetalle">
                 <div class="row">
                     <div class=" col-md-12 ">  
-                        <div align="center"><div class="loader"></div></div> 
-                        <div class="table-responsive" id="PedidosDetalle">
+                        <div align="center"><div class="loader animated fadeIn"></div></div> 
+                        <div class="table-responsive animated fadeIn" id="PedidosDetalle">
                             <table id="tblPedidosDetalle" class="table table-sm display" style="width:100%">
                                 <thead>
                                     <tr>
@@ -1281,37 +1281,6 @@
         ::-webkit-scrollbar-thumb {
             border-radius: 10px;  
         }
-        .circle{  
-            animation: circleinfinite 2s infinite; 
-            opacity: 1;
-            order: -1;
-        }
-        @keyframes circleinfinite {
-            from {
-                -webkit-transform: scale3d(1, 1, 1);
-                transform: scale3d(1, 1, 1);
-            }
-
-            10%, 20% {
-                -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
-                transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
-            }
-
-            30%, 50%, 70%, 90% {
-                -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
-                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
-            }
-
-            40%, 60%, 80% {
-                -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
-                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
-            }
-
-            to {
-                -webkit-transform: scale3d(1, 1, 1);
-                transform: scale3d(1, 1, 1);
-            }
-        } 
         .loader {
             border: 16px solid #f3f3f3;
             border-radius: 50%;  

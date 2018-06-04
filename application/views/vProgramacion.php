@@ -20,6 +20,7 @@
                             <th>Pedido</th>
                             <th>Cliente</th>
                             <th>Estilo</th> 
+                            <th>Color</th> 
                             <th>Serie</th> 
                             <th>Fecha</th>
                             <th>Fecha Pedido</th>
@@ -119,6 +120,7 @@
                     {"data": "Pedido"},
                     {"data": "Cliente"},
                     {"data": "Estilo"},
+                    {"data": "Color"},
                     {"data": "Serie"},
                     {"data": "Fecha Captura"},
                     {"data": "Fecha Pedido"},
@@ -144,8 +146,13 @@
                     [0, 'desc']/*ID*/
                 ], "createdRow": function (row, data, dataIndex, cells) {
                     $.each($(row).find("td"), function (k, v) {
-                        if (parseInt(k) === 0) {
-                            $(v).attr('title', data.Estilo);
+                        switch (parseInt(k)) {
+                            case 2:
+                                $(v).attr('title', data["Descripcion Estilo"]);
+                                break;
+                            case 3:
+                                $(v).attr('title', data["Descripcion Color"]);
+                                break;
                         }
                     });
                 }
