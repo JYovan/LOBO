@@ -2,11 +2,11 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
-                <legend class="float-left">Asigna control a pedidos</legend>
-            </div> 
+                <legend class="float-left">Seleccionar pedidos p/ control</legend>
+            </div>
         </div>
-        <div class="card-block"> 
-            <div class="row" style="padding-left: 15px"> 
+        <div class="card-block">
+            <div class="row" style="padding-left: 15px">
                 <div class="col" data-column="12">
                     <strong>Maquila</strong>
                     <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
@@ -20,11 +20,11 @@
                     <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-info" id="btnSeleccionar" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><span class="fa fa-list"></span><br></button>
                     <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
                     <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
                 </div>
-            </div> 
+            </div>
+            <br>
             <div id="Pedidos" class="table-responsive">
                 <table id="tblPedidos" class="table table-sm display hover" style="width:100%">
                     <thead>
@@ -35,10 +35,10 @@
 
                             <th>Pedido</th>
                             <th>Cliente</th>
-                            <th>Estilo</th> 
+                            <th>Estilo</th>
 
-                            <th>Color</th> 
-                            <th>Serie</th> 
+                            <th>Color</th>
+                            <th>Serie</th>
                             <th>Fecha</th>
 
                             <th>Fe - Pe</th>
@@ -48,7 +48,6 @@
                             <th>Maq</th>
                             <th>Sem</th>
                             <th>Año</th>
-                            <th>MC</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -81,11 +80,10 @@
     </div>
 </div>
 <div class="dropdown-menu" style="font-size: 12px;" id='menu'>
-    <a class="dropdown-item" href="#"><i class="fa fa-plus"></i> Action</a>
-    <a class="dropdown-item" href="#"><i class="fa fa-bars"></i> Another action</a>
-    <a class="dropdown-item" href="#"><i class="fa fa-search"></i> Something else here</a>
+    <a class="dropdown-item" href="#"><i class="fa fa-check-square"></i> Marcar</a>
+    <a class="dropdown-item" href="#"><i class="fa fa-minus-square"></i> Desmarcar</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#"><i class="fa fa-trash"></i> Separated link</a>
+    <a class="dropdown-item" href="#"><i class="fa fa-undo"></i> Deshacer</a>
 </div>
 <script>
     var master_url = base_url + 'index.php/Programacion/';
@@ -110,8 +108,7 @@
                         title: "Estas seguro?",
                         text: "Serán desmarcados los registros, una vez completada la acción",
                         icon: "warning",
-                        buttons: true,
-                        dangerMode: true
+                        buttons: true
                     }).then((willDelete) => {
                         if (willDelete) {
                             onMarcarDesMarcar(0);
@@ -129,7 +126,6 @@
                         text: "Serán marcados los registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true,
-                        dangerMode: true
                     }).then((willDelete) => {
                         if (willDelete) {
                             onMarcarDesMarcar(1);
@@ -139,7 +135,7 @@
                     swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
                 }
             });
-            $('#btnNuevo').on("contextmenu", function (e) {
+            $('#Pedidos').on("contextmenu", function (e) {
                 e.preventDefault();
                 var top = e.pageY + 20;
                 var left = e.pageX - 180;
@@ -205,8 +201,22 @@
         if ($.fn.DataTable.isDataTable('#tblPedidos')) {
             tblPedidos.DataTable().destroy();
             Pedidos = tblPedidos.DataTable({
-                "dom": 'rti',
-                buttons: buttons,
+
+                dom: 'Brt',
+                buttons: [
+                    {
+                        extend: 'selectAll',
+                        text: 'Todos',
+                        className: 'btn btn-info btn-sm',
+                        titleAttr: 'Seleccionar todo'
+                    },
+                    {
+                        extend: 'selectNone',
+                        className: 'btn btn-info btn-sm',
+                        text: 'Ninguno',
+                        titleAttr: 'Deseleccionar Todos'
+                    }
+                ],
                 "ajax": {
                     "url": master_url + 'getRecords',
                     "dataSrc": ""
@@ -242,8 +252,7 @@
                     {"data": "Pares"},
                     {"data": "Maq"},
                     {"data": "Semana"},
-                    {"data": "Anio"},
-                    {"data": "Marca"}
+                    {"data": "Anio"}
                 ],
                 language: lang,
                 select: true,
@@ -274,44 +283,27 @@
                         }
                     });
                     $.each($(row), function (k, v) {
+
                         var cells = $(v).find("td");
                         var mca = parseInt(cells.eq(12).text());
-                        if (mca > 0) {
+                        if (data["Marca"] > 0) {
                             $(v).addClass('HasMca');
                         }
                     });
                 },
                 "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api();//Get access to Datatable API                     
-                    // Update footer 
+                    var api = this.api();//Get access to Datatable API
+                    // Update footer
                     $(api.column(11).footer()).html(api.column(11, {page: 'current'}).data().reduce(function (a, b) {
                         return parseFloat(a) + parseFloat(b);
                     }, 0));
                 }
             });
-            tblPedidos.find('tbody').on('click', 'tr', function () {
-                tblPedidos.find("tbody tr").removeClass("success");
-                $(this).addClass("success");
-                var dtm = Pedidos.row(this).data();
-                temp = parseInt(dtm.ID);
-                console.log('tr');
-            });
-
-            tblPedidos.find('tbody').on('dblclick', 'tr', function () {
-                nuevo = false;
-                tblPedidos.find("tbody tr").removeClass("success");
-                $(this).addClass("success");
-                var dtm = Pedidos.row(this).data();
-                temp = parseInt(dtm.ID);
-                pnlDatos.removeClass("d-none");
-                pnlTablero.addClass("d-none");
-                console.log('editando...');
-            });
         }
         HoldOn.close();
     }
 
-</script> 
+</script>
 <style>
     td.highlight {
         background-color: whitesmoke !important;
@@ -319,10 +311,8 @@
     tr.hover{
         background-color: whitesmoke !important;
     }
-    tr.HasMca td{ 
-        -webkit-transition: all .2s ease-in-out;
-        transition: all .2s ease-in-out;
-        background-color: #669900 !important;
-        color: #fff !important;
-    } 
+    tr.HasMca td{
+        color: #E74C3C!important;
+        font-weight: bold;
+    }
 </style>
