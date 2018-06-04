@@ -17,7 +17,7 @@ class Programacion extends CI_Controller {
             $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
- 
+
     public function getRecords() {
         try {
             print json_encode($this->programacion_model->getRecords());
@@ -25,4 +25,29 @@ class Programacion extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
+    public function onAgregarControl() {
+        try {
+
+            $controles = json_decode($this->input->post('Controles'));
+            foreach ($controles as $k => $v) {
+                $data = array(
+                    'Control' => $v->Control
+                    , 'FechaProg' => $v->FechaProg
+                    , 'Estilo' => $v->Estilo
+                    , 'Color' => $v->Color
+                    , 'Serie' => $v->Serie
+                    , 'Cliente' => $v->Cliente
+                    , 'Pares' => $v->Pares
+                    , 'Pedido' => $v->Pedido
+                    , 'PedidoDetalle' => $v->PedidoDetalle
+                    , 'Estatus' => 'ACTIVO'
+                    , 'EstatusDepto' => 1 //'PROGRAMADO'
+                );
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
 }
