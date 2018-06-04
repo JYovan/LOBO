@@ -2,14 +2,35 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
-                <legend class="float-left">Gestión de Controles</legend>
+                <legend class="float-left">Asigna control a pedidos</legend>
             </div>
-            <div class="col-sm-6 float-right" align="right">
-                <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span><br></button>
-                <button type="button" class="btn btn-primary" id="btnImprimir" data-toggle="tooltip" data-placement="top" title="Imprimir"><span class="fa fa-print"></span><br></button>
-            </div>
+            <!--            <div class="col-sm-6 float-right" align="right">
+                            <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span><br></button>
+                            <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Imprimir"><span class="fa fa-print"></span><br></button>
+                        </div>-->
         </div>
-        <div class="card-block">
+        <div class="card-block"> 
+            <div class="row"> 
+                <div class="col" data-column="12">
+                    Maquila
+                    <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
+                </div>
+                <div class="col" data-column="13">
+                    Semana
+                    <input type="text" class="form-control form-control-sm column_filter" id="col13_filter">
+                </div>
+                <div class="col" data-column="14">
+                    Año
+                    <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span><br></button>
+                    <button type="button" class="btn btn-primary" id="btnSeleccionar" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><span class="fa fa-check"></span><br></button>
+                    <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-print"></span><br></button>
+                </div>
+            </div>
+            </tbody>
+            </table>
             <div id="Pedidos" class="table-responsive">
                 <table id="tblPedidos" class="table table-sm display hover" style="width:100%">
                     <thead>
@@ -17,22 +38,48 @@
                             <th>ID</th>
                             <th>IdEstilo</th>
                             <th>IdColor</th>
+
                             <th>Pedido</th>
                             <th>Cliente</th>
                             <th>Estilo</th> 
+
                             <th>Color</th> 
                             <th>Serie</th> 
                             <th>Fecha</th>
-                            <th>Fecha Pedido</th>
-                            <th>Fecha Entrega</th>
-                            <th>Pares</th>
+
+                            <th>Fe - Pe</th>
+                            <th>Fe - En</th>
+                            <th>Pars</th>
+
                             <th>Maq</th>
-                            <th>Semana</th>
-                            <th>Precio</th>
-                            <th>Importe</th> 
+                            <th>Sem</th>
+                            <th>Año</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+                            <th></th>
+                            <th></th>
+
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+                            <th></th>
+                            <th></th>
+                            <th style="text-align:right">Pares</th>
+                            <th></th>
+
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -49,7 +96,7 @@
     var master_url = base_url + 'index.php/Programacion/';
     var Pedidos;
     var tblPedidos = $('#tblPedidos');
-    var btnImprimir = $("#btnImprimir");
+    var btnAsignar = $("#btnAsignar");
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -59,7 +106,8 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
-            btnImprimir.click(function () {
+            handleEnter();
+            btnAsignar.click(function () {
                 console.log('* SELECCIONADOS *');
                 $.each(Pedidos.rows(({selected: true})).data(), function (k, v) {
                     console.log($(this));
@@ -79,9 +127,18 @@
             $(document).click(function () {
                 $("#menu").hide();
             });
+
+            $('input.column_filter').on('keyup click', function () {
+                filterColumn($(this).parents('div').attr('data-column'));
+            });
         });
     }));
 
+    function filterColumn(i) {
+        tblPedidos.DataTable().column(i).search(
+                $('#col' + i + '_filter').val()
+                ).draw();
+    }
     function getRecords() {
         HoldOn.open({
             theme: 'sk-cube',
@@ -91,7 +148,7 @@
         if ($.fn.DataTable.isDataTable('#tblPedidos')) {
             tblPedidos.DataTable().destroy();
             Pedidos = tblPedidos.DataTable({
-                "dom": 'Bfrti',
+                "dom": 'rti',
                 buttons: buttons,
                 "ajax": {
                     "url": master_url + 'getRecords',
@@ -125,18 +182,17 @@
                     {"data": "Fecha Captura"},
                     {"data": "Fecha Pedido"},
                     {"data": "Fecha Entrega"},
-                    {"data": "Semana"},
-                    {"data": "Maq"},
                     {"data": "Pares"},
-                    {"data": "Precio"},
-                    {"data": "Importe"}
+                    {"data": "Maq"},
+                    {"data": "Semana"},
+                    {"data": "Anio"}
                 ],
                 language: lang,
                 select: true,
                 "autoWidth": true,
                 "colReorder": true,
                 "displayLength": 9999999999,
-                "scrollY": 460,
+                "scrollY": 430,
                 "scrollX": true,
                 "bLengthChange": false,
                 "deferRender": true,
@@ -144,9 +200,13 @@
                 "bSort": true,
                 "aaSorting": [
                     [0, 'desc']/*ID*/
-                ], "createdRow": function (row, data, dataIndex, cells) {
+                ],
+                "createdRow": function (row, data, dataIndex, cells) {
                     $.each($(row).find("td"), function (k, v) {
                         switch (parseInt(k)) {
+                            case 1:
+                                $(v).attr('title', data["Cliente Razon"]);
+                                break;
                             case 2:
                                 $(v).attr('title', data["Descripcion Estilo"]);
                                 break;
@@ -155,6 +215,14 @@
                                 break;
                         }
                     });
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();//Get access to Datatable API 
+                     
+                    // Update footer 
+                    $(api.column(11).footer()).html(api.column(11, {page: 'current'}).data().reduce(function (a, b) {
+                        return parseFloat(a) + parseFloat(b);
+                    }, 0));
                 }
             });
             tblPedidos.find('tbody').on('click', 'tr', function () {
