@@ -34,13 +34,14 @@ class cerrarprog_model extends CI_Model {
                                     . "U.FechaEntrega AS Entrega,"
                                     . "CONCAT(S.PuntoInicial ,'/',S.PuntoFinal) AS Serie, U.Ano AS Anio,"
                                     . " CASE "
-                                    . "WHEN U.McaControl IS NULL THEN '' ELSE U.McaControl END AS Marca", false)->from('sz_PedidosDetalle AS U')
+                                    . "WHEN U.McaControl IS NULL THEN '' ELSE U.McaControl END AS Marca, 0 AS Control", false)->from('sz_PedidosDetalle AS U')
                             ->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID')->join('sz_Clientes AS CL', 'CL.ID = PE.Cliente')
                             ->join('sz_Estilos AS E', 'U.Estilo = E.ID')->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID')
-                            ->join('sz_series AS S', 'E.Serie = S.ID')->where('U.McaControl', 1)->get()->result();
+                            ->join('sz_series AS S', 'E.Serie = S.ID')
+                            ->join('sz_Controles AS CT', 'CT.PedidoDetalle = U.ID', 'left')
+                            ->where('U.McaControl', 1)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
 }

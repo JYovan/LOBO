@@ -44,6 +44,7 @@
                             <th>Maq</th>
                             <th>Sem</th>
                             <th>Año</th>
+                            <th>Control</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -195,7 +196,7 @@
                     {"data": "Maq"},
                     {"data": "Semana"},
                     {"data": "Anio"},
-                    {"data": "Anio"}
+                    {"data": "Control"}
                 ],
                 language: lang,
                 select: true,
