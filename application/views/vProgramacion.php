@@ -80,10 +80,10 @@
     </div>
 </div>
 <div class="dropdown-menu" style="font-size: 12px;" id='menu'>
-    <a class="dropdown-item" href="#"><i class="fa fa-check-square"></i> Marcar</a>
-    <a class="dropdown-item" href="#"><i class="fa fa-minus-square"></i> Desmarcar</a>
+    <a class="dropdown-item" href="#" onclick="btnAsignar.trigger('click')"><i class="fa fa-check-square"></i> Marcar</a>
+    <a class="dropdown-item" href="#" onclick="btnDeshacer.trigger('click')"><i class="fa fa-minus-square"></i> Desmarcar</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#"><i class="fa fa-undo"></i> Deshacer</a>
+    <a class="dropdown-item" href="#"  onclick="btnDeshacer.trigger('click')"><i class="fa fa-undo"></i> Deshacer</a>
 </div>
 <script>
     var master_url = base_url + 'index.php/Programacion/';
@@ -102,11 +102,11 @@
             getRecords();
             handleEnter();
 
-            btnDeshacer.click(function () {
+        btnDeshacer.click(function () {
                 if (Pedidos.rows(({selected: true})).data().count() > 0) {
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán desmarcados los registros, una vez completada la acción",
+                        text: "Serán desmarcados los '" + Pedidos.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true
                     }).then((willDelete) => {
@@ -123,9 +123,9 @@
                 if (Pedidos.rows(({selected: true})).data().count() > 0) {
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán marcados los registros, una vez completada la acción",
+                        text: "Serán marcados los '" + Pedidos.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
                         icon: "warning",
-                        buttons: true,
+                        buttons: true
                     }).then((willDelete) => {
                         if (willDelete) {
                             onMarcarDesMarcar(1);
@@ -151,7 +151,8 @@
             });
 
             $('input.column_filter').on('keyup click', function () {
-                filterColumn($(this).parents('div').attr('data-column'));
+                var i = $(this).parents('div').attr('data-column');
+                tblPedidos.DataTable().column(i).search($('#col' + i + '_filter').val()).draw();
             });
         });
     }));
@@ -186,11 +187,6 @@
         });
     }
 
-    function filterColumn(i) {
-        tblPedidos.DataTable().column(i).search(
-                $('#col' + i + '_filter').val()
-                ).draw();
-    }
 
     function getRecords() {
         HoldOn.open({
@@ -201,14 +197,15 @@
         if ($.fn.DataTable.isDataTable('#tblPedidos')) {
             tblPedidos.DataTable().destroy();
             Pedidos = tblPedidos.DataTable({
-
                 dom: 'Brt',
                 buttons: [
                     {
-                        extend: 'selectAll',
-                        text: 'Todos',
+                        text: "Todos",
                         className: 'btn btn-info btn-sm',
-                        titleAttr: 'Seleccionar todo'
+                        titleAttr: 'Todos',
+                        action: function (dt) {
+                            Pedidos.rows({page: 'current'}).select();
+                        }
                     },
                     {
                         extend: 'selectNone',
