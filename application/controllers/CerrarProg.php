@@ -2,17 +2,17 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Programacion extends CI_Controller {
+class CerrarProg extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
-        $this->load->library('session')->model('programacion_model');
+        $this->load->library('session')->model('cerrarprog_model');
     }
 
     public function index() {
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado')->view('vNavegacion')->view('vProgramacion')->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vCerrarProg')->view('vFooter');
         } else {
             $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
@@ -20,7 +20,7 @@ class Programacion extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->programacion_model->getRecords());
+            print json_encode($this->cerrarprog_model->getRecords());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -30,7 +30,7 @@ class Programacion extends CI_Controller {
         try {
             $controles = json_decode($this->input->post('SubControles'));
             foreach ($controles as $k => $v) {
-                $this->programacion_model->onModificarDetalle($v->ID, $this->input->post('Marca'));
+                $this->cerrarprog_model->onModificarDetalle($v->ID, $this->input->post('Marca'));
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -1232,15 +1232,6 @@
             -webkit-transform: scale(1.75);
             transform: scale(1.75);
         }
-        li a{
-            -webkit-transition: all .2s ease-in-out;
-            transition: all .2s ease-in-out;
-        }
-        li a:hover {
-            -webkit-transform: scale(1.15);
-            transform: scale(1.15);
-            margin-left: 25px !important;
-        }
 
         .loader {
             border: 16px solid #f3f3f3;

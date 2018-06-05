@@ -1,51 +1,3 @@
-<style>
-    .overlay .dropdown {
-        cursor:pointer;
-        font-size: 15.5px !important;
-        color: #FAFAFA;
-    }
-    .overlay .dropdown-item {
-        padding: 0.25rem 1rem !important;
-        font-size: 14.5px !important;
-        color: #A6A6A6;
-    }
-    .overlay .dropdown-menu {
-        background-color: transparent !important;
-        border: 0px !important;
-        border-radius: 0px !important;
-    }
-    .overlay {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 999;
-        top: 0;
-        left: 0;
-        background-color: rgba(13, 25, 41, 0.95);
-        overflow-x: hidden;
-        transition: 0.1s;
-    }
-    .overlay-content {
-        position: relative;
-        top: 5%;
-        width: 100%;
-        margin-top: 5px;
-    }
-    .overlay a:hover,
-    .overlay a:focus {
-        color: #F39C12 !important;
-    }
-
-    .overlay .closebtn {
-        cursor:pointer;
-        position: absolute;
-        top: 0px;
-        right: 20px;
-        color: #fff !important;
-        font-size: 30px !important;
-    }
-</style>
-
 <div id="myNav" class="overlay">
     <a class="closebtn " onclick="closeNav()">&times;</a>
     <div class="overlay-content navbar ">
@@ -72,6 +24,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="<?php print base_url('Pedidos') ?>">Pedidos</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Programacion') ?>">Programación</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('CerrarProg') ?>">CerrarProg</a></li>
                     <div class="dropdown-divider" ></div>
                     <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg') ?>">Reportes</a></li>
                 </ul>
@@ -197,3 +150,60 @@
         });
     });
 </script>
+<style>
+    .overlay .dropdown {
+        cursor:pointer;
+        font-size: 15.5px !important;
+        color: #FAFAFA;
+    }
+    .overlay .dropdown-item {
+        padding: 0.25rem 1rem !important;
+        font-size: 14.5px !important;
+        color: #A6A6A6;
+    }
+    .overlay .dropdown-menu {
+        background-color: transparent !important;
+        border: 0px !important;
+        border-radius: 0px !important;
+    }
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        background-color: rgba(13, 25, 41, 0.95);
+        overflow-x: hidden;
+        transition: 0.1s;
+    }
+    .overlay-content {
+        position: relative;
+        top: 5%;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .overlay a:hover,
+    .overlay a:focus {
+        color: #F39C12 !important;
+    }
+
+    .overlay .closebtn {
+        cursor:pointer;
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        color: #fff !important;
+        font-size: 30px !important;
+    }
+    
+        li a{
+            -webkit-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+        }
+        li a:hover {
+            -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+            margin-left: 25px !important;
+        }
+</style>

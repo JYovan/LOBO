@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
-                <legend class="float-left">Seleccionar pedidos p/ control</legend>
+                <legend class="float-left">Seleccionar control</legend>
             </div>
         </div>
         <div class="card-block">
@@ -25,26 +25,22 @@
                 </div>
             </div>
             <br>
-            <div id="Pedidos" class="table-responsive">
-                <table id="tblPedidos" class="table table-sm display hover" style="width:100%">
+            <div id="CerrarProg" class="table-responsive">
+                <table id="tblCerrarProg" class="table table-sm display hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>IdEstilo</th>
                             <th>IdColor</th>
-
                             <th>Pedido</th>
                             <th>Cliente</th>
                             <th>Estilo</th>
-
                             <th>Color</th>
                             <th>Serie</th>
                             <th>Fecha</th>
-
                             <th>Fe - Pe</th>
                             <th>Fe - En</th>
                             <th>Pars</th>
-
                             <th>Maq</th>
                             <th>Sem</th>
                             <th>Año</th>
@@ -56,19 +52,15 @@
                             <th></th>
                             <th></th>
                             <th></th>
-
-                            <th></th>
-                            <th></th>
-
                             <th></th>
                             <th></th>
                             <th></th>
-
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th style="text-align:right">Pares</th>
                             <th></th>
-
                             <th></th>
                             <th></th>
                             <th></th>
@@ -79,16 +71,10 @@
         </div>
     </div>
 </div>
-<div class="dropdown-menu" style="font-size: 12px;" id='menu'>
-    <a class="dropdown-item" href="#" onclick="btnAsignar.trigger('click')"><i class="fa fa-check-square"></i> Marcar</a>
-    <a class="dropdown-item" href="#" onclick="btnDeshacer.trigger('click')"><i class="fa fa-minus-square"></i> Desmarcar</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#"  onclick="btnDeshacer.trigger('click')"><i class="fa fa-undo"></i> Deshacer</a>
-</div>
 <script>
-    var master_url = base_url + 'index.php/Programacion/';
-    var Pedidos;
-    var tblPedidos = $('#tblPedidos');
+    var master_url = base_url + 'index.php/CerrarProg/';
+    var CerrarProg;
+    var tblCerrarProg = $('#tblCerrarProg');
     var btnAsignar = $("#btnAsignar");
     var btnDeshacer = $("#btnDeshacer");
     // IIFE - Immediately Invoked Function Expression
@@ -100,30 +86,13 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
-            handleEnter();
-
+            
             btnDeshacer.click(function () {
-                if (Pedidos.rows(({selected: true})).data().count() > 0) {
+                if (CerrarProg.rows(({selected: true})).data().count() > 0) {
+                    onBeep(1);
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán desmarcados los '" + Pedidos.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
-                        icon: "warning",
-                        buttons: true
-                    }).then((willDelete) => {
-                        if (willDelete) {
-                            onMarcarDesMarcar(0);
-                        }
-                    });
-                } else {
-                    swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
-                }
-            });
-
-            btnAsignar.click(function () {
-                if (Pedidos.rows(({selected: true})).data().count() > 0) {
-                    swal({
-                        title: "Estas seguro?",
-                        text: "Serán marcados los '" + Pedidos.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
+                        text: "Serán desmarcados los '" + CerrarProg.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true
                     }).then((willDelete) => {
@@ -132,61 +101,37 @@
                         }
                     });
                 } else {
+                    onBeep(2);
                     swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
                 }
             });
-            $('#Pedidos').on("contextmenu", function (e) {
-                e.preventDefault();
-                var top = e.pageY + 20;
-                var left = e.pageX - 180;
-                $("#menu").css({
-                    display: "block",
-                    top: top,
-                    left: left
-                });
-                return false; //blocks default Webbrowser right click menu
-            });
-            $(document).click(function () {
-                $("#menu").hide();
-            });
 
+            btnAsignar.click(function () {
+                if (CerrarProg.rows(({selected: true})).data().count() > 0) {
+                    onBeep(1);
+                    swal({
+                        title: "Estas seguro?",
+                        text: "Serán marcados los '" + CerrarProg.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
+                        icon: "warning",
+                        buttons: true
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            onMarcarDesMarcar(2);
+                        }
+                    });
+                } else {
+                    onBeep(2);
+                    swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
+                }
+            });
+            
             $('input.column_filter').on('keyup click', function () {
                 var i = $(this).parents('div').attr('data-column');
-                tblPedidos.DataTable().column(i).search($('#col' + i + '_filter').val()).draw();
+                tblCerrarProg.DataTable().column(i).search($('#col' + i + '_filter').val()).draw();
             });
+            
         });
     }));
-
-    function onMarcarDesMarcar(i) {
-        console.log('* SELECCIONADOS ', Pedidos.rows(({selected: true})).data().count(), ' *');
-        var subcontroles = [];
-        $.each(Pedidos.rows(({selected: true})).data(), function (k, v) {
-            if (parseInt(v.Marca) !== i) {
-                subcontroles.push({
-                    ID: v.ID
-                });
-            }
-        });
-        var f = new FormData();
-        f.append('Marca', i);
-        f.append('SubControles', JSON.stringify(subcontroles));
-        $.ajax({
-            url: master_url + 'onMarcarDesMarcar',
-            type: "POST",
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: f
-        }).done(function (data, x, jq) {
-            console.log("\n", data, "\n");
-            swal('INFO', 'SE HAN ' + (i > 0 ? 'MARCADO' : 'DESMARCADO') + ' LOS REGISTROS', 'success');
-            Pedidos.ajax.reload();
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-        });
-    }
-
 
     function getRecords() {
         HoldOn.open({
@@ -194,9 +139,9 @@
             message: 'CARGANDO...'
         });
         $.fn.dataTable.ext.errMode = 'throw';
-        if ($.fn.DataTable.isDataTable('#tblPedidos')) {
-            tblPedidos.DataTable().destroy();
-            Pedidos = tblPedidos.DataTable({
+        if ($.fn.DataTable.isDataTable('#tblCerrarProg')) {
+            tblCerrarProg.DataTable().destroy();
+            CerrarProg = tblCerrarProg.DataTable({
                 dom: 'Brt',
                 buttons: [
                     {
@@ -204,7 +149,7 @@
                         className: 'btn btn-info btn-sm',
                         titleAttr: 'Todos',
                         action: function (dt) {
-                            Pedidos.rows({page: 'current'}).select();
+                            CerrarProg.rows({page: 'current'}).select();
                         }
                     },
                     {
@@ -249,6 +194,7 @@
                     {"data": "Pares"},
                     {"data": "Maq"},
                     {"data": "Semana"},
+                    {"data": "Anio"},
                     {"data": "Anio"}
                 ],
                 language: lang,
@@ -296,22 +242,34 @@
         }
         HoldOn.close();
     }
-
+    
+    function onMarcarDesMarcar(i) {
+        console.log('* SELECCIONADOS ', CerrarProg.rows(({selected: true})).data().count(), ' *');
+        var subcontroles = [];
+        $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) {
+            if (parseInt(v.Marca) !== i) {
+                subcontroles.push({
+                    ID: v.ID
+                });
+            }
+        });
+        var f = new FormData();
+        f.append('Marca', i);
+        f.append('SubControles', JSON.stringify(subcontroles));
+        $.ajax({
+            url: master_url + 'onMarcarDesMarcar',
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: f
+        }).done(function (data, x, jq) {
+            console.log("\n", data, "\n");
+            swal('INFO', 'SE HAN ' + (i > 0 ? 'MARCADO' : 'DESMARCADO') + ' LOS REGISTROS', 'success');
+            CerrarProg.ajax.reload();
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+        });
+    }
 </script>
-<style>
-    td.highlight {
-        background-color: whitesmoke !important;
-    }
-    tr.hover{
-        background-color: whitesmoke !important;
-    }
-    tr.HasMca td{
-        color: #E74C3C !important;
-        font-weight: bold;
-    }
-    tr.HasMca.selected td{
-        background-color: #ffff00 !important;
-        color: #000 !important;
-        font-weight: bold;
-    }
-</style>
