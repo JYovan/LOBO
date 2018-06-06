@@ -45,6 +45,7 @@
                             <th>Sem</th>
                             <th>Año</th>
                             <th>Control</th>
+                            <th>SerieID</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -87,7 +88,7 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
-            
+
             btnDeshacer.click(function () {
                 if (CerrarProg.rows(({selected: true})).data().count() > 0) {
                     onBeep(1);
@@ -125,12 +126,12 @@
                     swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
                 }
             });
-            
+
             $('input.column_filter').on('keyup click', function () {
                 var i = $(this).parents('div').attr('data-column');
                 tblCerrarProg.DataTable().column(i).search($('#col' + i + '_filter').val()).draw();
             });
-            
+
         });
     }));
 
@@ -179,24 +180,30 @@
                         "targets": [2],
                         "visible": false,
                         "searchable": false
+                    },
+                    {
+                        "targets": [16],
+                        "visible": false,
+                        "searchable": false
                     }],
                 "columns": [
-                    {"data": "ID"},
-                    {"data": "IdEstilo"},
-                    {"data": "IdColor"},
-                    {"data": "Pedido"},
-                    {"data": "Cliente"},
-                    {"data": "Estilo"},
-                    {"data": "Color"},
-                    {"data": "Serie"},
-                    {"data": "Fecha Captura"},
-                    {"data": "Fecha Pedido"},
-                    {"data": "Fecha Entrega"},
-                    {"data": "Pares"},
-                    {"data": "Maq"},
-                    {"data": "Semana"},
-                    {"data": "Anio"},
-                    {"data": "Control"}
+                    {"data": "ID"}, /*0*/
+                    {"data": "IdEstilo"}, /*1*/
+                    {"data": "IdColor"}, /*2*/
+                    {"data": "Pedido"}, /*3*/
+                    {"data": "Cliente"}, /*4*/
+                    {"data": "Estilo"}, /*5*/
+                    {"data": "Color"}, /*6*/
+                    {"data": "Serie"}, /*7*/
+                    {"data": "Fecha Captura"}, /*8*/
+                    {"data": "Fecha Pedido"}, /*9*/
+                    {"data": "Fecha Entrega"}, /*10*/
+                    {"data": "Pares"}, /*11*/
+                    {"data": "Maq"}, /*12*/
+                    {"data": "Semana"}, /*13*/
+                    {"data": "Anio"}, /*14*/
+                    {"data": "Control"}, /*15*/
+                    {"data": "SerieID"}/*16*/
                 ],
                 language: lang,
                 select: true,
@@ -243,22 +250,33 @@
         }
         HoldOn.close();
     }
-    
+
     function onMarcarDesMarcar(i) {
         console.log('* SELECCIONADOS ', CerrarProg.rows(({selected: true})).data().count(), ' *');
         var subcontroles = [];
         $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) {
+            console.log(v);
             if (parseInt(v.Marca) !== i) {
                 subcontroles.push({
-                    ID: v.ID
+                    ID: v.ID,
+                    Estilo: v.IdEstilo,
+                    Color: v.IdColor,
+                    Serie: v.SerieID,
+                    Cliente: v.Cliente,
+                    Pares: v.Pares,
+                    Pedido: v.Pedido,
+                    PedidoDetalle: v.ID,
+                    Maquila: v.Maq,
+                    Semana: v.Semana
                 });
             }
         });
         var f = new FormData();
         f.append('Marca', i);
         f.append('SubControles', JSON.stringify(subcontroles));
+        console.log('SUBCONTROLES', subcontroles);
         $.ajax({
-            url: master_url + 'onMarcarDesMarcar',
+            url: master_url + 'onGenerarControles',
             type: "POST",
             cache: false,
             contentType: false,

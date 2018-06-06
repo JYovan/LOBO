@@ -12,7 +12,7 @@
                     <a class="dropdown-item" href="#" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
                     <a class="dropdown-item" href="#">Reportar un problema</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
+                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir.rb'); ?>">Salir</a>
                 </div>
             </li>
             <div class="dropdown-divider"></div>
@@ -22,11 +22,11 @@
                     Ped y Prog
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php print base_url('Pedidos') ?>">Pedidos</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Programacion') ?>">Programación</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('CerrarProg') ?>">CerrarProg</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Pedidos.rb') ?>">Pedidos</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Programacion.rb') ?>">Programación</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('CerrarProg.rb') ?>">CerrarProg</a></li>
                     <div class="dropdown-divider" ></div>
-                    <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg') ?>">Reportes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg.rb') ?>">Reportes</a></li>
                 </ul>
             </li>
 
@@ -36,11 +36,11 @@
                     Diseño y Desarrollo
                 </a>
                 <ul class="dropdown-menu">
-<!--                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion') ?>">Materiales por Combinación</a></li>-->
-                    <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo') ?>">Fracciones por Estilo</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales') ?>">Piezas y Materiales</a></li>
+<!--                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion.rb') ?>">Materiales por Combinación</a></li>-->
+                    <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo.rb') ?>">Fracciones por Estilo</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales.rb') ?>">Piezas y Materiales</a></li>
                     <div class="dropdown-divider" ></div>
-                    <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes') ?>">Reportes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes.rb') ?>">Reportes</a></li>
 
                 </ul>
             </li>
@@ -50,21 +50,21 @@
                     Catálogos
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php print base_url('Clientes') ?>">Clientes</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores') ?>">Proveedores</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Clientes.rb') ?>">Clientes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores.rb') ?>">Proveedores</a></li>
                     <li><a class="dropdown-item" href="#">Almacenes</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Maquilas') ?>">Maquilas</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Vendedores') ?>">Vendedores</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Maquilas.rb') ?>">Maquilas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Vendedores.rb') ?>">Vendedores</a></li>
                     <div class="dropdown-divider" ></div>
-                    <li><a class="dropdown-item" href="<?php print base_url('Lineas') ?>">Lineas</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Estilos') ?>">Estilos</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Combinaciones') ?>">Combinaciones</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Series') ?>">Series</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Lineas.rb') ?>">Lineas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Estilos.rb') ?>">Estilos</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Combinaciones.rb') ?>">Combinaciones</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Series.rb') ?>">Series</a></li>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="<?php print base_url('Fracciones') ?>">Mano de Obra (Fracciones)</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Materiales') ?>">Materiales</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Piezas') ?>">Piezas</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('ListaDePrecios') ?>">Listas de precios</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Fracciones.rb') ?>">Mano de Obra (Fracciones)</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Materiales</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Piezas.rb') ?>">Piezas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('ListaDePrecios.rb') ?>">Listas de precios</a></li>
                 </ul>
             </li>
 
@@ -78,10 +78,10 @@
                             Usuarios
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="<?php print base_url('Usuarios') ?>">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Usuarios.rb') ?>">Usuarios</a></li>
                             <div class="dropdown-divider" ></div>
-                            <li><a class="dropdown-item" href="<?php print base_url('Permisos') ?>">Permisos</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Modulos') ?>">Módulos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Permisos.rb') ?>">Permisos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Modulos.rb') ?>">Módulos</a></li>
 
                         </ul>
                     </li>
@@ -90,16 +90,16 @@
                             Generales
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=UNIDADES') ?>">Unidades</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=MONEDAS') ?>">Monedas</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=CONDICIONES DE PAGO') ?>">Cond. de Pago</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=BANCOS') ?>">Bancos</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TRASPORTES') ?>">Transportes</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=RUTAS') ?>">Rutas</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=ZONAS') ?>">Zonas</a></li>
-<!--                            <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=AGENTES') ?>">Agentes</a></li>-->
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=UNIDADES') ?>">Unidades</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=MONEDAS') ?>">Monedas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=METODOS PAGO') ?>">Métodos de Pago</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=CONDICIONES DE PAGO') ?>">Cond. de Pago</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=BANCOS') ?>">Bancos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=DEPARTAMENTOS') ?>">Departamentos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=TRANSPORTES') ?>">Transportes</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=RUTAS') ?>">Rutas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=ZONAS') ?>">Zonas</a></li>
+<!--                            <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=AGENTES') ?>">Agentes</a></li>-->
                             <div class="dropdown-divider" href="#"></div>
 
                             <li class="nav-item dropdown dropdown-submenu">
@@ -107,17 +107,17 @@
                                     Producción
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEP-PROD') ?>">Deptos. Prod.</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DETALLES_PROD') ?>">Detalles Prod.</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PIEZAS') ?>">Piezas</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TEMPORADAS') ?>">Temporadas</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=HORMAS') ?>">Hormas</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=TIPOS ESTILO') ?>">Tipos de Estilo</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=PLANTILLAS') ?>">Plantillas</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=GENEROS') ?>">Generos</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=DEFECTOS') ?>">Defectos</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=FAMILIAS') ?>">Familias</a></li>
-                                    <li><a class="dropdown-item" href="<?php print base_url('Generales/?modulo=FAMILIAS PROG') ?>">Familias Prog.</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=DEP-PROD') ?>">Deptos. Prod.</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=DETALLES_PROD') ?>">Detalles Prod.</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=PIEZAS') ?>">Piezas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=TEMPORADAS') ?>">Temporadas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=HORMAS') ?>">Hormas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=TIPOS ESTILO') ?>">Tipos de Estilo</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=PLANTILLAS') ?>">Plantillas</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=GENEROS') ?>">Generos</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=DEFECTOS') ?>">Defectos</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=FAMILIAS') ?>">Familias</a></li>
+                                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=FAMILIAS PROG') ?>">Familias Prog.</a></li>
                                 </ul>
                             </li>
                         </ul>

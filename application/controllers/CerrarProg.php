@@ -26,14 +26,31 @@ class CerrarProg extends CI_Controller {
         }
     }
 
-    public function onMarcarDesMarcar() {
+    public function onGenerarControles() {
         try {
             $controles = json_decode($this->input->post('SubControles'));
             foreach ($controles as $k => $v) {
-                $this->cerrarprog_model->onModificarDetalle($v->ID, $this->input->post('Marca'));
+                $data = array(
+                    'FechaProg' => Date('d/m/Y h:i:s a'),
+                    'Estilo' => $v->Estilo,
+                    'Color' => $v->Color,
+                    'Serie' => $v->Serie,
+                    'Cliente' => $v->Cliente,
+                    'Pares' => $v->Pares,
+                    'Pedido' => $v->Pedido,
+                    'PedidoDetalle' => $v->PedidoDetalle,
+                    'Estatus' => 'A',
+                    'EstatusDepto' => 'PROGRAMADO',
+                    'ctAno' => substr(Date('Y'), 2),
+                    'ctMaq' => $v->Maquila,
+                    'ctSem' => str_pad($v->Semana),
+                    'ctCons' => $this->cerrarprog_model->getMaximoConsecutivo()[0]->MAX
+                );
+                $this->cerrarprog_model->onAgregarControl($data);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
+
 }
