@@ -13,18 +13,17 @@ class fraccionesxestilo_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("FXE.ID
-      ,E.Clave+'-'+E.Descripcion AS Estilo,
-      ,FXE.Registro AS Registro ", false);
-            $this->db->from('sz_FraccionesXEstilo AS FXE ');
-            $this->db->join('sz_Estilos AS E', 'FXE.Estilo = E.ID');
+            $this->db->select("E.ID, E.Clave+'-'+E.Descripcion AS Estilo ", false);
+            $this->db->from('sz_FraccionesEstilo AS FXE ');
+            $this->db->join('sz_Estilos AS E', 'FXE.Estilo = E.ID', 'left');
             $this->db->where_in('FXE.Estatus', array('ACTIVO'));
+            $this->db->group_by(array('E.ID', 'E.Clave', 'E.Descripcion'));
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
              */
             $str = $this->db->last_query();
-//            print $str;
+            //print $str;
             $data = $query->result();
             return $data;
         } catch (Exception $exc) {
@@ -32,51 +31,35 @@ class fraccionesxestilo_model extends CI_Model {
         }
     }
 
-    public function getFraccionesXEstiloDetallebyFraccionesXEstilo($ID) {
+    public function getFraccionesEstiloXEstiloDetalle($ID) {
         try {
             $this->db->select('FXED.ID,'
-                    . 'FXED.Fraccion AS FraccionID, '
-
-                    //orden
-//                    . "(CASE WHEN ISNULL(FXED.Orden,0) = 0 THEN "
-//                    . "'<input type=''text'' id=''#Orden'' class=''form-control form-control-sm '' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarOrdenFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
-//                    . " ELSE "
-//                    . "'<input type=''text'' id=''#Orden'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Orden) +' '' onchange=''onModificarOrdenFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
-//                    . 'END) AS "Orden", '
-                    //Departamento en caso de que quieran ordenarlo por depto  CONVERT(varchar(10), CATD.IValue) + \'-\'+
-                    //Fraccion
+                    . 'FXED.Fraccion AS FraccionID,'
                     . 'C.Clave +\'-\'+ C.Descripcion AS "Fracción", '
+                    //Precio SF
+                    . 'ISNULL(FXED.Precio,0) AS Total,'
+                    //Tiempo SF
+                    . 'ISNULL(FXED.Tiempo,0) AS TiempoSF,'
                     //Precio
                     . "(CASE WHEN ISNULL(FXED.Precio,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Precio'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarPrecioFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
                     . " ELSE "
                     . "'<input type=''text'' id=''#Precio'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Precio) +' '' onchange=''onModificarPrecioFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
                     . 'END) AS "Precio",  '
-                    //Cantidad
-                    . "(CASE WHEN ISNULL(FXED.Cantidad,0) = 0 THEN "
-                    . "'<input type=''text'' id=''#Cantidad'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarCantidadFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
-                    . " ELSE "
-                    . "'<input type=''text'' id=''#Cantidad'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Cantidad) +' '' onchange=''onModificarCantidadFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
-                    . 'END) AS "Cantidad", '
-                    //Total SF
-                    . 'ISNULL(CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1),0) As TotalSF, '
                     //Tiempo
                     . "(CASE WHEN ISNULL(FXED.Tiempo,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Tiempo'' class=''form-control form-control-sm numbersOnly'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarTiempoFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
                     . " ELSE "
                     . "'<input type=''text'' id=''#Tiempo'' class=''form-control form-control-sm numbersOnly'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Tiempo) +' '' onchange=''onModificarTiempoFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
                     . 'END) AS "Tiempo", '
-                    //Total Formateado
-                    . 'CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar, CAST((FXED.Cantidad * FXED.Precio) AS money), 1),\'</span></strong>\')  AS Importe, '
                     //Eliminar
                     . "'<span class=''fa fa-times'' onclick=''onEliminarRenglonDetalle('+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' ></span>' AS Eliminar "
                     . ' ', false);
-            $this->db->from('sz_FraccionesXEstiloDetalle AS FXED ');
+            $this->db->from('sz_FraccionesEstilo AS FXED ');
             $this->db->join('sz_Fracciones AS C', 'FXED.Fraccion = C.ID');
             $this->db->join('sz_Catalogos CATD', "CATD.ID = C.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
-            $this->db->like('C.Estatus', 'ACTIVO');
-            $this->db->where('FXED.FraccionXEstilo', $ID);
-            $this->db->order_by("FXED.ID", "ASC");
+            $this->db->where('FXED.Estilo', $ID);
+            //$this->db->order_by("FXED.ID", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -93,7 +76,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function onComprobarExisteEstilo($Estilo) {
         try {
             $this->db->select('COUNT(*) AS EXISTE', false);
-            $this->db->from('sz_FraccionesXEstilo AS FXE ');
+            $this->db->from('sz_FraccionesEstilo AS FXE ');
             $this->db->where('FXE.Estilo', $Estilo);
             $query = $this->db->get();
             /*
@@ -110,19 +93,7 @@ class fraccionesxestilo_model extends CI_Model {
 
     public function onAgregar($array) {
         try {
-            $this->db->insert("sz_FraccionesXEstilo", $array);
-            $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
-            $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
-            return $row['IDL'];
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onAgregarDetalle($array) {
-        try {
-            $this->db->insert("sz_FraccionesXEstiloDetalle", $array);
+            $this->db->insert("sz_FraccionesEstilo", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
 //            PRINT "\n ID IN MODEL: $LastIdInserted \n";
@@ -135,17 +106,7 @@ class fraccionesxestilo_model extends CI_Model {
     public function onModificar($ID, $DATA) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->update("sz_FraccionesXEstilo", $DATA);
-//            print $str = $this->db->last_query();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
-    public function onModificarDetalle($ID, $DATA) {
-        try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_FraccionesXEstiloDetalle", $DATA);
+            $this->db->update("sz_FraccionesEstilo", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -155,8 +116,8 @@ class fraccionesxestilo_model extends CI_Model {
     public function onEliminar($ID) {
         try {
             $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_FraccionesXEstilo");
+            $this->db->where('Estilo', $ID);
+            $this->db->update("sz_FraccionesEstilo");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -166,18 +127,18 @@ class fraccionesxestilo_model extends CI_Model {
     public function onEliminarRenglonDetalle($ID) {
         try {
             $this->db->where('ID', $ID);
-            $this->db->delete("sz_FraccionesXEstiloDetalle");
+            $this->db->delete("sz_FraccionesEstilo");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getFraccionXEstiloByID($ID) {
+    public function getFraccionEstiloByIDEstilo($ID) {
         try {
             $this->db->select('U.*', false);
-            $this->db->from('sz_FraccionesXEstilo AS U');
-            $this->db->where('U.ID', $ID);
+            $this->db->from('sz_FraccionesEstilo AS U');
+            $this->db->where('U.Estilo', $ID);
             $this->db->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
