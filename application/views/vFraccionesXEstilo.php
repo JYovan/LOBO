@@ -87,29 +87,38 @@
         <div class=" col-md-9 ">
             <div class="row">
                 <div class="table-responsive" id="RegistrosDetalle">
-                </div>
-            </div>
-            <div class="" align="center" style="background-color: #fff ">
-                <div class="row">
-                    <div class="col-sm-2">
-                    </div>
-                    <div class="col-sm-2 text-dark">
-                    </div>
-                    <div class="col-sm-2 text-info">
-                    </div>
-                    <div class="col-sm-2 text-danger">
-                        Costo: <br>
-                        <div id="ImporteTotal" ><strong>$0.0</strong></div>
-                    </div>
-                    <div class="col-sm-2 text-success">
-                        Tiempo: <br>
-                        <div id="TiempoTotal" ><strong>0</strong></div>
-                    </div>
-                    <div class="col-sm-2 text-success">
-                    </div>
-                </div>
-            </div>
+                    <table id="tblRegistrosDetalle" class="table table-sm display " style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>FraccionID</th>
+                                <th>Fraccion</th>
+                                <th>Total</th>
+                                <th>TiempoSF</th>
+                                <th>Departamento</th>
+                                <th>Precio</th>
+                                <th>Tiempo</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th style="text-align:right">Totales:</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
 
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
             <label for="">Foto del Artículo</label>
@@ -137,22 +146,7 @@
     var btnAgregarDetalle = $("#btnAgregarDetalle");
     var IdMovimiento = 0;
     var nuevo = true;
-    var guardar;
-    var tblInicial = {
-        "dom": 'frt',
-        "autoWidth": false,
-        language: lang,
-        "displayLength": 500,
-        "colReorder": true,
-        "bLengthChange": false,
-        "deferRender": true,
-        "scrollY": 220,
-        "scrollCollapse": true,
-        "bSort": true,
-        "aaSorting": [
-            [0, 'desc']/*ID*/
-        ]
-    };
+
     $(document).ready(function () {
         btnAgregarDetalle.click(function () {
             isValid('pnlDatos');
@@ -224,7 +218,9 @@
             pnlTablero.removeClass("d-none");
             pnlDatos.addClass('d-none');
             pnlDetalle.addClass('d-none');
-            pnlDetalle.find("#RegistrosDetalle").html("");
+            if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
+                RegistrosDetalle.clear().draw();
+            }
             nuevo = true;
         });
         getRecords();
@@ -434,59 +430,92 @@
         });
     }
 
+    var tblRegistrosDetalle = $('#tblRegistrosDetalle');
+    var RegistrosDetalle;
     function getFraccionesEstiloXEstiloDetalle(IDX) {
-        var total = 0;
-        var totalTiempo = 0;
-        $.ajax({
-            url: master_url + 'getFraccionesEstiloXEstiloDetalle',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                ID: IDX
-            }
-        }).done(function (data, x, jq) {
-            if (data.length > 0) {
-                pnlDetalle.find("#RegistrosDetalle").html(getTable('tblRegistrosDetalle', data));
-                $('#tblRegistrosDetalle tfoot th').each(function () {
-                    $(this).addClass("d-none");
-                });
-                var thead = pnlDetalle.find('#tblRegistrosDetalle thead th');
-                var tfoot = pnlDetalle.find('#tblRegistrosDetalle tfoot th');
-                thead.eq(0).addClass("d-none");
-                tfoot.eq(0).addClass("d-none");
-                thead.eq(1).addClass("d-none");
-                tfoot.eq(1).addClass("d-none");
-                thead.eq(3).addClass("d-none");
-                tfoot.eq(3).addClass("d-none");
-                thead.eq(4).addClass("d-none");
-                tfoot.eq(4).addClass("d-none");
-                $.each(pnlDetalle.find('#tblRegistrosDetalle tbody tr'), function (k, v) {
-                    var td = $(v).find("td");
-                    td.eq(0).addClass("d-none");
-                    td.eq(1).addClass("d-none");
-                    td.eq(3).addClass("d-none");
-                    td.eq(4).addClass("d-none");
-                    total += getNumberFloat(td.eq(3).text());
-                    totalTiempo += getNumberFloat(td.eq(4).text());
-                });
-                pnlDetalle.find('#ImporteTotal').find('strong').html('$' + $.number(total, 2, '.', ', '));
-                pnlDetalle.find('#TiempoTotal').find('strong').html($.number(totalTiempo, 2, '.', ', '));
-                var tblSelected = pnlDetalle.find("#tblRegistrosDetalle").DataTable(tblInicial);
-                pnlDetalle.find('#tblRegistrosDetalle tbody').on('click', 'tr', function () {
-                    $("#tblRegistrosDetalle tbody tr").removeClass("success");
-                    $(this).addClass("success");
-                    var dtm = tblSelected.row(this).data();
-                    tempDetalle = parseInt(dtm[0]);
-                });
-            } else {
-                pnlDetalle.find("#RegistrosDetalle").html("");
-            }
-            HoldOn.close();
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        }).always(function () {
-        });
+        $.fn.dataTable.ext.errMode = 'throw';
+        if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
+            tblRegistrosDetalle.DataTable().destroy();
+            RegistrosDetalle = tblRegistrosDetalle.DataTable({
+                "ajax": {
+                    "url": master_url + 'getFraccionesEstiloXEstiloDetalle',
+                    "dataSrc": "",
+                    "data": {
+                        "ID": IDX
+                    }
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [3],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [4],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [5],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                "columns": [
+                    {"data": "ID"},
+                    {"data": "FraccionID"},
+                    {"data": "Fraccion"},
+                    {"data": "Total"},
+                    {"data": "TiempoSF"},
+                    {"data": "Departamento"},
+                    {"data": "Precio"},
+                    {"data": "Tiempo"},
+                    {"data": "Eliminar"}
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+                    $(api.column(6).footer()).html(api.column(3, {page: 'current'}).data().reduce(function (a, b) {
+                        return (a) + (b);
+                    }, 0));
+                    $(api.column(7).footer()).html(api.column(4, {page: 'current'}).data().reduce(function (a, b) {
+                        return (a) + (b);
+                    }, 0));
+                },
+                rowGroup: {
+                    dataSrc: 'Departamento'
+                },
+                "dom": 'frt',
+                "autoWidth": true,
+                language: lang,
+                "displayLength": 500,
+                "colReorder": true,
+                "bLengthChange": false,
+                "deferRender": true,
+                "scrollY": 295,
+                "scrollCollapse": true,
+                "bSort": false
+
+            });
+
+            tblRegistrosDetalle.find('tbody').on('click', 'tr', function () {
+                tblRegistrosDetalle.find("tbody tr").removeClass("success");
+                $(this).addClass("success");
+            });
+        }
+        HoldOn.close();
     }
+
+
     var tblRegistrosX = $("#tblRegistros"), Registros;
 
     function getRecords() {

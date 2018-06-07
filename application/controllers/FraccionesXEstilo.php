@@ -91,9 +91,7 @@ class FraccionesXEstilo extends CI_Controller {
 
     public function getFraccionesEstiloXEstiloDetalle() {
         try {
-            extract($this->input->post());
-            $data = $this->fraccionesxestilo_model->getFraccionesEstiloXEstiloDetalle($ID);
-            print json_encode($data);
+            print json_encode($this->fraccionesxestilo_model->getFraccionesEstiloXEstiloDetalle($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

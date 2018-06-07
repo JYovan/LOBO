@@ -35,31 +35,33 @@ class fraccionesxestilo_model extends CI_Model {
         try {
             $this->db->select('FXED.ID,'
                     . 'FXED.Fraccion AS FraccionID,'
-                    . 'C.Clave +\'-\'+ C.Descripcion AS "Fracción", '
+                    . 'C.Clave +\'-\'+ C.Descripcion AS Fraccion, '
                     //Precio SF
                     . 'ISNULL(FXED.Precio,0) AS Total,'
                     //Tiempo SF
                     . 'ISNULL(FXED.Tiempo,0) AS TiempoSF,'
+                    //Departamento
+                    . "CONCAT(CATD.IValue,' ',CATD.SValue) AS Departamento,"
                     //Precio
                     . "(CASE WHEN ISNULL(FXED.Precio,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Precio'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarPrecioFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
                     . " ELSE "
                     . "'<input type=''text'' id=''#Precio'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Precio) +' '' onchange=''onModificarPrecioFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
-                    . 'END) AS "Precio",  '
+                    . 'END) AS Precio,  '
                     //Tiempo
                     . "(CASE WHEN ISNULL(FXED.Tiempo,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Tiempo'' class=''form-control form-control-sm numbersOnly'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarTiempoFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
                     . " ELSE "
                     . "'<input type=''text'' id=''#Tiempo'' class=''form-control form-control-sm numbersOnly'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '+ CONVERT(VARCHAR(100),FXED.Tiempo) +' '' onchange=''onModificarTiempoFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />'  "
-                    . 'END) AS "Tiempo", '
+                    . 'END) AS Tiempo, '
                     //Eliminar
-                    . "'<span class=''fa fa-times'' onclick=''onEliminarRenglonDetalle('+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' ></span>' AS Eliminar "
+                    . "'<span class=''fa fa-times text-danger'' onclick=''onEliminarRenglonDetalle('+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' ></span>' AS Eliminar "
                     . ' ', false);
             $this->db->from('sz_FraccionesEstilo AS FXED ');
             $this->db->join('sz_Fracciones AS C', 'FXED.Fraccion = C.ID');
             $this->db->join('sz_Catalogos CATD', "CATD.ID = C.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
             $this->db->where('FXED.Estilo', $ID);
-            //$this->db->order_by("FXED.ID", "ASC");
+            $this->db->order_by("CATD.IValue", "DESC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
