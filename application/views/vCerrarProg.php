@@ -207,6 +207,7 @@
                 ],
                 language: lang,
                 select: true,
+                keys: true,
                 "autoWidth": true,
                 "colReorder": true,
                 "displayLength": 9999999999,
@@ -248,6 +249,70 @@
                 }
             });
         }
+        var tcv = '';
+        CerrarProg.on('key', function (e, datatable, key, cell, originalEvent) {
+            var t = $('#tblCerrarProg > tbody');
+            var a = t.find("#EditingField");
+            if (key === 13) {
+                tcv = cell.data();
+                if (a.val() !== 'undefined' && a.val() !== undefined) {
+                    var b = CerrarProg.cell(a.parent()).index();
+                    var c = a.val();
+                    var d = a.parent();
+                    d.html(c);
+                    CerrarProg.cell(d, b).data(c).draw();
+                }
+                var td = $(this).find("td.focus");
+                var g = '<input id="EditingField" type="text" class="form-control form-control-sm">';
+                console.log(e, key, cell.data(), td.text());
+                var g = '<input id="EditingField" type="text" class="form-control form-control-sm" value="' + cell.data() + '" autofocus>';
+                td.html(g);
+                td.find("#EditingField").focus();
+                td.find("#EditingField").select();
+            }
+        }).on('key-blur', function (e, datatable, cell) {
+            var t = $('#tblCerrarProg > tbody');
+            var a = t.find("#EditingField");
+            if (a.val() !== 'undefined' && a.val() !== undefined) {
+                var b = CerrarProg.cell(a.parent()).index();
+                var c = a.val() !== '' ? a.val() : tcv;
+                var d = a.parent();
+                d.html(c);
+                CerrarProg.cell(d, b).data(c).draw();
+            }
+        });
+
+        /* $('#tblCerrarProg tbody').on('click', 'td', function () {
+         var t = $('#tblCerrarProg > tbody');
+         var a = t.find("#EditingField");
+         if (a.val() !== 'undefined' && a.val() !== undefined) {
+         var b = CerrarProg.cell(a.parent()).index();
+         var c = a.val();
+         var d = a.parent();
+         d.html(c);
+         CerrarProg.cell(d, b).data(c).draw();
+         }
+         var e = CerrarProg.row($(this).parents('tr')).data();
+         console.log('ROW', e);
+         var f = $(this).text();
+         var g = '<input id="EditingField" type="text" class="form-control form-control-sm">';
+         var h = $(g);
+         h.val(f);
+         $(this).html(h);
+         h.focus();
+         h.select();
+         h.keyup(function (e) {
+         var code = e.which;
+         if (code === 13) {
+         var a = t.find("#EditingField");
+         var b = CerrarProg.cell(a.parent()).index();
+         var c = a.val();
+         var d = a.parent();
+         d.html(c);
+         CerrarProg.cell(d, b).data(c).draw();
+         }
+         });
+         });*/
         HoldOn.close();
     }
 

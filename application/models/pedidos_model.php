@@ -44,7 +44,10 @@ class pedidos_model extends CI_Model {
             $this->db->select('U.ID AS ID, '
                     . 'U.Estilo AS IdEstilo, '
                     . 'U.Combinacion AS IdColor, '
-                    . "E.Clave +'-'+C.Clave+' '+C.Descripcion AS Estilo, "
+                    . "E.Clave AS Estilo, "
+                    . "E.Descripcion AS EstiloD, "
+                    . "C.Clave AS Color, "
+                    . "C.Descripcion AS ColorD, "
                     . "U.Sem AS Sem,"
                     . "U.Maq AS Maq,"
                     . "CASE WHEN C1 <= 0 THEN '-' ELSE C1 END AS C1, "

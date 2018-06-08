@@ -268,10 +268,51 @@ class Pedidos extends CI_Controller {
             $url = 'uploads/Pedidos/' . $this->input->get('ID') . '/PEDIDO_' . $this->input->get('ID') . '_' . Date('d') . '_' . Date('m') . '_' . Date('Y') . '.pdf';
 
             if (delete_files('uploads/Pedidos/' . $this->input->get('ID') . '/')) {
-
+                
             }
             $pdf->Output($url);
             print base_url() . $url;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onModificarPedidoDetalle() {
+        try {
+            $row = $this->input;
+            print_r($row->post());
+            switch ($row->post('CELDA')) {
+                case 'SEMANA':
+                    print "MODIFICANDO SEMANA:" . $row->post('VALOR');
+                    $this->db->set('Sem', $row->post('VALOR'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
+                    break;
+                case 'MAQUILA':
+                    print "MODIFICANDO MAQUILA:" . $row->post('VALOR');
+                    $this->db->set('Maq', $row->post('VALOR'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
+                    break;
+                case 'CANTIDAD':
+                    print "MODIFICANDO CANTIDAD/SERIE:" . $row->post('VALOR') . " INDICE " . $row->post('INDICE') . ", " . $row->post('COLUMN');
+                    $a = 4;
+                    $b = array();
+                    for ($index = 1; $index < 23; $index++) {
+                        $b[$a] = $index;
+                        $a += 1;
+                    }
+                    $this->db->set('C' . $b[$row->post('COLUMN')], $row->post('VALOR'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
+                    break;
+                case 'PRECIO':
+                    print "MODIFICANDO PRECIO:" . $row->post('VALOR');
+                    $this->db->set('Precio', $row->post('VALOR'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
+                    break;
+                case 'DESCUENTO':
+                    print "MODIFICANDO DESCUENTO:" . $row->post('VALOR');
+                    $this->db->set('Desc_Por', $row->post('VALOR'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
+                    break;
+                case 'ENTREGA':
+                    print "MODIFICANDO ENTREGA:" . $row->post('VALOR');
+                    $this->db->set('FechaEntrega', $row->post('VALOR'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
+                    break;
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

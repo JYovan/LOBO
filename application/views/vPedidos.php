@@ -249,51 +249,74 @@
                 <div class="row">
                     <div class=" col-md-12 ">
                         <div align="center"><div class="loader animated fadeIn"></div></div>
-                        <div class="table-responsive animated fadeIn" id="PedidosDetalle">
+                        <div align="center"><strong class="text-danger">*Todas las modificaciones son en tiempo real*</strong></div>
+                        <div class="table-responsive animated fadeIn">
                             <table id="tblPedidosDetalle" class="table table-sm display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>IdEstilo</th>
-                                        <th>IdColor</th>
-                                        <th>Estilo</th>
-                                        <th>Semana</th>
-                                        <th>Maq</th>
-                                        <th>	C1	</th>
-                                        <th>	C1	</th>
-                                        <th>	C3	</th>
-                                        <th>	C4	</th>
-                                        <th>	C5	</th>
-                                        <th>	C6	</th>
-                                        <th>	C7	</th>
-                                        <th>	C8	</th>
-                                        <th>	C9	</th>
-                                        <th>	C10	</th>
-                                        <th>	C11	</th>
-                                        <th>	C12	</th>
-                                        <th>	C13	</th>
-                                        <th>	C14	</th>
-                                        <th>	C15	</th>
-                                        <th>	C16	</th>
-                                        <th>	C17	</th>
-                                        <th>	C18	</th>
-                                        <th>	C19	</th>
-                                        <th>	C20	</th>
-                                        <th>	C21	</th>
-                                        <th>	C22	</th>
-                                        <th>	Pares	</th>
-                                        <th>	Precio	</th>
-                                        <th>	Importe	</th>
-                                        <th>	Desc	</th>
-                                        <th>	Entrega	</th>
-                                        <th>	-	</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th colspan=""></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
+                                <tfoot>
+                                    <tr style="overflow-x:scroll"> 
+                                        <th></th>
+                                        <th></th>
+                                        <th></th> 
+                                        <th colspan="32"></th> 
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <br>
-                        <div class="" align="center" style="background-color: #fff ">
+                        <div class="d-none" align="center" style="background-color: #fff ">
                             <div class="row">
                                 <div class="col-sm-2">
                                 </div>
@@ -343,7 +366,7 @@
         /*DATATABLE GLOBAL*/
         var tblInicial = {
             "dom": 'frt',
-            "autoWidth": false,
+            "autoWidth": true,
             "displayLength": 500,
             "colReorder": true,
             "bLengthChange": false,
@@ -475,7 +498,7 @@
             btnNuevo.click(function () {
                 temp = 0;
                 pnlDetalle.find("div.loader").addClass("d-none");
-                $("#PedidosDetalle").removeClass("d-none");
+                $("#tblPedidosDetalle").parent().removeClass("d-none");
                 pnlTablero.addClass("d-none");
                 pnlDatos.removeClass('d-none');
                 pnlDatosDetalle.removeClass('d-none');
@@ -489,7 +512,7 @@
                 $(':input:text:enabled:visible:first').focus();
                 nuevo = true;
                 if ($.fn.DataTable.isDataTable('#tblPedidosDetalle')) {
-                    tblPedidosDetalleDT.clear().draw();
+                    PedidosDetalle.clear().draw();
                 }
             });
             btnCancelar.click(function () {
@@ -607,25 +630,28 @@
                 pnlDatosDetalle.find("[name='Maquila']").focus();
             });
         }
-        var tblPedidosDetalle = $("#tblPedidosDetalle"), tblPedidosDetalleDT;
+        var tblPedidosDetalle = $("#tblPedidosDetalle"), PedidosDetalle;
         function getDetalleByID(IDX) {
             console.log('ID', IDX);
             var rows;
-            tblPedidosDetalle.find("thead").addClass("d-none");
+            var pares = 0.0;
+//            tblPedidosDetalle.find("thead > th").css("height", "0px");
             if ($.fn.DataTable.isDataTable('#tblPedidosDetalle')) {
                 tblPedidosDetalle.DataTable().destroy();
             }
-            tblPedidosDetalleDT = tblPedidosDetalle.DataTable({
-                "dom": 'rt',
+            PedidosDetalle = tblPedidosDetalle.DataTable({
+                "dom": 'trHF',
                 "autoWidth": false,
                 "colReorder": true,
                 "displayLength": 500,
                 "bLengthChange": false,
                 "deferRender": true,
                 "scrollY": 285,
+                "scrollX": true,
                 "scrollCollapse": false,
                 keys: true,
                 "bSort": false,
+                language: lang,
                 "columnDefs": [
                     {
                         "targets": [0],
@@ -641,66 +667,154 @@
                         "targets": [2],
                         "visible": false,
                         "searchable": false
+                    },
+                    {
+                        "targets": [35],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [36],
+                        "visible": false,
+                        "searchable": false
                     }],
-                language: lang,
                 "createdRow": function (row, data, index) {
                     $.each($(row).find("td"), function (k, v) {
-                        if (data[0] === "") {
-                            $(v).addClass('Serie');
+                        var c = $(v);
+                        var index = parseInt(k);
+                        switch (index) {
+                            case 0:
+                                /*ESTILO*/
+                                c.not(".Serie").attr('title', data[35]);
+                                c.addClass('Estilo');
+                                break;
+                            case 1:
+                                /*COLOR*/
+                                c.not(".Serie").attr('title', data[36]);
+                                c.addClass('Color');
+                                break;
+                            case 2:
+                                /*SEMANA*/
+                                c.addClass('Semana');
+                                break;
+                            case 3:
+                                /*MAQUILA*/
+                                c.addClass('Maquila');
+                                break;
+                            case 26:
+                                /*PARES*/
+                                c.addClass('Pares');
+                                break;
+                            case 27:
+                                /*PRECIO*/
+                                c.addClass('Precio');
+                                break;
+                            case 28:
+                                /*IMPORTE*/
+                                c.addClass('Importe');
+                                break;
+                            case 29:
+                                /*DESCUENTO*/
+                                c.addClass('Descuento');
+                                break;
+                            case 30:
+                                /*FECHA ENTREGA*/
+                                c.addClass('Entrega');
+                                break;
                         }
-                        if ($.isNumeric($(v).text())) {
+                        if (data[0] === "" && data[1] === "") {
+                            c.addClass('Serie');
+                        }
+                        if ($.isNumeric(c.text())) {
                             if (data[0] === "" && parseFloat($(v).text()) <= 0) {
-                                $(v).addClass('Serie');
-                                $(v).text("-");
-                            } else if (parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) > 0) {
-                                $(v).addClass('HasStock');
-                            } else if (data[0] !== "" && parseInt(k) > 2 && parseInt(k) < 25 && parseFloat($(v).text()) === 0) {
-                                $(v).addClass('NoHasStock');
-                                $(v).text("-");
+                                c.addClass('Serie').text("");
+                            } else if (index > 3 && index < 25 && parseFloat(c.text()) > 0) {
+                                c.addClass('HasStock');
+                                c.addClass('Cantidades');
+                            } else if (data[0] !== "" && index > 3 && index < 26 && parseFloat(c.text()) === 0) {
+                                c.addClass('NoHasStock').text("0");
+                                c.addClass('Cantidades');
                             }
                         }
                     });
                     /*ANCHO*/
                     var celda = $(row).find("td");
                     celda.eq(0).css("width", "360px");
-                    celda.eq(1).css("width", "25px");
+                    celda.eq(1).css("width", "250px");
                     celda.eq(2).css("width", "25px");
                     celda.eq(25).css("width", "55px");
                     celda.eq(26).css("width", "55px");
                     celda.eq(27).css("width", "55px");
                     celda.eq(28).css("width", "55px");
                     celda.eq(29).css("width", "55px");
-                    $(row).find("td:eq(25)").css("font-weight", "bolder");
-                    $(row).find("td:gt(24)").addClass("zoom");
-                    $(row).tooltip({
-                        content: "Awesome title!"
-                    });
+                    $(row).find("td:gt(25)").css("font-weight", "bolder");
+                    $(row).find("td:gt(25)").addClass("zoom");
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();//Get access to Datatable API
+                    // Update footer
+                    var pares = api.column(29).data().reduce(function (a, b) {
+                        var ax = 0, bx = 0;
+                        ax = $.isNumeric(a) ? parseFloat(a) : 0;
+                        bx = $.isNumeric(b) ? parseFloat(b) : 0;
+                        return  (ax + bx);
+                    }, 0);
+                    var importe = api.column(31).data().reduce(function (a, b) {
+                        var ax = 0, bx = 0;
+                        ax = $.isNumeric((a)) ? parseFloat(a) : 0;
+                        bx = $.isNumeric(getNumberFloat(b)) ? getNumberFloat(b) : 0;
+                        return  (ax + bx);
+                    }, 0);
+                    var descuento = api.column(32).data().reduce(function (a, b) {
+                        var ax = 0, bx = 0;
+                        ax = $.isNumeric((a)) ? parseFloat(a) : 0;
+                        bx = $.isNumeric(getNumberFloat(b)) ? getNumberFloat(b) : 0;
+                        return  (ax + bx);
+                    }, 0);
+                    $(api.column(33).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
+                        var container = '<div class="container">';
+                        container += '<div class="row">';
+                        container += '<div class="col-sm"><span class="text-info">Pares</span><br>' + pares;
+                        container += '</div>';
+                        container += '<div class="col-sm"><span class="text-success">Importe</span><br>$' + $.number(parseFloat(importe), 2, '.', ',');
+                        container += '</div>';
+                        container += '<div class="col-sm"><span class="text-danger">Descuento</span><br>$' + $.number(parseFloat(descuento), 2, '.', ',');
+                        container += '</div>';
+                        container += '<div class="col-sm"><span class="text-warning">Total</span><br>$' + $.number(parseFloat(importe) - parseFloat(descuento), 2, '.', ',');
+                        container += '</div>';
+                        container += '</div>';//ROW
+                        container += '</div>';//CONTAINER
+                        return container;
+                    }, 0));
                 }
             });
-            tblPedidosDetalleDT.clear().draw();
+
+            PedidosDetalle.clear().draw();
             pnlDetalle.find("div.loader").removeClass("d-none");
-            $("#PedidosDetalle").addClass("d-none");
+            $("#tblPedidosDetalle").parent().addClass("d-none");
             $.getJSON(master_url + 'getDetalleByID', {ID: IDX}).done(function (detalle) {
                 $.getJSON(master_url + 'getSerieXDetalleByID', {ID: IDX}).done(function (series) {
                     /*SERIE*/
                     $.each(series, function (k, s) {
                         var b = '<strong>', bc = '</strong>', bs = '<strong class="Serie">';
-                        tblPedidosDetalleDT.row.add([
-                            '', '', '', b + 'Estilo' + bc, b + 'Sem' + bc, b + 'Maq' + bc,
+                        PedidosDetalle.row.add([
+                            '', '', '', b + 'Estilo' + bc, b + 'Color' + bc, b + 'Sem' + bc, b + 'Maq' + bc,
                             s.T1, s.T2, s.T3, s.T4, s.T5, s.T6, s.T7, s.T8, s.T9, s.T10, s.T11,
                             s.T12, s.T13, s.T14, s.T15, s.T16, s.T17, s.T18, s.T19, s.T20, s.T21, s.T22,
-                            b + 'Pares' + bc, b + 'Precio' + bc, b + 'Importe' + bc, b + 'Desc' + bc, b + 'Entrega' + bc, '-'
+                            b + 'Pares' + bc, b + 'Precio' + bc, b + 'Importe' + bc, b + 'Desc' + bc, b + 'Entrega' + bc, '-', '', ''
                         ]).draw(false);
+                        //DETALLE X SERIE
                         $.each(detalle, function (k, d) {
                             if (parseInt(s.ID) === parseInt(d.Serie)) {
-                                tblPedidosDetalleDT.row.add([
-                                    d.ID, d.IdEstilo, d.IdColor, d.Estilo, d.Sem, d.Maq,
+                                PedidosDetalle.row.add([
+                                    d.ID, d.IdEstilo, d.IdColor, d.Estilo, d.Color, d.Sem, d.Maq,
                                     d.C1, d.C2, d.C3, d.C4, d.C5, d.C6, d.C7, d.C8, d.C9, d.C10, d.C11,
                                     d.C12, d.C13, d.C14, d.C15, d.C16, d.C17, d.C18, d.C19, d.C20, d.C21, d.C22,
-                                    d.Pares, d.Precio, d.Importe, d.Desc, d.Entrega, d["-"]
+                                    d.Pares, d.Precio, d.Importe, d.Desc, d.Entrega, d["-"], d.ColorD, d.EstiloD
                                 ]).draw(false);
                             }
                         });
+                        //FIN DETALLE X SERIE
                     });
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -708,12 +822,194 @@
                     HoldOn.close();
                     onCalcularMontos();
                     pnlDetalle.find("div.loader").addClass("d-none");
-                    $("#PedidosDetalle").removeClass("d-none");
+                    $("#tblPedidosDetalle").parent().removeClass("d-none");
+                    PedidosDetalle.columns.adjust().draw();
                 });
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
             }).always(function () {
                 HoldOn.close();
+            });
+
+            PedidosDetalle.on('key', function (e, datatable, key, cell, originalEvent) {
+                var t = $('#tblPedidosDetalle > tbody');
+                var a = t.find("#Editor");
+                if (key === 13) {
+                    var b = PedidosDetalle.cell(a.parent()).index();
+                    if (a.val() !== 'undefined' && a.val() !== undefined) {
+                        var c = a.val();
+                        var d = a.parent();
+                        d.html(c);
+                        PedidosDetalle.cell(d, b).data(c).draw();
+                    }
+                    var td = $(this).find("td.focus:not(.Estilo):not(.Color):not(.Serie):not(.Pares):not(.Importe)");
+                    td.removeClass("HasStock");
+                    var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.data() + '" autofocus>';
+                    td.html(g).find("#Editor").focus().select();
+                }
+            }).on('key-blur', function (e, datatable, cell) {
+                var t = $('#tblPedidosDetalle > tbody');
+                var a = t.find("#Editor");
+                if (a.val() !== 'undefined' && a.val() !== undefined) {
+                    var b = PedidosDetalle.cell(a.parent()).index();
+                    var c = a.val() !== '' && a.val() > 0 ? a.val() : '0';
+                    var d = a.parent();
+                    var row = PedidosDetalle.row($(d).parent()).data();// SOLO OBTENDRA EL ID
+                    if (d.hasClass('Semana')) {
+                        d.html(c);
+                        PedidosDetalle.cell(d, b).data(c).draw();
+                        //SHORT POST
+                        var params = {
+                            ID: row[0],
+                            CELDA: 'SEMANA',
+                            VALOR: c
+                        };
+                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                            console.log('LOG SEMANA ', data);
+                        }).fail(function (x, y, z) {
+                            console.log('ERROR', x, y, z);
+                        }).always(function () {
+                            console.log('SEMANA ACTUALIZADA');
+                        });
+                    } else if (d.hasClass('Maquila')) {
+                        d.html(c);
+                        PedidosDetalle.cell(d, b).data(c).draw();
+                        //SHORT POST
+                        var params = {
+                            ID: row[0],
+                            CELDA: 'MAQUILA',
+                            VALOR: c
+                        };
+                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                            console.log('LOG MAQUILA ', data);
+                        }).fail(function (x, y, z) {
+                            console.log('ERROR', x, y, z);
+                        }).always(function () {
+                            console.log('MAQUILA ACTUALIZADA');
+                        });
+                    } else if (d.hasClass('Cantidades')) {
+                        d.html(c);
+                        PedidosDetalle.cell(d, b).data(c).draw();
+                        //SHORT POST
+                        var params = {
+                            ID: row[0],
+                            CELDA: 'CANTIDAD',
+                            VALOR: c,
+                            INDICE: b.column,
+                            COLUMN: b.columnVisible
+                        };
+                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                            console.log('LOG DATA', data);
+                        }).fail(function (x, y, z) {
+                            console.log('ERROR', x, y, z);
+                        }).always(function () {
+                            console.log('CANTIDAD/SERIE ACTUALIZADA');
+                        });
+                    } else if (d.hasClass('Entrega')) {
+                        d.html(a.val());
+                        PedidosDetalle.cell(d, b).data(a.val()).draw();
+                        //SHORT POST
+                        var params = {
+                            ID: row[0],
+                            CELDA: 'ENTREGA',
+                            VALOR: c
+                        };
+                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                            console.log('LOG ENTREGA', data);
+                        }).fail(function (x, y, z) {
+                            console.log('ERROR', x, y, z);
+                        }).always(function () {
+                            console.log('ENTREGA ACTUALIZADA');
+                        });
+                    } else if (d.hasClass('Precio')) {
+                        var precio = getNumberFloat(a.val());
+                        var precio_format = '$' + $.number(precio, 2, '.', ',');
+                        d.html(precio_format);
+                        PedidosDetalle.cell($(d).parent(), 30).data(precio_format).draw();
+                        var tr = PedidosDetalle.row($(d).parent()).data();
+                        var pares_totales = parseFloat(tr[29]);
+                        var importe_total = pares_totales * precio;
+                        PedidosDetalle.cell($(d).parent(), 31).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+
+                        //SHORT POST
+                        var params = {
+                            ID: row[0],
+                            CELDA: 'PRECIO',
+                            VALOR: precio
+                        };
+                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                            console.log('LOG PRECIO ', data);
+                        }).fail(function (x, y, z) {
+                            console.log('ERROR', x, y, z);
+                        }).always(function () {
+                            console.log('ENTREGA ACTUALIZADA');
+                        });
+                    } else if (d.hasClass('Descuento')) {
+                        var descuento = getNumberFloat(a.val());
+                        var descuento_format = '$' + $.number(descuento, 2, '.', ',');
+                        d.html(descuento_format);
+                        PedidosDetalle.cell($(d).parent(), 32).data(descuento_format).draw();
+
+                        //SHORT POST
+                        var params = {
+                            ID: row[0],
+                            CELDA: 'DESCUENTO',
+                            VALOR: descuento
+                        };
+                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                            console.log('LOG DESCUENTO ', data);
+                        }).fail(function (x, y, z) {
+                            console.log('ERROR', x, y, z);
+                        }).always(function () {
+                            console.log('DESCUENTO ACTUALIZADA');
+                        });
+                    }
+
+                    if ($.isNumeric(c) && parseFloat(c) > 0) {
+                        /*CANTIDADES EN SERIES*/
+                        if ($.isNumeric(c) && parseFloat(c) > 0 && d.hasClass('Cantidades')) {
+                            var tr = PedidosDetalle.row($(d).parent()).data();
+                            var pares_totales = 0;
+                            var precio = getNumberFloat(tr[30]);
+                            for (var i = 7, max = 29; i < max; i++) {
+                                pares_totales += $.isNumeric(tr[i]) ? parseFloat(tr[i]) : 0;
+                            }
+                            PedidosDetalle.cell($(d).parent(), 29).data(pares_totales).draw();
+                            var importe_total = pares_totales * precio;
+                            PedidosDetalle.cell($(d).parent(), 31).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                            d.removeClass("NoHasStock");
+                            d.addClass("HasStock");
+                        } else if (d.hasClass('Cantidades')) {
+                            var tr = PedidosDetalle.row($(d).parent()).data();
+                            var pares_totales = 0;
+                            var precio = getNumberFloat(tr[30]);
+                            for (var i = 7, max = 29; i < max; i++) {
+                                pares_totales += $.isNumeric(tr[i]) ? parseFloat(tr[i]) : 0;
+                            }
+                            PedidosDetalle.cell($(d).parent(), 29).data(pares_totales).draw();
+                            var importe_total = pares_totales * precio;
+                            PedidosDetalle.cell($(d).parent(), 31).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                            d.removeClass("HasStock");
+                            d.addClass("NoHasStock");
+                        }
+                        /*PARES*/
+                        /*PRECIO*/
+                        /*DESCUENTO*/
+                    } else {
+                        console.log('CANTIDAD EN ZERO ');
+                        var tr = PedidosDetalle.row($(d).parent()).data();
+                        var pares_totales = 0;
+                        var precio = getNumberFloat(tr[30]);
+                        for (var i = 7, max = 29; i < max; i++) {
+                            pares_totales += $.isNumeric(tr[i]) ? parseFloat(tr[i]) : 0;
+                        }
+                        PedidosDetalle.cell($(d).parent(), 29).data(pares_totales).draw();
+                        var importe_total = pares_totales * precio;
+                        PedidosDetalle.cell($(d).parent(), 31).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+
+                    }
+                }
+            }).on('key-focus', function (e, datatable, cell) {
             });
         }
 
@@ -727,13 +1023,6 @@
 
             if ($.fn.DataTable.isDataTable('#tblPedidos')) {
                 tblPedidos.DataTable().destroy();
-                $.getJSON(master_url + 'getRecords').done(function (data) {
-                    console.log(data)
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-
-                });
                 Pedidos = tblPedidos.DataTable({
                     "dom": 'Bfrtip',
                     buttons: buttons,
@@ -1122,7 +1411,7 @@
             var total = 0.0;
             var desc = 0.0;
             console.log('* CALCULANDO MONTOS *');
-            $.each(tblPedidosDetalleDT.rows().data(), function () {
+            $.each(PedidosDetalle.rows().data(), function () {
                 pares += ($.isNumeric($(this)[28]) ? parseFloat($(this)[28]) : 0);
                 total += ($.isNumeric(getNumberFloat($(this)[30])) ? getNumberFloat($(this)[30]) : 0);
                 desc += ($.isNumeric(getNumberFloat($(this)[31])) ? getNumberFloat($(this)[31]) : 0);
@@ -1131,7 +1420,7 @@
             ParesT = pares;
             DescT = desc;
             onModificarImportes(idMov, ImporteT, ParesT, DescT);
-            if (tblPedidosDetalleDT.data().count() > 1) {
+            if (PedidosDetalle.data().count() > 1) {
                 pnlDetalle.find("#Pares").find("strong").text(pares);
                 pnlDetalle.find("#Importe").find("strong").text('$' + $.number(total - desc, 2, '.', ','));
             }
@@ -1256,5 +1545,21 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        td:hover {
+            position: relative;
+        }
 
+        td[title]:hover:after {
+            width: 100%;
+            text-align: center;
+            content: attr(title);
+            padding: 4px 8px 0px 0px;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            white-space: nowrap;
+            z-index: 20;
+            background: #0099cc;
+            color: #fff; 
+        }
     </style>
