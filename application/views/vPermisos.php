@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -38,20 +38,13 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
-            <form id="frmNuevo"> 
+        <div class="card-body text-dark">
+            <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Permisos</legend>
                     </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
-                    </div>
-                </div>  
+                </div>
                 <div class="row">
                     <div class="d-none">
                         <input type="text" class="" id="ID" name="ID" >
@@ -59,19 +52,19 @@
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
                         <select class="form-control form-control-sm required" id="IdModulo" name="IdModulo">
-                            <option value=""></option>   
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="IdUsuario">USUARIO*</label>
-                        <select class="form-control form-control-sm required" id="IdUsuario"  name="IdUsuario"> 
-                            <option value=""></option>   
+                        <select class="form-control form-control-sm required" id="IdUsuario"  name="IdUsuario">
+                            <option value=""></option>
                         </select>
                     </div>
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-body"> 
+                    <div class="card-body">
                         <div class="row">
                             <div class="col">
                                 <div class="custom-control custom-checkbox">
@@ -108,7 +101,7 @@
                                     <input type="checkbox" class="custom-control-input" id="Reportes" name="Reportes" checked="">
                                     <label class="custom-control-label" for="Reportes">REPORTES</label>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="Buscar" name="Buscar" checked="">
@@ -118,19 +111,25 @@
                         </div>
                     </div>
                 </div> <!--FIN CARD-->
-
-                <div class="row">  
+                <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-sm required" id="Estatus"  name="Estatus"> 
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
+                        <select class="form-control form-control-sm required" id="Estatus"  name="Estatus">
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
                         </select>
-                    </div> 
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                    </div>
                 </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 <!--SCRIPT-->
 <script>
@@ -228,7 +227,7 @@
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
                         pnlDatos.find('#ID').val(data);
                         getRecords();
-                        nuevo=false;
+                        nuevo = false;
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {

@@ -20,6 +20,13 @@
                         </tr>
                     </thead>
                     <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Estilo</th>
+                            <th>Linea</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -461,6 +468,21 @@
                 "aaSorting": [
                     [0, 'desc']/*ID*/
                 ]
+            });
+
+            $('#tblRegistros tfoot th').each(function () {
+                console.log($(this));
+                var title = $(this).text();
+                $(this).html('<div  style="overflow-x:auto; "><div class="form-group "><input type="text" placeholder="Buscar por ' + title + '" class="form-control form-control-sm" style="width: 100%;"/></div></div>');
+            });
+
+            Registros.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
             });
 
             tblRegistrosX.find('tbody').on('click', 'tr', function () {

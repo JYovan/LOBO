@@ -16,18 +16,11 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left"><?php print $this->input->get('modulo'); ?></legend>
-                    </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -36,21 +29,21 @@
                         <input type="text" class="" id="FieldId" name="FieldId" >
                     </div>
                     <div class="col-sm">
-                        <label for="IValue">Clave/Orden*</label>  
+                        <label for="IValue">Clave/Orden*</label>
                         <input type="text" class="form-control form-control-sm numbersOnly" id="IValue" name="IValue" required >
                     </div>
                     <div class="col-sm">
-                        <label for="SValue">Nombre Corto*</label>  
+                        <label for="SValue">Nombre Corto*</label>
                         <input type="text" class="form-control form-control-sm" id="SValue" name="SValue" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Valor_Text">Descripción</label>  
+                        <label for="Valor_Text">Descripción</label>
                         <input type="text" class="form-control form-control-sm" id="Valor_Text" name="Valor_Text"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Valor_Num">Valor</label>  
+                        <label for="Valor_Num">Valor</label>
                         <input type="number" class="form-control form-control-sm" id="Valor_Num" name="Valor_Num" >
                     </div>
 
@@ -58,32 +51,39 @@
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Special">Extra</label>  
+                        <label for="Special">Extra</label>
                         <input type="text" class="form-control form-control-sm" id="Special" name="Special"  >
                     </div>
                     <?php
                     if ($this->input->get('modulo') === 'UNIDADES') {
                         ?>
                         <div class="col-sm">
-                            <label for="Factor">Factor Consumo</label>  
+                            <label for="Factor">Factor Consumo</label>
                             <input type="number" class="form-control form-control-sm" id="Factor" name="Factor"  >
                             <input type="text" class="form-control form-control-sm d-none" id="IdMagnus" name="IdMagnus"  >
                         </div>
                     <?php } ?>
                 </div>
-                <div class="row"> 
+                <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm "   name="Estatus" required=""> 
-                            <option value=""></option>  
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
+                        <select class="form-control form-control-sm "   name="Estatus" required="">
+                            <option value=""></option>
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                    </div>
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 
 <!--SCRIPT-->

@@ -41,7 +41,7 @@ class fraccionesxestilo_model extends CI_Model {
                     //Tiempo SF
                     . 'ISNULL(FXED.Tiempo,0) AS TiempoSF,'
                     //Departamento
-                    . "CONCAT(CATD.IValue,' ',CATD.SValue) AS Departamento,"
+                    . "CONCAT(CATD.Clave,' ',CATD.Descripcion) AS Departamento,"
                     //Precio
                     . "(CASE WHEN ISNULL(FXED.Precio,0) = 0 THEN "
                     . "'<input type=''text'' id=''#Precio'' class=''form-control form-control-sm'' onkeypress= ''validate(event,this.value);''  onpaste= ''return false;''  value='' '' onchange=''onModificarPrecioFraccionXEstilo(this.value,'+ REPLACE(LTRIM(REPLACE(FXED.ID, '0', ' ')), ' ', '0') +')'' />' "
@@ -59,9 +59,9 @@ class fraccionesxestilo_model extends CI_Model {
                     . ' ', false);
             $this->db->from('sz_FraccionesEstilo AS FXED ');
             $this->db->join('sz_Fracciones AS C', 'FXED.Fraccion = C.ID');
-            $this->db->join('sz_Catalogos CATD', "CATD.ID = C.DepartamentoCat AND CATD.FieldId = 'DEPARTAMENTOS' ");
+            $this->db->join('sz_Departamentos CATD', "CATD.ID = C.DepartamentoCat ");
             $this->db->where('FXED.Estilo', $ID);
-            $this->db->order_by("CATD.IValue", "DESC");
+            $this->db->order_by("CATD.Clave", "DESC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

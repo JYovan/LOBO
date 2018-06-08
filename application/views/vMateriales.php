@@ -9,7 +9,7 @@
                 <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
             </div>
         </div>
-        <div class="card-block">           
+        <div class="card-block">
             <div id="Materiales" class="table-responsive">
                 <table id="tblMateriales" class="table table-sm display " style="width:100%">
                     <thead>
@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -49,18 +49,11 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Materiales</legend>
-                    </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -69,98 +62,109 @@
                         <input type="text" class="" id="IdMagnus" name="IdMagnus" readonly="">
                     </div>
                     <div class="col-sm">
-                        <label for="Material">Material*</label>  
+                        <label for="Material">Material*</label>
                         <input type="text" maxlength="15" class="form-control form-control-sm" id="Material" name="Material" required >
                     </div>
                     <div class="col-sm">
-                        <label for="Descripcion">Descripción*</label>  
+                        <label for="Descripcion">Descripción*</label>
                         <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="UnidadCompra">Unidad de Compra*</label>
-                        <select class="form-control form-control-sm required"  name="UnidadCompra" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="UnidadCompra" required="">
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="UnidadConsumo">Unidad de Consumo*</label>
-                        <select class="form-control form-control-sm required"  name="UnidadConsumo" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="UnidadConsumo" required="">
+                            <option value=""></option>
                         </select>
                     </div>
-                </div> 
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Familia">Familia*</label>
-                        <select class="form-control form-control-sm required"  name="Familia" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="Familia" required="">
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="Departamento">Departamento*</label>
-                        <select class="form-control form-control-sm required"  name="Departamento" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="Departamento" required="">
+                            <option value=""></option>
                         </select>
                     </div>
-                </div> 
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Tipo">Tipo*</label>
-                        <select class="form-control form-control-sm required"  name="Tipo" required=""> 
-                            <option value=""></option>  
-                            <option value="DIR">DIRECTO</option>  
-                            <option value="IND">INDIRECTO</option>  
+                        <select class="form-control form-control-sm required"  name="Tipo" required="">
+                            <option value=""></option>
+                            <option value="DIR">DIRECTO</option>
+                            <option value="IND">INDIRECTO</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="col-sm">
-                        <label for="Minimo">Mínimo</label>  
-                        <input type="number" class="form-control form-control-sm" id="Minimo" name="Minimo"  >
+                        <label for="Minimo">Mínimo</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly" id="Minimo" name="Minimo"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Maximo">Máximo</label>  
-                        <input type="number" class="form-control form-control-sm" id="Maximo" name="Maximo"  >
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-sm">
-                        <label for="PrecioLista">Precio Lista</label>  
-                        <input type="number" class="form-control form-control-sm" id="PrecioLista" name="PrecioLista"  >
-                    </div>
-                    <div class="col-sm">
-                        <label for="PrecioTope">Precio Máximo</label>  
-                        <input type="number" class="form-control form-control-sm" id="PrecioTope" name="PrecioTope"  >
+                        <label for="Maximo">Máximo</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly" id="Maximo" name="Maximo"  >
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="col-sm">
-                        <label for="FechaUltimoInventario">Fecha Último Inventario</label>  
+                        <label for="PrecioLista">Precio Lista</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly" id="PrecioLista" name="PrecioLista"  >
+                    </div>
+                    <div class="col-sm">
+                        <label for="PrecioTope">Precio Máximo</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly" id="PrecioTope" name="PrecioTope"  >
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm">
+                        <label for="FechaUltimoInventario">Fecha Último Inventario</label>
                         <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control form-control-sm" placeholder="XX/XX/XXXX" data-provide="datepicker" data-date-format="dd/mm/yyyy" readonly="">
                     </div>
                     <div class="col-sm">
-                        <label for="Existencia">Existencia</label>  
+                        <label for="Existencia">Existencia</label>
                         <input type="number" class="form-control form-control-sm" id="Existencia" name="Existencia"  >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm required"  name="Estatus" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm required"  name="Estatus" required="">
+                            <option value=""></option>
                             <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
+                            <option>INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 float-left">
+                    </div>
+                    <div class="col-md-7 float-right">
+                    </div>
+                    <div class="col-md-3 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                    </div>
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 
 <!--SCRIPT-->

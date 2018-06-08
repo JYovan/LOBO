@@ -8,6 +8,7 @@ class Materiales extends CI_Controller {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('materiales_model');
+        $this->load->model('departamentos_model');
         $this->load->model('generales_model');
     }
 
@@ -42,7 +43,7 @@ class Materiales extends CI_Controller {
 
     public function getDepartamentos() {
         try {
-            print json_encode($this->generales_model->getCatalogosByFielID('DEPARTAMENTOS'));
+            print json_encode($this->departamentos_model->getDepartamentos());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -87,8 +88,8 @@ class Materiales extends CI_Controller {
 
             /* AGREGAR A MAGNUS LOBO */
             $ClaveFinal = $x->post('Material');
-            $data = array('IdProducto' => ($x->post('Material') !== NULL) ? $ClaveFinal.'-M' : ''
-                , 'CodigoBarras' => ($x->post('Material') !== NULL) ? $ClaveFinal.'-M' : NULL
+            $data = array('IdProducto' => ($x->post('Material') !== NULL) ? $ClaveFinal . '-M' : ''
+                , 'CodigoBarras' => ($x->post('Material') !== NULL) ? $ClaveFinal . '-M' : NULL
                 , 'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL
                 , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion')
                 , 'TipoProducto' => 'M', 'TipoGrupo' => 'N'
@@ -177,4 +178,5 @@ class Materiales extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }

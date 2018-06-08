@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -38,18 +38,11 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Piezas</legend>
-                    </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -57,33 +50,44 @@
                         <input type="text" class="" id="ID" name="ID" required >
                     </div>
                     <div class="col-sm">
-                        <label for="Clave">Clave*</label>  
-                        <input type="number" maxlength="8" class="form-control form-control-sm" id="Clave" name="Clave" required >
+                        <label for="Clave">Clave*</label>
+                        <input type="text" maxlength="8" class="form-control form-control-sm" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="Descripcion">Descripcion*</label>  
+                        <label for="Descripcion">Descripcion*</label>
                         <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <label for="Departamento">Departamento*</label>
-                        <select class="form-control form-control-sm"  name="DepartamentoCat" required=""> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm"  name="DepartamentoCat" required="">
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm"  name="Estatus"> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm"  name="Estatus">
+                            <option value=""></option>
                             <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
+                            <option>INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 float-left">
+                    </div>
+                    <div class="col-md-7 float-right">
+                    </div>
+                    <div class="col-md-3 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                    </div>
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 <!--SCRIPT-->
 <script>
@@ -128,8 +132,8 @@
                         data: frm
                     }).done(function (data, x, jq) {
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
-nuevo=false;
+                        pnlDatos.find('#ID').val(data);
+                        nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);

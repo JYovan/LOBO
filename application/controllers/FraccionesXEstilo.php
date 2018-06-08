@@ -10,7 +10,7 @@ class FraccionesXEstilo extends CI_Controller {
         $this->load->model('fraccionesxestilo_model');
         $this->load->model('estilos_model');
         $this->load->model('fracciones_model');
-        $this->load->model('generales_model');
+        $this->load->model('departamentos_model');
     }
 
     public function index() {
@@ -38,7 +38,7 @@ class FraccionesXEstilo extends CI_Controller {
     public function getDepartamentos() {
         try {
             extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('DEPARTAMENTOS');
+            $data = $this->departamentos_model->getDepartamentos();
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

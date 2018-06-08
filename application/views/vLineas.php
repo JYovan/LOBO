@@ -41,15 +41,8 @@
         <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Lineas</legend>
-                    </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -65,7 +58,6 @@
                         <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
@@ -74,6 +66,13 @@
                             <option>ACTIVO</option>
                             <option>INACTIVO</option>
                         </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
                     </div>
                 </div>
             </form>

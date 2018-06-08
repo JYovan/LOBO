@@ -94,8 +94,8 @@
                 </a>
                 <ul class="dropdown-menu">
 <!--                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion.rb') ?>">Materiales por Combinación</a></li>-->
-                    <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo.rb') ?>">Fracciones por Estilo</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales.rb') ?>">Piezas y Materiales</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo.rb') ?>">Mano de Obra</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales.rb') ?>">Ficha Técnica</a></li>
                     <div class="dropdown-divider" ></div>
                     <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes.rb') ?>">Reportes</a></li>
 
@@ -117,6 +117,7 @@
                     <li><a class="dropdown-item" href="<?php print base_url('Estilos.rb') ?>">Estilos</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Combinaciones.rb') ?>">Combinaciones</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Series.rb') ?>">Series</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Departamentos.rb') ?>">Departamentos</a></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="<?php print base_url('Fracciones.rb') ?>">Mano de Obra (Fracciones)</a></li>
                     <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Materiales</a></li>

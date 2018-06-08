@@ -34,15 +34,8 @@
         <div class="card-body text-dark">
             <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Clientes</legend>
-                    </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -185,6 +178,13 @@
                         </select>
                     </div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                    </div>
+                </div>
                 <!-- FOTO -->
                 <div for="" align="center">
                     <br>
@@ -192,7 +192,7 @@
                 </div>
                 <div class="col-md-12" align="center">
                     <input type="file" id="Foto" name="Foto" class="d-none">
-                    <button type="button" class="btn btn-default" id="btnArchivo" name="btnArchivo">
+                    <button type="button" class="btn btn-info" id="btnArchivo" name="btnArchivo">
                         <span class="fa fa-upload fa-1x"></span> SELECCIONA EL ARCHIVO
                     </button>
                     <br><hr>
@@ -389,7 +389,7 @@
                 "colReorder": true,
                 "displayLength": 20,
                 "bLengthChange": false,
-                "deferRender": true,,
+                "deferRender": true,
                 "bSort": true,
                 "aaSorting": [
                     [0, 'desc']/*ID*/

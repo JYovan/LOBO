@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -38,20 +38,13 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
-            <form id="frmNuevo"> 
+        <div class="card-body text-dark">
+            <form id="frmNuevo">
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Módulos</legend>
                     </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
-                    </div>
-                </div>  
+                </div>
                 <div class="row">
                     <div class="d-none">
                         <input type="text" class="" id="ID" name="ID">
@@ -59,18 +52,25 @@
                     <div class="col-sm">
                         <label for="IdModulo">MODULO*</label>
                         <input type="text" id="Modulo" name="Modulo" class="form-control form-control-sm" placeholder="NOMBRE DEL MODULO..." required="">
-                    </div>  
+                    </div>
                     <div class="col-sm">
                         <label for="Estatus">ESTATUS*</label>
-                        <select class="form-control form-control-sm required" id="Estatus"  name="Estatus"> 
-                            <option value="ACTIVO">ACTIVO</option>   
-                            <option value="INACTIVO">INACTIVO</option>   
+                        <select class="form-control form-control-sm required" id="Estatus"  name="Estatus">
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
                         </select>
-                    </div> 
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 float-right" align="right">
+                            <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                            <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                        </div>
+                    </div>
                 </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 
 <!--SCRIPT-->

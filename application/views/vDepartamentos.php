@@ -1,11 +1,12 @@
-<div class="card border-0" id="pnlTablero">
+<div class="card " id="pnlTablero">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 float-left">
-                <legend class="float-left">Gestión de Series</legend>
+                <legend class="float-left">Gestión de Departamentos</legend>
             </div>
             <div class="col-sm-6 float-right" align="right">
-                <button type="button" class="btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="left" title="Agregar"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnNuevo"><span class="fa fa-plus"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarEliminar"><span class="fa fa-trash"></span><br></button>
             </div>
         </div>
         <div class="card-block">
@@ -13,68 +14,60 @@
         </div>
     </div>
 </div>
+<!--MODALES-->
+<!--Confirmacion-->
+<div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Deseas eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
+                <button type="button" class="btn btn-raised btn-primary" id="btnEliminar">ACEPTAR</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--GUARDAR-->
-<div  class="container-fluid">
+<div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
         <div class="card-body text-dark">
             <form id="frmNuevo">
-
                 <div class="row">
                     <div class="col-md-12 float-left">
-                        <legend class="float-left">Series</legend>
+                        <legend class="float-left">Departamentos</legend>
                     </div>
                 </div>
                 <div class="row">
                     <div class="d-none">
-                        <input type="text" class="" id="ID" name="ID" >
+                        <input type="text" class="" id="ID" name="ID" required >
                     </div>
                     <div class="col-sm">
                         <label for="Clave">Clave*</label>
-                        <input type="text" class="form-control form-control-sm" id="Clave" name="Clave" required >
+                        <input type="text" maxlength="8" class="form-control form-control-sm numbersOnly" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="PuntoInicial">Punto Inicial*</label>
-                        <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" id="PuntoInicial" name="PuntoInicial" required >
-                    </div>
-                    <div class="col-sm">
-                        <label for="PuntoFinal">Punto Final*</label>
-                        <input type="text"  class="form-control form-control-sm numbersOnly" maxlength="4" id="PuntoFinal" name="PuntoFinal" required >
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="MediosPuntos" checked="">
-                            <label class="custom-control-label" for="MediosPuntos">Medios Puntos</label>
-                        </div>
+                        <label for="Descripcion">Descripcion*</label>
+                        <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
                 </div>
-                <div class=" " style="width: 1200px;" id="dSerie">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T1">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T2">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T3">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T4">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T5">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T6">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T7">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T8">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T9">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T10">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T11">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T12">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T13">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T14">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T15">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T16">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T17">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T18">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T19">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T20">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T21">
-                    <input type="text" style="width: 45px;" maxlength="4" class="numbersOnly"   name="T22">
-
-                </div>
-
                 <div class="row">
                     <div class="col-sm">
+                        <label for="Dep_Prod">Dep. Prod*</label>
+                        <select class="form-control form-control-sm"  name="Dep_Prod" >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm "  name="Estatus">
+                        <select class="form-control form-control-sm"  name="Estatus">
                             <option value=""></option>
                             <option>ACTIVO</option>
                             <option>INACTIVO</option>
@@ -92,63 +85,19 @@
         </div>
     </div>
 </div>
-
-
-
-
 <!--SCRIPT-->
 <script>
-    var master_url = base_url + 'index.php/Series/';
+    var master_url = base_url + 'index.php/Departamentos/';
     var pnlDatos = $("#pnlDatos");
     var pnlTablero = $("#pnlTablero");
     var btnNuevo = $("#btnNuevo");
     var btnGuardar = pnlDatos.find("#btnGuardar");
     var btnCancelar = pnlDatos.find("#btnCancelar");
-    var btnModificar = pnlDatos.find("#btnModificar");
-    var tempDetalle = 0;
+    var btnEliminar = $("#btnEliminar");
+    var btnConfirmarEliminar = $("#btnConfirmarEliminar");
+    var mdlConfirmar = $("#mdlConfirmar");
     var nuevo = true;
-
     $(document).ready(function () {
-        pnlDatos.find('#PuntoFinal').keydown(function (e) {
-            if (e.keyCode === 13) {
-                //Borramos los datos para evitar errores
-                var contReset = 1;
-                while (contReset <= 22) {
-                    pnlDatos.find("[name='T" + contReset + "']").val("");
-                    contReset++;
-                }
-                var incremento = parseFloat(pnlDatos.find('#PuntoInicial').val());
-                //Se valida que no sea mas granda la talla inicial que la final
-                if (parseFloat(pnlDatos.find('#PuntoFinal').val()) > parseFloat(pnlDatos.find('#PuntoInicial').val())) {
-
-                    var cont = 1;
-                    //Validamos si las tallas son con medios o sin medios puntos
-                    if ($('#MediosPuntos').is(":checked"))
-                    {
-                        //Crear las tallas
-                        while (incremento <= parseFloat(pnlDatos.find('#PuntoFinal').val())) {
-                            pnlDatos.find("[name='T" + cont + "']").val(incremento);
-                            incremento = incremento + 0.5;
-                            cont++;
-                        }
-                    } else {
-                        //Crear las tallas
-                        while (incremento <= parseFloat(pnlDatos.find('#PuntoFinal').val())) {
-                            pnlDatos.find("[name='T" + cont + "']").val(incremento);
-                            incremento = incremento + 1;
-                            cont++;
-                        }
-                    }
-                    guardar = true;
-
-                } else {
-                    guardar = false;
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'EL PUNTO INICIAL NO DEBE SER MAYOR AL PUNTO FINAL', 'danger');
-                }
-            }
-
-        });
-
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {
@@ -169,8 +118,6 @@
                     }).always(function () {
                         HoldOn.close();
                     });
-
-
                 } else {
                     $.ajax({
                         url: master_url + 'onAgregar',
@@ -187,14 +134,46 @@
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
                     }).always(function () {
+                        HoldOn.close();
                     });
                 }
-            } else {
-                onNotify('<span class="fa fa-times fa-lg"></span>', '* DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS *', 'danger');
             }
-
-
-
+        });
+        //Evento clic del boton confirmar borrar
+        btnConfirmarEliminar.click(function () {
+            if (temp !== 0 && temp !== undefined && temp > 0) {
+                //Muestra el modal
+                mdlConfirmar.modal('show');
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+            }
+        });
+        btnEliminar.click(function () {
+            if (temp !== 0 && temp !== undefined && temp > 0) {
+                HoldOn.open({
+                    theme: "sk-bounce",
+                    message: "CARGANDO DATOS..."
+                });
+                $.ajax({
+                    url: master_url + 'onEliminar',
+                    type: "POST",
+                    data: {
+                        ID: temp
+                    }
+                }).done(function (data, x, jq) {
+                    mdlConfirmar.modal('hide');
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
+                    pnlDatos.addClass("d-none");
+                    pnlTablero.removeClass("d-none");
+                    getRecords();
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                    HoldOn.close();
+                });
+            } else {
+                onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+            }
         });
         btnNuevo.click(function () {
             pnlTablero.addClass("d-none");
@@ -203,9 +182,6 @@
             $.each(pnlDatos.find("select"), function (k, v) {
                 pnlDatos.find("select")[k].selectize.clear(true);
             });
-            pnlDatos.find('#PuntoInicial').removeClass('disabledForms');
-            pnlDatos.find('#PuntoFinal').removeClass('disabledForms');
-            pnlDatos.find('#dSerie').removeClass('disabledForms');
             $(':input:text:enabled:visible:first').focus();
             nuevo = true;
         });
@@ -215,6 +191,7 @@
             nuevo = true;
         });
         getRecords();
+        getDep_Prod();
         handleEnter();
     });
 
@@ -230,29 +207,32 @@
             dataType: "JSON"
         }).done(function (data, x, jq) {
             if (data.length > 0) {
-                $("#tblRegistros").html(getTable('tblSeries', data));
-                $('#tblSeries tfoot th').each(function () {
+                $("#tblRegistros").html(getTable('tbDepartamentos', data));
+
+                $('#tbDepartamentos tfoot th').each(function () {
                     $(this).html('');
                 });
-                var thead = $('#tblSeries thead th');
-                var tfoot = $('#tblSeries tfoot th');
+                var thead = $('#tbDepartamentos thead th');
+                var tfoot = $('#tbDepartamentos tfoot th');
                 thead.eq(0).addClass("d-none");
                 tfoot.eq(0).addClass("d-none");
-                $.each($.find('#tblSeries tbody tr'), function (k, v) {
+                $.each($.find('#tbDepartamentos tbody tr'), function (k, v) {
                     var td = $(v).find("td");
                     td.eq(0).addClass("d-none");
                 });
-                var tblSelected = $('#tblSeries').DataTable(tableOptions);
-                $('#tblSeries_filter input[type=search]').focus();
-                $('#tblSeries tbody').on('click', 'tr', function () {
+                var tblSelected = $('#tbDepartamentos').DataTable(tableOptions);
+                $('#tbDepartamentos_filter input[type=search]').focus();
 
-                    $("#tblSeries tbody tr").removeClass("success");
+                $('#tbDepartamentos tbody').on('click', 'tr', function () {
+
+                    $("#tbDepartamentos tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var dtm = tblSelected.row(this).data();
                     temp = parseInt(dtm[0]);
                 });
-                $('#tblSeries tbody').on('dblclick', 'tr', function () {
-                    $("#tblSeries tbody tr").removeClass("success");
+
+                $('#tbDepartamentos tbody').on('dblclick', 'tr', function () {
+                    $("#tbDepartamentos tbody tr").removeClass("success");
                     $(this).addClass("success");
                     var id = this.id;
                     var index = $.inArray(id, selected);
@@ -269,13 +249,14 @@
                             message: "CARGANDO DATOS..."
                         });
                         $.ajax({
-                            url: master_url + 'getSerieByID',
+                            url: master_url + 'getDepartamentoByID',
                             type: "POST",
                             dataType: "JSON",
                             data: {
                                 ID: temp
                             }
                         }).done(function (data, x, jq) {
+
                             pnlDatos.find("input").val("");
                             $.each(pnlDatos.find("select"), function (k, v) {
                                 pnlDatos.find("select")[k].selectize.clear(true);
@@ -288,10 +269,8 @@
                             });
                             pnlTablero.addClass("d-none");
                             pnlDatos.removeClass('d-none');
-                            pnlDatos.find('#dSerie').addClass('disabledForms');
-                            pnlDatos.find('#PuntoInicial').addClass('disabledForms');
-                            pnlDatos.find('#PuntoFinal').addClass('disabledForms');
                             $(':input:text:enabled:visible:first').focus();
+                            $(':input:text:enabled:visible:first').select();
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
                         }).always(function () {
@@ -310,7 +289,6 @@
                         }
                     });
                 });
-
             }
         }).fail(function (x, y, z) {
             console.log(x, y, z);
@@ -318,11 +296,20 @@
             HoldOn.close();
         });
     }
-
-</script>
-
-<style>
-    #menu {
-        display: none;
+    function getDep_Prod() {
+        HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+        $.ajax({
+            url: master_url + 'getDep_Prod',
+            type: "POST",
+            dataType: "JSON"
+        }).done(function (data, x, jq) {
+            $.each(data, function (k, v) {
+                pnlDatos.find("[name='Dep_Prod']")[0].selectize.addOption({text: v.SValue, value: v.ID});
+            });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
     }
-</style>
+</script>

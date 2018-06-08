@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!--MODALES--> 
+<!--MODALES-->
 <!--Confirmacion-->
 <div class="modal" id="mdlConfirmar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -39,19 +39,11 @@
 <!--GUARDAR-->
 <div id="" class="container-fluid">
     <div class="card border-0  d-none" id="pnlDatos">
-        <div class="card-body text-dark"> 
+        <div class="card-body text-dark">
             <form id="frmNuevo">
-
                 <div class="row">
-                    <div class="col-md-2 float-left">
+                    <div class="col-md-12 float-left">
                         <legend class="float-left">Maquilas</legend>
-                    </div>
-                    <div class="col-md-7 float-right">
-
-                    </div>
-                    <div class="col-md-3 float-right" align="right">
-                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
                     </div>
                 </div>
                 <div class="row">
@@ -59,49 +51,54 @@
                         <input type="text" class="" id="ID" name="ID"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Clave">Clave*</label>  
+                        <label for="Clave">Clave*</label>
                         <input type="text" maxlength="8" class="form-control form-control-sm numbersOnly" id="Clave" name="Clave" required >
                     </div>
                     <div class="col-sm">
-                        <label for="Nombre">Nombre*</label>  
+                        <label for="Nombre">Nombre*</label>
                         <input type="text" class="form-control form-control-sm" id="Nombre" name="Nombre" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Direccion">Dirección</label>  
+                        <label for="Direccion">Dirección</label>
                         <input type="text" class="form-control form-control-sm" id="Direccion" name="Direccion"  >
                     </div>
                     <div class="col-sm">
-                        <label for="Telefono">Teléfono</label>  
+                        <label for="Telefono">Teléfono</label>
                         <input type="text" class="form-control form-control-sm" id="Telefono" name="Telefono" >
                     </div>
-
-
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Capacidad">Capacidad Producción</label>  
+                        <label for="Capacidad">Capacidad Producción</label>
                         <input type="number" min="0"  class="form-control form-control-sm" id="Capacidad" name="Capacidad"  >
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="Contacto">Contacto</label>  
+                        <label for="Contacto">Contacto</label>
                         <input type="text" class="form-control form-control-sm" id="Contacto" name="Contacto"  >
                     </div>
                     <div class="col-sm">
                         <label for="Estatus">Estatus*</label>
-                        <select class="form-control form-control-sm"  name="Estatus"> 
-                            <option value=""></option>  
+                        <select class="form-control form-control-sm"  name="Estatus">
+                            <option value=""></option>
                             <option>ACTIVO</option>
-                            <option>INACTIVO</option> 
+                            <option>INACTIVO</option>
                         </select>
                     </div>
-                </div> 
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 float-right" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnGuardar">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnCancelar">SALIR</button>
+                    </div>
+                </div>
             </form>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>
 <!--SCRIPT-->
 <script>
@@ -149,7 +146,7 @@
                     }).done(function (data, x, jq) {
                         pnlDatos.find('#ID').val(data);
                         onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HA AÑADIDO UN NUEVO REGISTRO', 'success');
-pnlDatos.find('#ID').val(data);
+                        pnlDatos.find('#ID').val(data);
                         nuevo = false;
                         getRecords();
                     }).fail(function (x, y, z) {
