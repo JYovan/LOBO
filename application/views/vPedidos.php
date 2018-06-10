@@ -443,14 +443,14 @@
                 $("[name='Combinacion']")[0].selectize.clear(true);
                 $("[name='Combinacion']")[0].selectize.clearOptions();
                 cellEstilo = $(this).val();
-                nEstilo = pnlDatosDetalle.find("[name='Estilo']").find("option:selected").text()
+                nEstilo = pnlDatosDetalle.find("[name='Estilo']").find("option:selected").text();
                 getCombinacionesXEstilo($(this).val());
                 getSerieXEstilo($(this).val());
                 getPrecioListaByEstiloByCliente($(this).val(), pnlDatos.find("#Cliente").val());
             });
             pnlDatosDetalle.find("[name='Combinacion']").change(function () {
                 cellColor = $(this).val();
-                nEstilo = nEstilo + ' ' + pnlDatosDetalle.find("[name='Combinacion']").find("option:selected").text()
+                nEstilo = nEstilo + ' ' + pnlDatosDetalle.find("[name='Combinacion']").find("option:selected").text();
             });
             //Evento botones
             btnGuardar.click(function () {
@@ -797,20 +797,14 @@
                     /*SERIE*/
                     $.each(series, function (k, s) {
                         var b = '<strong>', bc = '</strong>', bs = '<strong class="Serie">';
-                        PedidosDetalle.row.add([
-                            '', '', '', b + 'Estilo' + bc, b + 'Color' + bc, b + 'Sem' + bc, b + 'Maq' + bc,
-                            s.T1, s.T2, s.T3, s.T4, s.T5, s.T6, s.T7, s.T8, s.T9, s.T10, s.T11,
-                            s.T12, s.T13, s.T14, s.T15, s.T16, s.T17, s.T18, s.T19, s.T20, s.T21, s.T22,
-                            b + 'Pares' + bc, b + 'Precio' + bc, b + 'Importe' + bc, b + 'Desc' + bc, b + 'Entrega' + bc, '-', '', ''
+                        PedidosDetalle.row.add(['', '', '', b + 'Estilo' + bc, b + 'Color' + bc, b + 'Sem' + bc, b + 'Maq' + bc,
+                            s.T1, s.T2, s.T3, s.T4, s.T5, s.T6, s.T7, s.T8, s.T9, s.T10, s.T11, s.T12, s.T13, s.T14, s.T15, s.T16, s.T17, s.T18, s.T19, s.T20, s.T21, s.T22, b + 'Pares' + bc, b + 'Precio' + bc, b + 'Importe' + bc, b + 'Desc' + bc, b + 'Entrega' + bc, '-', '', ''
                         ]).draw(false);
                         //DETALLE X SERIE
                         $.each(detalle, function (k, d) {
                             if (parseInt(s.ID) === parseInt(d.Serie)) {
                                 PedidosDetalle.row.add([
-                                    d.ID, d.IdEstilo, d.IdColor, d.Estilo, d.Color, d.Sem, d.Maq,
-                                    d.C1, d.C2, d.C3, d.C4, d.C5, d.C6, d.C7, d.C8, d.C9, d.C10, d.C11,
-                                    d.C12, d.C13, d.C14, d.C15, d.C16, d.C17, d.C18, d.C19, d.C20, d.C21, d.C22,
-                                    d.Pares, d.Precio, d.Importe, d.Desc, d.Entrega, d["-"], d.ColorD, d.EstiloD
+                                    d.ID, d.IdEstilo, d.IdColor, d.Estilo, d.Color, d.Sem, d.Maq, d.C1, d.C2, d.C3, d.C4, d.C5, d.C6, d.C7, d.C8, d.C9, d.C10, d.C11, d.C12, d.C13, d.C14, d.C15, d.C16, d.C17, d.C18, d.C19, d.C20, d.C21, d.C22, d.Pares, d.Precio, d.Importe, d.Desc, d.Entrega, d["-"], d.ColorD, d.EstiloD
                                 ]).draw(false);
                             }
                         });
@@ -855,72 +849,45 @@
                     var c = a.val() !== '' && a.val() > 0 ? a.val() : '0';
                     var d = a.parent();
                     var row = PedidosDetalle.row($(d).parent()).data();// SOLO OBTENDRA EL ID
+                    var params;
                     if (d.hasClass('Semana')) {
                         d.html(c);
                         PedidosDetalle.cell(d, b).data(c).draw();
                         //SHORT POST
-                        var params = {
+                        params = {
                             ID: row[0],
                             CELDA: 'SEMANA',
                             VALOR: c
                         };
-                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                            console.log('LOG SEMANA ', data);
-                        }).fail(function (x, y, z) {
-                            console.log('ERROR', x, y, z);
-                        }).always(function () {
-                            console.log('SEMANA ACTUALIZADA');
-                        });
                     } else if (d.hasClass('Maquila')) {
                         d.html(c);
                         PedidosDetalle.cell(d, b).data(c).draw();
                         //SHORT POST
-                        var params = {
+                        params = {
                             ID: row[0],
                             CELDA: 'MAQUILA',
                             VALOR: c
                         };
-                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                            console.log('LOG MAQUILA ', data);
-                        }).fail(function (x, y, z) {
-                            console.log('ERROR', x, y, z);
-                        }).always(function () {
-                            console.log('MAQUILA ACTUALIZADA');
-                        });
                     } else if (d.hasClass('Cantidades')) {
                         d.html(c);
                         PedidosDetalle.cell(d, b).data(c).draw();
                         //SHORT POST
-                        var params = {
+                        params = {
                             ID: row[0],
                             CELDA: 'CANTIDAD',
                             VALOR: c,
                             INDICE: b.column,
                             COLUMN: b.columnVisible
                         };
-                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                            console.log('LOG DATA', data);
-                        }).fail(function (x, y, z) {
-                            console.log('ERROR', x, y, z);
-                        }).always(function () {
-                            console.log('CANTIDAD/SERIE ACTUALIZADA');
-                        });
                     } else if (d.hasClass('Entrega')) {
                         d.html(a.val());
                         PedidosDetalle.cell(d, b).data(a.val()).draw();
                         //SHORT POST
-                        var params = {
+                        params = {
                             ID: row[0],
                             CELDA: 'ENTREGA',
                             VALOR: c
                         };
-                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                            console.log('LOG ENTREGA', data);
-                        }).fail(function (x, y, z) {
-                            console.log('ERROR', x, y, z);
-                        }).always(function () {
-                            console.log('ENTREGA ACTUALIZADA');
-                        });
                     } else if (d.hasClass('Precio')) {
                         var precio = getNumberFloat(a.val());
                         var precio_format = '$' + $.number(precio, 2, '.', ',');
@@ -930,40 +897,32 @@
                         var pares_totales = parseFloat(tr[29]);
                         var importe_total = pares_totales * precio;
                         PedidosDetalle.cell($(d).parent(), 31).data('$' + $.number(importe_total, 2, '.', ',')).draw();
-
                         //SHORT POST
-                        var params = {
+                        params = {
                             ID: row[0],
                             CELDA: 'PRECIO',
                             VALOR: precio
                         };
-                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                            console.log('LOG PRECIO ', data);
-                        }).fail(function (x, y, z) {
-                            console.log('ERROR', x, y, z);
-                        }).always(function () {
-                            console.log('ENTREGA ACTUALIZADA');
-                        });
                     } else if (d.hasClass('Descuento')) {
                         var descuento = getNumberFloat(a.val());
                         var descuento_format = '$' + $.number(descuento, 2, '.', ',');
                         d.html(descuento_format);
                         PedidosDetalle.cell($(d).parent(), 32).data(descuento_format).draw();
-
                         //SHORT POST
-                        var params = {
+                        params = {
                             ID: row[0],
                             CELDA: 'DESCUENTO',
                             VALOR: descuento
                         };
-                        $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                            console.log('LOG DESCUENTO ', data);
-                        }).fail(function (x, y, z) {
-                            console.log('ERROR', x, y, z);
-                        }).always(function () {
-                            console.log('DESCUENTO ACTUALIZADA');
-                        });
                     }
+
+                    $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                        console.log('LOG  ', data);
+                    }).fail(function (x, y, z) {
+                        console.log('ERROR', x, y, z);
+                    }).always(function () {
+                        console.log('DATOS ACTUALIZADOS');
+                    });
 
                     if ($.isNumeric(c) && parseFloat(c) > 0) {
                         /*CANTIDADES EN SERIES*/
@@ -1037,12 +996,14 @@
                         {"data": "Cliente"},
                         {"data": "Fecha Pedido"},
                         {"data": "Usuario"}
-                    ], "columnDefs": [
+                    ],
+                    "columnDefs": [
                         {
                             "targets": [0],
                             "visible": false,
                             "searchable": false
-                        }, ],
+                        }
+                    ],
                     language: lang,
                     select: true,
                     "autoWidth": true,
@@ -1062,7 +1023,6 @@
                     var dtm = Pedidos.row(this).data();
                     temp = parseInt(dtm.ID);
                 });
-
                 tblPedidos.find('tbody').on('dblclick', 'tr', function () {
                     nuevo = false;
                     tblPedidos.find("tbody tr").removeClass("success");
@@ -1220,7 +1180,7 @@
                 if (data.length > 0) {
                     pnlDatosDetalle.find("[name='Precio']").val(data[0].Precio);
                 } else {
-                    console.log('NO SE ENCONTRO PRECIO EN EL ESTILO ' + Estilo + ', CLIENTE ' + Cliente)
+                    console.log('NO SE ENCONTRO PRECIO EN EL ESTILO ' + Estilo + ', CLIENTE ' + Cliente);
                 }
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
