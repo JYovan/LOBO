@@ -838,8 +838,14 @@
                     }
                     var td = $(this).find("td.focus:not(.Estilo):not(.Color):not(.Serie):not(.Pares):not(.Importe)");
                     td.removeClass("HasStock");
-                    var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.data() + '" autofocus>';
-                    td.html(g).find("#Editor").focus().select();
+                    if (td.hasClass("Entrega")) {
+                        var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="10" value="' + cell.data() + '" autofocus>';
+                        td.html(g).find("#Editor").focus().select();
+                        td.find("#Editor").inputmask({alias:"date"});
+                    } else {
+                        var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.data() + '" autofocus>';
+                        td.html(g).find("#Editor").focus().select();
+                    }
                 }
             }).on('key-blur', function (e, datatable, cell) {
                 var t = $('#tblPedidosDetalle > tbody');
@@ -886,7 +892,7 @@
                         params = {
                             ID: row[0],
                             CELDA: 'ENTREGA',
-                            VALOR: c
+                            VALOR: a.val()
                         };
                     } else if (d.hasClass('Precio')) {
                         var precio = getNumberFloat(a.val());
