@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="card border-0" id="pnlTablero">
+<div class="card border-0 animated fadeIn" id="pnlTablero">
     <div class="card-body ">
         <div class="row">
             <div class="col-sm-6 float-left">
@@ -391,7 +391,6 @@
                         theme: 'sk-cube'
                     });
                     $.get(master_url + 'ImprimirPedido', {ID: temp}).done(function (data) {
-                        console.log(data);
                         window.open(data, '_blank');
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
@@ -408,7 +407,6 @@
                 var cliente = $(this).val();
                 if (cliente !== '') {
                     $.getJSON(master_url + 'getAgenteXCliente', {Cliente: cliente}).done(function (data) {
-                        console.log(data);
                         if (temp <= 0) {
                             pnlDatos.find("#Agente")[0].selectize.focus();
                         }
@@ -741,7 +739,8 @@
                     var celda = $(row).find("td");
                     celda.eq(0).css("width", "360px");
                     celda.eq(1).css("width", "250px");
-                    celda.eq(2).css("width", "25px");
+                    celda.eq(2).css("width", "35px");
+                    celda.eq(3).css("width", "35px");
                     celda.eq(25).css("width", "55px");
                     celda.eq(26).css("width", "55px");
                     celda.eq(27).css("width", "55px");
@@ -824,7 +823,6 @@
             }).always(function () {
                 HoldOn.close();
             });
-
             PedidosDetalle.on('key', function (e, datatable, key, cell, originalEvent) {
                 var t = $('#tblPedidosDetalle > tbody');
                 var a = t.find("#Editor");
@@ -841,7 +839,14 @@
                     if (td.hasClass("Entrega")) {
                         var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="10" value="' + cell.data() + '" autofocus>';
                         td.html(g).find("#Editor").focus().select();
-                        td.find("#Editor").inputmask({alias:"date"});
+                        td.find("#Editor").inputmask({alias: "date"});
+                    } else if (td.hasClass("Descuento")) {
+                        desc = cell.data();
+                        var tr = PedidosDetalle.row(td.parent()).data();
+                        var importe = getNumberFloat(tr[31]);
+                        var porcentaje = (getNumberFloat(cell.data()) / importe) * 100; 
+                        var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="2" value="' + porcentaje + '"  autofocus>';
+                        td.html(g).find("#Editor").focus().select();
                     } else {
                         var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.data() + '" autofocus>';
                         td.html(g).find("#Editor").focus().select();
@@ -910,20 +915,20 @@
                             VALOR: precio
                         };
                     } else if (d.hasClass('Descuento')) {
-                        var descuento = getNumberFloat(a.val());
+                        var descuento = (getNumberFloat(a.val()) / 100) * getNumberFloat(row[31]);
                         var descuento_format = '$' + $.number(descuento, 2, '.', ',');
                         d.html(descuento_format);
-                        PedidosDetalle.cell($(d).parent(), 32).data(descuento_format).draw();
+                        PedidosDetalle.cell($(d).parent(), 32).data(descuento_format).draw(); 
                         //SHORT POST
                         params = {
                             ID: row[0],
                             CELDA: 'DESCUENTO',
-                            VALOR: descuento
+                            VALOR: ((a.val() === '') ? 0 : getNumberFloat(a.val()))
                         };
                     }
 
                     $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-                        console.log('LOG  ', data);
+
                     }).fail(function (x, y, z) {
                         console.log('ERROR', x, y, z);
                     }).always(function () {
@@ -1376,7 +1381,6 @@
             var pares = 0;
             var total = 0.0;
             var desc = 0.0;
-            console.log('* CALCULANDO MONTOS *');
             $.each(PedidosDetalle.rows().data(), function () {
                 pares += ($.isNumeric($(this)[28]) ? parseFloat($(this)[28]) : 0);
                 total += ($.isNumeric(getNumberFloat($(this)[30])) ? getNumberFloat($(this)[30]) : 0);
@@ -1421,6 +1425,7 @@
             }
         }
 
+        var desc = 0;
     </script>
     <style>
         .swal-icon img {

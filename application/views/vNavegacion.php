@@ -33,7 +33,8 @@
     }
     .overlay a:hover,
     .overlay a:focus {
-        color: #F39C12 !important;
+        background-color: transparent !important;
+        color: #00ccff !important;
     }
 
     .overlay .closebtn {
@@ -54,6 +55,27 @@
         transform: scale(1.15);
         margin-left: 25px !important;
     }
+    .neon{
+        color: #fff !important;
+    }
+
+    .overlay a.neon:hover{
+        background-color: transparent !important;
+        color: #fff !important;
+        -webkit-animation: neon 1.5s ease-in-out infinite alternate;
+        -moz-animation: neon 1.5s ease-in-out infinite alternate;
+        animation: neon 1.5s ease-in-out infinite alternate;
+    }
+
+
+    @-webkit-keyframes neon {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff0000, 0 0 70px #ff0000, 0 0 80px #ff0000, 0 0 100px #ff0000, 0 0 150px #ff0000;
+        }
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff0000, 0 0 35px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000 0 75px #ff0000;
+        }
+    }
 </style>
 <div id="myNav" class="overlay">
     <a class="closebtn " onclick="closeNav()">&times;</a>
@@ -69,7 +91,7 @@
                     <a class="dropdown-item" href="#" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
                     <a class="dropdown-item" href="#">Reportar un problema</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir.rb'); ?>">Salir</a>
+                    <a class="dropdown-item neon" href="<?php print base_url('Login/onSalir.rb'); ?>">Salir</a>
                 </div>
             </li>
             <div class="dropdown-divider"></div>
