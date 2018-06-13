@@ -22,6 +22,7 @@
                 <div class="col">
                     <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
                     <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
+                    <button type="button" class="btn btn-info" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
                 </div>
             </div>
             <br>
@@ -79,6 +80,7 @@
     var tblCerrarProg = $('#tblCerrarProg');
     var btnAsignar = $("#btnAsignar");
     var btnDeshacer = $("#btnDeshacer");
+    var btnReload = $("#btnReload");
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -88,7 +90,9 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
-
+            btnReload.click(function(){
+               CerrarProg.ajax.reload(); 
+            });
             btnDeshacer.click(function () {
                 if (CerrarProg.rows(({selected: true})).data().count() > 0) {
                     onBeep(1);
@@ -185,6 +189,11 @@
                         "targets": [16],
                         "visible": false,
                         "searchable": false
+                    },
+                    {
+                        "targets": [17],
+                        "visible": false,
+                        "searchable": false
                     }],
                 "columns": [
                     {"data": "ID"}, /*0*/
@@ -203,7 +212,8 @@
                     {"data": "Semana"}, /*13*/
                     {"data": "Anio"}, /*14*/
                     {"data": "Control"}, /*15*/
-                    {"data": "SerieID"}/*16*/
+                    {"data": "SerieID"}/*16*/, 
+                    {"data": "ID_PEDIDO"}/*17*/
                 ],
                 language: lang,
                 select: true,
@@ -319,9 +329,9 @@
     function onMarcarDesMarcar(i) {
         console.log('* SELECCIONADOS ', CerrarProg.rows(({selected: true})).data().count(), ' *');
         var subcontroles = [];
-        $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) {
-            console.log(v);
+        $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) { 
             if (parseInt(v.Marca) !== i) {
+                console.log('DATOS ', v)
                 subcontroles.push({
                     ID: v.ID,
                     Estilo: v.IdEstilo,
@@ -329,10 +339,11 @@
                     Serie: v.SerieID,
                     Cliente: v.Cliente,
                     Pares: v.Pares,
-                    Pedido: v.Pedido,
+                    Pedido: v.ID_PEDIDO,
                     PedidoDetalle: v.ID,
                     Maquila: v.Maq,
-                    Semana: v.Semana
+                    Semana: v.Semana,
+                    Control: v.Control
                 });
             }
         });

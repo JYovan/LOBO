@@ -30,7 +30,12 @@ class CerrarProg extends CI_Controller {
         try {
             $controles = json_decode($this->input->post('SubControles'));
             foreach ($controles as $k => $v) {
-                $data = array(
+                $Y = substr(Date('Y'), 2);
+                $M = str_pad($v->Maquila, 2, '0', STR_PAD_LEFT);
+                $S = str_pad($v->Semana, 2, '0', STR_PAD_LEFT);
+                $C = str_pad($this->cerrarprog_model->getMaximoConsecutivo($M, $S)[0]->MAX, 3, '0', STR_PAD_LEFT);
+                $this->cerrarprog_model->onAgregarControl(array(
+                    'Control' => $Y . $M . $S . $C,
                     'FechaProg' => Date('d/m/Y h:i:s a'),
                     'Estilo' => $v->Estilo,
                     'Color' => $v->Color,
@@ -40,13 +45,12 @@ class CerrarProg extends CI_Controller {
                     'Pedido' => $v->Pedido,
                     'PedidoDetalle' => $v->PedidoDetalle,
                     'Estatus' => 'A',
-                    'EstatusDepto' => 'PROGRAMADO',
-                    'ctAno' => substr(Date('Y'), 2),
-                    'ctMaq' => $v->Maquila,
-                    'ctSem' => str_pad($v->Semana),
-                    'ctCons' => $this->cerrarprog_model->getMaximoConsecutivo()[0]->MAX
-                );
-                $this->cerrarprog_model->onAgregarControl($data);
+                    'EstatusDepto' => 1,
+                    'ctAno' => $Y,
+                    'ctMaq' => $M,
+                    'ctSem' => $S,
+                    'ctCons' => $C
+                ));
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
