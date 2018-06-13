@@ -33,19 +33,21 @@
                             <th>ID</th>
                             <th>IdEstilo</th>
                             <th>IdColor</th>
-
                             <th>Pedido</th>
                             <th>Cliente</th>
+                            
                             <th>Estilo</th>
                             <th>Color</th>
                             <th>Serie</th>
                             <th>Fecha</th>
                             <th>Fe - Pe</th>
+                            
                             <th>Fe - En</th>
                             <th>Pars</th>
                             <th>Maq</th>
                             <th>Sem</th>
                             <th>Año</th>
+                            
                             <th>Control</th>
                             <th>SerieID</th>
                         </tr>
@@ -56,11 +58,11 @@
                             <th></th>
                             <th></th>
                             <th></th>
-
                             <th></th>
                             <th></th>
+                            
                             <th></th>
-
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -68,8 +70,9 @@
                             <th style="text-align:right">Pares</th>
                             <th></th>
                             <th></th>
-
                             <th></th>
+                            <th></th>
+                            
                             <th></th>
                             <th></th>
                         </tr>
