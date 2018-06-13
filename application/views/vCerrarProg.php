@@ -33,6 +33,7 @@
                             <th>ID</th>
                             <th>IdEstilo</th>
                             <th>IdColor</th>
+
                             <th>Pedido</th>
                             <th>Cliente</th>
                             <th>Estilo</th>
@@ -55,15 +56,19 @@
                             <th></th>
                             <th></th>
                             <th></th>
+
                             <th></th>
                             <th></th>
                             <th></th>
+
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
+
                             <th style="text-align:right">Pares</th>
                             <th></th>
+                            <th></th>
+
                             <th></th>
                             <th></th>
                             <th></th>
@@ -317,7 +322,7 @@
         });
         var f = new FormData();
         f.append('Marca', i);
-        f.append('SubControles', JSON.stringify(subcontroles)); 
+        f.append('SubControles', JSON.stringify(subcontroles));
         $.ajax({
             url: master_url + 'onGenerarControles',
             type: "POST",
@@ -325,8 +330,7 @@
             contentType: false,
             processData: false,
             data: f
-        }).done(function (data, x, jq) {
-            console.log("\n", data, "\n");
+        }).done(function (data, x, jq) { 
             swal('INFO', 'SE HAN ' + (i > 0 ? 'MARCADO' : 'DESMARCADO') + ' LOS REGISTROS', 'success');
             CerrarProg.ajax.reload();
         }).fail(function (x, y, z) {
