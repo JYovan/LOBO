@@ -291,38 +291,6 @@
                 CerrarProg.cell(d, b).data(c).draw();
             }
         });
-
-        /* $('#tblCerrarProg tbody').on('click', 'td', function () {
-         var t = $('#tblCerrarProg > tbody');
-         var a = t.find("#EditingField");
-         if (a.val() !== 'undefined' && a.val() !== undefined) {
-         var b = CerrarProg.cell(a.parent()).index();
-         var c = a.val();
-         var d = a.parent();
-         d.html(c);
-         CerrarProg.cell(d, b).data(c).draw();
-         }
-         var e = CerrarProg.row($(this).parents('tr')).data();
-         console.log('ROW', e);
-         var f = $(this).text();
-         var g = '<input id="EditingField" type="text" class="form-control form-control-sm">';
-         var h = $(g);
-         h.val(f);
-         $(this).html(h);
-         h.focus();
-         h.select();
-         h.keyup(function (e) {
-         var code = e.which;
-         if (code === 13) {
-         var a = t.find("#EditingField");
-         var b = CerrarProg.cell(a.parent()).index();
-         var c = a.val();
-         var d = a.parent();
-         d.html(c);
-         CerrarProg.cell(d, b).data(c).draw();
-         }
-         });
-         });*/
         HoldOn.close();
     }
 
