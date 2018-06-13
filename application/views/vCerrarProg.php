@@ -90,8 +90,8 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
-            btnReload.click(function(){
-               CerrarProg.ajax.reload(); 
+            btnReload.click(function () {
+                CerrarProg.ajax.reload();
             });
             btnDeshacer.click(function () {
                 if (CerrarProg.rows(({selected: true})).data().count() > 0) {
@@ -103,7 +103,7 @@
                         buttons: true
                     }).then((willDelete) => {
                         if (willDelete) {
-                            onMarcarDesMarcar(1);
+                            onMarcarDesMarcar(2);
                         }
                     });
                 } else {
@@ -122,7 +122,7 @@
                         buttons: true
                     }).then((willDelete) => {
                         if (willDelete) {
-                            onMarcarDesMarcar(2);
+                            onMarcarDesMarcar(1);
                         }
                     });
                 } else {
@@ -212,7 +212,7 @@
                     {"data": "Semana"}, /*13*/
                     {"data": "Anio"}, /*14*/
                     {"data": "Control"}, /*15*/
-                    {"data": "SerieID"}/*16*/, 
+                    {"data": "SerieID"}/*16*/,
                     {"data": "ID_PEDIDO"}/*17*/
                 ],
                 language: lang,
@@ -221,7 +221,7 @@
                 "autoWidth": true,
                 "colReorder": true,
                 "displayLength": 9999999999,
-                "scrollY": 430,
+                "scrollY": 600,
                 "scrollX": true,
                 "bLengthChange": false,
                 "deferRender": true,
@@ -295,30 +295,29 @@
     }
 
     function onMarcarDesMarcar(i) {
-        console.log('* SELECCIONADOS ', CerrarProg.rows(({selected: true})).data().count(), ' *');
+        HoldOn.open({
+            theme: 'sk-bounce',
+            message: 'ESPERE...'
+        });
         var subcontroles = [];
-        $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) { 
-            if (parseInt(v.Marca) !== i) {
-                console.log('DATOS ', v)
-                subcontroles.push({
-                    ID: v.ID,
-                    Estilo: v.IdEstilo,
-                    Color: v.IdColor,
-                    Serie: v.SerieID,
-                    Cliente: v.Cliente,
-                    Pares: v.Pares,
-                    Pedido: v.ID_PEDIDO,
-                    PedidoDetalle: v.ID,
-                    Maquila: v.Maq,
-                    Semana: v.Semana,
-                    Control: v.Control
-                });
-            }
+        $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) {
+            subcontroles.push({
+                ID: v.ID,
+                Estilo: v.IdEstilo,
+                Color: v.IdColor,
+                Serie: v.SerieID,
+                Cliente: v.Cliente,
+                Pares: v.Pares,
+                Pedido: v.ID_PEDIDO,
+                PedidoDetalle: v.ID,
+                Maquila: v.Maq,
+                Semana: v.Semana,
+                Control: v.Control
+            });
         });
         var f = new FormData();
         f.append('Marca', i);
-        f.append('SubControles', JSON.stringify(subcontroles));
-        console.log('SUBCONTROLES', subcontroles);
+        f.append('SubControles', JSON.stringify(subcontroles)); 
         $.ajax({
             url: master_url + 'onGenerarControles',
             type: "POST",
@@ -333,6 +332,7 @@
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
+            HoldOn.close();
         });
     }
 </script>
