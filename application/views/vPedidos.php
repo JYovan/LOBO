@@ -737,15 +737,10 @@
                     });
                     /*ANCHO*/
                     var celda = $(row).find("td");
-                    celda.eq(0).css("width", "360px");
-                    celda.eq(1).css("width", "250px");
+                    celda.eq(0).css("width", "50px");
+                    celda.eq(1).css("width", "50px");
                     celda.eq(2).css("width", "35px");
                     celda.eq(3).css("width", "35px");
-                    celda.eq(25).css("width", "55px");
-                    celda.eq(26).css("width", "55px");
-                    celda.eq(27).css("width", "55px");
-                    celda.eq(28).css("width", "55px");
-                    celda.eq(29).css("width", "55px");
                     $(row).find("td:gt(25)").css("font-weight", "bolder");
                     $(row).find("td:gt(25)").addClass("zoom");
                 },
@@ -1521,7 +1516,6 @@
         }
 
         td[title]:hover:after {
-            width: 100%;
             text-align: center;
             content: attr(title);
             padding: 4px 8px 0px 0px;
@@ -1529,7 +1523,7 @@
             left: 0;
             top: 100%;
             white-space: nowrap;
-            z-index: 20;
+            z-index: 1;
             background: #0099cc;
             color: #fff; 
         }
