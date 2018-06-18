@@ -28,31 +28,26 @@ class CerrarProg extends CI_Controller {
 
     public function onGenerarControles() {
         try {
-            $controles = json_decode($this->input->post('SubControles')); 
+            $controles = json_decode($this->input->post('SubControles'));
             switch ($this->input->post('Marca')) {
                 case 1:
                     foreach ($controles as $k => $v) {
-                        $Y = substr(Date('Y'), 2);
-                        $M = str_pad($v->Maquila, 2, '0', STR_PAD_LEFT);
-                        $S = str_pad($v->Semana, 2, '0', STR_PAD_LEFT);
-                        $C = str_pad($this->cerrarprog_model->getMaximoConsecutivo($M, $S)[0]->MAX, 3, '0', STR_PAD_LEFT);
-                        $this->cerrarprog_model->onAgregarControl(array(
-                            'Control' => $Y . $M . $S . $C,
-                            'FechaProg' => Date('d/m/Y h:i:s a'),
-                            'Estilo' => $v->Estilo,
-                            'Color' => $v->Color,
-                            'Serie' => $v->Serie,
-                            'Cliente' => $v->Cliente,
-                            'Pares' => $v->Pares,
-                            'Pedido' => $v->Pedido,
-                            'PedidoDetalle' => $v->PedidoDetalle,
-                            'Estatus' => 'A',
-                            'EstatusDepto' => 1,
-                            'ctAno' => $Y,
-                            'ctMaq' => $M,
-                            'ctSem' => $S,
-                            'ctCons' => $C
-                        ));
+                        if ($v->Control == "") {
+                            $Y = substr(Date('Y'), 2);
+                            $M = str_pad($v->Maquila, 2, '0', STR_PAD_LEFT);
+                            $S = str_pad($v->Semana, 2, '0', STR_PAD_LEFT);
+                            $C = str_pad($this->cerrarprog_model->getMaximoConsecutivo($M, $S)[0]->MAX, 3, '0', STR_PAD_LEFT);
+                            $this->cerrarprog_model->onAgregarControl(array(
+                                'Control' => $Y . $M . $S . $C,
+                                'FechaProg' => Date('d/m/Y h:i:s a'),
+                                'Estilo' => $v->Estilo, 'Color' => $v->Color,
+                                'Serie' => $v->Serie, 'Cliente' => $v->Cliente,
+                                'Pares' => $v->Pares, 'Pedido' => $v->Pedido,
+                                'PedidoDetalle' => $v->PedidoDetalle,
+                                'Estatus' => 'A', 'EstatusDepto' => 1,
+                                'ctAno' => $Y, 'ctMaq' => $M, 'ctSem' => $S, 'ctCons' => $C
+                            ));
+                        }
                     }
                     break;
                 case 2:
@@ -65,5 +60,4 @@ class CerrarProg extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }
