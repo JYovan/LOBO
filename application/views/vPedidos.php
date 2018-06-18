@@ -251,7 +251,7 @@
                         <div align="center"><div class="loader animated fadeIn"></div></div>
                         <div align="center"><strong class="text-danger">*Todas las modificaciones son en tiempo real*</strong></div>
                         <div class="table-responsive animated fadeIn">
-                            <table id="tblPedidosDetalle" class="table table-sm display" style="width:100%">
+                            <table id="tblPedidosDetalle" class="table table-sm  display table-condensed" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -305,7 +305,7 @@
                                 </thead>
                                 <tbody></tbody>
                                 <tfoot>
-                                    <tr style="overflow-x:scroll"> 
+                                    <tr style="overflow-x:scroll; width: 100%"> 
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -807,15 +807,36 @@
                         bx = $.isNumeric(getNumberFloat(b)) ? getNumberFloat(b) : 0;
                         return  (ax + bx);
                     }, 0);
-                    $(api.column(33).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
+                    $(api.column(29).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
                         var container = '<div class="container">';
                         container += '<div class="row">';
                         container += '<div class="col-sm"><span class="text-info">Pares</span><br>' + pares;
                         container += '</div>';
+                        container += '</div>';//ROW
+                        container += '</div>';//CONTAINER
+                        return container;
+                    }, 0));
+                    $(api.column(31).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
+                        var container = '<div class="container">';
+                        container += '<div class="row">';
                         container += '<div class="col-sm"><span class="text-success">Importe</span><br>$' + $.number(parseFloat(importe), 2, '.', ',');
                         container += '</div>';
+                        container += '</div>';//ROW
+                        container += '</div>';//CONTAINER
+                        return container;
+                    }, 0));
+                    $(api.column(32).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
+                        var container = '<div class="container">';
+                        container += '<div class="row">';
                         container += '<div class="col-sm"><span class="text-danger">Descuento</span><br>$' + $.number(parseFloat(descuento), 2, '.', ',');
                         container += '</div>';
+                        container += '</div>';//ROW
+                        container += '</div>';//CONTAINER
+                        return container;
+                    }, 0));
+                    $(api.column(33).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
+                        var container = '<div class="container">';
+                        container += '<div class="row">';
                         container += '<div class="col-sm"><span class="text-warning">Total</span><br>$' + $.number(parseFloat(importe) - parseFloat(descuento), 2, '.', ',');
                         container += '</div>';
                         container += '</div>';//ROW
