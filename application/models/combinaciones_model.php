@@ -47,7 +47,7 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getClaveFKXID($ID) {
         try {
             $this->db->select('P.IdProducto AS IDP', false);
@@ -65,7 +65,7 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getClaveXEstilo($ID) {
         try {
             $this->db->select('E.Clave As Clave', false);
@@ -83,12 +83,12 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getIdMagnusProducto($ID) {
         try {
             $this->db->select('P.Id As IDM', false);
             $this->db->from('sz_Combinaciones AS C');
-            $this->db->join('Productos AS P','C.IdMagnus = P.Id'); 
+            $this->db->join('Productos AS P', 'C.IdMagnus = P.Id');
             $this->db->where('C.ID', $ID);
             $this->db->limit(1);
             $query = $this->db->get();
@@ -102,13 +102,14 @@ class combinaciones_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
+    }
+
     public function getIdMagnusAlmacenProductos($ID) {
         try {
             $this->db->select('AP.Id As IDM', false);
             $this->db->from('sz_Combinaciones AS C');
-            $this->db->join('Productos AS P','C.IdMagnus = P.Id');
-            $this->db->join('Almacenproductos AS AP','P.IdProducto = AP.IdProducto');
+            $this->db->join('Productos AS P', 'C.IdMagnus = P.Id');
+            $this->db->join('Almacenproductos AS AP', 'P.IdProducto = AP.IdProducto');
             $this->db->where('C.ID', $ID);
             $this->db->limit(1);
             $query = $this->db->get();
@@ -122,14 +123,14 @@ class combinaciones_model extends CI_Model {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    } 
+    }
 
     public function getCombinacionesXEstilo($Estilo) {
         try {
             $this->db->select("U.ID, U.Clave+'-'+ U.Descripcion AS Descripcion ", false);
             $this->db->from('sz_Combinaciones AS U');
-            $this->db->where_in('U.Estilo', $Estilo);
-            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->where('U.Estilo', $Estilo);
+            $this->db->where('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -187,6 +188,7 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onAgregarMagnus($array) {
         try {
             $this->db->insert("Productos", $array);
@@ -218,6 +220,7 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function onModificarAlmacenMagnus($ID, $DATA) {
         try {
             $this->db->where('Id', $ID);
@@ -257,4 +260,5 @@ class combinaciones_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
 }

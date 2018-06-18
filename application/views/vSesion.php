@@ -1,25 +1,34 @@
-<div class="container ">
-    <div class="row ">
-        <div class="Absolute-Center is-Responsive panel">
-            <center><img class="mb-4" src="<?php print base_url('img/LS.png'); ?>" alt="" width="72" height="72"></center>
-            <form id="frmIngresar" class="form-horizontal ">
-                <div class="form-group">
-                    <input type="email" class="form-control" id="Usuario" name="Usuario" placeholder="Email*" >
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" id="Contrasena" name="Contrasena" placeholder="Contraseña*">
-                </div>
-                <div align="right">
-                    <button id="btnIngresar" type="button" class="btn btn-raised btn-primary">INGRESAR</button>
-                    <hr>
-                </div>
-                <div class=" dt-buttons" align="left">
-                    <button id="btnOlvidasteContrasena" type="button"  class="btn btn-warning">Olvidaste tu contraseña?</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .div-login {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+
+</style>
+<form id="frmIngresar" class="div-login text-center">
+    <h4 class="mb-3">Control de Acceso</h4>
+    <input type="email" id="Usuario" name="Usuario" class="form-control" placeholder="Usuario" required autofocus>
+    <input type="password" id="Contrasena" name="Contrasena" class="form-control" placeholder="Contraseña" required>
+    <br>
+    <button class="btn btn-primary btn-block" id="btnIngresar" type="button">Ingresar</button>
+    <hr>
+    <button class="btn btn-warning btn-block" id="btnOlvidasteContrasena" type="button">Olvidaste tu contraseña?</button>
+</form>
 
 <script>
     var master_url = base_url + "Login/";

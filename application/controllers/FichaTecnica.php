@@ -2,15 +2,18 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class FraccionesXEstilo extends CI_Controller {
+class FichaTecnica extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('fraccionesxestilo_model');
+        $this->load->model('fichaTecnica_model');
         $this->load->model('estilos_model');
-        $this->load->model('fracciones_model');
-        $this->load->model('departamentos_model');
+        $this->load->model('combinaciones_model');
+        $this->load->model('piezas_model');
+        $this->load->model('materiales_model');
+        $this->load->model('piezas_model');
+        $this->load->model('generales_model');
     }
 
     public function index() {
@@ -18,7 +21,7 @@ class FraccionesXEstilo extends CI_Controller {
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
             $this->load->view('vEncabezado');
             $this->load->view('vNavegacion');
-            $this->load->view('vFraccionesXEstilo');
+            $this->load->view('vFichaTecnica');
             $this->load->view('vFooter');
         } else {
             $this->load->view('vEncabezado');
@@ -29,44 +32,49 @@ class FraccionesXEstilo extends CI_Controller {
 
     public function getRecords() {
         try {
-            print $_GET['callback'] . '(' . json_encode($this->fraccionesxestilo_model->getRecords()) . ');'; /* JSONP */
+            print json_encode($this->fichaTecnica_model->getRecords());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getDepartamentos() {
+    public function getMaterialesRequeridos() {
+        try {
+            print json_encode($this->fichaTecnica_model->getMaterialesRequeridos($this->input->post('Familia')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getFamilias() {
         try {
             extract($this->input->post());
-            $data = $this->departamentos_model->getDepartamentos();
+            $data = $this->generales_model->getCatalogosByFielID('FAMILIAS');
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getFraccionesXDepto() {
+    public function getPiezas() {
         try {
-            extract($this->input->post());
-            $data = $this->fracciones_model->getFraccionesXDepto($this->input->post('DepartamentoCat'));
-            print json_encode($data);
+            print json_encode($this->piezas_model->getPiezas());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function onComprobarExisteEstilo() {
+    public function onComprobarExisteEstiloCombinacion() {
         try {
-            print json_encode($this->fraccionesxestilo_model->onComprobarExisteEstilo($this->input->get('Estilo')));
+            print json_encode($this->fichaTecnica_model->onComprobarExisteEstiloCombinacion($this->input->get('Estilo'), $this->input->get('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getFraccionByID() {
+    public function getEstilos() {
         try {
-            extract($this->input->post());
-            print json_encode($this->fracciones_model->getFraccionByID($ID));
+            print json_encode($this->estilos_model->getEstilos());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -81,26 +89,26 @@ class FraccionesXEstilo extends CI_Controller {
         }
     }
 
-    public function getEstilos() {
+    public function getCombinacionesXEstilo() {
         try {
-            print json_encode($this->estilos_model->getEstilos());
+            print json_encode($this->combinaciones_model->getCombinacionesXEstilo($this->input->get('Estilo')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getFraccionesEstiloXEstiloDetalle() {
+    public function getFichaTecnicaDetalleByID() {
         try {
-            print json_encode($this->fraccionesxestilo_model->getFraccionesEstiloXEstiloDetalle($this->input->get('ID')));
+            print json_encode($this->fichaTecnica_model->getFichaTecnicaDetalleByID($this->input->get('Estilo'), $this->input->get('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function getFraccionEstiloByIDEstilo() {
+    public function getFichaTecnicaByEstiloByCombinacion() {
         try {
             extract($this->input->post());
-            $data = $this->fraccionesxestilo_model->getFraccionEstiloByIDEstilo($ID);
+            $data = $this->fichaTecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion'));
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -120,7 +128,7 @@ class FraccionesXEstilo extends CI_Controller {
                 'PzXPar' => ($this->input->post('PzXPar') !== NULL) ? $this->input->post('PzXPar') : NULL,
                 'Estatus' => 'ACTIVO'
             );
-            $ID = $this->fraccionesxestilo_model->onAgregar($data);
+            $ID = $this->fichaTecnica_model->onAgregar($data);
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -131,7 +139,7 @@ class FraccionesXEstilo extends CI_Controller {
         try {
             extract($this->input->post());
             unset($_POST['ID']);
-            $this->fraccionesxestilo_model->onModificar($ID, $this->input->post());
+            $this->fichaTecnica_model->onModificar($ID, $this->input->post());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -140,7 +148,7 @@ class FraccionesXEstilo extends CI_Controller {
     public function onEliminar() {
         try {
             extract($this->input->post());
-            $this->fraccionesxestilo_model->onEliminar($ID);
+            $this->fichaTecnica_model->onEliminar($ID);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -149,7 +157,7 @@ class FraccionesXEstilo extends CI_Controller {
     public function onEliminarRenglonDetalle() {
         try {
             extract($this->input->post());
-            $this->fraccionesxestilo_model->onEliminarRenglonDetalle($ID);
+            $this->fichaTecnica_model->onEliminarRenglonDetalle($ID);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

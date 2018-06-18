@@ -5,80 +5,78 @@
                 <legend class="float-left">Seleccionar control</legend>
             </div>
         </div>
-        <div class="card-block">
-            <div class="row" style="padding-left: 15px">
-                <div class="col" data-column="12">
-                    <strong>Maquila</strong>
-                    <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
-                </div>
-                <div class="col" data-column="13">
-                    <strong>Semana</strong>
-                    <input type="text" class="form-control form-control-sm column_filter" id="col13_filter">
-                </div>
-                <div class="col" data-column="14">
-                    <strong>Año</strong>
-                    <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
-                    <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
-                    <button type="button" class="btn btn-info" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
-                </div>
+        <div class="row" style="padding-left: 15px">
+            <div class="col" data-column="12">
+                <strong>Maquila</strong>
+                <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
             </div>
-            <br>
-            <div id="CerrarProg" class="table-responsive">
-                <table id="tblCerrarProg" class="table table-sm display hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>IdEstilo</th>
-                            <th>IdColor</th>
-                            <th>Pedido</th>
-                            <th>Cliente</th>
-                            
-                            <th>Estilo</th>
-                            <th>Color</th>
-                            <th>Serie</th>
-                            <th>Fecha</th>
-                            <th>Fe - Pe</th>
-                            
-                            <th>Fe - En</th>
-                            <th>Pars</th>
-                            <th>Maq</th>
-                            <th>Sem</th>
-                            <th>Año</th>
-                            
-                            <th>Control</th>
-                            <th>SerieID</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+            <div class="col" data-column="13">
+                <strong>Semana</strong>
+                <input type="text" class="form-control form-control-sm column_filter" id="col13_filter">
+            </div>
+            <div class="col" data-column="14">
+                <strong>Año</strong>
+                <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
+                <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
+                <button type="button" class="btn btn-info" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
+            </div>
+        </div>
+        <br>
+        <div id="CerrarProg" class="table-responsive">
+            <table id="tblCerrarProg" class="table table-sm display hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>IdEstilo</th>
+                        <th>IdColor</th>
+                        <th>Pedido</th>
+                        <th>Cliente</th>
 
-                            <th style="text-align:right">Pares</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                        <th>Estilo</th>
+                        <th>Color</th>
+                        <th>Serie</th>
+                        <th>Fecha</th>
+                        <th>Fe - Pe</th>
+
+                        <th>Fe - En</th>
+                        <th>Pars</th>
+                        <th>Maq</th>
+                        <th>Sem</th>
+                        <th>Año</th>
+
+                        <th>Control</th>
+                        <th>SerieID</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+                        <th style="text-align:right">Pares</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </div>
@@ -229,7 +227,7 @@
                 "autoWidth": true,
                 "colReorder": true,
                 "displayLength": 9999999999,
-                "scrollY": 600,
+                "scrollY": 380,
                 "scrollX": true,
                 "bLengthChange": false,
                 "deferRender": true,
@@ -333,7 +331,7 @@
             contentType: false,
             processData: false,
             data: f
-        }).done(function (data, x, jq) { 
+        }).done(function (data, x, jq) {
             swal('INFO', 'SE HAN ' + (i > 0 ? 'MARCADO' : 'DESMARCADO') + ' LOS REGISTROS', 'success');
             CerrarProg.ajax.reload();
         }).fail(function (x, y, z) {

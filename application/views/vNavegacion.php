@@ -68,14 +68,6 @@
     }
 
 
-    @-webkit-keyframes neon {
-        from {
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff0000, 0 0 70px #ff0000, 0 0 80px #ff0000, 0 0 100px #ff0000, 0 0 150px #ff0000;
-        }
-        to {
-            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff0000, 0 0 35px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000 0 75px #ff0000;
-        }
-    }
 </style>
 <div id="myNav" class="overlay">
     <a class="closebtn " onclick="closeNav()">&times;</a>
@@ -117,7 +109,7 @@
                 <ul class="dropdown-menu">
 <!--                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion.rb') ?>">Materiales por Combinación</a></li>-->
                     <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo.rb') ?>">Mano de Obra</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('PiezasYMateriales.rb') ?>">Ficha Técnica</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('FichaTecnica.rb') ?>">Ficha Técnica</a></li>
                     <div class="dropdown-divider" ></div>
                     <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes.rb') ?>">Reportes</a></li>
 
@@ -209,15 +201,19 @@
 </div>
 <div class="container-fluid bg-primary">
     <div class="row">
-        <div class="col-4 ">
-            <button class="btn btn-primary btn-sm" onclick="openNav()">
-                <i class="fa fa-bars"></i> Menú Principal
+        <div class="col-2 ">
+            <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="openNav()">
+                <i class="fa fa-bars"></i> Menú
             </button>
         </div>
-        <div class="col-4 text-center">
+        <div class="col-10 float-right" align="right">
+            <a  class="btn btn-primary btn-sm mt-1 mb-1" href="<?php print base_url('Login/onSalir.rb'); ?>" onclick="onRegistrarAccion('SALIÓ DEL SISTEMA');">
+                <i class="fa fa-sign-out-alt"></i> Salir</a>
 
-        </div>
-        <div class="col-4">
+<!--            <span class="text-light">
+            <?php echo $this->session->userdata('Nombre') . ' ' . $this->session->userdata('Apellidos'); ?>
+<img src="<?php print base_url(); ?>img/logo.png" width="50px" class="mt-1 mb-1">
+</span>-->
         </div>
     </div>
 </div>
