@@ -306,7 +306,53 @@
                                 <tbody></tbody>
                                 <tfoot>
                                     <tr style="overflow-x:scroll"> 
-                                        <th colspan="37"></th> 
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
