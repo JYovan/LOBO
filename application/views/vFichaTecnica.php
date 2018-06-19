@@ -628,7 +628,6 @@
                     var precio = getNumberFloat(tr.Precio);
                     var cantidad = parseFloat(tr.Consumo);
                     var importe_total = cantidad * precio;
-                    console.log('TR,', tr, ',C, ', cantidad, ',', precio, ',', importe_total)
                     //DRAW NEW DATA
                     RegistrosDetalle.cell($(d).parent(), 9).data('$' + $.number(importe_total, 3, '.', ',')).draw();
 
