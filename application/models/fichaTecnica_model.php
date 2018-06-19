@@ -14,14 +14,14 @@ class fichaTecnica_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("FT.Estilo AS EstiloId, "
-                    . "FT.Combinacion AS ColorId, "
-                    . "E.Clave+'-'+E.Descripcion AS Estilo,"
-                    . "C.Clave+'-'+C.Descripcion AS Color  ", false);
-            $this->db->from('sz_FichaTecnica AS FT ');
-            $this->db->join('sz_Estilos AS E', 'FT.Estilo = E.ID', 'left');
-            $this->db->join('sz_Combinaciones AS C', 'FT.Combinacion = C.ID', 'left');
-            $this->db->where_in('FT.Estatus', array('ACTIVO'));
-            $this->db->group_by(array('FT.Estilo', 'FT.Combinacion', 'E.Clave', 'E.Descripcion', 'C.Clave', 'C.Descripcion'));
+                            . "FT.Combinacion AS ColorId, "
+                            . "E.Clave+'-'+E.Descripcion AS Estilo,"
+                            . "C.Clave+'-'+C.Descripcion AS Color  ", false)
+                    ->from('sz_FichaTecnica AS FT ')
+                    ->join('sz_Estilos AS E', 'FT.Estilo = E.ID', 'left')
+                    ->join('sz_Combinaciones AS C', 'FT.Combinacion = C.ID', 'left')
+                    ->where_in('FT.Estatus', array('ACTIVO'))
+                    ->group_by(array('FT.Estilo', 'FT.Combinacion', 'E.Clave', 'E.Descripcion', 'C.Clave', 'C.Descripcion'));
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -65,10 +65,8 @@ class fichaTecnica_model extends CI_Model {
 
     public function onComprobarExisteEstiloCombinacion($Estilo, $Combinacion) {
         try {
-            $this->db->select('COUNT(*) AS EXISTE', false);
-            $this->db->from('sz_FichaTecnica AS FT ');
-            $this->db->where('FT.Estilo', $Estilo);
-            $this->db->where('FT.Combinacion', $Combinacion);
+            $this->db->select('COUNT(*) AS EXISTE', false)->from('sz_FichaTecnica AS FT ')
+                    ->where('FT.Estilo', $Estilo)->where('FT.Combinacion', $Combinacion);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -87,7 +85,6 @@ class fichaTecnica_model extends CI_Model {
             $this->db->insert("sz_FichaTecnica", $array);
             $query = $this->db->query('SELECT SCOPE_IDENTITY() AS IDL');
             $row = $query->row_array();
-//            PRINT "\n ID IN MODEL: $LastIdInserted \n";
             return $row['IDL'];
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -96,9 +93,7 @@ class fichaTecnica_model extends CI_Model {
 
     public function onModificar($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_FichaTecnica", $DATA);
-//            print $str = $this->db->last_query();
+            $this->db->where('ID', $ID)->update("sz_FichaTecnica", $DATA);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -106,10 +101,7 @@ class fichaTecnica_model extends CI_Model {
 
     public function onEliminar($ID) {
         try {
-            $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('Estilo', $ID);
-            $this->db->update("sz_FichaTecnica");
-//            print $str = $this->db->last_query();
+            $this->db->set('Estatus', 'INACTIVO')->where('Estilo', $ID)->update("sz_FichaTecnica");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -117,9 +109,7 @@ class fichaTecnica_model extends CI_Model {
 
     public function onEliminarRenglonDetalle($ID) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->delete("sz_FichaTecnica");
-//            print $str = $this->db->last_query();
+            $this->db->where('ID', $ID)->delete("sz_FichaTecnica");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -127,11 +117,9 @@ class fichaTecnica_model extends CI_Model {
 
     public function getFichaTecnicaByEstiloByCombinacion($Estilo, $Combinacion) {
         try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_FichaTecnica AS U');
-            $this->db->where('U.Estilo', $Estilo);
-            $this->db->where('U.Combinacion', $Combinacion);
-            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->select('U.*', false)->from('sz_FichaTecnica AS U')
+                    ->where('U.Estilo', $Estilo)->where('U.Combinacion', $Combinacion)
+                    ->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

@@ -6,27 +6,16 @@ class FichaTecnica extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
-        $this->load->model('fichaTecnica_model');
-        $this->load->model('estilos_model');
-        $this->load->model('combinaciones_model');
-        $this->load->model('piezas_model');
-        $this->load->model('materiales_model');
-        $this->load->model('piezas_model');
-        $this->load->model('generales_model');
+        $this->load->library('session')->model('fichaTecnica_model')
+                ->model('estilos_model')->model('combinaciones_model')->model('piezas_model')
+                ->model('materiales_model')->model('piezas_model')->model('generales_model');
     }
 
     public function index() {
-
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vFichaTecnica');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vFichaTecnica')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
@@ -48,9 +37,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getFamilias() {
         try {
-            extract($this->input->post());
-            $data = $this->generales_model->getCatalogosByFielID('FAMILIAS');
-            print json_encode($data);
+            print json_encode($this->generales_model->getCatalogosByFielID('FAMILIAS'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -82,8 +69,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getEstiloByID() {
         try {
-            extract($this->input->post());
-            print json_encode($this->estilos_model->getEstiloByID($Estilo));
+            print json_encode($this->estilos_model->getEstiloByID($this->input->post('Estilo')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -107,9 +93,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getFichaTecnicaByEstiloByCombinacion() {
         try {
-            extract($this->input->post());
-            $data = $this->fichaTecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion'));
-            print json_encode($data);
+            print json_encode($this->fichaTecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -117,15 +101,16 @@ class FichaTecnica extends CI_Controller {
 
     public function onAgregar() {
         try {
+            $x = $this->input;
             $data = array(
-                'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL,
-                'Combinacion' => ($this->input->post('Combinacion') !== NULL) ? $this->input->post('Combinacion') : NULL,
-                'Pieza' => ($this->input->post('Pieza') !== NULL) ? $this->input->post('Pieza') : NULL,
-                'Material' => ($this->input->post('Material') !== NULL) ? $this->input->post('Material') : NULL,
-                'Precio' => ($this->input->post('Precio') !== NULL) ? $this->input->post('Precio') : 0,
-                'Consumo' => ($this->input->post('Consumo') !== NULL) ? $this->input->post('Consumo') : 0,
-                'TipoPiel' => ($this->input->post('TipoPiel') !== NULL) ? $this->input->post('TipoPiel') : NULL,
-                'PzXPar' => ($this->input->post('PzXPar') !== NULL) ? $this->input->post('PzXPar') : NULL,
+                'Estilo' => ($x->post('Estilo') !== NULL) ? $x->post('Estilo') : NULL,
+                'Combinacion' => ($x->post('Combinacion') !== NULL) ? $x->post('Combinacion') : NULL,
+                'Pieza' => ($x->post('Pieza') !== NULL) ? $x->post('Pieza') : NULL,
+                'Material' => ($x->post('Material') !== NULL) ? $x->post('Material') : NULL,
+                'Precio' => ($x->post('Precio') !== NULL) ? $x->post('Precio') : 0,
+                'Consumo' => ($x->post('Consumo') !== NULL) ? $x->post('Consumo') : 0,
+                'TipoPiel' => ($x->post('TipoPiel') !== NULL) ? $x->post('TipoPiel') : NULL,
+                'PzXPar' => ($x->post('PzXPar') !== NULL) ? $x->post('PzXPar') : NULL,
                 'Estatus' => 'ACTIVO'
             );
             $ID = $this->fichaTecnica_model->onAgregar($data);
@@ -137,9 +122,8 @@ class FichaTecnica extends CI_Controller {
 
     public function onModificarDetalle() {
         try {
-            extract($this->input->post());
             unset($_POST['ID']);
-            $this->fichaTecnica_model->onModificar($ID, $this->input->post());
+            $this->fichaTecnica_model->onModificar($this->input->post('ID'), $this->input->post());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -147,8 +131,7 @@ class FichaTecnica extends CI_Controller {
 
     public function onEliminar() {
         try {
-            extract($this->input->post());
-            $this->fichaTecnica_model->onEliminar($ID);
+            $this->fichaTecnica_model->onEliminar($this->input->post('ID'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -156,8 +139,7 @@ class FichaTecnica extends CI_Controller {
 
     public function onEliminarRenglonDetalle() {
         try {
-            extract($this->input->post());
-            $this->fichaTecnica_model->onEliminarRenglonDetalle($ID);
+            $this->fichaTecnica_model->onEliminarRenglonDetalle($this->input->post('ID'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

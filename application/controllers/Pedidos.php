@@ -11,7 +11,8 @@ class Pedidos extends CI_Controller {
         $this->load->model('pedidos_model')->model('estilos_model')
                 ->model('clientes_model')->model('combinaciones_model')
                 ->model('generales_model')->model('listasdeprecios_model')
-                ->model('vendedores_model')->model('piezasymateriales_model');
+                ->model('vendedores_model');
+                /*->model('piezasymateriales_model');*/
     }
 
     public function index() {
@@ -35,7 +36,7 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
+/*
     public function getPiezasMatFichaTecnicaXEstiloXCombinacion() {
         try {
             $data = $this->piezasymateriales_model->getPiezasMatFichaTecnicaXEstiloXCombinacion($this->input->post('Estilo'), $this->input->post('Color'));
@@ -43,7 +44,7 @@ class Pedidos extends CI_Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }
+    }*/
 
     public function getEncabezadoSerieXEstilo() {
         try {
