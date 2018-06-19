@@ -47,7 +47,8 @@ class fichatecnica_model extends CI_Model {
                 CONCAT(\'\',FT.Consumo,\'\') AS Consumo,
                 FT.TipoPiel As TipoPiel,
                 ISNULL(FT.PzXPar,1) AS PzXPar,
-           CONCAT(\'$\',CONVERT(varchar,CAST((FT.Precio * FT.Consumo) AS money), 1),\'\')  AS Importe, FT.ID AS ID', false)
+           CONCAT(\'$\',CONVERT(varchar,CAST((FT.Precio * FT.Consumo) AS money), 1),\'\')  AS Importe, FT.ID AS ID,
+           CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarMaterialID(\',FT.ID,\')">\',\'</span>\') AS Eliminar', false)
                             ->from('sz_FichaTecnica AS FT ')
                             ->join('sz_Materiales AS M', 'FT.Material = M.ID')
                             ->join('sz_Piezas AS P', 'FT.Pieza = P.ID')

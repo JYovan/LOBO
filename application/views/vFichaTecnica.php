@@ -118,6 +118,7 @@
 
                                 <th>Importe</th>
                                 <th>ID</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -132,6 +133,7 @@
                                 <th></th>
                                 <th></th>
                                 <th style="text-align:right">Total:</th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -509,7 +511,8 @@
                     {"data": "TipoPiel"},
                     {"data": "PzXPar"},
                     {"data": "Importe"},
-                    {"data": "ID"}
+                    {"data": "ID"},
+                    {"data": "Eliminar"}
                 ],
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api();//Get access to Datatable API
@@ -571,6 +574,10 @@
                             case 7:
                                 /*IMPORTE*/
                                 c.addClass('Importe bold-text text-success');
+                                break;
+                            case 9:
+                                /*ELIMINAR*/
+                                c.addClass('Eliminar bold-text text-danger');
                                 break;
                         }
                     });
@@ -822,6 +829,36 @@
         if (((event.which !== 46 || (event.which === 46 && val === '')) || val.indexOf('.') !== -1) && (event.which < 48 || event.which > 57)) {
             event.preventDefault();
         }
+    }
+    function onEliminarMaterialID(IDX) {
+        swal({
+            title: "¿Deseas eliminar el registro? ", text: "*El registro se eliminará de forma permanente*", icon: "warning", buttons: ["Cancelar", "Aceptar"]
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.post(master_url + 'onEliminarMaterialID', {ID: IDX}).done(function () {
+                    $.notify({
+                        // options
+                        message: 'SE HA ELIMINADO EL REGISTRO ' + IDX
+                    }, {
+                        // settings
+                        type: 'success',
+                        delay: 500,
+                        animate: {
+                            enter: 'animated flipInX',
+                            exit: 'animated flipOutX'
+                        },
+                        placement: {
+                            from: "top",
+                            align: "right"
+                        }
+                    });
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                    RegistrosDetalle.ajax.reload();
+                });
+            }
+        });
     }
 </script>
 <style>

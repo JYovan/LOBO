@@ -145,6 +145,14 @@ class FichaTecnica extends CI_Controller {
         }
     }
 
+    public function onEliminarMaterialID() {
+        try {
+            $this->db->where('ID', $this->input->post('ID'))->delete('sz_FichaTecnica');
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onEditarFichaTecnicaDetalle() {
         try {
             $x = $this->input;
