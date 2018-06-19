@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 
-class fichaTecnica_model extends CI_Model {
+class fichatecnica_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
@@ -42,22 +42,20 @@ class fichaTecnica_model extends CI_Model {
                 P.Clave+\'-\'+ P.Descripcion AS Pieza,
                 FT.Material Material_ID,
                 M.Material+\'-\'+M.Descripcion AS Material,
-                CONCAT(\'<strong><span class="text-warning">\',C.SValue,\'</span></strong>\') AS "Unidad",
-                CONCAT(\'<strong><span class="">$\',CONVERT(varchar,CAST(M.PrecioLista AS money), 1),\'</span></strong>\') AS Precio,
-                CONCAT(\'<strong><span class="text-danger">\',FT.Consumo,\'</span></strong>\') AS Consumo,
+                CONCAT(\'<span class="text-warning">\',C.SValue,\'</span>\') AS "Unidad",
+                CONCAT(\'$\',CONVERT(varchar,CAST(FT.Precio AS money), 1),\'\') AS Precio,
+                CONCAT(\'\',FT.Consumo,\'\') AS Consumo,
                 FT.TipoPiel As TipoPiel,
                 ISNULL(FT.PzXPar,1) AS PzXPar,
-           CONCAT(\'<strong><span class="text-success">$\',CONVERT(varchar,CAST((M.PrecioLista * FT.Consumo) AS money), 1),\'</span></strong>\')  AS Importe', false)
+           CONCAT(\'$\',CONVERT(varchar,CAST((FT.Precio * FT.Consumo) AS money), 1),\'\')  AS Importe, FT.ID AS ID', false)
                             ->from('sz_FichaTecnica AS FT ')
                             ->join('sz_Materiales AS M', 'FT.Material = M.ID')
                             ->join('sz_Piezas AS P', 'FT.Pieza = P.ID')
                             ->join('sz_Catalogos AS C', 'M.UnidadConsumo = C.ID')
-                            ->where('FT.Estilo', $Estilo)
-                            ->where('FT.Combinacion', $Color)
+                            ->where('FT.Estilo', $Estilo)->where('FT.Combinacion', $Color)
                             ->where('FT.Estatus', 'ACTIVO')
 //            $this->db->order_by('PYMD.ID', 'DESC');
-                            ->get()
-                            ->result();
+                            ->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

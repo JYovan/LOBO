@@ -6,7 +6,7 @@ class FichaTecnica extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session')->model('fichaTecnica_model')
+        $this->load->library('session')->model('fichatecnica_model')
                 ->model('estilos_model')->model('combinaciones_model')->model('piezas_model')
                 ->model('materiales_model')->model('piezas_model')->model('generales_model');
     }
@@ -21,7 +21,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getRecords() {
         try {
-            print json_encode($this->fichaTecnica_model->getRecords());
+            print json_encode($this->fichatecnica_model->getRecords());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -29,7 +29,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getMaterialesRequeridos() {
         try {
-            print json_encode($this->fichaTecnica_model->getMaterialesRequeridos($this->input->post('Familia')));
+            print json_encode($this->fichatecnica_model->getMaterialesRequeridos($this->input->post('Familia')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -53,7 +53,7 @@ class FichaTecnica extends CI_Controller {
 
     public function onComprobarExisteEstiloCombinacion() {
         try {
-            print json_encode($this->fichaTecnica_model->onComprobarExisteEstiloCombinacion($this->input->get('Estilo'), $this->input->get('Combinacion')));
+            print json_encode($this->fichatecnica_model->onComprobarExisteEstiloCombinacion($this->input->get('Estilo'), $this->input->get('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -85,7 +85,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getFichaTecnicaDetalleByID() {
         try {
-            print json_encode($this->fichaTecnica_model->getFichaTecnicaDetalleByID($this->input->get('Estilo'), $this->input->get('Combinacion')));
+            print json_encode($this->fichatecnica_model->getFichaTecnicaDetalleByID($this->input->get('Estilo'), $this->input->get('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -93,7 +93,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getFichaTecnicaByEstiloByCombinacion() {
         try {
-            print json_encode($this->fichaTecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion')));
+            print json_encode($this->fichatecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -113,7 +113,7 @@ class FichaTecnica extends CI_Controller {
                 'PzXPar' => ($x->post('PzXPar') !== NULL) ? $x->post('PzXPar') : NULL,
                 'Estatus' => 'ACTIVO'
             );
-            $ID = $this->fichaTecnica_model->onAgregar($data);
+            $ID = $this->fichatecnica_model->onAgregar($data);
             print $ID;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -123,7 +123,7 @@ class FichaTecnica extends CI_Controller {
     public function onModificarDetalle() {
         try {
             unset($_POST['ID']);
-            $this->fichaTecnica_model->onModificar($this->input->post('ID'), $this->input->post());
+            $this->fichatecnica_model->onModificar($this->input->post('ID'), $this->input->post());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -131,7 +131,7 @@ class FichaTecnica extends CI_Controller {
 
     public function onEliminar() {
         try {
-            $this->fichaTecnica_model->onEliminar($this->input->post('ID'));
+            $this->fichatecnica_model->onEliminar($this->input->post('ID'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -139,7 +139,28 @@ class FichaTecnica extends CI_Controller {
 
     public function onEliminarRenglonDetalle() {
         try {
-            $this->fichaTecnica_model->onEliminarRenglonDetalle($this->input->post('ID'));
+            $this->fichatecnica_model->onEliminarRenglonDetalle($this->input->post('ID'));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onEditarFichaTecnicaDetalle() {
+        try {
+            $x = $this->input;
+            $d = $this->db;
+            switch ($x->post('CELDA')) {
+                case 'CONSUMO':
+                    $d->set('Consumo', $x->post('VALOR'));
+                    break;
+                case 'PRECIO':
+                    $d->set('Precio', $x->post('VALOR'));
+                    break;
+                case 'PZAXPAR':
+                    $d->set('PzXPar', $x->post('VALOR'));
+                    break;
+            }
+            $d->where('ID', $x->post('ID'))->update('sz_FichaTecnica');
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

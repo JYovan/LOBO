@@ -93,6 +93,7 @@
         </div>
     </div>
 </div>
+</div>
 <!--DETALLE-->
 <div class="d-none card-body" id="pnlDetalle">
     <!--DETALLE-->
@@ -106,13 +107,17 @@
                                 <th>Pieza_ID</th>
                                 <th>Pieza</th>
                                 <th>Material_ID</th>
+
                                 <th>Material</th>
                                 <th>Unidad</th>
                                 <th>Precio</th>
+
                                 <th>Consumo</th>
                                 <th>Piel</th>
                                 <th>PzaXPar</th>
+
                                 <th>Importe</th>
+                                <th>ID</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -127,6 +132,7 @@
                                 <th></th>
                                 <th></th>
                                 <th style="text-align:right">Total:</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </tfoot>
@@ -458,12 +464,14 @@
         });
     }
 
-    var tblRegistrosDetalle = $('#tblRegistrosDetalle');
+    var tblRegistrosDetalle = pnlDetalle.find('#tblRegistrosDetalle');
     var RegistrosDetalle;
     function getFichaTecnicaDetalleByID(Estilo, Combinacion) {
         $.fn.dataTable.ext.errMode = 'throw';
         if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
             tblRegistrosDetalle.DataTable().destroy();
+
+
             RegistrosDetalle = tblRegistrosDetalle.DataTable({
                 "ajax": {
                     "url": master_url + 'getFichaTecnicaDetalleByID',
@@ -483,6 +491,11 @@
                         "targets": [2],
                         "visible": false,
                         "searchable": false
+                    },
+                    {
+                        "targets": [10],
+                        "visible": false,
+                        "searchable": false
                     }
                 ],
                 "columns": [
@@ -495,24 +508,22 @@
                     {"data": "Consumo"},
                     {"data": "TipoPiel"},
                     {"data": "PzXPar"},
-                    {"data": "Importe"}
+                    {"data": "Importe"},
+                    {"data": "ID"}
                 ],
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api();//Get access to Datatable API
                     // Update footer
                     var total = api.column(9).data().reduce(function (a, b) {
                         var ax = 0, bx = 0;
-                        ax = $.isNumeric((a)) ? parseFloat(a) : 0;
-                        bx = $.isNumeric(getNumberFloat($(b).text())) ? getNumberFloat($(b).text()) : 0;
+                        ax = $.isNumeric(a) ? parseFloat(a) : 0;
+                        bx = $.isNumeric(getNumberFloat(b)) ? getNumberFloat(b) : 0;
                         return  (ax + bx);
                     }, 0);
                     $(api.column(9).footer()).html(api.column(9, {page: 'current'}).data().reduce(function (a, b) {
                         return '$' + $.number(parseFloat(total), 2, '.', ',');
                     }, 0));
                 },
-//                rowGroup: {
-//                    dataSrc: 'Departamento'
-//                },
                 "dom": 'frt',
                 "autoWidth": true,
                 language: lang,
@@ -522,14 +533,151 @@
                 "deferRender": true,
                 "scrollY": 295,
                 "scrollCollapse": true,
-                "bSort": false
+                "bSort": false,
+                "keys": true,
+                "createdRow": function (row, data, index) {
+                    $.each($(row).find("td"), function (k, v) {
+                        var c = $(v);
+                        var index = parseInt(k);
+                        switch (index) {
+                            case 0:
+                                /*PIEZA*/
+                                c.addClass('Pieza');
+                                break;
+                            case 1:
+                                /*MATERIAL*/
+                                c.addClass('Material');
+                                break;
+                            case 2:
+                                /*UNIDAD*/
+                                c.addClass('Unidad bold-text');
+                                break;
+                            case 3:
+                                /*PRECIO*/
+                                c.addClass('Precio bold-text');
+                                break;
+                            case 4:
+                                /*PARES*/
+                                c.addClass('Consumo text-danger bold-text');
+                                break;
+                            case 5:
+                                /*CONSUMO*/
+                                c.addClass('Piel');
+                                break;
+                            case 6:
+                                /*PZAXPAR*/
+                                c.addClass('PzaXPar');
+                                break;
+                            case 7:
+                                /*IMPORTE*/
+                                c.addClass('Importe bold-text text-success');
+                                break;
+                        }
+                    });
+                }
             });
 
-            tblRegistrosDetalle.find('tbody').on('click', 'tr', function () {
-                tblRegistrosDetalle.find("tbody tr").removeClass("success");
-                $(this).addClass("success");
-            });
         }
+        RegistrosDetalle.on('key', function (e, datatable, key, cell, originalEvent) {
+            var cell_td = $(this).find("td.focus:not(.IntExt):not(.Fotos):not(.Croquis):not(.Anexos):not(.Editar)");
+            if (key === 13) {
+                if (cell_td.hasClass("Precio")) {
+                    var txt = getNumberFloat(cell.data());
+                    var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="10" value="' + txt + '" autofocus>';
+                    cell_td.html(g);
+                    cell_td.find("#Editor").focus().select();
+                } else if (cell_td.hasClass("Consumo")) {
+                    var txt = (cell.data());
+                    var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="10" value="' + txt + '" autofocus>';
+                    cell_td.html(g);
+                    cell_td.find("#Editor").focus().select();
+                } else if (cell_td.hasClass("PzaXPar")) {
+                    var txt = (cell.data());
+                    var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="10" value="' + txt + '" autofocus>';
+                    cell_td.html(g);
+                    cell_td.find("#Editor").focus().select();
+                }
+            }
+        }).on('key-blur', function (e, datatable, cell) {
+            var t = $('#tblRegistrosDetalle > tbody');
+            var a = t.find("#Editor");
+            if (a.val() !== 'undefined' && a.val() !== undefined) {
+                var b = RegistrosDetalle.cell(a.parent()).index();
+                var d = a.parent();
+                var row = RegistrosDetalle.row(a.parent().parent()).data();// SOLO OBTENDRA EL ID
+                var params;
+                if (d.hasClass('Precio')) {
+                    var precio = getNumberFloat(a.val());
+                    var precio_format = '$' + $.number(precio, 2, '.', ',');
+                    d.html(precio_format);
+                    //DRAW NEW DATA
+                    RegistrosDetalle.cell($(d).parent(), 5).data(precio_format).draw();
+                    var tr = RegistrosDetalle.row($(d).parent()).data();
+                    var cantidad = parseFloat(tr.Consumo);
+                    var importe_total = cantidad * precio;
+                    //DRAW NEW DATA
+                    RegistrosDetalle.cell($(d).parent(), 9).data('$' + $.number(importe_total, 3, '.', ',')).draw();
+                    //SHORT POST
+                    params = {ID: row.ID, CELDA: 'PRECIO', VALOR: precio};
+                } else if (d.hasClass('Consumo')) {
+                    d.html(a.val());
+                    RegistrosDetalle.cell(d, b).data(a.val()).draw();
+
+                    //DRAW NEW DATA
+                    var tr = RegistrosDetalle.row($(d).parent()).data();
+                    var precio = getNumberFloat(tr.Precio);
+                    var cantidad = parseFloat(tr.Consumo);
+                    var importe_total = cantidad * precio;
+                    console.log('TR,', tr, ',C, ', cantidad, ',', precio, ',', importe_total)
+                    //DRAW NEW DATA
+                    RegistrosDetalle.cell($(d).parent(), 9).data('$' + $.number(importe_total, 3, '.', ',')).draw();
+
+                    //SHORT POST
+                    params = {
+                        ID: row.ID,
+                        CELDA: 'CONSUMO',
+                        VALOR: a.val()
+                    };
+                } else if (d.hasClass('PzaXPar')) {
+                    d.html(a.val().toUpperCase());
+                    //SHORT POST
+                    params = {
+                        ID: row.ID,
+                        CELDA: 'PZAXPAR',
+                        VALOR: a.val()
+                    };
+                    //DRAW NEW DATA
+                    RegistrosDetalle.cell(d, b).data(a.val()).draw();
+                }
+                $.post(master_url + 'onEditarFichaTecnicaDetalle', params).done(function (data, x, jq) {
+                    $.notify({
+                        // options
+                        message: 'LOS DATOS HAN SIDO ACTUALIZADOS'
+                    }, {
+                        // settings
+                        type: 'success',
+                        delay: 500,
+                        animate: {
+                            enter: 'animated flipInX',
+                            exit: 'animated flipOutX'
+                        },
+                        placement: {
+                            from: "top",
+                            align: "right"
+                        }
+                    });
+                }).fail(function (x, y, z) {
+                    console.log('ERROR', x, y, z);
+                }).always(function () {
+                    console.log('DATOS ACTUALIZADOS');
+                });
+            }
+        });
+
+        tblRegistrosDetalle.find('tbody').on('click', 'tr', function () {
+            tblRegistrosDetalle.find("tbody tr").removeClass("success");
+            $(this).addClass("success");
+        });
         HoldOn.close();
     }
 
@@ -677,5 +825,9 @@
         }
     }
 </script>
-
+<style>
+    .bold-text{
+        font-weight: bold;
+    }
+</style>
 
