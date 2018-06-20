@@ -48,15 +48,15 @@ class fichatecnica_model extends CI_Model {
                 FT.TipoPiel As TipoPiel,
                 ISNULL(FT.PzXPar,1) AS PzXPar,
            CONCAT(\'$\',CONVERT(varchar,CAST((FT.Precio * FT.Consumo) AS money), 1),\'\')  AS Importe, FT.ID AS ID,
-           CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarMaterialID(\',FT.ID,\')">\',\'</span>\') AS Eliminar', false)
+           CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarMaterialID(\',FT.ID,\')">\',\'</span>\') AS Eliminar, 
+           CONCAT(D.Clave,\' - \',D.Descripcion) AS DeptoCat, D.Clave AS DEPTO', false)
                             ->from('sz_FichaTecnica AS FT ')
                             ->join('sz_Materiales AS M', 'FT.Material = M.ID')
                             ->join('sz_Piezas AS P', 'FT.Pieza = P.ID')
                             ->join('sz_Catalogos AS C', 'M.UnidadConsumo = C.ID')
+                            ->join('sz_Departamentos AS D', 'P.DepartamentoCat = D.ID')
                             ->where('FT.Estilo', $Estilo)->where('FT.Combinacion', $Color)
-                            ->where('FT.Estatus', 'ACTIVO')
-//            $this->db->order_by('PYMD.ID', 'DESC');
-                            ->get()->result();
+                            ->where('FT.Estatus', 'ACTIVO')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

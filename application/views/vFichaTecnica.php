@@ -119,6 +119,8 @@
                                 <th>Importe</th>
                                 <th>ID</th>
                                 <th>Eliminar</th>
+                                <th>DeptoCat</th>
+                                <th>DEP</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -133,6 +135,8 @@
                                 <th></th>
                                 <th></th>
                                 <th style="text-align:right">Total:</th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -473,7 +477,19 @@
         if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
             tblRegistrosDetalle.DataTable().destroy();
 
-
+            $.getJSON( master_url + 'getFichaTecnicaDetalleByID',{
+                        "Estilo": Estilo,
+                        "Combinacion": Combinacion
+                    }).done(function(data,x,jq){
+                        console.log('OK OKO OKOKOKOKOKO')
+                        console.log(data,x,jq)
+                    }).fail(function(x,y,z){
+                        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        console.log(x,y,z);
+                    }).always(function(){
+                        
+                    });
+            
             RegistrosDetalle = tblRegistrosDetalle.DataTable({
                 "ajax": {
                     "url": master_url + 'getFichaTecnicaDetalleByID',
@@ -498,6 +514,16 @@
                         "targets": [10],
                         "visible": false,
                         "searchable": false
+                    },
+                    {
+                        "targets": [12],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [13],
+                        "visible": false,
+                        "searchable": false
                     }
                 ],
                 "columns": [
@@ -512,7 +538,9 @@
                     {"data": "PzXPar"},
                     {"data": "Importe"},
                     {"data": "ID"},
-                    {"data": "Eliminar"}
+                    {"data": "Eliminar"},
+                    {"data": "DeptoCat"},/*12*/
+                    {"data": "DEPTO"}/*13*/
                 ],
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api();//Get access to Datatable API
@@ -536,8 +564,12 @@
                 "deferRender": true,
                 "scrollY": 295,
                 "scrollCollapse": true,
-                "bSort": false,
+                "bSort": true,
                 "keys": true,
+                order: [[13, 'asc']],
+                rowGroup: {
+                    dataSrc: "DeptoCat"
+                },
                 "createdRow": function (row, data, index) {
                     $.each($(row).find("td"), function (k, v) {
                         var c = $(v);
