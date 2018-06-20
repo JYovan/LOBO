@@ -838,7 +838,7 @@
                 $.post(master_url + 'onEliminarMaterialID', {ID: IDX}).done(function () {
                     $.notify({
                         // options
-                        message: 'SE HA ELIMINADO EL REGISTRO ' + IDX
+                        message: 'SE HA ELIMINADO EL REGISTRO'
                     }, {
                         // settings
                         type: 'success',

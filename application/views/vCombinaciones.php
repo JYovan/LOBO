@@ -214,6 +214,8 @@
                 ]
             });
 
+            $('#tblRegistros_filter input[type=search]').focus();
+
             tblRegistrosX.find('tbody').on('click', 'tr', function () {
                 tblRegistrosX.find("tbody tr").removeClass("success");
                 $(this).addClass("success");
