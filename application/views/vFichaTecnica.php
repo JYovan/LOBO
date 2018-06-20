@@ -475,21 +475,7 @@
     function getFichaTecnicaDetalleByID(Estilo, Combinacion) {
         $.fn.dataTable.ext.errMode = 'throw';
         if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
-            tblRegistrosDetalle.DataTable().destroy();
-
-            $.getJSON( master_url + 'getFichaTecnicaDetalleByID',{
-                        "Estilo": Estilo,
-                        "Combinacion": Combinacion
-                    }).done(function(data,x,jq){
-                        console.log('OK OKO OKOKOKOKOKO')
-                        console.log(data,x,jq)
-                    }).fail(function(x,y,z){
-                        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                        console.log(x,y,z);
-                    }).always(function(){
-                        
-                    });
-            
+            tblRegistrosDetalle.DataTable().destroy();            
             RegistrosDetalle = tblRegistrosDetalle.DataTable({
                 "ajax": {
                     "url": master_url + 'getFichaTecnicaDetalleByID',
