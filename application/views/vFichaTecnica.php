@@ -349,7 +349,7 @@
                         pnlDetalle.removeClass('d-none');
                         nuevo = false;
                         Registros.ajax.reload();
-                        getFichaTecnicaDetalleByID(Estilo.val(), Color.val())
+                        getFichaTecnicaDetalleByID(Estilo.val(), Color.val());
                     } else {
                         RegistrosDetalle.ajax.reload();
                     }
@@ -475,7 +475,7 @@
     function getFichaTecnicaDetalleByID(Estilo, Combinacion) {
         $.fn.dataTable.ext.errMode = 'throw';
         if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
-            tblRegistrosDetalle.DataTable().destroy();            
+            tblRegistrosDetalle.DataTable().destroy();
             RegistrosDetalle = tblRegistrosDetalle.DataTable({
                 "ajax": {
                     "url": master_url + 'getFichaTecnicaDetalleByID',
@@ -513,19 +513,19 @@
                     }
                 ],
                 "columns": [
-                    {"data": "Pieza_ID"},
-                    {"data": "Pieza"},
-                    {"data": "Material_ID"},
-                    {"data": "Material"},
-                    {"data": "Unidad"},
-                    {"data": "Precio"},
-                    {"data": "Consumo"},
-                    {"data": "TipoPiel"},
-                    {"data": "PzXPar"},
-                    {"data": "Importe"},
+                    {"data": "Pieza_ID"}, /*0*/
+                    {"data": "Pieza"}, /*1*/
+                    {"data": "Material_ID"}, /*2*/
+                    {"data": "Material"}, /*3*/
+                    {"data": "Unidad"}, /*4*/
+                    {"data": "Precio"}, /*5*/
+                    {"data": "Consumo"}, /*6*/
+                    {"data": "TipoPiel"}, /*7*/
+                    {"data": "PzXPar"}, /*8*/
+                    {"data": "Importe"}, /*9*/
                     {"data": "ID"},
                     {"data": "Eliminar"},
-                    {"data": "DeptoCat"},/*12*/
+                    {"data": "DeptoCat"}, /*12*/
                     {"data": "DEPTO"}/*13*/
                 ],
                 "footerCallback": function (row, data, start, end, display) {
@@ -695,6 +695,7 @@
                 }).always(function () {
                     console.log('DATOS ACTUALIZADOS');
                 });
+
             }
         });
 
@@ -702,6 +703,7 @@
             tblRegistrosDetalle.find("tbody tr").removeClass("success");
             $(this).addClass("success");
         });
+
         HoldOn.close();
     }
 
