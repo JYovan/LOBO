@@ -1,24 +1,24 @@
 <div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-6 float-left">
+            <div class="col-sm-12 text-center text-danger font-italic">
                 <legend class="float-left">Seleccionar control</legend>
             </div>
         </div>
         <div class="row" style="padding-left: 15px">
-            <div class="col" data-column="12">
+            <div class="col-12 col-sm-6 col-lg-3" data-column="12">
                 <strong>Maquila</strong>
                 <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
             </div>
-            <div class="col" data-column="13">
+            <div class="col-12 col-sm-6 col-lg-3" data-column="13">
                 <strong>Semana</strong>
                 <input type="text" class="form-control form-control-sm column_filter" id="col13_filter">
             </div>
-            <div class="col" data-column="14">
+            <div class="col-12 col-sm-6 col-lg-3" data-column="14">
                 <strong>Año</strong>
                 <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
             </div>
-            <div class="col">
+            <div class="col-12 col-sm-6 col-lg-3 mt-3">
                 <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
                 <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
                 <button type="button" class="btn btn-info" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
