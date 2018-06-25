@@ -577,13 +577,7 @@
                             theme: "sk-bounce",
                             message: "CARGANDO DATOS..."
                         });
-                        $.ajax({
-                            url: master_url + 'onEliminar',
-                            type: "POST",
-                            data: {
-                                ID: temp
-                            }
-                        }).done(function (data, x, jq) {
+                        $.post(master_url + 'onEliminar', {ID: temp}).done(function (data, x, jq) {
                             getRecords();
                         }).fail(function (x, y, z) {
                             console.log(x, y, z);
@@ -1060,12 +1054,8 @@
                     "dataSrc": ""
                 },
                 "columns": [
-                    {"data": "ID"},
-                    {"data": "Pedido"},
-                    {"data": "Estatus"},
-                    {"data": "Cliente"},
-                    {"data": "Fecha Pedido"},
-                    {"data": "Usuario"}
+                    {"data": "ID"}, {"data": "Pedido"}, {"data": "Estatus"}, {"data": "Cliente"},
+                    {"data": "Fecha Pedido"}, {"data": "Usuario"}
                 ],
                 "columnDefs": [
                     {
@@ -1101,14 +1091,7 @@
                 temp = parseInt(dtm.ID);
                 if (temp !== 0 && temp !== undefined && temp > 0) {
                     nuevo = false;
-                    $.ajax({
-                        url: master_url + 'getPedidoByID',
-                        type: "POST",
-                        dataType: "JSON",
-                        data: {
-                            ID: temp
-                        }
-                    }).done(function (data, x, jq) {
+                    $.getJSON(master_url + 'getPedidoByID', {ID: temp}).done(function (data, x, jq) {
                         pnlDatos.find("input").val("");
                         $.each(pnlDatos.find("select"), function (k, v) {
                             pnlDatos.find("select")[k].selectize.clear(true);
@@ -1142,14 +1125,7 @@
     }
 
     function getSerieXEstilo(Estilo) {
-        $.ajax({
-            url: master_url + 'getSerieXEstilo',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                Estilo: Estilo
-            }
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getSerieXEstilo', {Estilo: Estilo}).done(function (data, x, jq) {
             if (data.length > 0) {
                 var dtm = data[0];
                 if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
@@ -1238,15 +1214,7 @@
     }
 
     function getPrecioListaByEstiloByCliente(Estilo, Cliente) {
-        $.ajax({
-            url: master_url + 'getPrecioListaByEstiloByCliente',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                Estilo: Estilo,
-                Cliente: Cliente
-            }
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getPrecioListaByEstiloByCliente', {Estilo: Estilo, Cliente: Cliente}).done(function (data, x, jq) {
             if (data.length > 0) {
                 pnlDatosDetalle.find("[name='Precio']").val(data[0].Precio);
             } else {
@@ -1260,14 +1228,7 @@
     }
 
     function getCombinacionesXEstilo(Estilo) {
-        $.ajax({
-            url: master_url + 'getCombinacionesXEstilo',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                Estilo: Estilo
-            }
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getCombinacionesXEstilo', {Estilo: Estilo}).done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatosDetalle.find("[name='Combinacion']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
@@ -1281,11 +1242,7 @@
 
     function getEstilos() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getEstilos',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatosDetalle.find("[name='Estilo']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
@@ -1298,11 +1255,7 @@
 
     function getClientes() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getClientes',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getClientes').done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatos.find("[name='Cliente']")[0].selectize.addOption({text: v.Nombre, value: v.ID});
             });
@@ -1315,11 +1268,7 @@
 
     function getAgentes() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getAgentes',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getAgentes').done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatos.find("[name='Agente']")[0].selectize.addOption({text: v.Nombre, value: v.IdVendedor});
             });
@@ -1417,16 +1366,7 @@
     }
 
     function onModificarImportes(ID, Importe, Pares, Desc) {
-        $.ajax({
-            url: master_url + 'onModificarImportes',
-            type: "POST",
-            data: {
-                ID: ID,
-                Importe: Importe,
-                Pares: Pares,
-                Descuento: Desc
-            }
-        }).done(function (data, x, jq) {
+        $.post(master_url + 'onModificarImportes', {ID: ID, Importe: Importe, Pares: Pares, Descuento: Desc}).done(function (data, x, jq) {
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
