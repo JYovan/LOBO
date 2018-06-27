@@ -425,6 +425,8 @@
             search: "Buscar:"
         }
     };
+
+    var _animate_ = {enter: 'animated fadeInLeft', exit: 'animated fadeOutDown'}, _placement_ = {from: "bottom", align: "left"};
     $(document).ready(function () {
 
         btnImprimirPedido.click(function () {
@@ -894,6 +896,8 @@
                     var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="10" value="' + cell.data() + '" autofocus>';
                     td.html(g).find("#Editor").focus().select();
                     td.find("#Editor").inputmask({alias: "date"});
+                    td.find("#Editor").change(function () {
+                    });
                 } else if (td.hasClass("Descuento")) {
                     desc = cell.data();
                     var tr = PedidosDetalle.row(td.parent()).data();
@@ -980,9 +984,7 @@
                         VALOR: ((a.val() === '') ? 0 : getNumberFloat(a.val()))
                     };
                 }
-
                 $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
-
                 }).fail(function (x, y, z) {
                     console.log('ERROR', x, y, z);
                 }).always(function () {
@@ -1123,7 +1125,6 @@
         }
         HoldOn.close();
     }
-
     function getSerieXEstilo(Estilo) {
         $.getJSON(master_url + 'getSerieXEstilo', {Estilo: Estilo}).done(function (data, x, jq) {
             if (data.length > 0) {
@@ -1136,14 +1137,8 @@
                             icon: base_url + dtm.Foto
                         }, {
                             // settings
-                            placement: {
-                                from: "bottom",
-                                align: "left"
-                            },
-                            animate: {
-                                enter: 'animated fadeInLeft',
-                                exit: 'animated fadeOutDown'
-                            },
+                            placement: _placement_,
+                            animate: _animate_,
                             icon_type: 'img',
                             template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
                                     '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
@@ -1157,14 +1152,8 @@
                             icon: base_url + dtm.Foto
                         }, {
                             // settings
-                            placement: {
-                                from: "bottom",
-                                align: "left"
-                            },
-                            animate: {
-                                enter: 'animated fadeInLeft',
-                                exit: 'animated fadeOutDown'
-                            },
+                            placement: _placement_,
+                            animate: _animate_,
                             icon_type: 'img',
                             template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
                                     '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
@@ -1178,14 +1167,8 @@
                         icon: base_url + dtm.Foto
                     }, {
                         // settings
-                        placement: {
-                            from: "bottom",
-                            align: "left"
-                        },
-                        animate: {
-                            enter: 'animated fadeInLeft',
-                            exit: 'animated fadeOutDown'
-                        },
+                        placement: _placement_,
+                        animate: _animate_,
                         icon_type: 'img',
                         template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
                                 '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
@@ -1346,7 +1329,6 @@
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
-
                         getDetalleByID(idMov);
                         $("[name='Estilo']")[0].selectize.focus();
                         $("[name='Estilo']")[0].selectize.clear(true);

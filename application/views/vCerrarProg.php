@@ -100,11 +100,11 @@
                 CerrarProg.ajax.reload();
             });
             btnDeshacer.click(function () {
-                if (CerrarProg.rows(({selected: true})).data().count() > 0) {
+                if (tblCerrarProg.find("tbody tr.HasMca.selected").length > 0) {
                     onBeep(1);
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán desmarcados los '" + CerrarProg.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
+                        text: "Serán desmarcados los '" + tblCerrarProg.find("tbody tr.HasMca.selected").length + "' registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true
                     }).then((willDelete) => {
@@ -119,11 +119,11 @@
             });
 
             btnAsignar.click(function () {
-                if (CerrarProg.rows(({selected: true})).data().count() > 0) {
+                if (tblCerrarProg.find("tbody tr.selected:not(.HasMca)").length > 0) {
                     onBeep(1);
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán marcados los '" + CerrarProg.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
+                        text: "Serán marcados los '" + tblCerrarProg.find("tbody tr.selected:not(.HasMca)").length + "' registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true
                     }).then((willDelete) => {
@@ -136,12 +136,10 @@
                     swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
                 }
             });
-
             $('input.column_filter').on('keyup click', function () {
                 var i = $(this).parents('div').attr('data-column');
                 tblCerrarProg.DataTable().column(i).search($('#col' + i + '_filter').val()).draw();
             });
-
         });
     }));
 
@@ -251,7 +249,7 @@
                         }
                     });
                     $.each($(row), function (k, v) {
-                        if (data["Marca"] > 0) {
+                        if (data["Marca"] > 0 && data["Control"] !== '') {
                             $(v).addClass('HasMca');
                         }
                     });
@@ -306,19 +304,12 @@
             message: 'ESPERE...'
         });
         var subcontroles = [];
-        $.each(CerrarProg.rows(({selected: true})).data(), function (k, v) {
+        $.each((i <= 1) ? tblCerrarProg.find("tbody tr.selected:not(.HasMca)") : tblCerrarProg.find("tbody tr.selected.HasMca"), function (k, v) {
+            var r = CerrarProg.row($(this)).data(); 
             subcontroles.push({
-                ID: v.ID,
-                Estilo: v.IdEstilo,
-                Color: v.IdColor,
-                Serie: v.SerieID,
-                Cliente: v.Cliente,
-                Pares: v.Pares,
-                Pedido: v.ID_PEDIDO,
-                PedidoDetalle: v.ID,
-                Maquila: v.Maq,
-                Semana: v.Semana,
-                Control: v.Control
+                ID: r.ID, Estilo: r.IdEstilo, Color: r.IdColor, Serie: r.SerieID,
+                Cliente: r.Cliente, Pares: r.Pares, Pedido: r.ID_PEDIDO, PedidoDetalle: r.ID,
+                Maquila: r.Maq, Semana: r.Semana, Control: r.Control
             });
         });
         var f = new FormData();
@@ -341,3 +332,33 @@
         });
     }
 </script>
+<style>
+    tr:hover td{
+        background-color: #1b4f72;
+        color: #fff;
+    }
+    td{
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
+    td:hover {
+        position: relative; 
+        background-color: #99cc00 !important;
+        font-weight: bold;
+        font-size: 12px;
+        color:  #fff;
+    }
+
+    td[title]:hover:after { 
+        text-align: center;
+        content: attr(title);
+        padding: 3px 5px 0px 5px;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        white-space: nowrap;
+        z-index: 1;
+        background: #0099cc;
+        color: #fff; 
+    }
+</style>
