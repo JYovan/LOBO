@@ -54,8 +54,7 @@ class ReportesCompras extends CI_Controller {
             $pdf->dSemana = $dSemana;
             $pdf->aSemana = $aSemana;
             $pdf->Tipo = $Tipo;
-
-
+            $pdf->Pares = $this->compras_model->getParesTotales($dSemana, $aSemana, $dMaquila, $aMaquila, $Ano)[0]->PARES;
             $pdf->AddPage();
             $pdf->SetAutoPageBreak(true, 10);
             $GranTotal = 0;
@@ -63,28 +62,59 @@ class ReportesCompras extends CI_Controller {
             $GranGranTotal = 0;
             $GranGranTotalExplosion = 0;
             /* GRUPO */
+
+            /* ARTICULOS */
+            $articulos = array();
+            /* ARTICULOS X */
+            $articulosx = array();
+            foreach ($Familias as $key => $f) {
+                foreach ($Explocion as $key => $v) {
+                    if ($v->Familia == $f->Familia) {
+                        if (!in_array($v->Articulo, $articulosx, true)) {
+                            array_push($articulosx, $v->Articulo);
+                            $articulo["CLAVE"] = $v->ClaveArticulo;
+                            $articulo["FAMILIA"] = $v->Familia;
+                            $articulo["ARTICULO"] = $v->Articulo;
+                            $articulo["UNIDAD"] = $v->Unidad;
+                            $articulo["EXPLOSION"] = $v->Explosion;
+                            $articulo["PRECIO"] = $v->Precio;
+                            $articulo["SUBTOTAL"] = $v->Subtotal;
+                            array_push($articulos, $articulo);
+                        } else {
+                            /* SI ENCUENTRA EL ARTICULO SUMAR EL SUBTOTAL */
+                            foreach ($articulos as $k => $vv) {
+                                if ($vv["CLAVE"] === $v->ClaveArticulo) {
+                                    $articulos[$k]["EXPLOSION"] = $vv["EXPLOSION"] + $v->Explosion;
+                                    $articulos[$k]["SUBTOTAL"] = $vv["SUBTOTAL"] + $v->Subtotal;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             foreach ($Familias as $key => $F) {
                 $pdf->SetX(12);
                 $pdf->SetFont('Arial', 'B', 7.);
                 $pdf->Cell(50, 5, utf8_decode($F->Familia), 0/* BORDE */, 1, 'L');
-
                 /* ENCABEZADO DETALLE  */
-                foreach ($Explocion as $key => $value) {
-                    if ($value->Familia == $F->Familia) {
+                $GranTotal = 0;
+                $GranTotalExplosion = 0;
+                foreach ($articulos as $key => $v) {
+                    if ($v["FAMILIA"] == $F->Familia) {
                         $pdf->SetTextColor(0, 0, 0);
                         $pdf->SetFont('Arial', '', 6.5);
                         $pdf->Row(array(
-                            utf8_decode($value->ClaveArticulo),
-                            utf8_decode($value->Articulo),
-                            utf8_decode($value->Unidad),
-                            utf8_decode($value->Explosion),
-                            "$ " . number_format($value->Precio, 2),
-                            "$ " . number_format($value->Subtotal, 2),
+                            utf8_decode($v["CLAVE"]),
+                            utf8_decode($v["ARTICULO"]),
+                            utf8_decode($v["UNIDAD"]),
+                            utf8_decode(number_format($v["EXPLOSION"], 3, '.', ', ')),
+                            "$ " . number_format($v["PRECIO"], 2),
+                            "$ " . number_format($v["SUBTOTAL"], 2),
                             '',
                             '',
                             ''));
-                        $GranTotal += $value->Subtotal;
-                        $GranTotalExplosion += $value->Explosion;
+                        $GranTotal += $v["SUBTOTAL"];
+                        $GranTotalExplosion += $v["EXPLOSION"];
                     }
                 }
                 $pdf->SetX(5);
@@ -93,13 +123,13 @@ class ReportesCompras extends CI_Controller {
                     '',
                     'Totales por grupo',
                     '',
-                    $GranTotalExplosion,
+                    number_format($GranTotalExplosion, 3, '.', ', '),
                     '',
                     "$ " . number_format($GranTotal, 2),
                     '',
                     '',
                     ''));
-                $GranTotal += $value->Subtotal;
+                $GranTotal += $v["SUBTOTAL"];
                 $GranGranTotal += $GranTotal;
                 $GranGranTotalExplosion += $GranTotalExplosion;
             }
@@ -109,7 +139,7 @@ class ReportesCompras extends CI_Controller {
                 '',
                 'Totales por sem  y maquila',
                 '',
-                $GranGranTotalExplosion,
+                number_format($GranGranTotalExplosion, 3, '.', ', '),
                 '',
                 "$ " . number_format($GranGranTotal, 2),
                 '',
@@ -125,7 +155,7 @@ class ReportesCompras extends CI_Controller {
             $url = $path . '/' . $file_name . '.pdf';
             /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/Compras/')) {
-
+                /* ELIMINA LA EXISTENCIA DE CUALQUIER ARCHIVO EN EL DIRECTORIO */
             }
             $pdf->Output($url);
             print base_url() . $url;

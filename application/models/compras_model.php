@@ -12,20 +12,17 @@ class compras_model extends CI_Model {
 
     public function getFamiliasExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano) {
         try {
-
-            $this->db->select(""
-                    . "CONVERT(VARCHAR(25),FAM.IValue)+' '+FAM.SValue AS Familia "
-                    . "", false);
-            $this->db->from('sz_FichaTecnica FT');
-            $this->db->join('sz_Controles C', 'FT.Estilo = C.Estilo AND FT.Combinacion = C.Color', 'left');
-            $this->db->join('sz_Materiales MT', 'FT.Material =  MT.ID', 'left');
-            $this->db->join('sz_Catalogos UN', 'MT.UnidadCompra =  UN.ID', 'left');
-            $this->db->join('sz_Catalogos FAM', 'MT.Familia =  FAM.ID', 'left');
-            $this->db->where('C.Estatus', 'A');
-            $this->db->where("ctMaq BETWEEN $dMaquila AND $aMaquila");
-            $this->db->where("ctSem BETWEEN $dSemana AND $aSemana");
-            $this->db->where('C.ctAno', $Ano);
-            $this->db->where('C.Control IS NOT NULL', NULL, FALSE);
+            $this->db->select("CONVERT(VARCHAR(25),FAM.IValue)+' '+FAM.SValue AS Familia", false)
+                    ->from('sz_FichaTecnica FT')
+                    ->join('sz_Controles C', 'FT.Estilo = C.Estilo AND FT.Combinacion = C.Color', 'left')
+                    ->join('sz_Materiales MT', 'FT.Material =  MT.ID', 'left')
+                    ->join('sz_Catalogos UN', 'MT.UnidadCompra =  UN.ID', 'left')
+                    ->join('sz_Catalogos FAM', 'MT.Familia =  FAM.ID', 'left')
+                    ->where('C.Estatus', 'A')
+                    ->where("ctMaq BETWEEN $dMaquila AND $aMaquila")
+                    ->where("ctSem BETWEEN $dSemana AND $aSemana")
+                    ->where('C.ctAno', $Ano)
+                    ->where('C.Control IS NOT NULL', NULL, FALSE);
             switch ($TipoE) {
                 case '1':
                     $this->db->where_in('FAM.IValue', array('1', '2'));
@@ -57,28 +54,25 @@ class compras_model extends CI_Model {
 
     public function getExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano) {
         try {
-            $Grupo;
-
-
             $this->db->select("MT.ID as idMat,"
-                    . "CONVERT(VARCHAR(25),FAM.IValue)+' '+FAM.SValue AS Familia,"
-                    . "MT.Material AS ClaveArticulo,"
-                    . "MT.Descripcion AS Articulo,"
-                    . "UN.SValue AS Unidad,"
-                    . "FT.Consumo* SUM (C.Pares) AS Explosion,"
-                    . "FT.Precio,"
-                    . "(FT.Precio* FT.Consumo) * SUM (C.Pares) AS Subtotal"
-                    . "", false);
-            $this->db->from('sz_FichaTecnica FT');
-            $this->db->join('sz_Controles C', 'FT.Estilo = C.Estilo AND FT.Combinacion = C.Color', 'left');
-            $this->db->join('sz_Materiales MT', 'FT.Material =  MT.ID', 'left');
-            $this->db->join('sz_Catalogos UN', 'MT.UnidadCompra =  UN.ID', 'left');
-            $this->db->join('sz_Catalogos FAM', 'MT.Familia =  FAM.ID', 'left');
-            $this->db->where('C.Estatus', 'A');
-            $this->db->where("ctMaq BETWEEN $dMaquila AND $aMaquila");
-            $this->db->where("ctSem BETWEEN $dSemana AND $aSemana");
-            $this->db->where('C.ctAno', $Ano);
-            $this->db->where('C.Control IS NOT NULL', NULL, FALSE);
+                            . "CONVERT(VARCHAR(25),FAM.IValue)+' '+FAM.SValue AS Familia,"
+                            . "MT.Material AS ClaveArticulo,"
+                            . "MT.Descripcion AS Articulo,"
+                            . "UN.SValue AS Unidad,"
+                            . "FT.Consumo* SUM (C.Pares) AS Explosion,"
+                            . "FT.Precio,"
+                            . "(FT.Precio* FT.Consumo) * SUM (C.Pares) AS Subtotal"
+                            . "", false)
+                    ->from('sz_FichaTecnica FT')
+                    ->join('sz_Controles C', 'FT.Estilo = C.Estilo AND FT.Combinacion = C.Color', 'left')
+                    ->join('sz_Materiales MT', 'FT.Material =  MT.ID', 'left')
+                    ->join('sz_Catalogos UN', 'MT.UnidadCompra =  UN.ID', 'left')
+                    ->join('sz_Catalogos FAM', 'MT.Familia =  FAM.ID', 'left')
+                    ->where('C.Estatus', 'A')
+                    ->where("ctMaq BETWEEN $dMaquila AND $aMaquila")
+                    ->where("ctSem BETWEEN $dSemana AND $aSemana")
+                    ->where('C.ctAno', $Ano)
+                    ->where('C.Control IS NOT NULL', NULL, FALSE);
             switch ($TipoE) {
                 case '1':
                     $this->db->where_in('FAM.IValue', array('1', '2'));
@@ -110,6 +104,15 @@ class compras_model extends CI_Model {
             $data = $query->result();
             //print $str;
             return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getParesTotales($S, $SS, $M, $MM, $ANO) {
+        try {
+            return $this->db->select('SUM (C.Pares) AS PARES',false)->from('sz_Controles AS C')
+                    ->where("C.ctSem BETWEEN $S AND $SS AND C.Control IS NOT NULL AND C.Estatus = 'A' AND C.ctMaq BETWEEN $M AND $MM AND C.ctAno = $ANO",null,false)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

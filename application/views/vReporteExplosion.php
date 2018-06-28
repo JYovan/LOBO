@@ -51,7 +51,6 @@
     </div>
 </div>
 <script>
-    var master_url = base_url + 'index.php/ReportesCompras/';
     $(document).ready(function () {
 
         $('#mdlExplosionInsumos').on('shown.bs.modal', function () {
@@ -63,7 +62,7 @@
             var frm = new FormData($('#mdlExplosionInsumos').find("#frmExplosionInsumos")[0]);
             frm.append('Ano', $('#Ano').val().substr(2));
             $.ajax({
-                url: master_url + 'onImprimirExplosion',
+                url: base_url + 'index.php/ReportesCompras/onImprimirExplosion',
                 type: "POST",
                 cache: false,
                 contentType: false,

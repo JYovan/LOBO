@@ -7,6 +7,7 @@ class PDF extends FPDF {
     public $dSemana = '';
     public $aSemana = '';
     public $Tipo = '';
+    public $Pares = '';
 
     public function setdMaquila($dMaquila) {
         $this->$dMaquila = $dMaquila;
@@ -48,6 +49,14 @@ class PDF extends FPDF {
         return $this->Tipo;
     }
 
+    public function setPares($Pares) {
+        $this->$Pares = $Pares;
+    }
+
+    public function getPares() {
+        return $this->Pares;
+    }
+
     function Header() {
 
         $this->Image('img/lsbck.png', /* LEFT */ 5, 5/* TOP */, /* ANCHO */ 30);
@@ -71,6 +80,9 @@ class PDF extends FPDF {
         $this->SetY(13);
         $this->SetX(100);
         $this->Cell(50, 4, utf8_decode("al maquilador "), 0/* BORDE */, 1, 'L');
+        $this->SetY(13);
+        $this->SetX(170);
+        $this->Cell(50, 4, utf8_decode("Pares "), 0/* BORDE */, 1, 'L');
         $this->SetY(17);
         $this->SetX(65);
         $this->Cell(25, 4, utf8_decode("Tipo explosión: "), 0/* BORDE */, 1, 'R');
@@ -89,6 +101,10 @@ class PDF extends FPDF {
         $this->SetY(13);
         $this->SetX(115);
         $this->Cell(25, 4, utf8_decode($this->getaMaquila()), 0/* BORDE */, 1, 'C');
+        
+        $this->SetY(13);
+        $this->SetX(180);
+        $this->Cell(25, 4, utf8_decode($this->getPares()), 0/* BORDE */, 1, 'C');
 
 
         $this->SetY(17);
@@ -155,34 +171,6 @@ class PDF extends FPDF {
             //$this->Rect($x, $y, $w, $h);
             //Print the text
             $this->MultiCell($w, 4, $data[$i], 'B', $a);
-            //Put the position to the right of the cell
-            $this->SetXY($x + $w, $y);
-        }
-        //Go to the next line
-        $this->Ln($h);
-    }
-
-    function RowHeadFoot($data) {
-        //Calculate the height of the row
-        $nb = 0;
-        for ($i = 0; $i < count($data); $i++)
-            $nb = max($nb, $this->NbLines($this->widths[$i], $data[$i]));
-        $h = 5 * $nb;
-        //Issue a page break first if needed
-        $this->CheckPageBreak($h);
-        //Draw the cells of the row
-        for ($i = 0; $i < count($data); $i++) {
-            $w = $this->widths[$i];
-            $a = isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
-            //Save the current position
-            $x = $this->GetX();
-            $y = $this->GetY();
-            //Draw the border
-            $this->Rect($x, $y, $w, $h);
-            //Print the text
-            $this->SetFont('Arial', 'B', 7);
-            $this->SetFillColor(203, 203, 203);
-            $this->MultiCell($w, 4, $data[$i], 1, $a, true);
             //Put the position to the right of the cell
             $this->SetXY($x + $w, $y);
         }

@@ -103,10 +103,10 @@
             handleEnter();
 
             btnDeshacer.click(function () {
-                if (Pedidos.rows(({selected: true})).data().count() > 0) {
+                if (tblPedidos.find("tbody tr.HasMca.selected").length > 0) {
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán desmarcados los '" + Pedidos.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
+                        text: "Serán desmarcados los '" + tblPedidos.find("tbody tr.HasMca.selected").length + "' registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true
                     }).then((willDelete) => {
@@ -120,10 +120,10 @@
             });
 
             btnAsignar.click(function () {
-                if (Pedidos.rows(({selected: true})).data().count() > 0) {
+                if (tblPedidos.find("tbody tr:not(.HasMca).selected").length > 0) {
                     swal({
                         title: "Estas seguro?",
-                        text: "Serán marcados los '" + Pedidos.rows(({selected: true})).data().count() + "' registros, una vez completada la acción",
+                        text: "Serán marcados los '" + tblPedidos.find("tbody tr:not(.HasMca).selected").length + "' registros, una vez completada la acción",
                         icon: "warning",
                         buttons: true
                     }).then((willDelete) => {
@@ -158,12 +158,12 @@
     }));
 
     function onMarcarDesMarcar(i) {
-        console.log('* SELECCIONADOS ', Pedidos.rows(({selected: true})).data().count(), ' *');
         var subcontroles = [];
-        $.each(Pedidos.rows(({selected: true})).data(), function (k, v) {
+        $.each((i <= 0) ? tblPedidos.find("tbody tr.HasMca.selected") : tblPedidos.find("tbody tr:not(.HasMca).selected"), function (k, v) {
+            var r = Pedidos.row($(this)).data();
             if (parseInt(v.Marca) !== i) {
                 subcontroles.push({
-                    ID: v.ID
+                    ID: r.ID
                 });
             }
         });
