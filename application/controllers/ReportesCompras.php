@@ -7,31 +7,25 @@ class ReportesCompras extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
-        $this->load->model('compras_model');
-        $this->load->helper('reportes_compras_helper');
-        $this->load->helper('file');
-        $this->load->helper('array');
+        $this->load->library('session')->model('compras_model')->helper('reportes_compras_helper')->helper('file')->helper('array');
     }
 
     public function index() {
 
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vReporteExplosion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vReporteExplosion')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
     public function onImprimirExplosion() {
         extract($this->input->post());
-        $Explocion = $this->compras_model->getExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano);
-        $Familias = $this->compras_model->getFamiliasExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano);
+        $cm = $this->compras_model;
+
+        $pares = $cm->getParesTotales($dSemana, $aSemana, $dMaquila, $aMaquila, $Ano)[0]->PARES;
+        $Explocion = $cm->getExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano);
+        $Familias = $cm->getFamiliasExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano);
         if (!empty($Explocion)) {
             $Encabezado = $Explocion[0];
             $pdf = new PDF('P', 'mm', array(215.9, 279.4));
@@ -54,7 +48,7 @@ class ReportesCompras extends CI_Controller {
             $pdf->dSemana = $dSemana;
             $pdf->aSemana = $aSemana;
             $pdf->Tipo = $Tipo;
-            $pdf->Pares = $this->compras_model->getParesTotales($dSemana, $aSemana, $dMaquila, $aMaquila, $Ano)[0]->PARES;
+            $pdf->Pares = $pares;
             $pdf->AddPage();
             $pdf->SetAutoPageBreak(true, 10);
             $GranTotal = 0;
@@ -110,9 +104,7 @@ class ReportesCompras extends CI_Controller {
                             utf8_decode(number_format($v["EXPLOSION"], 1, '.', ', ')),
                             "$ " . number_format($v["PRECIO"], 2, '.', ', '),
                             "$ " . number_format($v["SUBTOTAL"], 2, '.', ', '),
-                            '',
-                            '',
-                            ''));
+                            '', '', ''));
                         $GranTotal += $v["SUBTOTAL"];
                         $GranTotalExplosion += $v["EXPLOSION"];
                         $GranGranTotal += $v["SUBTOTAL"];
@@ -129,8 +121,7 @@ class ReportesCompras extends CI_Controller {
                     '',
                     "$ " . number_format($GranTotal, 2, '.', ', '),
                     '',
-                    '',
-                    ''));
+                    'Costo', "$ " . number_format($GranTotal / $pares, 2, '.', ', ')));
                 $GranTotal += $v["SUBTOTAL"];
             }
             $pdf->SetX(5);
@@ -161,5 +152,4 @@ class ReportesCompras extends CI_Controller {
             print base_url() . $url;
         }
     }
-
 }
