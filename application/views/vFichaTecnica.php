@@ -592,6 +592,9 @@
                                 break;
                         }
                     });
+                },
+                "initComplete": function (x, y) {
+                    HoldOn.close();
                 }
             });
 
@@ -697,7 +700,6 @@
             $(this).addClass("success");
         });
 
-        HoldOn.close();
     }
 
     var tblRegistrosX = $("#tblRegistros"), Registros;
@@ -745,7 +747,10 @@
                 "bSort": true,
                 "aaSorting": [
                     [0, 'desc']/*ID*/
-                ]
+                ],
+                "initComplete": function (x, y) {
+                    HoldOn.close();
+                }
             });
             $('#tblRegistros_filter input[type=search]').focus();
             var EstiloId, ColorId;
@@ -797,7 +802,6 @@
 
             });
         }
-        HoldOn.close();
     }
 
     function getFotoXEstilo(Estilo) {
@@ -862,25 +866,25 @@
     .bold-text{
         font-weight: bold;
     }
-    tr:hover td{ 
+    tr:hover td{
         background-color: #000 !important;
         color: #fff !important;
     }
     td:hover {
-        position: relative; 
+        position: relative;
         background-color: #ffcc00 !important;
         font-weight: bold;
         font-size: 12px;
-        color:  #000 !important; 
-    } 
-/*    .overlay{
-        background-color: #000 !important; 
+        color:  #000 !important;
     }
-    .overlay a:hover, .overlay a:focus {
-        background-color: transparent !important;
-        color: #ffcc00 !important;
-    }
-    .bg-primary {
-        background-color: #000000 !important;
-    }*/
+    /*    .overlay{
+            background-color: #000 !important;
+        }
+        .overlay a:hover, .overlay a:focus {
+            background-color: transparent !important;
+            color: #ffcc00 !important;
+        }
+        .bg-primary {
+            background-color: #000000 !important;
+        }*/
 </style>
