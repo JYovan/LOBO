@@ -59,17 +59,16 @@
     <div class="card border-0">
         <div class="card-body text-dark customBackground" >
             <div class="row">
-                <div class="col-md-6 float-left">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left">
                     <h5>PEDIDO</h5>
                 </div>
-                <div class="col-md-6 float-right" align="right">
-                    <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
-                    <button type="button" onclick="" class="btn btn-info btn-sm" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
-                    <button type="button" class="btn btn-danger btn-sm" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-right" align="right">
+                    <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm my-1" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
+                    <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-md my-1" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
+                    <button type="button" class="btn btn-primary btn-sm my-1" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
                 </div>
             </div>
-
             <div class="card border-0">
                 <div class="">
                     <div id="Encabezado">
@@ -78,11 +77,11 @@
                                 <div class="d-none">
                                     <input type="text" class="" id="ID" name="ID"  >
                                 </div>
-                                <div class="col-12 col-md-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="Folio">Folio*</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly " maxlength="10" id="Folio" name="Folio" required="">
                                 </div>
-                                <div class="col-12 col-md-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="Cliente">Cliente* (F9) Actualizar</label>
                                     <div class="input-group mb-3">
                                         <select class="form-control form-control-sm required" id="Cliente" name="Cliente">
@@ -93,22 +92,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-2 col-12">
-                                    <label for="Agente                                                                                                              ">Agente</label>
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
+                                    <label for="Agente">Agente</label>
                                     <select class="form-control form-control-sm required" id="Agente" name="Agente">
                                         <option value=""></option>
                                     </select>
                                 </div>
-                                <div class="col-12 col-md-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="FechaMov">Fec Pedido*</label>
                                     <input type="text" class="form-control form-control-sm notEnter" name="FechaPedido" id="FechaPedido" required="">
 
                                 </div>
-                                <div class="col-sm-2 col-12">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="FechaMov">Fec Recep*</label>
                                     <input type="text" class="form-control form-control-sm notEnter" id="FechaRec" name="FechaRec" required="">
                                 </div>
-                                <div class="col-sm-2 col-12">
+                                <div class="ccol-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="RecibioX">Recibido*</label>
                                     <select class="form-control form-control-sm required" id="RecibidoX" name="RecibidoX">
                                         <option value=""></option>
@@ -128,27 +127,27 @@
             <div class="card border-0">
                 <div class="">
                     <!--GENERAL DETALLE-->
-                    <div class=" d-none" id="pnlDatosDetalle">
+                    <div class="d-none" id="pnlDatosDetalle">
                         <!--CONTROLES DETALLE-->
                         <div id="ControlesDetalle">
                             <div class="row">
-                                <div class="col-sm-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-1">
                                     <label for="Clave">% Desc.</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly " maxlength="4" id="Desc" name="Desc"  >
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2">
                                     <label for="Estilo">Estilo*</label>
                                     <select class="form-control form-control-sm "  name="Estilo" required="">
                                         <option value=""></option>
                                     </select>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2">
                                     <label for="Combinacion">Color*</label>
                                     <select class="form-control form-control-sm "  name="Combinacion" required="">
                                         <option value=""></option>
                                     </select>
                                 </div>
-                                <div class="col-sm-2 col-12">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2">
                                     <label for="FechaMov">Fec Entrega*</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control form-control-sm required notEnter" id="FechaEntrega" name="FechaEntrega" >
@@ -157,23 +156,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 col-xl-1">
                                     <label for="Maquila">Maq</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Maquila" >
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-1">
                                     <label for="Semana">Sem</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="2" name="Semana" >
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 col-xl-1">
                                     <label for="Recio">Recio</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" name="Recio" >
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 col-xl-1">
                                     <label for="PMaq">P. Maq</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="4" name="PMaq" >
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-1">
                                     <label for="Precio">Precio</label>
                                     <input type="text" class="form-control form-control-sm numbersOnly" maxlength="9" name="Precio" >
                                 </div>
@@ -1516,5 +1515,32 @@
     }
     table tr  td > input[name^="T"].numbersOnly ,table tr  td > input[name^="C"].numbersOnly  {
         width: 35px !important;
+    } 
+/*    td:hover {
+        position: relative; 
+        background-color: #ffcc00 !important;
+        font-weight: bold;
+        font-size: 12px;
+        color:  #000 !important;
     }
+    tr:hover td{
+        -webkit-transition: all 0s ease-in-out;
+        transition: all 0s ease-in-out;
+        background-color: #000;
+        color: #fff;
+    }
+    td{
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+    }
+    .overlay{
+        background-color: #000 !important; 
+    }
+    .overlay a:hover, .overlay a:focus {
+        background-color: transparent !important;
+        color: #ffcc00 !important;
+    }
+    .bg-primary {
+        background-color: #000000 !important;
+    }*/
 </style>

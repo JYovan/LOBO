@@ -48,26 +48,26 @@
                     <div class="d-none">
                         <input type="text" class="form-control" id="ID" name="ID">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-lg-6">
                         <label for="Descripcion">Descripción*</label>
                         <input type="text" id="Descripcion" name="Descripcion" class="form-control form-control-sm" placeholder="NOMBRE DE LA LISTA..." required="">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-lg-5">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-sm required" id="Estatus"  name="Estatus">
                             <option value="ACTIVO">ACTIVO</option>
                             <option value="INACTIVO">INACTIVO</option>
                         </select>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-lg-5">
                         <label for="">*Estilo</label>
                         <select class="form-control form-control-sm" id="Estilo" name="Estilo"></select>
                     </div>
-                    <div class="col-5">
+                    <div class="col-12 col-sm-6 col-md-5 col-lg-5 col-lg-5">
                         <label for="">*Precio</label>
                         <input type="text" id="Precio" name="Precio" class="form-control form-control-sm" placeholder="0.0">
                     </div>
-                    <div class="col-1"><br>
+                    <div class="col-12 col-sm-1 col-md-1 col-lg-1 col-lg-1"><br>
                         <button type="button" class="btn btn-primary btn-sm" id="btnAgregar"><span class="fa fa-plus"></span><br></button>
                     </div>
                     <div class="col-12">
