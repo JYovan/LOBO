@@ -107,7 +107,7 @@ class PDF extends FPDF {
         $this->Cell(35, 3, utf8_decode('Pag. ' . $this->PageNo() . ' de {totalPages}'), 0, 0, 'R');
 
         /* ENCABEZADO DETALLE TITULOS */
-        $anchos = array(15/* 0 */, 70/* 1 */, 15/* 2 */, 15/* 3 */, 15/* 4 */, 15/* 5 */, 20/* 6 */, 20/* 7 */, 20/* 8 */);
+        $anchos = array(15/* 0 */, 65/* 1 */, 15/* 2 */, 15/* 3 */, 15/* 4 */, 20/* 5 */, 20/* 6 */, 20/* 7 */, 20/* 8 */);
         $aligns = array('L', 'L', 'L', 'L', 'L', 'L', 'L', 'L');
 
         $this->SetY(25);
@@ -116,10 +116,6 @@ class PDF extends FPDF {
         $this->SetWidths($anchos);
         $this->SetAligns($aligns);
         $this->Row(array(utf8_decode('Artículo'), '', 'Unidad', utf8_decode('Explosión'), 'Precio', 'Subtotal', 'Requerido', '1ra Entrega', '1da Entrega'));
-    }
-
-    function Footer() {
-
     }
 
     var $widths;

@@ -12,8 +12,6 @@ class compras_model extends CI_Model {
 
     public function getFamiliasExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano) {
         try {
-            $Grupo;
-
 
             $this->db->select(""
                     . "CONVERT(VARCHAR(25),FAM.IValue)+' '+FAM.SValue AS Familia "
