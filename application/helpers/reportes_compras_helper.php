@@ -82,7 +82,7 @@ class PDF extends FPDF {
         $this->Cell(50, 4, utf8_decode("al maquilador "), 0/* BORDE */, 1, 'L');
         $this->SetY(13);
         $this->SetX(170);
-        $this->Cell(50, 4, utf8_decode("Pares "), 0/* BORDE */, 1, 'L');
+        $this->Cell(10, 4, utf8_decode("Pares "), 0/* BORDE */, 1, 'L');
         $this->SetY(17);
         $this->SetX(65);
         $this->Cell(25, 4, utf8_decode("Tipo explosión: "), 0/* BORDE */, 1, 'R');
@@ -101,10 +101,10 @@ class PDF extends FPDF {
         $this->SetY(13);
         $this->SetX(115);
         $this->Cell(25, 4, utf8_decode($this->getaMaquila()), 0/* BORDE */, 1, 'C');
-        
+
         $this->SetY(13);
         $this->SetX(180);
-        $this->Cell(25, 4, utf8_decode($this->getPares()), 0/* BORDE */, 1, 'C');
+        $this->Cell(15, 4, utf8_decode($this->getPares()), 0/* BORDE */, 1, 'L');
 
 
         $this->SetY(17);

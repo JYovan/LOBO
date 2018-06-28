@@ -59,12 +59,13 @@ class compras_model extends CI_Model {
                             . "MT.Material AS ClaveArticulo,"
                             . "MT.Descripcion AS Articulo,"
                             . "UN.SValue AS Unidad,"
-                            . "FT.Consumo* SUM (C.Pares) AS Explosion,"
+                            . "((FT.Consumo* E.Desperdicio)* SUM (C.Pares) + FT.Consumo* SUM (C.Pares)) AS Explosion,"
                             . "FT.Precio,"
-                            . "(FT.Precio* FT.Consumo) * SUM (C.Pares) AS Subtotal"
+                            . "(FT.Precio* ((FT.Consumo* E.Desperdicio)+FT.Consumo)) * SUM (C.Pares) AS Subtotal"
                             . "", false)
                     ->from('sz_FichaTecnica FT')
                     ->join('sz_Controles C', 'FT.Estilo = C.Estilo AND FT.Combinacion = C.Color', 'left')
+                    ->join('sz_Estilos E', 'E.ID =  C.Estilo', 'left')
                     ->join('sz_Materiales MT', 'FT.Material =  MT.ID', 'left')
                     ->join('sz_Catalogos UN', 'MT.UnidadCompra =  UN.ID', 'left')
                     ->join('sz_Catalogos FAM', 'MT.Familia =  FAM.ID', 'left')
@@ -92,7 +93,8 @@ class compras_model extends CI_Model {
                 'Mt.Descripcion',
                 'UN.SValue',
                 'FT.Precio',
-                'FT.Consumo');
+                'FT.Consumo',
+                'E.Desperdicio');
             $this->db->group_by($CamposAgrupados);
             $this->db->order_by('FAM.IValue', 'ASC');
             $this->db->order_by('MT.Material', 'ASC');
@@ -111,8 +113,8 @@ class compras_model extends CI_Model {
 
     public function getParesTotales($S, $SS, $M, $MM, $ANO) {
         try {
-            return $this->db->select('SUM (C.Pares) AS PARES',false)->from('sz_Controles AS C')
-                    ->where("C.ctSem BETWEEN $S AND $SS AND C.Control IS NOT NULL AND C.Estatus = 'A' AND C.ctMaq BETWEEN $M AND $MM AND C.ctAno = $ANO",null,false)->get()->result();
+            return $this->db->select('SUM (C.Pares) AS PARES', false)->from('sz_Controles AS C')
+                            ->where("C.ctSem BETWEEN $S AND $SS AND C.Control IS NOT NULL AND C.Estatus = 'A' AND C.ctMaq BETWEEN $M AND $MM AND C.ctAno = $ANO", null, false)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
