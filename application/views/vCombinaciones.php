@@ -14,6 +14,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>ClaveColor</th>
                             <th>Estilo</th>
                             <th>Color</th>
                         </tr>
@@ -191,12 +192,18 @@
                 },
                 "columns": [
                     {"data": "ID"},
+                    {"data": "ClaveColor"},
                     {"data": "Estilo"},
                     {"data": "Color"}
                 ],
                 "columnDefs": [
                     {
                         "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
                         "visible": false,
                         "searchable": false
                     }],
@@ -210,7 +217,8 @@
                 keys: true,
                 "bSort": true,
                 "aaSorting": [
-                    [0, 'desc']/*ID*/
+                    [2, 'asc']/*Estilo*/,
+                    [1, 'asc']/*Color*/
                 ]
             });
 

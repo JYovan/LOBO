@@ -14,6 +14,7 @@ class fichatecnica_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("FT.Estilo AS EstiloId, "
+                            . "C.Clave ClaveColor,"
                             . "FT.Combinacion AS ColorId, "
                             . "E.Clave+'-'+E.Descripcion AS Estilo,"
                             . "C.Clave+'-'+C.Descripcion AS Color  ", false)
@@ -48,7 +49,7 @@ class fichatecnica_model extends CI_Model {
                 FT.TipoPiel As TipoPiel,
                 ISNULL(FT.PzXPar,1) AS PzXPar,
            CONCAT(\'$\',CONVERT(varchar,CAST((FT.Precio * FT.Consumo) AS money), 1),\'\')  AS Importe, FT.ID AS ID,
-           CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarMaterialID(\',FT.ID,\')">\',\'</span>\') AS Eliminar, 
+           CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarMaterialID(\',FT.ID,\')">\',\'</span>\') AS Eliminar,
            CONCAT(D.Clave,\' - \',D.Descripcion) AS DeptoCat, D.Clave AS DEPTO', false)
                             ->from('sz_FichaTecnica AS FT ')
                             ->join('sz_Materiales AS M', 'FT.Material = M.ID')

@@ -15,11 +15,22 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Departamento</th>
+                            <th>Familia</th>
                             <th>Material</th>
                             <th>Descripción</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Departamento</th>
+                            <th>Familia</th>
+                            <th>Material</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -305,12 +316,19 @@
                 },
                 "columns": [
                     {"data": "ID"},
+                    {"data": "Departamento"},
+                    {"data": "Familia"},
                     {"data": "Material"},
                     {"data": "Descripcion"}
                 ],
                 "columnDefs": [
                     {
                         "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
                         "visible": false,
                         "searchable": false
                     }],
@@ -324,8 +342,31 @@
                 keys: true,
                 "bSort": true,
                 "aaSorting": [
-                    [0, 'desc']/*ID*/
-                ]
+                    [1, 'asc'], [2, 'asc'], [3, 'asc']
+                ],
+                rowGroup: {
+                    dataSrc: "Departamento"
+                },
+                initComplete: function (x, y) {
+                    HoldOn.close();
+                }
+            });
+
+            $('#tblMateriales_filter input[type=search]').focus();
+
+            $('#tblMateriales tfoot th').each(function () {
+                console.log($(this));
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Buscar por ' + title + '" class="form-control form-control-sm" style="width: 100%;"/>');
+            });
+
+            Materiales.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
             });
 
             tblMaterialesX.find('tbody').on('click', 'tr', function () {
@@ -380,7 +421,7 @@
                 }
             });
         }
-        HoldOn.close();
+
     }
 
     function getDepartamentos() {

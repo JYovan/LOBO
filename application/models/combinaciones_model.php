@@ -12,12 +12,13 @@ class combinaciones_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("U.ID, E.Clave + '-'+ E.Descripcion AS Estilo, ISNULL(U.Clave,'')+'-'+U.Descripcion AS Color ", false);
+            $this->db->select("U.ID, "
+                    . "U.Clave ClaveColor,"
+                    . "E.Clave + '-'+ E.Descripcion AS Estilo, "
+                    . "ISNULL(U.Clave,'')+'-'+U.Descripcion AS Color ", false);
             $this->db->from('sz_Combinaciones AS U');
             $this->db->join('sz_Estilos AS E', 'E.ID = U.Estilo', 'left');
             $this->db->where_in('U.Estatus', 'ACTIVO');
-            $this->db->order_by("E.Clave", "ASC");
-            $this->db->order_by("U.Clave", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

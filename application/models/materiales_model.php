@@ -13,8 +13,10 @@ class materiales_model extends CI_Model {
 
     public function getRecords() {
         try {
-            return $this->db->select("U.ID, U.Material, U.Descripcion", false)
+            return $this->db->select("U.ID,D.Clave+' '+D.Descripcion AS Departamento,CONVERT(VARCHAR(20),FAM.IValue)+' '+FAM.SValue AS Familia , U.Material, U.Descripcion", false)
                             ->from('sz_Materiales AS U')
+                            ->join('sz_Departamentos AS D', 'U.Departamento = D.ID', 'left')
+                            ->join('sz_Catalogos AS FAM', 'FAM.ID = U.Familia', 'left')
                             ->where_in('U.Estatus', 'ACTIVO')
                             ->get()->result();
         } catch (Exception $exc) {

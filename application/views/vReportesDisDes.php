@@ -87,6 +87,7 @@
         });
 
         $('#btnImprimirReporteFichaTecnica').on("click", function () {
+            HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
             var frm = new FormData($('#mdlImprimirFichaTecnica').find("#frmFichaTecnica")[0]);
             frm.append('ID', 2);
             $.ajax({
