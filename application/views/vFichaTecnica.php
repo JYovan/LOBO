@@ -42,12 +42,12 @@
                 </div>
             </div>
             <div class=" row">
-                <div class="col-sm-2">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                     <label for="Estilo">Estilo*</label>
                     <select class="form-control form-control-sm required " id="Estilo" name="Estilo" required>
                     </select>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                     <label for="Combinacion">Combinación*</label>
                     <select class="form-control form-control-sm required " id="Combinacion" name="Combinacion" required>
                     </select>
@@ -57,22 +57,22 @@
         <!--AGREGAR DETALLE-->
         <div class="d-none" id="pnlControlesDetalle">
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                     <label for="Pieza">Pieza</label>
                     <select class="form-control form-control-sm" id="Pieza"  name="Pieza">
                     </select>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                     <label for="Familia">Grupo</label>
                     <select class="form-control form-control-sm " id="Familia"  name="Familia">
                     </select>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                     <label for="Material">Material</label>
                     <select class="form-control form-control-sm " id="Material"  name="Material">
                     </select>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                     <label for="TipoPiel">T. Piel</label>
                     <select class="form-control form-control-sm NotOpenDropDown" id="TipoPiel"  name="TipoPiel">
                         <option></option>
@@ -81,11 +81,11 @@
                         <option value="3RA">3RA</option>
                     </select>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                     <label for="Consumo">PzXPar</label>
                     <input type="text" id="PzXPar" name="PzXPar" class="form-control form-control-sm numbersOnly" maxlength="4">
                 </div>
-                <div class="col-sm-1">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                     <label for="Consumo">Consumo</label>
                     <input type="text"  id="Consumo" name="Consumo" class="form-control form-control-sm numbersOnly" maxlength="7">
                 </div>
@@ -212,13 +212,7 @@
                     closeOnClickOutside: false
                 }).then((action) => {
                     if (action) {
-                        $.ajax({
-                            url: master_url + 'onEliminar',
-                            type: "POST",
-                            data: {
-                                ID: temp
-                            }
-                        }).done(function (data, x, jq) {
+                        $.post(master_url + 'onEliminar', {ID: temp}).done(function (data, x, jq) {
                             onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'REIGISTRO ELIMINADO', 'danger');
                             getRecords();
                         }).fail(function (x, y, z) {
@@ -265,14 +259,7 @@
     function getMaterialesRequeridos(Familia) {
         if (Familia !== '' && Familia !== undefined && Familia !== null) {
             HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-            $.ajax({
-                url: master_url + 'getMaterialesRequeridos',
-                type: "POST",
-                dataType: "JSON",
-                data: {
-                    Familia: Familia
-                }
-            }).done(function (data, x, jq) {
+            $.getJSON(master_url + 'getMaterialesRequeridos', {Familia: Familia}).done(function (data, x, jq) {
                 $.each(data, function (k, v) {
                     pnlControlesDetalle.find("#Material")[0].selectize.addOption({text: v.Material, value: v.ID});
                 });
@@ -349,7 +336,7 @@
                         pnlDetalle.removeClass('d-none');
                         nuevo = false;
                         Registros.ajax.reload();
-                        getFichaTecnicaDetalleByID(Estilo.val(), Color.val())
+                        getFichaTecnicaDetalleByID(Estilo.val(), Color.val());
                     } else {
                         RegistrosDetalle.ajax.reload();
                     }
@@ -417,11 +404,7 @@
 
     function getFamilias() {
         HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-        $.ajax({
-            url: master_url + 'getFamilias',
-            type: "POST",
-            dataType: "JSON"
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getFamilias').done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatos.find("[name='Familia']")[0].selectize.addOption({text: v.SValue, value: v.ID});
             });
@@ -475,7 +458,7 @@
     function getFichaTecnicaDetalleByID(Estilo, Combinacion) {
         $.fn.dataTable.ext.errMode = 'throw';
         if ($.fn.DataTable.isDataTable('#tblRegistrosDetalle')) {
-            tblRegistrosDetalle.DataTable().destroy();            
+            tblRegistrosDetalle.DataTable().destroy();
             RegistrosDetalle = tblRegistrosDetalle.DataTable({
                 "ajax": {
                     "url": master_url + 'getFichaTecnicaDetalleByID',
@@ -513,19 +496,19 @@
                     }
                 ],
                 "columns": [
-                    {"data": "Pieza_ID"},
-                    {"data": "Pieza"},
-                    {"data": "Material_ID"},
-                    {"data": "Material"},
-                    {"data": "Unidad"},
-                    {"data": "Precio"},
-                    {"data": "Consumo"},
-                    {"data": "TipoPiel"},
-                    {"data": "PzXPar"},
-                    {"data": "Importe"},
+                    {"data": "Pieza_ID"}, /*0*/
+                    {"data": "Pieza"}, /*1*/
+                    {"data": "Material_ID"}, /*2*/
+                    {"data": "Material"}, /*3*/
+                    {"data": "Unidad"}, /*4*/
+                    {"data": "Precio"}, /*5*/
+                    {"data": "Consumo"}, /*6*/
+                    {"data": "TipoPiel"}, /*7*/
+                    {"data": "PzXPar"}, /*8*/
+                    {"data": "Importe"}, /*9*/
                     {"data": "ID"},
                     {"data": "Eliminar"},
-                    {"data": "DeptoCat"},/*12*/
+                    {"data": "DeptoCat"}, /*12*/
                     {"data": "DEPTO"}/*13*/
                 ],
                 "footerCallback": function (row, data, start, end, display) {
@@ -554,6 +537,16 @@
                 "keys": true,
                 order: [[13, 'asc']],
                 rowGroup: {
+                    startRender: null,
+                    endRender: function (rows, group) {
+                        var stc = $.number(rows.data().pluck('Consumo').reduce(function (a, b) {
+                            return a + parseFloat(b);
+                        }, 0), 4, '.', ',');
+                        var stt = $.number(rows.data().pluck('Importe').reduce(function (a, b) {
+                            return a + getNumberFloat(b);
+                        }, 0), 4, '.', ',');
+                        return $('<tr>').append('<td colspan="4">' + group + '</td>').append('<td>' + stc + '</td><td colspan="2"></td><td>$' + stt + '</td><td></td></tr>');
+                    },
                     dataSrc: "DeptoCat"
                 },
                 "createdRow": function (row, data, index) {
@@ -604,7 +597,7 @@
 
         }
         RegistrosDetalle.on('key', function (e, datatable, key, cell, originalEvent) {
-            var cell_td = $(this).find("td.focus:not(.IntExt):not(.Fotos):not(.Croquis):not(.Anexos):not(.Editar)");
+            var cell_td = $(this).find("td.focus:not(.Pieza):not(.Material):not(.Unidad):not(.Editar)");
             if (key === 13) {
                 if (cell_td.hasClass("Precio")) {
                     var txt = getNumberFloat(cell.data());
@@ -695,6 +688,7 @@
                 }).always(function () {
                     console.log('DATOS ACTUALIZADOS');
                 });
+
             }
         });
 
@@ -702,6 +696,7 @@
             tblRegistrosDetalle.find("tbody tr").removeClass("success");
             $(this).addClass("success");
         });
+
         HoldOn.close();
     }
 
@@ -770,15 +765,7 @@
                     theme: "sk-bounce",
                     message: "CARGANDO DATOS..."
                 });
-                $.ajax({
-                    url: master_url + 'getFichaTecnicaByEstiloByCombinacion',
-                    type: "POST",
-                    dataType: "JSON",
-                    data: {
-                        Estilo: EstiloId,
-                        Combinacion: ColorId
-                    }
-                }).done(function (data, x, jq) {
+                $.getJSON(master_url + 'getFichaTecnicaByEstiloByCombinacion', {Estilo: EstiloId, Combinacion: ColorId}).done(function (data, x, jq) {
                     pnlDatos.find("input").val("");
                     $.each(pnlDatos.find("select"), function (k, v) {
                         pnlDatos.find("select")[k].selectize.clear(true);
@@ -795,7 +782,6 @@
                         console.log(x, y, z);
                     }).always(function () {
                     });
-
                     pnlControlesDetalle.find("[name='Pieza']")[0].selectize.focus();
                     pnlDatos.find("[name='Estilo']")[0].selectize.setValue(data[0].Estilo);
                     getFotoXEstilo(EstiloId);
@@ -815,14 +801,7 @@
     }
 
     function getFotoXEstilo(Estilo) {
-        $.ajax({
-            url: master_url + 'getEstiloByID',
-            type: "POST",
-            dataType: "JSON",
-            data: {
-                Estilo: Estilo
-            }
-        }).done(function (data, x, jq) {
+        $.getJSON(master_url + 'getEstiloByID', {Estilo: Estilo}).done(function (data, x, jq) {
             if (data.length > 0) {
                 var dtm = data[0];
                 if (dtm.Foto !== null && dtm.Foto !== undefined && dtm.Foto !== '') {
@@ -883,5 +862,25 @@
     .bold-text{
         font-weight: bold;
     }
+    tr:hover td{ 
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    td:hover {
+        position: relative; 
+        background-color: #ffcc00 !important;
+        font-weight: bold;
+        font-size: 12px;
+        color:  #000 !important; 
+    } 
+/*    .overlay{
+        background-color: #000 !important; 
+    }
+    .overlay a:hover, .overlay a:focus {
+        background-color: transparent !important;
+        color: #ffcc00 !important;
+    }
+    .bg-primary {
+        background-color: #000000 !important;
+    }*/
 </style>
-

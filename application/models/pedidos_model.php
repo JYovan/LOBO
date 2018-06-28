@@ -12,28 +12,18 @@ class pedidos_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("P.ID, ISNULL(P.Folio,'') AS Pedido ,"
-                    . "(CASE WHEN  P.Estatus ='ACTIVO' "
-                    . "THEN CONCAT('<span class=''badge badge-info'' style=''font-size: 15px;'' >','EN FIRME','</span>') "
-                    . "WHEN  P.Estatus ='FINALIZADO' "
-                    . "THEN CONCAT('<span class=''badge badge-success'' style=''font-size: 15px;''>','FACTURADO','</span>') "
-                    . "END) AS Estatus ,"
-                    . "C.Clave + '-'+C.RazonSocial AS 'Cliente' ,"
-                    . "FORMAT(convert(date, P.FechaPedido, 103), 'dd/MM/yyyy')   as 'Fecha Pedido', "
-                    . "US.Usuario AS 'Usuario' ", false);
-            $this->db->from('sz_Pedidos AS P');
-            $this->db->join('sz_Clientes AS C', 'P.Cliente = C.ID', 'left');
-            $this->db->join('sz_Usuarios AS US', 'P.Usuario = US.ID', 'left');
-            $this->db->where_in('P.Estatus', array('ACTIVO', 'FINALIZADO'));
-            $this->db->order_by("P.Folio", "ASC");
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-            //print $str;
-            $data = $query->result();
-            return $data;
+            return $this->db->select("P.ID, ISNULL(P.Folio,'') AS Pedido ,"
+                                    . "(CASE WHEN  P.Estatus ='ACTIVO' "
+                                    . "THEN CONCAT('<span class=''badge badge-info'' style=''font-size: 15px;'' >','EN FIRME','</span>') "
+                                    . "WHEN  P.Estatus ='FINALIZADO' "
+                                    . "THEN CONCAT('<span class=''badge badge-success'' style=''font-size: 15px;''>','FACTURADO','</span>') "
+                                    . "END) AS Estatus ,"
+                                    . "C.Clave + '-'+C.RazonSocial AS 'Cliente' ,"
+                                    . "FORMAT(convert(date, P.FechaPedido, 103), 'dd/MM/yyyy')   as 'Fecha Pedido', "
+                                    . "US.Usuario AS 'Usuario' ", false)
+                            ->from('sz_Pedidos AS P')
+                            ->join('sz_Clientes AS C', 'P.Cliente = C.ID', 'left')->join('sz_Usuarios AS US', 'P.Usuario = US.ID', 'left')
+                            ->where_in('P.Estatus', array('ACTIVO', 'FINALIZADO'))->order_by("P.Folio", "ASC")->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -81,12 +71,10 @@ class pedidos_model extends CI_Model {
                     . "onclick=''onEliminarDetalle('+      "
                     . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
                     . ", S.ID AS Serie", false);
-            $this->db->from('sz_PedidosDetalle AS U');
-            $this->db->join('sz_Estilos AS E', 'U.Estilo = E.ID');
-            $this->db->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID');
-            $this->db->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID');
-            $this->db->join('sz_series AS S', 'E.Serie = S.ID');
-            $this->db->where('U.Pedido', $Pedido);
+            $this->db->from('sz_PedidosDetalle AS U')
+                    ->join('sz_Estilos AS E', 'U.Estilo = E.ID')->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID')
+                    ->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID')->join('sz_series AS S', 'E.Serie = S.ID')
+                    ->where('U.Pedido', $Pedido);
             $query = $this->db->get();
             $str = $this->db->last_query();
 //            print $str;
@@ -99,21 +87,9 @@ class pedidos_model extends CI_Model {
 
     public function getSerieXDetalleByID($Pedido) {
         try {
-            $this->db->select("S.ID, S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,
-                                      S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,
-                                      S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false);
-            $this->db->from('sz_PedidosDetalle AS U');
-            $this->db->join('sz_Estilos AS E', 'U.Estilo = E.ID');
-            $this->db->join('sz_series AS S', 'E.Serie = S.ID');
-            $this->db->where('U.Pedido', $Pedido);
-            $this->db->group_by(array('S.ID', 'S.T1', 'S.T2', 'S.T3', 'S.T4', 'S.T5', 'S.T6', 'S.T7', 'S.T8', '
-                                      S.T9', 'S.T10', 'S.T11', 'S.T12', 'S.T13', 'S.T14', 'S.T15', '
-                                      S.T16', 'S.T17', 'S.T18', 'S.T19', 'S.T20', 'S.T21', 'S.T22'));
-            $query = $this->db->get();
-            $str = $this->db->last_query();
-//            print $str;
-            $data = $query->result();
-            return $data;
+            return $this->db->select("S.ID, S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8, S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15, S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false)
+                            ->from('sz_PedidosDetalle AS U')->join('sz_Estilos AS E', 'U.Estilo = E.ID')->join('sz_series AS S', 'E.Serie = S.ID')
+                            ->where('U.Pedido', $Pedido)->group_by(array('S.ID', 'S.T1', 'S.T2', 'S.T3', 'S.T4', 'S.T5', 'S.T6', 'S.T7', 'S.T8', 'S.T9', 'S.T10', 'S.T11', 'S.T12', 'S.T13', 'S.T14', 'S.T15', 'S.T16', 'S.T17', 'S.T18', 'S.T19', 'S.T20', 'S.T21', 'S.T22'))->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -121,20 +97,7 @@ class pedidos_model extends CI_Model {
 
     public function onComprobarEstiloXCombinacion($ID, $E, $C) {
         try {
-            $this->db->select("COUNT (*) AS EXISTE", false);
-            $this->db->from('sz_PedidosDetalle AS PD');
-            $this->db->where('PD.Pedido', $ID);
-            $this->db->where('PD.Estilo', $E);
-            $this->db->where('PD.Combinacion', $C);
-
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-            //print $str;
-            $data = $query->result();
-            return $data;
+            return $this->db->select("COUNT (*) AS EXISTE", false)->from('sz_PedidosDetalle AS PD')->where('PD.Pedido', $ID)->where('PD.Estilo', $E)->where('PD.Combinacion', $C)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -166,9 +129,7 @@ class pedidos_model extends CI_Model {
 
     public function onModificar($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Pedidos", $DATA);
-//            print $str = $this->db->last_query();
+            $this->db->where('ID', $ID)->update("sz_Pedidos", $DATA);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -179,11 +140,7 @@ class pedidos_model extends CI_Model {
             $DATA = array(
                 $Posicion => $Cantidad
             );
-            $this->db->where('Estilo', $Estilo);
-            $this->db->where('Combinacion', $Color);
-            $this->db->where('Pedido', $Pedido);
-            $this->db->update("sz_PedidosDetalle", $DATA);
-            print $str = $this->db->last_query();
+            $this->db->where('Estilo', $Estilo)->where('Combinacion', $Color)->where('Pedido', $Pedido)->update("sz_PedidosDetalle", $DATA);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -191,10 +148,7 @@ class pedidos_model extends CI_Model {
 
     public function onEliminar($ID) {
         try {
-            $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Pedidos");
-//            print $str = $this->db->last_query();
+            $this->db->set('Estatus', 'INACTIVO')->db->where('ID', $ID)->update("sz_Pedidos");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -202,8 +156,7 @@ class pedidos_model extends CI_Model {
 
     public function onEliminarDetalle($ID) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->delete("sz_PedidosDetalle");
+            $this->db->where('ID', $ID)->delete("sz_PedidosDetalle");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -211,17 +164,7 @@ class pedidos_model extends CI_Model {
 
     public function getPedidoByID($ID) {
         try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_Pedidos AS U');
-            $this->db->where('U.ID', $ID);
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-//        print $str;
-            $data = $query->result();
-            return $data;
+            return $this->db->select('U.*', false)->from('sz_Pedidos AS U')->where('U.ID', $ID)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -229,17 +172,7 @@ class pedidos_model extends CI_Model {
 
     public function getPedidoEncabezadoDetalleByID($ID) {
         try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_Pedidos AS U');
-            $this->db->where('U.ID', $ID);
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-//        print $str;
-            $data = $query->result();
-            return $data;
+            return $this->db->select('U.*', false)->from('sz_Pedidos AS U')->where('U.ID', $ID)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -247,13 +180,8 @@ class pedidos_model extends CI_Model {
 
     public function getSerieXEstiloTR($Estilo) {
         try {
-            return $this->db->select("S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,
-                                      S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,
-                                      S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false)
-                            ->from('sz_Estilos AS E')
-                            ->join('sz_Series AS S', 'E.Serie = S.ID', 'left')
-                            ->where('E.ID', $Estilo)
-                            ->get()->result();
+            return $this->db->select("S.T1,S.T2,S.T3,S.T4,S.T5,S.T6,S.T7,S.T8,S.T9,S.T10,S.T11,S.T12,S.T13,S.T14,S.T15,S.T16,S.T17,S.T18,S.T19,S.T20,S.T21,S.T22", false)
+                            ->from('sz_Estilos AS E')->join('sz_Series AS S', 'E.Serie = S.ID', 'left')->where('E.ID', $Estilo)->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -261,14 +189,9 @@ class pedidos_model extends CI_Model {
 
     public function getAgenteXCliente($ID) {
         try {
-            return $this->db->select("V.ID AS AGENTE", false)
-                            ->from('sz_Clientes AS V')
-                            ->where('V.ID', $ID)
-                            ->where_in('V.Estatus', 'ACTIVO')
-                            ->get()->result();
+            return $this->db->select("V.ID AS AGENTE", false)->from('sz_Clientes AS V')->where('V.ID', $ID)->where_in('V.Estatus', 'ACTIVO')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
 }

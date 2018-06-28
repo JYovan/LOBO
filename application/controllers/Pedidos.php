@@ -8,11 +8,9 @@ class Pedidos extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session')->library('Myfpdf');
-        $this->load->model('pedidos_model')->model('estilos_model')
-                ->model('clientes_model')->model('combinaciones_model')
-                ->model('generales_model')->model('listasdeprecios_model')
-                ->model('vendedores_model');
-                /*->model('piezasymateriales_model');*/
+        $this->load->model('pedidos_model')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
+                ->model('generales_model')->model('listasdeprecios_model')->model('vendedores_model');
+        /* ->model('piezasymateriales_model'); */
     }
 
     public function index() {
@@ -36,15 +34,16 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-/*
-    public function getPiezasMatFichaTecnicaXEstiloXCombinacion() {
-        try {
-            $data = $this->piezasymateriales_model->getPiezasMatFichaTecnicaXEstiloXCombinacion($this->input->post('Estilo'), $this->input->post('Color'));
-            print json_encode($data);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }*/
+
+    /*
+      public function getPiezasMatFichaTecnicaXEstiloXCombinacion() {
+      try {
+      $data = $this->piezasymateriales_model->getPiezasMatFichaTecnicaXEstiloXCombinacion($this->input->post('Estilo'), $this->input->post('Color'));
+      print json_encode($data);
+      } catch (Exception $exc) {
+      echo $exc->getTraceAsString();
+      }
+      } */
 
     public function getEncabezadoSerieXEstilo() {
         try {
@@ -56,7 +55,7 @@ class Pedidos extends CI_Controller {
 
     public function getPrecioListaByEstiloByCliente() {
         try {
-            print json_encode($this->listasdeprecios_model->getPrecioListaByEstiloByCliente($this->input->post('Estilo'), $this->input->post('Cliente')));
+            print json_encode($this->listasdeprecios_model->getPrecioListaByEstiloByCliente($this->input->get('Estilo'), $this->input->get('Cliente')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -80,7 +79,7 @@ class Pedidos extends CI_Controller {
 
     public function getPedidoByID() {
         try {
-            print json_encode($this->pedidos_model->getPedidoByID($this->input->post('ID')));
+            print json_encode($this->pedidos_model->getPedidoByID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -120,7 +119,7 @@ class Pedidos extends CI_Controller {
 
     public function getCombinacionesXEstilo() {
         try {
-            print json_encode($this->combinaciones_model->getCombinacionesXEstilo($this->input->post('Estilo')));
+            print json_encode($this->combinaciones_model->getCombinacionesXEstilo($this->input->get('Estilo')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -128,7 +127,7 @@ class Pedidos extends CI_Controller {
 
     public function getSerieXEstilo() {
         try {
-            print json_encode($this->estilos_model->getSerieXEstilo($this->input->post('Estilo')));
+            print json_encode($this->estilos_model->getSerieXEstilo($this->input->get('Estilo')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -318,5 +317,4 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }

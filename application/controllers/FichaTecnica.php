@@ -29,7 +29,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getMaterialesRequeridos() {
         try {
-            print json_encode($this->fichatecnica_model->getMaterialesRequeridos($this->input->post('Familia')));
+            print json_encode($this->fichatecnica_model->getMaterialesRequeridos($this->input->get('Familia')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -69,7 +69,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getEstiloByID() {
         try {
-            print json_encode($this->estilos_model->getEstiloByID($this->input->post('Estilo')));
+            print json_encode($this->estilos_model->getEstiloByID($this->input->get('Estilo')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -93,7 +93,7 @@ class FichaTecnica extends CI_Controller {
 
     public function getFichaTecnicaByEstiloByCombinacion() {
         try {
-            print json_encode($this->fichatecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion')));
+            print json_encode($this->fichatecnica_model->getFichaTecnicaByEstiloByCombinacion($this->input->get('Estilo'), $this->input->get('Combinacion')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

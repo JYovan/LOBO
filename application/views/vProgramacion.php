@@ -7,21 +7,21 @@
         </div>
         <div class="card-block">
             <div class="row" style="padding-left: 15px">
-                <div class="col" data-column="12">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" data-column="12">
                     <strong>Maquila</strong>
                     <input type="text" class="form-control form-control-sm  column_filter" id="col12_filter" autofocus>
                 </div>
-                <div class="col" data-column="13">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" data-column="13">
                     <strong>Semana</strong>
                     <input type="text" class="form-control form-control-sm column_filter" id="col13_filter">
                 </div>
-                <div class="col" data-column="14">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" data-column="14">
                     <strong>Año</strong>
                     <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
                 </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
-                    <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                    <button type="button" class="btn btn-primary m-2" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br>Asignar</button>
+                    <button type="button" class="btn btn-danger m-2" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br>Deshacer</button>
                 </div>
             </div>
             <br>

@@ -7,28 +7,16 @@ class ReportesDisDes extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
-        $this->load->model('reportes_disdes_model');
-        $this->load->model('estilos_model');
-        $this->load->model('combinaciones_model');
-        $this->load->model('fraccionesxestilo_model');
-        $this->load->model('piezasymateriales_model');
-        $this->load->helper('reportes_helper');
-        $this->load->helper('file');
-        $this->load->helper('array');
+        $this->load->library('session')
+                ->model('reportes_disdes_model')->model('estilos_model')->model('combinaciones_model')->model('fraccionesxestilo_model')
+                ->helper('reportes_helper')->helper('file')->helper('array');
     }
 
     public function index() {
-
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vReportesDisDes');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vReportesDisDes')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
@@ -42,16 +30,14 @@ class ReportesDisDes extends CI_Controller {
 
     public function getCombinacionesXEstilo() {
         try {
-            extract($this->input->post());
-            print json_encode($this->reportes_disdes_model->getCombinacionesXEstilo($Estilo));
+            print json_encode($this->reportes_disdes_model->getCombinacionesXEstilo($this->input->post('Estilo')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function onImprimirFichaTecnica() {
-        extract($this->input->post());
-        $FichaTecnica = $this->reportes_disdes_model->getFichaTecnicaByEstiloByCombinacion($Estilo, $Combinacion);
+        $FichaTecnica = $this->reportes_disdes_model->getFichaTecnicaByEstiloByCombinacion($this->input->post('Estilo'), $this->input->post('Combinacion'));
         if (!empty($FichaTecnica)) {
             $Encabezado = $FichaTecnica[0];
 //            $pdf = new PDF('P', 'mm', array(215.9/* ANCHO */, 279.4/* ALTURA */));
@@ -442,7 +428,13 @@ class ReportesDisDes extends CI_Controller {
                         /* TOTAL DE LA FAMILIA */
                         /* TITULO DE LA FAMILIA */
                         $pdf->SetXY($posiciones[4], $YY);
-                        $pdf->MultiCell(40, 4, utf8_decode("Consumo total de $f "), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                        if (strlen($f) > 10) {
+                            $pdf->SetXY($posiciones[3] + 40, $YY);
+                            $pdf->MultiCell(55, 3.5, utf8_decode("Consumo total de $f "), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                        } else {
+
+                            $pdf->MultiCell(40, 3.5, utf8_decode("Consumo total de $f "), 0/* BORDER */, 'R'/* ALIGN */, 0/* FILL */);
+                        }
                         /* FIN TITULO DE LA FAMILIA */
 
                         /* CONSUMO TOTAL POR FAMILIA */
@@ -650,7 +642,7 @@ class ReportesDisDes extends CI_Controller {
             $url = $path . '/' . $file_name . '.pdf';
             /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/FichasTecnicas/')) {
-
+                
             }
             $pdf->Output($url);
             print base_url() . $url;

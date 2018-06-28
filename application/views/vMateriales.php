@@ -145,7 +145,7 @@
 
                     <div class="col-sm">
                         <label for="FechaUltimoInventario">Fecha Último Inventario</label>
-                        <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control form-control-sm" placeholder="XX/XX/XXXX" data-provide="datepicker" data-date-format="dd/mm/yyyy" readonly="">
+                        <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control form-control-sm notEnter" placeholder="XX/XX/XXXX">
                     </div>
                     <div class="col-sm">
                         <label for="Existencia">Existencia</label>
@@ -192,6 +192,8 @@
     var nuevo = true;
 
     $(document).ready(function () {
+        
+        pnlDatos.find("#FechaUltimoInventario").inputmask({alias: "date"});
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {
