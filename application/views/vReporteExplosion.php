@@ -72,7 +72,7 @@
                 console.log(data);
                 if (data.length > 0) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'REPORTE GENERADO', 'success');
-                    window.open(data, '_blank');
+                    window.open(data+'?session='+'<?php print $_SESSION["USERNAME"]; ?>', '_blank');
                 } else {
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN DATOS PARA EL REPORTE', 'danger');
                 }

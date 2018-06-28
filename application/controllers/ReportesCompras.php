@@ -107,14 +107,16 @@ class ReportesCompras extends CI_Controller {
                             utf8_decode($v["CLAVE"]),
                             utf8_decode($v["ARTICULO"]),
                             utf8_decode($v["UNIDAD"]),
-                            utf8_decode(number_format($v["EXPLOSION"], 3, '.', ', ')),
-                            "$ " . number_format($v["PRECIO"], 2),
-                            "$ " . number_format($v["SUBTOTAL"], 2),
+                            utf8_decode(number_format($v["EXPLOSION"], 1, '.', ', ')),
+                            "$ " . number_format($v["PRECIO"], 2, '.', ', '),
+                            "$ " . number_format($v["SUBTOTAL"], 2, '.', ', '),
                             '',
                             '',
                             ''));
                         $GranTotal += $v["SUBTOTAL"];
                         $GranTotalExplosion += $v["EXPLOSION"];
+                        $GranGranTotal += $v["SUBTOTAL"];
+                        $GranGranTotalExplosion += $v["EXPLOSION"];
                     }
                 }
                 $pdf->SetX(5);
@@ -123,15 +125,13 @@ class ReportesCompras extends CI_Controller {
                     '',
                     'Totales por grupo',
                     '',
-                    number_format($GranTotalExplosion, 3, '.', ', '),
+                    number_format($GranTotalExplosion, 2, '.', ', '),
                     '',
-                    "$ " . number_format($GranTotal, 2),
+                    "$ " . number_format($GranTotal, 2, '.', ', '),
                     '',
                     '',
                     ''));
                 $GranTotal += $v["SUBTOTAL"];
-                $GranGranTotal += $GranTotal;
-                $GranGranTotalExplosion += $GranTotalExplosion;
             }
             $pdf->SetX(5);
             $pdf->SetFont('Arial', 'B', 7);
@@ -151,7 +151,7 @@ class ReportesCompras extends CI_Controller {
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
-            $file_name = "EXPLOSION DE MATERIALES" . date("Y-m-d His");
+            $file_name = "EXPLOSION DE MATERIALES" . date("dmYhis");
             $url = $path . '/' . $file_name . '.pdf';
             /* Borramos el archivo anterior */
             if (delete_files('uploads/Reportes/Compras/')) {
