@@ -61,7 +61,7 @@ class fraccionesxestilo_model extends CI_Model {
             $this->db->join('sz_Fracciones AS C', 'FXED.Fraccion = C.ID');
             $this->db->join('sz_Departamentos CATD', "CATD.ID = C.DepartamentoCat ");
             $this->db->where('FXED.Estilo', $ID);
-            $this->db->order_by("CATD.Clave", "DESC");
+            //$this->db->order_by("CATD.Clave", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

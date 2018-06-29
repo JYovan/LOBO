@@ -482,6 +482,12 @@
                     {"data": "Tiempo"},
                     {"data": "Eliminar"}
                 ],
+                rowGroup: {
+                    dataSrc: 'Departamento'
+                },
+                "aaSorting": [
+                    [5, 'asc'], [2, 'asc']/*ID*/
+                ],
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api();
                     $(api.column(6).footer()).html(api.column(3, {page: 'current'}).data().reduce(function (a, b) {
@@ -491,9 +497,7 @@
                         return (a) + (b);
                     }, 0));
                 },
-                rowGroup: {
-                    dataSrc: 'Departamento'
-                },
+
                 "dom": 'frt',
                 "autoWidth": true,
                 language: lang,
@@ -503,7 +507,10 @@
                 "deferRender": true,
                 "scrollY": 295,
                 "scrollCollapse": true,
-                "bSort": false
+                "bSort": true,
+                initComplete: function (x, y) {
+                    HoldOn.close();
+                }
 
             });
 
@@ -512,7 +519,7 @@
                 $(this).addClass("success");
             });
         }
-        HoldOn.close();
+
     }
 
 
@@ -596,6 +603,7 @@
                         Estilo[0].selectize.disable();
                         pnlControlesDetalle.find("[name='Departamento']")[0].selectize.focus();
                         pnlDatos.find("[name='Estilo']")[0].selectize.setValue(data[0].Estilo);
+                        getFotoXEstilo(data[0].Estilo);
                         getFraccionesEstiloXEstiloDetalle(temp);
                         pnlTablero.addClass("d-none");
                         pnlDetalle.removeClass('d-none');
