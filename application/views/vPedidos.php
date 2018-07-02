@@ -246,6 +246,11 @@
             <!--REGISTROS DETALLE-->
             <div class="" id="pnlDetalle">
                 <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" align="right">
+                        <button type="button" id="btnModificarDetalle" name="btnModificarDetalle" class="btn btn-warning"  data-toggle="tooltip" data-placement="top" title="Cambiar">
+                            <span class="fa fa-bolt fa-lg"></span>
+                        </button>
+                    </div>
                     <div class=" col-md-12 ">
                         <div align="center"><div class="loader animated fadeIn"></div></div>
                         <div align="center"><strong class="text-danger">*Todas las modificaciones son en tiempo real*</strong></div>
@@ -389,6 +394,49 @@
         </div>
     </div>
 </div>
+<div class="dropdown-menu" style="font-size: 12px;" id='Menu'>
+    <a class="dropdown-item" href="#" onclick="btnModificarDetalle.trigger('click')"><i class="fa fa-bolt fa-lg"></i> Modificar</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#" onclick=""><i class="fa fa-minus-square"></i> Eliminar</a>
+</div>
+
+<div id="ModificarMSD" class="modal">
+    <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Modificar maquila y semana</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <h4>Semana</h4>
+                        <input class="form-control numbersOnly" id="SemanaMSD" maxlength="4" type="text" placeholder="Numero de semana 1-52">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <h4>Maquila</h4>
+                        <input class="form-control numbersOnly" id="MaquilaMSD" type="text" maxlength="4" placeholder="Número de maquila" autofocus>
+                    </div>
+                    <div align="center" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-2">
+                        <h4 class="text-danger">* 0 registros seleccionados*</h4>
+                    </div>
+                    <div class="col-12 text-center">
+                        <h3><span class="badge badge-pill badge-warning m-2">ESTILO - COLOR - SEMANA - MAQUILA</span></h3>
+                    </div>
+                    <div id="Afectados" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row animated flipInX">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnAceptarMSD"><span class="fa fa-check fa-lg"></span>Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--SCRIPT-->
 <script>
     var master_url = base_url + 'index.php/Pedidos/';
@@ -424,10 +472,103 @@
             search: "Buscar:"
         }
     };
+    var btnModificarDetalle = pnlDatos.find("#btnModificarDetalle");
+    var ModificarMSD = $("#ModificarMSD");
+    var btnAceptarMSD = ModificarMSD.find("#btnAceptarMSD");
 
     var _animate_ = {enter: 'animated fadeInLeft', exit: 'animated fadeOutDown'}, _placement_ = {from: "bottom", align: "left"};
     $(document).ready(function () {
 
+        btnAceptarMSD.click(function () {
+            var ctrls = [];
+            $.each(tblPedidosDetalle.find("tbody tr:not(.Serie).selected"), function (k, v) {
+                var dtm = PedidosDetalle.row($(this)).data();
+                if (dtm[0] !== '') {
+                    ctrls.push({ID: dtm[0], SEMANA: dtm[5], MAQUILA: dtm[6]});
+                }
+            });
+            if (ctrls.length > 0) {
+                var semana = ModificarMSD.find("#SemanaMSD").val();
+                var maquila = ModificarMSD.find("#MaquilaMSD").val();
+                if (semana !== '' || maquila !== '') {
+                    swal({
+                        title: "¿Estas seguro?",
+                        text: "Serán afectados los '" + ctrls.length + "' registros y controles correspondientes, una vez completada la acción",
+                        icon: "warning",
+                        buttons: true
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            //MODIFICAR MAQUILA,SEMANA, DESCUENTO
+                            var params = {
+                                rows: JSON.stringify(ctrls),
+                                SEMANA: semana,
+                                MAQUILA: maquila
+                            };
+                            console.log("\n", params, "\n");
+                            $.post(master_url + 'onModificarMSD', params).done(function (data, x, jq) {
+                                console.log("\n", "DATA \n");
+                                console.log(data);
+                                console.log("\n");
+                                ModificarMSD.modal('hide');
+                                getDetalleByID(pnlDatos.find("#ID").val());
+                                swal('ATENCIÓN', 'SE HAN MODIFICADO ' + ctrls.length + ' REGISTROS !', 'success');
+                                onBeep(1);
+                            }).fail(function (x, y, z) {
+                                console.log(x, y, z);
+                            }).always(function () {
+
+                            });
+                        }
+                    });
+                } else {
+                    onBeep(2);
+                    swal('ATENCIÓN', 'NO HA ESPECIFICADO LA SEMANA O MAQUILA', 'warning');
+                }
+            } else {
+                onBeep(2);
+                swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
+            }
+        });
+
+        btnModificarDetalle.click(function () {
+            var rows = tblPedidosDetalle.find("tbody tr.selected");
+            var n = rows.length;
+            if (n > 0) {
+                var span = '';
+                $.each(rows, function (k, v) {
+                    var tds = $(v).find("td:not(.Serie)");
+                    if (!tds.eq(0).hasClass('Serie') && tds.eq(0).text() !== '') {
+                        console.log("\n", tds);
+                        span += '<h3><span class="badge badge-pill badge-primary m-2">' + tds.eq(0).text() + ' - ' + tds.eq(1).text() + ' - ' + tds.eq(2).text() + ' - ' + tds.eq(3).text() + '</span></h3>';
+                        console.log(tds.eq(0).text(), tds.eq(1).text(), tds.eq(2).text(), tds.eq(3).text());
+                    }
+                });
+                onBeep(3);
+                ModificarMSD.find("#SemanaMSD").val('');
+                ModificarMSD.find("#MaquilaMSD").val('');
+                ModificarMSD.find("#Afectados").html(span);
+                ModificarMSD.find("div>h4.text-danger").text('*' + ModificarMSD.find("#Afectados span.badge-primary").length + ' registros seleccionados*');
+                ModificarMSD.modal('show');
+            } else {
+                onBeep(2);
+                swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
+            }
+        });
+
+        $(document).click(function () {
+            $("#Menu").hide();
+        });
+        $('#tblPedidosDetalle').on("contextmenu", function (e) {
+            e.preventDefault();
+            var top = e.pageY;
+            var left = e.pageX - 155;
+            $("#Menu").css({
+                display: "block",
+                top: top,
+                left: left
+            });
+            return false; //blocks default Webbrowser right click menu
+        });
         btnImprimirPedido.click(function () {
             if (temp > 0) {
                 HoldOn.open({
@@ -435,6 +576,7 @@
                     theme: 'sk-cube'
                 });
                 $.get(master_url + 'ImprimirPedido', {ID: temp}).done(function (data) {
+                    onBeep(1);
                     window.open(data, '_blank');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
@@ -687,6 +829,7 @@
             "scrollX": true,
             "scrollCollapse": false,
             keys: true,
+            select: true,
             "bSort": false,
             language: lang,
             "columnDefs": [
@@ -807,7 +950,7 @@
                 $(api.column(29).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
                     var container = '<div class="container">';
                     container += '<div class="row">';
-                    container += '<div class="col-sm"><span class="text-info">Pares</span><br>' + pares;
+                    container += '<div class="col-sm zoomx"><span class="text-info zoomx">Pares</span><br>' + pares;
                     container += '</div>';
                     container += '</div>';//ROW
                     container += '</div>';//CONTAINER
@@ -816,7 +959,7 @@
                 $(api.column(31).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
                     var container = '<div class="container">';
                     container += '<div class="row">';
-                    container += '<div class="col-sm"><span class="text-success">Importe</span><br>$' + $.number(parseFloat(importe), 2, '.', ',');
+                    container += '<div class="col-sm zoomx"><span class="text-success zoomx">Importe</span><br>$' + $.number(parseFloat(importe), 2, '.', ',');
                     container += '</div>';
                     container += '</div>';//ROW
                     container += '</div>';//CONTAINER
@@ -825,7 +968,7 @@
                 $(api.column(32).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
                     var container = '<div class="container">';
                     container += '<div class="row">';
-                    container += '<div class="col-sm"><span class="text-danger">Descuento</span><br>$' + $.number(parseFloat(descuento), 2, '.', ',');
+                    container += '<div class="col-sm zoomx"><span class="text-danger">Descuento</span><br>$' + $.number(parseFloat(descuento), 2, '.', ',');
                     container += '</div>';
                     container += '</div>';//ROW
                     container += '</div>';//CONTAINER
@@ -834,7 +977,7 @@
                 $(api.column(33).footer()).html(api.column(34, {page: 'current'}).data().reduce(function (a, b) {
                     var container = '<div class="container">';
                     container += '<div class="row">';
-                    container += '<div class="col-sm"><span class="text-warning">Total</span><br>$' + $.number(parseFloat(importe) - parseFloat(descuento), 2, '.', ',');
+                    container += '<div class="col-sm zoomx"><span class="text-warning">Total</span><br>$' + $.number(parseFloat(importe) - parseFloat(descuento), 2, '.', ',');
                     container += '</div>';
                     container += '</div>';//ROW
                     container += '</div>';//CONTAINER
@@ -864,6 +1007,70 @@
                     });
                     //FIN DETALLE X SERIE
                 });
+                $.each($('#tblPedidosDetalle > tbody tr'), function (k, v) {
+                    //EN EL INDICE 2 (VISIBLE) SE ENCUENTRA LA MAQUILA
+                    $(this).find("td:not(.Serie):eq(2)").on('dblclick', function () {
+                        var cell = $(this);
+                        var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.text() + '" autofocus>';
+                        cell.html(g).find("#Editor").focus().select();
+                        cell.find("#Editor").focusout(function (e) {
+                            var v = $(this).val();
+                            cell.html(v);
+                        });
+                        cell.find("#Editor").keyup(function (e) {
+                            console.log(e.keyCode);
+                            if (e.keyCode === 13) {
+                                var tr = $(this).parent().parent();
+                                var td = $(this).parent();
+                                var indice = td.index() + 3;//SE SUMAN 3 POR EL NUMERO DE CELDAS OCULTAS, YA QUE EN ESTE MOMENTO DE LA APP SU INDICE VISIBLE ES 2 Y EL INDICE CON LOS CAMPOS OCULTOS ES 5
+                                var v = $(this).val();
+                                cell.html(v);
+                                PedidosDetalle.cell(td, indice).data(v).draw();
+                                var row = PedidosDetalle.row(tr).data();
+                                console.log("VALOR: ", v, ",INDICE: ", indice, ", ", row);
+                                $.post(master_url + 'onModificarPedidoDetalle', {ID: row[0], CELDA: 'SEMANA', SEMANA: row[5], MAQUILA: row[6]}).done(function (data, x, jq) {
+                                    console.log("\n", data, " \n");
+                                    onNotify('<span class="fa fa-check"></span>', 'SE HA MODIFICADO LA SEMANA', 'success');
+                                }).fail(function (x, y, z) {
+                                    console.log('ERROR', x, y, z);
+                                }).always(function () {
+                                    console.log('DATOS ACTUALIZADOS');
+                                });
+                            }
+                        });
+                    });
+                    //EN EL INDICE 3 (VISIBLE) SE ENCUENTRA LA SEMANA
+                    $(this).find("td:not(.Serie):eq(3)").on('dblclick', function () {
+                        var cell = $(this);
+                        var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.text() + '" autofocus>';
+                        cell.html(g).find("#Editor").focus().select();
+                        cell.find("#Editor").focusout(function (e) {
+                            var v = $(this).val();
+                            cell.html(v);
+                        });
+                        cell.find("#Editor").keyup(function (e) {
+                            console.log(e.keyCode);
+                            if (e.keyCode === 13) {
+                                var tr = $(this).parent().parent();
+                                var td = $(this).parent();
+                                var indice = td.index() + 3;//SE SUMAN 4 POR EL NUMERO DE CELDAS OCULTAS, YA QUE EN ESTE MOMENTO DE LA APP SU INDICE VISIBLE ES 3 Y EL INDICE CON LOS CAMPOS OCULTOS ES 6
+                                var v = $(this).val();
+                                cell.html(v);
+                                PedidosDetalle.cell(td, indice).data(v).draw();
+                                var row = PedidosDetalle.row(tr).data();
+                                console.log('ROW MAQ ', row[6], row[5], "\n", row);
+                                $.post(master_url + 'onModificarPedidoDetalle', {ID: row[0], CELDA: 'MAQUILA', MAQUILA: row[6], SEMANA: row[5]}).done(function (data, x, jq) {
+                                    console.log("\n", data, " \n");
+                                    onNotify('<span class="fa fa-check"></span>', 'SE HA MODIFICADO LA MAQUILA', 'success');
+                                }).fail(function (x, y, z) {
+                                    console.log('ERROR', x, y, z);
+                                }).always(function () {
+                                    console.log('DATOS ACTUALIZADOS');
+                                });
+                            }
+                        });
+                    });
+                });
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
             }).always(function () {
@@ -878,6 +1085,7 @@
         }).always(function () {
             HoldOn.close();
         });
+
         PedidosDetalle.on('key', function (e, datatable, key, cell, originalEvent) {
             var t = $('#tblPedidosDetalle > tbody');
             var a = t.find("#Editor");
@@ -904,9 +1112,10 @@
                     var porcentaje = (getNumberFloat(cell.data()) / importe) * 100;
                     var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="2" value="' + porcentaje + '"  autofocus>';
                     td.html(g).find("#Editor").focus().select();
-                } else {
+                } else if (td.find(":not(.Semana):not(.Maquila)")) {
                     var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.data() + '" autofocus>';
                     td.html(g).find("#Editor").focus().select();
+
                 }
             }
         }).on('key-blur', function (e, datatable, cell) {
@@ -918,25 +1127,7 @@
                 var d = a.parent();
                 var row = PedidosDetalle.row($(d).parent()).data();// SOLO OBTENDRA EL ID
                 var params;
-                if (d.hasClass('Semana')) {
-                    d.html(c);
-                    PedidosDetalle.cell(d, b).data(c).draw();
-                    //SHORT POST
-                    params = {
-                        ID: row[0],
-                        CELDA: 'SEMANA',
-                        VALOR: c
-                    };
-                } else if (d.hasClass('Maquila')) {
-                    d.html(c);
-                    PedidosDetalle.cell(d, b).data(c).draw();
-                    //SHORT POST
-                    params = {
-                        ID: row[0],
-                        CELDA: 'MAQUILA',
-                        VALOR: c
-                    };
-                } else if (d.hasClass('Cantidades')) {
+                if (d.hasClass('Cantidades')) {
                     d.html(c);
                     PedidosDetalle.cell(d, b).data(c).draw();
                     //SHORT POST
@@ -984,6 +1175,7 @@
                     };
                 }
                 $.post(master_url + 'onModificarPedidoDetalle', params).done(function (data, x, jq) {
+                    console.log("\n", data, " \n");
                 }).fail(function (x, y, z) {
                     console.log('ERROR', x, y, z);
                 }).always(function () {
@@ -1473,6 +1665,19 @@
         -webkit-transform: scale(1.75);
         transform: scale(1.75);
     }
+    .zoomx{
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
+    .zoomx:hover{ 
+        z-index:1;
+        cursor: pointer;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: #fff !important;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+    }
 
     .loader {
         border: 16px solid #f3f3f3;
@@ -1516,31 +1721,34 @@
     table tr  td > input[name^="T"].numbersOnly ,table tr  td > input[name^="C"].numbersOnly  {
         width: 35px !important;
     } 
-/*    td:hover {
-        position: relative; 
-        background-color: #ffcc00 !important;
-        font-weight: bold;
-        font-size: 12px;
-        color:  #000 !important;
+    table > tfoot > tr th{
+        border: 1px solid #fff;
     }
-    tr:hover td{
-        -webkit-transition: all 0s ease-in-out;
-        transition: all 0s ease-in-out;
-        background-color: #000;
-        color: #fff;
-    }
-    td{
-        -webkit-transition: all .5s ease-in-out;
-        transition: all .5s ease-in-out;
-    }
-    .overlay{
-        background-color: #000 !important; 
-    }
-    .overlay a:hover, .overlay a:focus {
-        background-color: transparent !important;
-        color: #ffcc00 !important;
-    }
-    .bg-primary {
-        background-color: #000000 !important;
-    }*/
+    /*    td:hover {
+            position: relative; 
+            background-color: #ffcc00 !important;
+            font-weight: bold;
+            font-size: 12px;
+            color:  #000 !important;
+        }
+        tr:hover td{
+            -webkit-transition: all 0s ease-in-out;
+            transition: all 0s ease-in-out;
+            background-color: #000;
+            color: #fff;
+        }
+        td{
+            -webkit-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+        }
+        .overlay{
+            background-color: #000 !important; 
+        }
+        .overlay a:hover, .overlay a:focus {
+            background-color: transparent !important;
+            color: #ffcc00 !important;
+        }
+        .bg-primary {
+            background-color: #000000 !important;
+        }*/
 </style>

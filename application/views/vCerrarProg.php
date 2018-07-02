@@ -323,6 +323,7 @@
             processData: false,
             data: f
         }).done(function (data, x, jq) {
+            console.log(data)
             swal('INFO', 'SE HAN ' + (i > 0 ? 'MARCADO' : 'DESMARCADO') + ' LOS REGISTROS', 'success');
             CerrarProg.ajax.reload();
         }).fail(function (x, y, z) {

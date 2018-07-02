@@ -47,17 +47,20 @@ class cerrarprog_model extends CI_Model {
         }
     }
 
-    public function getMaximoConsecutivo($M, $S) {
+    public function getMaximoConsecutivo($M, $S, $ID) {
         try {
-            return $this->db->select('CASE WHEN CT.ctCons IS NULL THEN 1 ELSE CT.ctCons+1 END AS MAX', false)->from('sz_PedidosDetalle AS PD')
+             $this->db->select('CASE WHEN CT.ctCons IS NULL THEN 1 ELSE CT.ctCons+1 END AS MAX', false)->from('sz_PedidosDetalle AS PD')
                             ->join('sz_Pedidos AS PE', 'PD.Pedido = PE.ID')->join('sz_Clientes AS CL', 'CL.ID = PE.Cliente')
                             ->join('sz_Estilos AS E', 'PD.Estilo = E.ID')->join('sz_Combinaciones AS C', 'PD.Combinacion = C.ID')
                             ->join('sz_series AS S', 'E.Serie = S.ID')
                             ->join('sz_Controles AS CT', 'CT.PedidoDetalle = PD.ID', 'left')
-                            ->where('PD.McaControl', 1)->where('PD.Maq', $M)->where('PD.Sem', $S)
-                            ->order_by('CT.ctCons', 'DESC')
-                            ->limit(1)
-                            ->get()->result();
+                            ->where('PD.McaControl', 1)->where('PD.Maq', $M)->where('PD.Sem', $S);
+            if ($ID > 0) {
+                $this->db->where_not_in('PD.ID', array($ID));
+            }
+           return $this->db->order_by('CT.ctCons', 'DESC')
+                    ->limit(1)
+                    ->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

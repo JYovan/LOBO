@@ -36,7 +36,7 @@ class CerrarProg extends CI_Controller {
                             $Y = substr(Date('Y'), 2);
                             $M = str_pad($v->Maquila, 2, '0', STR_PAD_LEFT);
                             $S = str_pad($v->Semana, 2, '0', STR_PAD_LEFT);
-                            $C = str_pad($this->cerrarprog_model->getMaximoConsecutivo($M, $S)[0]->MAX, 3, '0', STR_PAD_LEFT);
+                            $C = str_pad($this->cerrarprog_model->getMaximoConsecutivo($M, $S, 0)[0]->MAX, 3, '0', STR_PAD_LEFT);
                             $this->cerrarprog_model->onAgregarControl(array(
                                 'Control' => $Y . $M . $S . $C,
                                 'FechaProg' => Date('d/m/Y h:i:s a'),
@@ -60,4 +60,5 @@ class CerrarProg extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }
