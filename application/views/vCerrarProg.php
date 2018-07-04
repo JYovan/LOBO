@@ -19,9 +19,10 @@
                 <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
             </div>
             <div class="col-12 col-sm-6 col-lg-3 mt-3">
-                <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
+                <button type="button" class="btn btn-primary m-2" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
                 <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
-                <button type="button" class="btn btn-info" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
+                <button type="button" class="btn btn-info m-2" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
+                <button type="button" class="btn btn-warning" id="btnHistorialDeControles" data-toggle="tooltip" data-placement="top" title="Historial"><span class="fa fa-history"></span><br></button>
             </div>
         </div>
         <br>
@@ -87,6 +88,8 @@
     var btnAsignar = $("#btnAsignar");
     var btnDeshacer = $("#btnDeshacer");
     var btnReload = $("#btnReload");
+    var btnHistorialDeControles = $("#btnHistorialDeControles");
+
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -96,6 +99,11 @@
         // Listen for the jQuery ready event on the document
         $(function () {
             getRecords();
+
+            btnHistorialDeControles.click(function () {
+
+            });
+
             btnReload.click(function () {
                 CerrarProg.ajax.reload();
             });
@@ -305,7 +313,7 @@
         });
         var subcontroles = [];
         $.each((i <= 1) ? tblCerrarProg.find("tbody tr.selected:not(.HasMca)") : tblCerrarProg.find("tbody tr.selected.HasMca"), function (k, v) {
-            var r = CerrarProg.row($(this)).data(); 
+            var r = CerrarProg.row($(this)).data();
             subcontroles.push({
                 ID: r.ID, Estilo: r.IdEstilo, Color: r.IdColor, Serie: r.SerieID,
                 Cliente: r.Cliente, Pares: r.Pares, Pedido: r.ID_PEDIDO, PedidoDetalle: r.ID,
@@ -331,6 +339,10 @@
         }).always(function () {
             HoldOn.close();
         });
+    }
+    
+    function getHistorialDeControles(){
+        
     }
 </script>
 <style>
@@ -361,5 +373,77 @@
         z-index: 1;
         background: #0099cc;
         color: #fff; 
+    }
+    .btn-primary{ 
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+        animation-name: example;
+        animation-duration: 4s;
+        /* padding: 30px 40px 30px 40px;
+         border-radius: 100px;*/
+        border-color:#2C3E50;
+        border-bottom-width: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        animation-iteration-count: infinite; 
+    }
+    .btn-primary:active{
+        background-color: #2384c6;
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        margin-top: 10px;  
+    }
+    .btn-danger{ 
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+        animation-name: example;
+        animation-duration: 4s;
+        /* padding: 30px 40px 30px 40px;
+         border-radius: 100px;*/
+        border-color: #e12e1c;
+        border-bottom-width: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        animation-iteration-count: infinite; 
+    }
+    .btn-danger:active{
+        background-color: #2384c6;
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        margin-top: 10px;  
+    }
+    .btn-info{ 
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+        animation-name: example;
+        animation-duration: 4s;
+        /* padding: 30px 40px 30px 40px;
+         border-radius: 100px;*/
+        border-color: #2384c6;
+        border-bottom-width: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        animation-iteration-count: infinite; 
+    }
+    .btn-info:active{
+        background-color: #2384c6;
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        margin-top: 10px;  
+    }
+    .btn-warning{ 
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+        animation-name: example;
+        animation-duration: 4s;
+        /* padding: 30px 40px 30px 40px;
+         border-radius: 100px;*/
+        border-color: #d08f29;
+        border-bottom-width: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        animation-iteration-count: infinite; 
+    }
+    .btn-warning:active{
+        background-color: #F39C12;
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        margin-top: 10px;  
     }
 </style>

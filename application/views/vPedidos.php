@@ -1724,31 +1724,16 @@
     table > tfoot > tr th{
         border: 1px solid #fff;
     }
-    /*    td:hover {
-            position: relative; 
-            background-color: #ffcc00 !important;
-            font-weight: bold;
-            font-size: 12px;
-            color:  #000 !important;
-        }
-        tr:hover td{
-            -webkit-transition: all 0s ease-in-out;
-            transition: all 0s ease-in-out;
-            background-color: #000;
-            color: #fff;
-        }
-        td{
-            -webkit-transition: all .5s ease-in-out;
-            transition: all .5s ease-in-out;
-        }
-        .overlay{
-            background-color: #000 !important; 
-        }
-        .overlay a:hover, .overlay a:focus {
-            background-color: transparent !important;
-            color: #ffcc00 !important;
-        }
-        .bg-primary {
-            background-color: #000000 !important;
-        }*/
+  
+    .btn-warning{
+        border-color: #d08f29;
+        border-bottom-width: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
+    }
+    .btn-warning:active {
+        background-color: #F39C12;
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        margin-top: 10px;  
+    }
 </style>

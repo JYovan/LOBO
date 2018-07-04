@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CerrarProg extends CI_Controller {
@@ -52,6 +51,16 @@ class CerrarProg extends CI_Controller {
                     break;
                 case 2:
                     foreach ($controles as $k => $v) {
+                        $this->cerrarprog_model->onAgregarHistorialControl(array(
+                            'Control' => $Y . $M . $S . $C,
+                            'FechaProg' => Date('d/m/Y h:i:s a'),
+                            'Estilo' => $v->Estilo, 'Color' => $v->Color,
+                            'Serie' => $v->Serie, 'Cliente' => $v->Cliente,
+                            'Pares' => $v->Pares, 'Pedido' => $v->Pedido,
+                            'PedidoDetalle' => $v->PedidoDetalle,
+                            'Estatus' => 'A', 'EstatusDepto' => 1,
+                            'ctAno' => $Y, 'ctMaq' => $M, 'ctSem' => $S, 'ctCons' => $C
+                        ));
                         $this->db->where('Pedido', $v->Pedido)->where('PedidoDetalle', $v->PedidoDetalle)->delete('sz_Controles');
                     }
                     break;
@@ -60,5 +69,4 @@ class CerrarProg extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }
