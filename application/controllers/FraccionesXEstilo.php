@@ -11,6 +11,8 @@ class FraccionesXEstilo extends CI_Controller {
         $this->load->model('estilos_model');
         $this->load->model('fracciones_model');
         $this->load->model('departamentos_model');
+        $this->load->model('puestos_model');
+        $this->load->model('maquinaria_model');
     }
 
     public function index() {
@@ -39,6 +41,26 @@ class FraccionesXEstilo extends CI_Controller {
         try {
             extract($this->input->post());
             $data = $this->departamentos_model->getDepartamentos();
+            print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getPuestos() {
+        try {
+            extract($this->input->post());
+            $data = $this->puestos_model->getPuestos();
+            print json_encode($data);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getMaquinaria() {
+        try {
+            extract($this->input->post());
+            $data = $this->maquinaria_model->getMaquinaria();
             print json_encode($data);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -111,13 +133,17 @@ class FraccionesXEstilo extends CI_Controller {
         try {
             $data = array(
                 'Estilo' => ($this->input->post('Estilo') !== NULL) ? $this->input->post('Estilo') : NULL,
-                'Combinacion' => ($this->input->post('Combinacion') !== NULL) ? $this->input->post('Combinacion') : NULL,
-                'Pieza' => ($this->input->post('Pieza') !== NULL) ? $this->input->post('Pieza') : NULL,
-                'Material' => ($this->input->post('Material') !== NULL) ? $this->input->post('Material') : NULL,
-                'Precio' => ($this->input->post('Precio') !== NULL) ? $this->input->post('Precio') : 0,
-                'Consumo' => ($this->input->post('Consumo') !== NULL) ? $this->input->post('Consumo') : 0,
-                'TipoPiel' => ($this->input->post('TipoPiel') !== NULL) ? $this->input->post('TipoPiel') : NULL,
-                'PzXPar' => ($this->input->post('PzXPar') !== NULL) ? $this->input->post('PzXPar') : NULL,
+                'Fecha' => ($this->input->post('Fecha') !== NULL) ? $this->input->post('Fecha') : NULL,
+                'TiempoEstandarE' => ($this->input->post('TiempoEstandarE') !== NULL) ? $this->input->post('TiempoEstandarE') : NULL,
+                'Fraccion' => ($this->input->post('Fraccion') !== NULL) ? $this->input->post('Fraccion') : NULL,
+                'Maquinaria' => ($this->input->post('Maquinaria') !== NULL) ? $this->input->post('Maquinaria') : NULL,
+                'Puesto' => ($this->input->post('Puesto') !== NULL) ? $this->input->post('Puesto') : NULL,
+                'TiempoEstandarD' => ($this->input->post('TiempoEstandarD') !== NULL) ? $this->input->post('TiempoEstandarD') : 0,
+                'Eficiencia' => ($this->input->post('Eficiencia') !== NULL) ? $this->input->post('Eficiencia') : 0,
+                'TiempoReal' => ($this->input->post('TiempoReal') !== NULL) ? $this->input->post('TiempoReal') : 0,
+                'CostoFraccionManoObra' => ($this->input->post('CostoFraccionManoObra') !== NULL) ? $this->input->post('CostoFraccionManoObra') : 0,
+                'CostoFraccionVentas' => ($this->input->post('CostoFraccionVentas') !== NULL) ? $this->input->post('CostoFraccionVentas') : 0,
+                'SueldoBase' => ($this->input->post('SueldoBase') !== NULL) ? $this->input->post('SueldoBase') : 0,
                 'Estatus' => 'ACTIVO'
             );
             $ID = $this->fraccionesxestilo_model->onAgregar($data);
@@ -127,7 +153,7 @@ class FraccionesXEstilo extends CI_Controller {
         }
     }
 
-    public function onModificarDetalle() {
+    public function onEditarFraccionesEstiloDetalle() {
         try {
             extract($this->input->post());
             unset($_POST['ID']);

@@ -85,6 +85,9 @@
 
 
         $(function () {
+
+            $(".date").inputmask({alias: "date"});
+
             $('.money').maskMoney({prefix: '$', allowNegative: false, thousands: ',', decimal: '.', affixesStay: false});
             // $(".btn").addClass("animated shake");
             $("table.display").DataTable(tableOptions);
