@@ -48,7 +48,23 @@ class cerrarprog_model extends CI_Model {
     }
     public function getHistorialDeControles() {
         try {
-            return $this->db->select('HC.', false)->from('sz_HistorialControles AS HC')->get()->result();
+            return $this->db->select('HC.ID AS ID, '
+                    . 'HC.Estilo AS IdEstilo,'
+                    . 'HC.Color AS IdColor,'
+                    . 'HC.Pedido AS Pedido,'
+                    . 'CONCAT(HC.ClaveCliente,\' \',HC.ClienteRazon) AS Cliente,'
+                    . 'HC.EstiloDescripcion AS Estilo,'
+                    . 'HC.ColorDescripcion AS Color, '
+                    . 'HC.Serie AS Serie, '
+                    . 'HC.FechaCaptura AS "Fecha Captura",'
+                    . 'HC.FechaPedido AS "Fecha Pedido", '
+                    . 'HC.FechaEntrega AS "Fecha Entrega",'
+                    . 'HC.Pares AS Pares, '
+                    . 'HC.Maquila AS Maquila, '
+                    . 'HC.Semana AS Semana,'
+                    . 'HC.Ano AS Anio, '
+                    . 'HC.Control AS Control', false)
+                    ->from('sz_HistorialControles AS HC')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

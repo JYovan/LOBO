@@ -64,27 +64,29 @@ class CerrarProg extends CI_Controller {
                         print_r($v);
                         print "\n";
                         $this->cerrarprog_model->onAgregarHistorialControl(array(
-                            'Control' => $v->Control,   
-                            'Estilo' => $v->Estilo, 
-                            'EstiloDescripcion' => $v->DescripcionEstilo, 
+                            'Control' => $v->Control,
+                            'Estilo' => $v->Estilo,
+                            'EstiloDescripcion' => $v->DescripcionEstilo,
                             'Color' => $v->Color,
                             'ColorDescripcion' => $v->ColorDescripcion,
-                            'Pedido'=>$v->Pedido,
-                            'FechaPedido'=>$v->FechaPedido,
-                            'FechaEntregaRecepcion'=>$v->FechaEntregaRecepcion,
-                            'FechaCaptura'=>$v->FechaCaptura,
-                            'Semana'=>$v->Semana,
-                            'Maquila'=>$v->Maquila,
-                            'ClaveCliente'=>$v->ClaveCliente,
-                            'ClienteRazon'=>$v->ClienteRazon,
-                            'Pares'=>$v->Pares,
-                            'Precio'=>$v->Precio,
-                            'Importe'=>$v->Importe,
-                            'Descuento'=>$v->Descuento,
-                            'FechaEntrega'=>$v->FechaEntrega,
-                            'Serie'=>$v->Serie,
-                            'Ano'=>$v->Ano,
-                            'Marca'=>$v->Marca
+                            'Pedido' => $v->PedidoID,
+                            'FechaPedido' => $v->FechaPedido,
+                            'FechaEntregaRecepcion' => $v->FechaEntregaRecepcion,
+                            'FechaCaptura' => $v->FechaCaptura,
+                            'Semana' => $v->Semana,
+                            'Maquila' => $v->Maquila,
+                            'ClaveCliente' => $v->ClaveCliente,
+                            'ClienteRazon' => $v->ClienteRazon,
+                            'Pares' => $v->Pares,
+                            'Precio' => $v->Precio,
+                            'Importe' => $v->Importe,
+                            'Descuento' => $v->Descuento,
+                            'FechaEntrega' => $v->FechaEntrega,
+                            'Serie' => $v->Serie,
+                            'Ano' => $v->Ano,
+                            'Marca' => $v->Marca,
+                            'FechaEliminacion' => Date('d/m/Y h:i:s a'),
+                            'Usuario' => $_SESSION["USERNAME"]
                         ));
                         $this->db->where('Pedido', $v->Pedido)->where('PedidoDetalle', $v->PedidoDetalle)->delete('sz_Controles');
                     }

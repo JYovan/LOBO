@@ -115,7 +115,6 @@
                                 <th>Año</th><!--15-->
 
                                 <th>Control</th>
-                                <th>SerieID</th><!--17-->
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -468,16 +467,6 @@
                             "targets": [2],
                             "visible": false,
                             "searchable": false
-                        },
-                        {
-                            "targets": [16],
-                            "visible": false,
-                            "searchable": false
-                        },
-                        {
-                            "targets": [17],
-                            "visible": false,
-                            "searchable": false
                         }],
                     "columns": [
                         {"data": "ID"}, /*0*/
@@ -492,12 +481,10 @@
                         {"data": "Fecha Pedido"}, /*9*/
                         {"data": "Fecha Entrega"}, /*10*/
                         {"data": "Pares"}, /*11*/
-                        {"data": "Maq"}, /*12*/
+                        {"data": "Maquila"}, /*12*/
                         {"data": "Semana"}, /*13*/
                         {"data": "Anio"}, /*14*/
-                        {"data": "Control"}, /*15*/
-                        {"data": "SerieID"}/*16*/,
-                        {"data": "ID_PEDIDO"}/*17*/
+                        {"data": "Control"} /*15*/
                     ],
                     language: lang,
                     select: true,
