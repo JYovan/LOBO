@@ -373,30 +373,31 @@
         $.each((i <= 1) ? tblCerrarProg.find("tbody tr.selected:not(.HasMca)") : tblCerrarProg.find("tbody tr.selected.HasMca"), function (k, v) {
             var r = CerrarProg.row($(this)).data();
             subcontroles.push({
-                ID: r.ID, 
-                Estilo: r.IdEstilo, 
-                Color: r.IdColor, 
+                ID: r.ID,
+                Estilo: r.IdEstilo,
+                Color: r.IdColor,
                 Serie: r.SerieID,
-                Cliente: r.Cliente, 
-                Pares: r.Pares, 
-                Pedido: r.ID_PEDIDO, 
+                SerieT: r.Serie,
+                Cliente: r.Cliente,
+                Pares: r.Pares,
+                Pedido: r.ID_PEDIDO,
                 PedidoDetalle: r.ID,
-                Maquila: r.Maq, 
-                Semana: r.Semana, 
+                Maquila: r.Maq,
+                Semana: r.Semana,
                 Control: r.Control,
                 DescripcionEstilo: r["Descripcion Estilo"],
                 ColorDescripcion: r["Descripcion Color"],
                 PedidoID: r.Pedido,
                 FechaPedido: r["Fecha Pedido"],
-                FechaEntregaRecepcion : r["Fecha Entrega"],
-                FechaCaptura:r["Fecha Captura"],
+                FechaEntregaRecepcion: r["Fecha Entrega"],
+                FechaCaptura: r["Fecha Captura"],
                 ClaveCliente: r.Cliente,
-                ClienteRazon:r["Cliente Razon"],
-                Precio:r.Precio,
+                ClienteRazon: r["Cliente Razon"],
+                Precio: r.Precio,
                 Importe: r.Importe,
                 Descuento: r.Desc,
                 FechaEntrega: r.Entrega,
-                Ano:r.Anio,
+                Ano: r.Anio,
                 Marca: r.Marca
             });
             console.log("\n * ROW * \n", r, "\n * FIN ROW* \n");
@@ -418,7 +419,7 @@
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
-        HoldOn.close();
+            HoldOn.close();
         });
     }
 

@@ -82,7 +82,7 @@ class CerrarProg extends CI_Controller {
                             'Importe' => $v->Importe,
                             'Descuento' => $v->Descuento,
                             'FechaEntrega' => $v->FechaEntrega,
-                            'Serie' => $v->Serie,
+                            'Serie' => $v->SerieT,
                             'Ano' => $v->Ano,
                             'Marca' => $v->Marca,
                             'FechaEliminacion' => Date('d/m/Y h:i:s a'),
