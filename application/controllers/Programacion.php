@@ -36,7 +36,7 @@ class Programacion extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-     
+
     public function onModificarMSD() {
         try {
             $rows = json_decode($this->input->post('rows'), false);
@@ -56,7 +56,7 @@ class Programacion extends CI_Controller {
                         $FMAX = $MAX[0]->MAX;
                     }
                     $C = str_pad($FMAX, 3, '0', STR_PAD_LEFT);
-                    $this->db->set('ctSem', $S)->set('ctCons', $C)->set('Control', $Y . $M . $S . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
+                    $this->db->set('ctSem', $S)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
                     $this->db->set('Sem', $S)->where('ID', $v->ID)->update('sz_PedidosDetalle');
                 }
                 if ($this->input->post("MAQUILA") !== '') {
@@ -73,7 +73,7 @@ class Programacion extends CI_Controller {
                         $FMAX = $MAX[0]->MAX;
                     }
                     $C = str_pad($FMAX, 3, '0', STR_PAD_LEFT);
-                    $this->db->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $M . $S . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
+                    $this->db->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
                     $this->db->set('Maq', $M)->where('ID', $v->ID)->update('sz_PedidosDetalle');
                 }
             }
@@ -81,5 +81,4 @@ class Programacion extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }

@@ -46,7 +46,7 @@ class CerrarProg extends CI_Controller {
                             $S = str_pad($v->Semana, 2, '0', STR_PAD_LEFT);
                             $C = str_pad($this->cerrarprog_model->getMaximoConsecutivo($M, $S, 0)[0]->MAX, 3, '0', STR_PAD_LEFT);
                             $this->cerrarprog_model->onAgregarControl(array(
-                                'Control' => $Y . $M . $S . $C,
+                                'Control' => $Y . $S . $M . $C,
                                 'FechaProg' => Date('d/m/Y h:i:s a'),
                                 'Estilo' => $v->Estilo, 'Color' => $v->Color,
                                 'Serie' => $v->Serie, 'Cliente' => $v->Cliente,
