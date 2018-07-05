@@ -46,6 +46,13 @@ class cerrarprog_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+    public function getHistorialDeControles() {
+        try {
+            return $this->db->select('HC.', false)->from('sz_HistorialControles AS HC')->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function getMaximoConsecutivo($M, $S, $ID) {
         try {
@@ -81,5 +88,4 @@ class cerrarprog_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
 }

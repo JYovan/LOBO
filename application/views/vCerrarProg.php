@@ -19,9 +19,9 @@
                 <input type="text" class="form-control form-control-sm column_filter" id="col14_filter">
             </div>
             <div class="col-12 col-sm-6 col-lg-3 mt-3">
-                <button type="button" class="btn btn-primary m-2" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
+                <button type="button" class="btn btn-primary" id="btnAsignar" data-toggle="tooltip" data-placement="top" title="Asignar"><span class="fa fa-check"></span><br></button>
                 <button type="button" class="btn btn-danger" id="btnDeshacer" data-toggle="tooltip" data-placement="top" title="Deshacer"><span class="fa fa-undo"></span><br></button>
-                <button type="button" class="btn btn-info m-2" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
+                <button type="button" class="btn btn-info" id="btnReload" data-toggle="tooltip" data-placement="top" title="Refrescar"><span class="fa fa-exchange-alt"></span><br></button>
                 <button type="button" class="btn btn-warning" id="btnHistorialDeControles" data-toggle="tooltip" data-placement="top" title="Historial"><span class="fa fa-history"></span><br></button>
             </div>
         </div>
@@ -81,14 +81,64 @@
         </div>
     </div>
 </div>
+
+<div id="mdlHistorial" class="modal modal-fullscreen">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Historial de controles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="Historial" class="table-responsive">
+                    <table id="tblHistorial" class="table table-sm display hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th><!--0-->
+                                <th>IdEstilo</th>
+                                <th>IdColor</th>
+                                <th>Pedido</th>
+                                <th>Cliente</th><!--5-->
+
+                                <th>Estilo</th><!--6-->
+                                <th>Color</th>
+                                <th>Serie</th>
+                                <th>Fecha</th>
+                                <th>Fe - Pe</th><!--10-->
+
+                                <th>Fe - En</th><!--11-->
+                                <th>Pars</th>
+                                <th>Maq</th>
+                                <th>Sem</th>
+                                <th>Año</th><!--15-->
+
+                                <th>Control</th>
+                                <th>SerieID</th><!--17-->
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var master_url = base_url + 'index.php/CerrarProg/';
-    var CerrarProg;
+    var CerrarProg, Historial;
     var tblCerrarProg = $('#tblCerrarProg');
     var btnAsignar = $("#btnAsignar");
     var btnDeshacer = $("#btnDeshacer");
     var btnReload = $("#btnReload");
     var btnHistorialDeControles = $("#btnHistorialDeControles");
+    var mdlHistorial = $("#mdlHistorial");
+    var tblHistorial = mdlHistorial.find('#tblHistorial');
 
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
@@ -100,13 +150,22 @@
         $(function () {
             getRecords();
 
-            btnHistorialDeControles.click(function () {
+            $(".btn").click(function () {
+                onBeep(1);
+            });
 
+            btnHistorialDeControles.click(function () {
+                mdlHistorial.modal('show');
+            });
+
+            mdlHistorial.on('shown.bs.modal', function () {
+                getHistorialDeControles();
             });
 
             btnReload.click(function () {
                 CerrarProg.ajax.reload();
             });
+
             btnDeshacer.click(function () {
                 if (tblCerrarProg.find("tbody tr.HasMca.selected").length > 0) {
                     onBeep(1);
@@ -315,10 +374,33 @@
         $.each((i <= 1) ? tblCerrarProg.find("tbody tr.selected:not(.HasMca)") : tblCerrarProg.find("tbody tr.selected.HasMca"), function (k, v) {
             var r = CerrarProg.row($(this)).data();
             subcontroles.push({
-                ID: r.ID, Estilo: r.IdEstilo, Color: r.IdColor, Serie: r.SerieID,
-                Cliente: r.Cliente, Pares: r.Pares, Pedido: r.ID_PEDIDO, PedidoDetalle: r.ID,
-                Maquila: r.Maq, Semana: r.Semana, Control: r.Control
+                ID: r.ID, 
+                Estilo: r.IdEstilo, 
+                Color: r.IdColor, 
+                Serie: r.SerieID,
+                Cliente: r.Cliente, 
+                Pares: r.Pares, 
+                Pedido: r.ID_PEDIDO, 
+                PedidoDetalle: r.ID,
+                Maquila: r.Maq, 
+                Semana: r.Semana, 
+                Control: r.Control,
+                DescripcionEstilo: r["Descripcion Estilo"],
+                ColorDescripcion: r["Descripcion Color"],
+                PedidoID: r.Pedido,
+                FechaPedido: r["Fecha Pedido"],
+                FechaEntregaRecepcion : r["Fecha Entrega"],
+                FechaCaptura:r["Fecha Captura"],
+                ClaveCliente: r.Cliente,
+                ClienteRazon:r["Cliente Razon"],
+                Precio:r.Precio,
+                Importe: r.Importe,
+                Descuento: r.Desc,
+                FechaEntrega: r.Entrega,
+                Ano:r.Anio,
+                Marca: r.Marca
             });
+            console.log("\n * ROW * \n", r, "\n * FIN ROW* \n");
         });
         var f = new FormData();
         f.append('Marca', i);
@@ -337,12 +419,131 @@
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {
-            HoldOn.close();
+        HoldOn.close();
         });
     }
-    
-    function getHistorialDeControles(){
-        
+
+    function getHistorialDeControles() {
+        $.fn.dataTable.ext.errMode = 'throw';
+        if ($.fn.DataTable.isDataTable('#tblHistorial')) {
+            if (Historial !== undefined) {
+                Historial.clear().draw();
+                Historial.ajax.reload();
+            } else {
+                tblHistorial.DataTable().destroy();
+                Historial = tblHistorial.DataTable({
+                    dom: 'Brt',
+                    buttons: [
+                        {
+                            text: "Todos",
+                            className: 'btn btn-info btn-sm',
+                            titleAttr: 'Todos',
+                            action: function (dt) {
+                                Historial.rows({page: 'current'}).select();
+                            }
+                        },
+                        {
+                            extend: 'selectNone',
+                            className: 'btn btn-info btn-sm',
+                            text: 'Ninguno',
+                            titleAttr: 'Deseleccionar Todos'
+                        }
+                    ],
+                    "ajax": {
+                        "url": master_url + 'getHistorialDeControles',
+                        "dataSrc": ""
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [1],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [2],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [16],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [17],
+                            "visible": false,
+                            "searchable": false
+                        }],
+                    "columns": [
+                        {"data": "ID"}, /*0*/
+                        {"data": "IdEstilo"}, /*1*/
+                        {"data": "IdColor"}, /*2*/
+                        {"data": "Pedido"}, /*3*/
+                        {"data": "Cliente"}, /*4*/
+                        {"data": "Estilo"}, /*5*/
+                        {"data": "Color"}, /*6*/
+                        {"data": "Serie"}, /*7*/
+                        {"data": "Fecha Captura"}, /*8*/
+                        {"data": "Fecha Pedido"}, /*9*/
+                        {"data": "Fecha Entrega"}, /*10*/
+                        {"data": "Pares"}, /*11*/
+                        {"data": "Maq"}, /*12*/
+                        {"data": "Semana"}, /*13*/
+                        {"data": "Anio"}, /*14*/
+                        {"data": "Control"}, /*15*/
+                        {"data": "SerieID"}/*16*/,
+                        {"data": "ID_PEDIDO"}/*17*/
+                    ],
+                    language: lang,
+                    select: true,
+                    keys: true,
+                    "autoWidth": true,
+                    "colReorder": true,
+                    "displayLength": 9999999999,
+                    "scrollY": 380,
+                    "scrollX": true,
+                    "bLengthChange": false,
+                    "deferRender": true,
+                    "scrollCollapse": false,
+                    "bSort": true,
+                    "aaSorting": [
+                        [0, 'desc']/*ID*/
+                    ],
+                    "createdRow": function (row, data, dataIndex, cells) {
+                        $.each($(row).find("td"), function (k, v) {
+                            switch (parseInt(k)) {
+                                case 1:
+                                    $(v).attr('title', data["Cliente Razon"]);
+                                    break;
+                                case 2:
+                                    $(v).attr('title', data["Descripcion Estilo"]);
+                                    break;
+                                case 3:
+                                    $(v).attr('title', data["Descripcion Color"]);
+                                    break;
+                            }
+                        });
+                        $.each($(row), function (k, v) {
+                            if (data["Marca"] > 0 && data["Control"] !== '') {
+                                $(v).addClass('HasMca');
+                            }
+                        });
+                    },
+                    "footerCallback": function (row, data, start, end, display) {
+                        var api = this.api();//Get access to Datatable API
+                        // Update footer
+                        $(api.column(11).footer()).html(api.column(11, {page: 'current'}).data().reduce(function (a, b) {
+                            return parseFloat(a) + parseFloat(b);
+                        }, 0));
+                    }
+                });
+            }
+        }
     }
 </script>
 <style>
@@ -375,70 +576,50 @@
         color: #fff; 
     }
     .btn-primary{ 
-        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-        animation-name: example;
-        animation-duration: 4s;
         /* padding: 30px 40px 30px 40px;
          border-radius: 100px;*/
-        border-color:#2C3E50;
+        border-color:#232d38;
         border-bottom-width: 10px;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        animation-iteration-count: infinite; 
     }
     .btn-primary:active{
         background-color: #2384c6;
         border-top-width: 0px;
         border-bottom-width: 0px;
-        margin-top: 10px;  
+        margin: 10px 0px 0px 0px !important;  
     }
     .btn-danger{ 
-        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-        animation-name: example;
-        animation-duration: 4s;
         /* padding: 30px 40px 30px 40px;
          border-radius: 100px;*/
-        border-color: #e12e1c;
+        border-color: #c51f0f;
         border-bottom-width: 10px;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        animation-iteration-count: infinite; 
     }
     .btn-danger:active{
         background-color: #2384c6;
         border-top-width: 0px;
         border-bottom-width: 0px;
-        margin-top: 10px;  
+        margin: 10px 0px 0px 0px !important;  
     }
     .btn-info{ 
-        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-        animation-name: example;
-        animation-duration: 4s;
         /* padding: 30px 40px 30px 40px;
          border-radius: 100px;*/
         border-color: #2384c6;
         border-bottom-width: 10px;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        animation-iteration-count: infinite; 
     }
     .btn-info:active{
         background-color: #2384c6;
         border-top-width: 0px;
         border-bottom-width: 0px;
-        margin-top: 10px;  
+        margin: 10px 0px 0px 0px !important;  
     }
     .btn-warning{ 
-        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-        animation-name: example;
-        animation-duration: 4s;
         /* padding: 30px 40px 30px 40px;
          border-radius: 100px;*/
         border-color: #d08f29;
         border-bottom-width: 10px;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        animation-iteration-count: infinite; 
     }
     .btn-warning:active{
         background-color: #F39C12;

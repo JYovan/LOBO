@@ -140,6 +140,15 @@
                     <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=BANCOS') ?>">Bancos</a></li>
                     <li class="nav-item dropdown dropdown-submenu">
                         <a class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Materiales
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Materiales</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Suelas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown dropdown-submenu">
+                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Producción
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -155,7 +164,6 @@
                             <li><a class="dropdown-item" href="<?php print base_url('Fracciones.rb') ?>">Mano de Obra</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Puestos.rb') ?>">Puestos de Trabajo</a></li>
                             <div class="dropdown-divider"></div>
-                            <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Materiales</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Piezas.rb') ?>">Piezas</a></li>
                             <div class="dropdown-divider"></div>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=DEP-PROD') ?>">Deptos. Prod.</a></li>

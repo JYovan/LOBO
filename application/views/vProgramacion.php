@@ -450,25 +450,16 @@
     }
 
     .btn-warning{ 
-        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-        -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-        animation-name: example;
-        animation-duration: 4s;
        /* padding: 30px 40px 30px 40px;
         border-radius: 100px;*/
         border-color: #d08f29;
         border-bottom-width: 10px;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        animation-iteration-count: infinite; 
     }
     .btn-warning:active{
         background-color: #F39C12;
         border-top-width: 0px;
         border-bottom-width: 0px;
         margin-top: 10px;  
-    }
-    @keyframes example {
-        from {background-color: #ffcc00;}
-        to {background-color: #F39C12;}
-    }
+    } 
 </style>

@@ -537,7 +537,6 @@
                 "keys": true,
                 order: [[13, 'asc']],
                 rowGroup: {
-                    startRender: null,
                     endRender: function (rows, group) {
                         var stc = $.number(rows.data().pluck('Consumo').reduce(function (a, b) {
                             return a + parseFloat(b);

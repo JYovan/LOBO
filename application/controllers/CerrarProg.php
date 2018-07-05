@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CerrarProg extends CI_Controller {
@@ -20,6 +21,14 @@ class CerrarProg extends CI_Controller {
     public function getRecords() {
         try {
             print json_encode($this->cerrarprog_model->getRecords());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getHistorialDeControles() {
+        try {
+            print json_encode($this->cerrarprog_model->getHistorialDeControles());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -51,15 +60,31 @@ class CerrarProg extends CI_Controller {
                     break;
                 case 2:
                     foreach ($controles as $k => $v) {
+                        print "\n";
+                        print_r($v);
+                        print "\n";
                         $this->cerrarprog_model->onAgregarHistorialControl(array(
-                            'Control' => $Y . $M . $S . $C,
-                            'FechaProg' => Date('d/m/Y h:i:s a'),
-                            'Estilo' => $v->Estilo, 'Color' => $v->Color,
-                            'Serie' => $v->Serie, 'Cliente' => $v->Cliente,
-                            'Pares' => $v->Pares, 'Pedido' => $v->Pedido,
-                            'PedidoDetalle' => $v->PedidoDetalle,
-                            'Estatus' => 'A', 'EstatusDepto' => 1,
-                            'ctAno' => $Y, 'ctMaq' => $M, 'ctSem' => $S, 'ctCons' => $C
+                            'Control' => $v->Control,   
+                            'Estilo' => $v->Estilo, 
+                            'EstiloDescripcion' => $v->DescripcionEstilo, 
+                            'Color' => $v->Color,
+                            'ColorDescripcion' => $v->ColorDescripcion,
+                            'Pedido'=>$v->Pedido,
+                            'FechaPedido'=>$v->FechaPedido,
+                            'FechaEntregaRecepcion'=>$v->FechaEntregaRecepcion,
+                            'FechaCaptura'=>$v->FechaCaptura,
+                            'Semana'=>$v->Semana,
+                            'Maquila'=>$v->Maquila,
+                            'ClaveCliente'=>$v->ClaveCliente,
+                            'ClienteRazon'=>$v->ClienteRazon,
+                            'Pares'=>$v->Pares,
+                            'Precio'=>$v->Precio,
+                            'Importe'=>$v->Importe,
+                            'Descuento'=>$v->Descuento,
+                            'FechaEntrega'=>$v->FechaEntrega,
+                            'Serie'=>$v->Serie,
+                            'Ano'=>$v->Ano,
+                            'Marca'=>$v->Marca
                         ));
                         $this->db->where('Pedido', $v->Pedido)->where('PedidoDetalle', $v->PedidoDetalle)->delete('sz_Controles');
                     }
@@ -69,4 +94,5 @@ class CerrarProg extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }
