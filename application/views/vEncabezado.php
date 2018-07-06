@@ -76,6 +76,10 @@
         <!-- Custom styles for this template -->
         <link href="<?php print base_url('css/style.css') ?>" rel="stylesheet">
 
+        <!-- BOOTSTRAP TOUR JS -->
+        <link href="<?php echo base_url(); ?>js/bootstrap-tour-master/build/css/bootstrap-tour.min.css" rel="stylesheet">
+        <script src="<?php echo base_url(); ?>js/bootstrap-tour-master/build/js/bootstrap-tour.js"></script>
+        
         <!-- Custom scripts for this template -->
         <script src="<?php echo base_url(); ?>js/scripts.js"></script>
     </head>

@@ -286,16 +286,16 @@ class Pedidos extends CI_Controller {
                     $Y = substr(Date('Y'), 2);
                     $M = str_pad($row->post('MAQUILA'), 2, '0', STR_PAD_LEFT);
                     $S = str_pad($row->post('SEMANA'), 2, '0', STR_PAD_LEFT);
-                    $MAX = $this->cerrarprog_model->getMaximoConsecutivo($row->post('MAQUILA'), $row->post('SEMANA'),$row->post('ID'));
+                    $MAX = $this->cerrarprog_model->getMaximoConsecutivo($row->post('MAQUILA'), $row->post('SEMANA'), $row->post('ID'));
                     $FMAX = 0;
                     if (count($MAX) <= 0) {
                         $FMAX = '1';
                     } else {
                         $FMAX = $MAX[0]->MAX;
                     }
-                    print "\n MAX ".$FMAX."\n";
+                    print "\n MAX " . $FMAX . "\n";
                     $C = str_pad($FMAX, 3, '0', STR_PAD_LEFT);
-                    $this->db->set('ctSem', $S)->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $M . $S . $C)
+                    $this->db->set('ctSem', $S)->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)
                             ->where('PedidoDetalle', $row->post('ID'))->update('sz_Controles');
                     $this->db->set('Sem', $row->post('SEMANA'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
                     break;
@@ -305,7 +305,7 @@ class Pedidos extends CI_Controller {
                     $Y = substr(Date('Y'), 2);
                     $M = str_pad($row->post('MAQUILA'), 2, '0', STR_PAD_LEFT);
                     $S = str_pad($row->post('SEMANA'), 2, '0', STR_PAD_LEFT);
-                    $MAX = $this->cerrarprog_model->getMaximoConsecutivo($row->post('MAQUILA'), $row->post('SEMANA'),$row->post('ID'));
+                    $MAX = $this->cerrarprog_model->getMaximoConsecutivo($row->post('MAQUILA'), $row->post('SEMANA'), $row->post('ID'));
                     $FMAX = 0;
                     if (count($MAX) <= 0) {
                         $FMAX = '1';
@@ -313,7 +313,7 @@ class Pedidos extends CI_Controller {
                         $FMAX = $MAX[0]->MAX;
                     }
                     $C = str_pad($FMAX, 3, '0', STR_PAD_LEFT);
-                    $this->db->set('ctSem', $S)->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $M . $S . $C)
+                    $this->db->set('ctSem', $S)->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)
                             ->where('PedidoDetalle', $row->post('ID'))->update('sz_Controles');
                     $this->db->set('Maq', $row->post('MAQUILA'))->where('ID', $row->post('ID'))->update('sz_PedidosDetalle');
                     break;
@@ -370,7 +370,7 @@ class Pedidos extends CI_Controller {
                         $FMAX = $MAX[0]->MAX;
                     }
                     $C = str_pad($FMAX, 3, '0', STR_PAD_LEFT);
-                    $this->db->set('ctSem', $S)->set('ctCons', $C)->set('Control', $Y . $M . $S . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
+                    $this->db->set('ctSem', $S)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
                     $this->db->set('Sem', $S)->where('ID', $v->ID)->update('sz_PedidosDetalle');
                 }
                 if ($this->input->post("MAQUILA") !== '') {
@@ -387,7 +387,7 @@ class Pedidos extends CI_Controller {
                         $FMAX = $MAX[0]->MAX;
                     }
                     $C = str_pad($FMAX, 3, '0', STR_PAD_LEFT);
-                    $this->db->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $M . $S . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
+                    $this->db->set('ctMaq', $M)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
                     $this->db->set('Maq', $M)->where('ID', $v->ID)->update('sz_PedidosDetalle');
                 }
             }
@@ -395,5 +395,4 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }
