@@ -1,3 +1,4 @@
+
 <div class="card border-0" id="pnlTablero">
     <div class="card-body">
         <div class="row">
@@ -127,7 +128,13 @@
         </div>
     </div>
 </div>
-
+<div class="dropdown-menu animated flipInX" style="font-size: 12px;" id='menu'>
+    <a class="dropdown-item text-primary" href="#" onclick="btnAsignar.trigger('click')"><i class="fa fa-check"></i> Asignar</a>
+    <a class="dropdown-item text-danger" href="#" onclick="btnDeshacer.trigger('click')"><i class="fa fa-undo"></i> Deshacer</a>
+    <a class="dropdown-item text-info" href="#" onclick="btnReload.trigger('click')"><i class="fa fa-exchange-alt"></i> Refrescar</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item text-warning" href="#"  onclick="btnHistorialDeControles.trigger('click')"><i class="fa fa-history"></i> Historial</a>
+</div>
 <script>
     var master_url = base_url + 'index.php/CerrarProg/';
     var CerrarProg, Historial;
@@ -138,7 +145,6 @@
     var btnHistorialDeControles = $("#btnHistorialDeControles");
     var mdlHistorial = $("#mdlHistorial");
     var tblHistorial = mdlHistorial.find('#tblHistorial');
-
     // IIFE - Immediately Invoked Function Expression
     (function (yc) {
         // The global jQuery object is passed as a parameter
@@ -147,24 +153,134 @@
         // The $ is now locally scoped
         // Listen for the jQuery ready event on the document
         $(function () {
+            // Instance the tour
+            var tour = new Tour({
+                name: "tour",
+                steps: [
+                    {
+                        smartPlacement: true,
+                        backdropContainer: 'body',
+                        backdropPadding: 5,
+                        placement: "auto",
+                        element: "#btnAsignar",
+                        title: "Asignación",
+                        content: "Con este boton generas los controles para los registros seleccionados"
+                    },
+                    {
+                        smartPlacement: true,
+                        backdropContainer: 'body',
+                        backdropPadding: 5,
+                        placement: "auto",
+                        element: "#btnDeshacer",
+                        title: "Deshacer",
+                        content: "Con este boton reviertes los controles generados."
+                    },
+                    {
+                        smartPlacement: true,
+                        backdropContainer: 'body',
+                        backdropPadding: 5,
+                        placement: "auto",
+                        element: "#btnReload",
+                        title: "Refrescar",
+                        content: "Permite actualizar los registros sin necesidad de actualizar completamente la página, con un performance excepcional."
+                    },
+                    {
+                        smartPlacement: true,
+                        backdropContainer: 'body',
+                        backdropPadding: 5,
+                        placement: "auto",
+                        element: "#btnHistorialDeControles",
+                        title: "Historial",
+                        content: "Muestra el historial de controles revertidos con información detallada."
+                    }
+                ],
+                container: "body",
+                smartPlacement: true,
+                keyboard: true,
+                storage: window.localStorage,
+                debug: false,
+                backdrop: true,
+                backdropContainer: 'body',
+                backdropPadding: 0,
+                redirect: true,
+                orphan: false,
+                duration: false,
+                delay: false,
+                basePath: "",
+                afterGetState: function (key, value) {},
+                afterSetState: function (key, value) {},
+                afterRemoveState: function (key, value) {},
+                onStart: function (tour) {},
+                onEnd: function (tour) {
+                    swal({
+                        title: "Recorrido finalizado",
+                        text: "En este momento ya es posible conocer a detalle que hace este módulo dentro del sistema.",
+                        icon: "success",
+                        buttons: {
+                            resumetour: {
+                                text: "Reiniciar recorrido",
+                                value: "resumetour"
+                            },
+                            endtour: {
+                                text: "Finalizar",
+                                value: "endtour"
+                            }
+                        }
+                    }).then((value) => {
+                        switch (value) {
+                            case "resumetour":
+                                tour.init();
+                                tour.restart();
+                                break;
+                            case "endtour":
+                                swal.close();
+                                break;
+                        }
+                    });
+                },
+                onShow: function (tour) {},
+                onShown: function (tour) {},
+                onHide: function (tour) {},
+                onHidden: function (tour) {},
+                onNext: function (tour) {},
+                onPrev: function (tour) {},
+                onPause: function (tour, duration) {},
+                onResume: function (tour, duration) {
+                    console.log('RESUMIDO');
+                },
+                onRedirectError: function (tour) {}
+            });
+// Initialize the tour
+            tour.init();
+// Start the tour
+            tour.start();
             getRecords();
-
             $(".btn").click(function () {
                 onBeep(1);
             });
-
+            $('#CerrarProg').on("contextmenu", function (e) {
+                e.preventDefault();
+                var top = e.pageY + 5;
+                var left = e.pageX - 160;
+                $("#menu").css({
+                    display: "block",
+                    top: top,
+                    left: left
+                });
+                return false; //blocks default Webbrowser right click menu
+            });
+            $(document).click(function () {
+                $("#menu").hide();
+            });
             btnHistorialDeControles.click(function () {
                 mdlHistorial.modal('show');
             });
-
             mdlHistorial.on('shown.bs.modal', function () {
                 getHistorialDeControles();
             });
-
             btnReload.click(function () {
                 CerrarProg.ajax.reload();
             });
-
             btnDeshacer.click(function () {
                 if (tblCerrarProg.find("tbody tr.HasMca.selected").length > 0) {
                     onBeep(1);
@@ -183,7 +299,6 @@
                     swal('ATENCIÓN', 'NO HA SELECCIONADO NINGÚN REGISTRO', 'warning');
                 }
             });
-
             btnAsignar.click(function () {
                 if (tblCerrarProg.find("tbody tr.selected:not(.HasMca)").length > 0) {
                     onBeep(1);
@@ -206,9 +321,9 @@
                 var i = $(this).parents('div').attr('data-column');
                 tblCerrarProg.DataTable().column(i).search($('#col' + i + '_filter').val()).draw();
             });
-        });
+        }
+        );
     }));
-
     function getRecords() {
         HoldOn.open({
             theme: 'sk-cube',
@@ -321,7 +436,7 @@
                     });
                 },
                 "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api();//Get access to Datatable API
+                    var api = this.api(); //Get access to Datatable API
                     // Update footer
                     $(api.column(11).footer()).html(api.column(11, {page: 'current'}).data().reduce(function (a, b) {
                         return parseFloat(a) + parseFloat(b);
@@ -523,7 +638,7 @@
                         });
                     },
                     "footerCallback": function (row, data, start, end, display) {
-                        var api = this.api();//Get access to Datatable API
+                        var api = this.api(); //Get access to Datatable API
                         // Update footer
                         $(api.column(11).footer()).html(api.column(11, {page: 'current'}).data().reduce(function (a, b) {
                             return parseFloat(a) + parseFloat(b);
@@ -535,6 +650,12 @@
     }
 </script>
 <style>
+    .dropdown-item.active, .dropdown-item:active{
+        color: #fff !important; 
+    }
+    a[class*="text-"]:hover, a a[class*="text-"]:focus{
+        color: #fff !important; 
+    } 
     tr:hover td{
         background-color: #1b4f72;
         color: #fff;
