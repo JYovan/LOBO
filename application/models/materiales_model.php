@@ -26,9 +26,24 @@ class materiales_model extends CI_Model {
 
     public function getMateriales() {
         try {
-            return $this->db->select("U.ID, U.Clave, U.Clave+'-'+U.Descripcion AS Descripcion ", false)
+            return $this->db->select("U.ID, U.Material, U.Material+'-'+U.Descripcion AS Descripcion ", false)
                             ->from('sz_Materiales AS U')
                             ->where_in('U.Estatus', 'ACTIVO')
+                            ->get()
+                            ->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getMaterialesByFamilia($Familia) {
+        try {
+            return $this->db->select("U.ID, U.Material, U.Material+'-'+U.Descripcion AS Descripcion ", false)
+                            ->from('sz_Materiales AS U')
+                            ->join('sz_Catalogos AS F', 'F.ID = U.Familia', 'left')
+                            ->where_in('U.Estatus', 'ACTIVO')
+                            ->where_in('F.IValue', $Familia)
+                            ->order_by('F.IValue', 'ASC')
                             ->get()
                             ->result();
         } catch (Exception $exc) {

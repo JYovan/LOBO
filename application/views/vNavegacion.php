@@ -144,7 +144,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Materiales</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Suelas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Rangos.rb') ?>">Rangos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown dropdown-submenu">
