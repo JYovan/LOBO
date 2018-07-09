@@ -98,6 +98,24 @@ class semanas_model extends CI_Model {
         }
     }
 
+    public function getSemanaByFecha($fecha) {
+        try {
+            $this->db->select('U.Sem', false);
+            $this->db->from('sz_Semanas AS U');
+            $this->db->where('\'' . $fecha . '\' BETWEEN CONVERT(DATE,U.FechaIni) AND CONVERT(DATE,U.FechaFin)');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getSemanasNominaByAno($Ano) {
         try {
             $this->db->select(""

@@ -309,7 +309,7 @@
                                 </thead>
                                 <tbody></tbody>
                                 <tfoot>
-                                    <tr style="overflow-x:scroll; width: 100%"> 
+                                    <tr style="overflow-x:scroll; width: 100%">
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -636,6 +636,22 @@
             cellColor = $(this).val();
             nEstilo = nEstilo + ' ' + pnlDatosDetalle.find("[name='Combinacion']").find("option:selected").text();
         });
+        //Evento que nos trae el No de semana en base a la fecha de entrega
+        pnlDatosDetalle.find("[name='FechaEntrega']").change(function () {
+            $.getJSON(master_url + 'getSemanaByFecha', {Fecha: $(this).val()}).done(function (data, x, jq) {
+                console.log(data);
+                if (data.length > 0) {
+                    pnlDatosDetalle.find("[name='Semana']").val(data[0].Sem);
+                } else {
+                    console.log('LA FECHA DE ENTREGA EXCEDE DE LAS SEMANAS CAPTURADAS PARA ESTE AÑO');
+                }
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                HoldOn.close();
+            });
+        });
+
         //Evento botones
         btnGuardar.click(function () {
             isValid('pnlDatos');
@@ -1669,7 +1685,7 @@
         -webkit-transition: all .2s ease-in-out;
         transition: all .2s ease-in-out;
     }
-    .zoomx:hover{ 
+    .zoomx:hover{
         z-index:1;
         cursor: pointer;
         padding-top: 5px;
@@ -1703,7 +1719,7 @@
         100% { transform: rotate(360deg); }
     }
     td:hover {
-        position: relative; 
+        position: relative;
     }
 
     td[title]:hover:after {
@@ -1716,15 +1732,15 @@
         white-space: nowrap;
         z-index: 1;
         background: #0099cc;
-        color: #fff; 
+        color: #fff;
     }
     table tr  td > input[name^="T"].numbersOnly ,table tr  td > input[name^="C"].numbersOnly  {
         width: 35px !important;
-    } 
+    }
     table > tfoot > tr th{
         border: 1px solid #fff;
     }
-  
+
     .btn-warning{
         border-color: #d08f29;
         border-bottom-width: 10px;
@@ -1734,6 +1750,6 @@
         background-color: #F39C12;
         border-top-width: 0px;
         border-bottom-width: 0px;
-        margin-top: 10px;  
+        margin-top: 10px;
     }
 </style>

@@ -9,7 +9,8 @@ class Pedidos extends CI_Controller {
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session')->library('Myfpdf');
         $this->load->model('pedidos_model')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
-                ->model('generales_model')->model('listasdeprecios_model')->model('vendedores_model')->model('cerrarprog_model');
+                ->model('generales_model')->model('listasdeprecios_model')
+                ->model('vendedores_model')->model('cerrarprog_model')->model('semanas_model');
         /* ->model('piezasymateriales_model'); */
     }
 
@@ -56,6 +57,14 @@ class Pedidos extends CI_Controller {
     public function getPrecioListaByEstiloByCliente() {
         try {
             print json_encode($this->listasdeprecios_model->getPrecioListaByEstiloByCliente($this->input->get('Estilo'), $this->input->get('Cliente')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getSemanaByFecha() {
+        try {
+            print json_encode($this->semanas_model->getSemanaByFecha($this->input->get('Fecha')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -268,7 +277,7 @@ class Pedidos extends CI_Controller {
             $url = 'uploads/Pedidos/' . $this->input->get('ID') . '/PEDIDO_' . $this->input->get('ID') . '_' . Date('d') . '_' . Date('m') . '_' . Date('Y') . '.pdf';
 
             if (delete_files('uploads/Pedidos/' . $this->input->get('ID') . '/')) {
-                
+
             }
             $pdf->Output($url);
             print base_url() . $url;
@@ -395,4 +404,5 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }
