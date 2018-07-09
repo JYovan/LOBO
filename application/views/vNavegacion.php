@@ -210,7 +210,7 @@
                             <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=TRANSPORTES') ?>">Transportes</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=RUTAS') ?>">Rutas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=ZONAS') ?>">Zonas</a></li>
-
+                            <li><a class="dropdown-item" href="<?php print base_url('Semanas.rb') ?>">Semanas</a></li>
                         </ul>
                     </li>
                 </ul>
