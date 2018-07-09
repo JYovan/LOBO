@@ -48,44 +48,26 @@
                 </button>
             </div>
         </div>
-
         <div id="pnlControlesDetalle">
-
             <div class="row mt-4 pb-5">
                 <div class="table-responsive col-12" style="overflow: auto; height: 500px;">
-                    <table class="table table-sm" id="tblRegistrosDetalle">
+                    <table class="table table-sm table-hover" id="tblRegistrosDetalle">
                         <thead>
                             <tr>
-                                <th class="text-info">Talla</th>
-                                <th>Suela</th>
-                                <th>Entresuela</th>
-                                <th>Planta</th>
+                                <th class="text-info d-none">ID</th><!--0-->
+                                <th class="text-info">Talla</th><!--1-->
+                                <th>Suela</th><!--2-->
+                                <th>Entresuela</th><!--3-->
+                                <th>Planta</th><!--4-->
+                                <th class="d-none">vSuela</th><!--5-->
+                                <th class="d-none">vEntreSuela</th><!--6-->
+                                <th class="d-none">vPlanta</th><!--7-->
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td style="width: 10%; font-weight: bold; " >22</td>
-                                <td style="width: 30%">
-                                    <select class="form-control form-control-sm" name="Suela" required>
-                                        <option value=""></option>
-                                    </select>
-                                </td>
-                                <td style="width: 30%">
-                                    <select class="form-control form-control-sm" name="Entresuela" required>
-                                        <option value=""></option>
-                                    </select>
-                                </td>
-                                <td style="width: 30%">
-                                    <select class="form-control form-control-sm" name="Planta" required>
-                                        <option value=""></option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -104,8 +86,9 @@
     var tempDetalle = 0;
     var btnAgregarDetalle = $("#btnAgregarDetalle");
     var IdMovimiento = 0;
-    var nuevo = true;
+    var nuevo = true, estatus = false;
     var tblRegistrosX = $("#tblRegistros"), Registros;
+    var tblRegistrosDetalle = pnlControlesDetalle.find("#tblRegistrosDetalle tbody");
 
     $(document).ready(function () {
         btnAgregarDetalle.click(function () {
@@ -145,13 +128,16 @@
                         HoldOn.close();
                         Estilo[0].selectize.disable();
                         temp = Estilo.val();
+                        onObtenerRangosByID(Estilo.val());
                         nuevo = false;
                     });
+                    swal('INFO', 'SE HAN AÑADIDO UN NUEVO REGISTRO', 'success');
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                     HoldOn.close();
+                }).always(function () {
+                    Registros.ajax.reload();
                 });
-
             } else {
                 swal('ATENCIÓN', 'YA HAS AGREGADO LAS TALLAS DE ESTE ESTILO', 'warning');
             }
@@ -186,6 +172,7 @@
                             console.log(x, y, z);
                         }).always(function () {
                             HoldOn.close();
+                            Registros.ajax.reload();
                         });
                     }
                 });
@@ -204,6 +191,7 @@
                 pnlDatos.find("select")[k].selectize.clear(true);
             });
             $(':input:text:enabled:visible:first').focus();
+            tblRegistrosDetalle.html('');
             nuevo = true;
         });
         btnCancelar.click(function () {
@@ -214,12 +202,10 @@
                 RegistrosDetalle.clear().draw();
             }
             nuevo = true;
+            estatus = false;
         });
         getRecords();
         getEstilos();
-        getPlantas();
-        getSuelas();
-        getEntresuelas();
         handleEnter();
     });
 
@@ -238,33 +224,6 @@
         $.getJSON(master_url + 'getEstilos').done(function (data, x, jq) {
             $.each(data, function (k, v) {
                 pnlDatos.find("[name='Estilo']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        });
-    }
-    function getSuelas() {
-        $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '3'}).done(function (data, x, jq) {
-            $.each(data, function (k, v) {
-                pnlControlesDetalle.find("[name='Suela']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        });
-    }
-    function getEntresuelas() {
-        $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '52'}).done(function (data, x, jq) {
-            $.each(data, function (k, v) {
-                pnlControlesDetalle.find("[name='Entresuela']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
-            });
-        }).fail(function (x, y, z) {
-            console.log(x, y, z);
-        });
-    }
-    function getPlantas() {
-        $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '50'}).done(function (data, x, jq) {
-            $.each(data, function (k, v) {
-                pnlControlesDetalle.find("[name='Planta']")[0].selectize.addOption({text: v.Descripcion, value: v.ID});
             });
         }).fail(function (x, y, z) {
             console.log(x, y, z);
@@ -332,45 +291,141 @@
                         theme: "sk-bounce",
                         message: "CARGANDO DATOS..."
                     });
-                    $.ajax({
-                        url: master_url + 'getFraccionEstiloByIDEstilo',
-                        type: "POST",
-                        dataType: "JSON",
-                        data: {
-                            ID: temp
-                        }
-                    }).done(function (data, x, jq) {
+                    //OBTENER
+                    onObtenerRangosByID(temp);
+                } else {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
+                }
+            });
+        }
+    }
+    function onModificarRango(e) {
+        $.post(master_url + 'onModificar', e).done(function (data, x, jq) {
+            console.log('OK MODIFICADO', e, " *,* ", data);
+            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HAN GUARDADO LOS CAMBIOS', 'success');
+        }).fail(function (x, y, z) {
+            console.log(x.responsText);
+        }).always(function () {
 
-                        pnlDatos.find("input").val("");
-                        $.each(pnlDatos.find("select"), function (k, v) {
-                            pnlDatos.find("select")[k].selectize.clear(true);
+        });
+    }
+    function onObtenerRangosByID(IDX) {
+        $.getJSON(master_url + 'getRecordsByID', {ID: IDX}).done(function (data, x, jq) {
+            var dtm = data[0];
+            pnlDatos.find("input").val("");
+            Estilo[0].selectize.setValue(dtm.Estilo);
+            Estilo[0].selectize.disable();
+            //ASIGNAR
+            var rows = '';
+            $.each(data.slice(0, data.length), function (k, v) {
+                rows += '<tr>';
+                rows += '<td class="d-none" style="width: 10%;">' + v.ID + '</td>';
+                rows += '<td class="text-info " style="width: 10%;">' + v.Talla + '</td>';
+                rows += '<td style="width: 30%">';
+                rows += '<select class="form-control form-control-sm" name="Suela" >';
+                rows += '</select>';
+                rows += '</td>';
+                rows += '<td style="width: 30%">';
+                rows += '<select class="form-control form-control-sm" name="Entresuela" >';
+                rows += '</select>';
+                rows += '</td>';
+                rows += '<td style="width: 30%">';
+                rows += '<select class="form-control form-control-sm" name="Planta" >';
+                rows += '</select>';
+                rows += '</td>';
+                rows += '<td class="Suela d-none">' + v.Suela;
+                rows += '</td>';
+                rows += '<td class="EntreSuela d-none">' + v.Entresuela;
+                rows += '</td>';
+                rows += '<td class="Planta d-none">' + v.Plantilla;
+                rows += '</td>';
+                rows += '</tr>';
+            });
+            tblRegistrosDetalle.html(rows);
+            tblRegistrosDetalle.find("select").selectize();
+//pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
+            var suelas = [], entresuelas = [], plantas = [];
+            $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '3'}).done(function (s, x, jq) {
+                $.each(s, function (k, v) {
+                    suelas.push({text: v.Descripcion, value: v.ID});
+                });
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                //console.log("SUELAS\n", suelas);
+                $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '52'}).done(function (es, x, jq) {
+                    $.each(es, function (k, v) {
+                        entresuelas.push({text: v.Descripcion, value: v.ID});
+                    });
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                    //console.log("ENTRESUELAS\n", entresuelas);
+                    $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '50'}).done(function (pl, x, jq) {
+                        $.each(pl, function (k, v) {
+                            plantas.push({text: v.Descripcion, value: v.ID});
                         });
+                        //console.log('SUELAS: ', suelas)
+                        $.each(tblRegistrosDetalle.find("tr"), function (k, r) {
+                            //SUELAS(VALORES Y EVENTOS)
+                            var row = $(r).find("td");
+                            var suela = row.eq(2).find("select");
+                            $.each(suelas, function (kk, vv) {
+                                suela[0].selectize.addOption(vv);
+                            });
+                            suela.change(function () {
+                                if (estatus) {
+                                    var row = $(this).parents('tr').find('td');
+                                    onModificarRango({ID: row.eq(0).text(), TIPO: 'SUELA', VALOR: $(this)[0].selectize.getValue()});
+                                }
+                            });
+                            suela[0].selectize.setValue(row.eq(5).text());
+                            //FIN SUELAS(VALORES Y EVENTOS)
 
-                        Estilo[0].selectize.disable();
+                            //ENTRESUELAS(VALORES Y EVENTOS)
+                            var entresuela = row.eq(3).find("select");
+                            $.each(entresuelas, function (kk, vv) {
+                                entresuela[0].selectize.addOption(vv);
+                            });
+                            entresuela.change(function () {
+                                if (estatus) {
+                                    var row = $(this).parents('tr').find('td');
+                                    onModificarRango({ID: row.eq(0).text(), TIPO: 'ENTRESUELA', VALOR: $(this)[0].selectize.getValue()});
+                                }
+                            });
+                            entresuela[0].selectize.setValue(row.eq(6).text());
+                            //FIN ENTRESUELAS(VALORES Y EVENTOS)
 
-                        $.each(data[0], function (k, v) {
-                            pnlDatos.find("[name='" + k + "']").val(v);
-                            if (pnlDatos.find("[name='" + k + "']").is('select')) {
-                                pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
-                            }
+                            //PLANTAS(VALORES Y EVENTOS)
+                            var planta = row.eq(4).find("select");
+                            $.each(plantas, function (kk, vv) {
+                                planta[0].selectize.addOption(vv);
+                            });
+                            planta.change(function () {
+                                if (estatus) {
+                                    var row = $(this).parents('tr').find('td');
+                                    onModificarRango({ID: row.eq(0).text(), TIPO: 'PLANTA', VALOR: $(this)[0].selectize.getValue()});
+                                }
+                            });
+                            planta[0].selectize.setValue(row.eq(7).text());
+                            //FIN PLANTAS(VALORES Y EVENTOS)
                         });
-                        pnlControlesDetalle.find("[name='Departamento']")[0].selectize.focus();
-                        getFotoXEstilo(temp);
-                        getFraccionesEstiloXEstiloDetalle(temp);
+                        pnlDatos.find("#Estilo")[0].selectize.focus();
                         pnlTablero.addClass("d-none");
                         pnlDetalle.removeClass('d-none');
                         pnlControlesDetalle.removeClass('d-none');
                         pnlDatos.removeClass('d-none');
                     }).fail(function (x, y, z) {
                         console.log(x, y, z);
+                    }).always(function () {
                         HoldOn.close();
+                        estatus = true;
                     });
-                } else {
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                }
+                });
             });
-        }
-
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+        });
     }
-
 </script>

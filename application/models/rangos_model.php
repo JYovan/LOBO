@@ -14,10 +14,10 @@ class rangos_model extends CI_Model {
     public function getRecords() {
         try {
             $this->db->select("E.ID, E.Clave+'-'+E.Descripcion AS Estilo ", false);
-            $this->db->from('sz_RangosCompras AS RC ');
-            $this->db->join('sz_Estilos AS E', 'RC.Estilo = E.ID', 'left');
-            $this->db->where_in('RC.Estatus', array('ACTIVO'));
-            $this->db->group_by(array('E.ID', 'E.Clave', 'E.Descripcion'));
+            $this->db->from('sz_RangosCompras AS RC ')
+                    ->join('sz_Estilos AS E', 'RC.Estilo = E.ID', 'left')
+                    ->where_in('RC.Estatus', array('ACTIVO'))
+                    ->group_by(array('E.ID', 'E.Clave', 'E.Descripcion'));
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -31,11 +31,68 @@ class rangos_model extends CI_Model {
         }
     }
 
+    public function getRecordByID($ID) {
+        try {
+            $this->db->select("RC.* ", false)->from('sz_RangosCompras AS RC ')
+                    ->join('sz_Estilos AS E', 'RC.Estilo = E.ID', 'left')
+                    ->where_in('RC.Estatus', array('ACTIVO'))
+                    ->where_in('RC.ID', array($ID))
+                    ->group_by(array('E.ID', 'E.Clave', 'E.Descripcion'));
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getRecordsByID($ID) {
+        try {
+            $this->db->select("RC.* ", false)->from('sz_RangosCompras AS RC ')
+                    ->join('sz_Estilos AS E', 'RC.Estilo = E.ID', 'left')
+                    ->where_in('RC.Estatus', array('ACTIVO'))
+                    ->where_in('E.ID', array($ID))
+                    ->order_by('RC.Talla', 'ASC');
+
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getMaterialesByFamilia($Familia) {
+        try {
+            return $this->db->select("U.ID, U.Material, U.Material+'-'+U.Descripcion AS Descripcion ", false)
+                            ->from('sz_Materiales AS U')
+                            ->join('sz_Catalogos AS F', 'F.ID = U.Familia', 'left')
+                            ->where_in('U.Estatus', 'ACTIVO')
+                            ->where_in('F.IValue', $Familia)
+                            ->where('U.Descripcion NOT LIKE \'%**CBZ**%\'', null, false)
+                            ->order_by('F.IValue', 'ASC')
+                            ->get()
+                            ->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onComprobarExisteEstilo($Estilo) {
         try {
-            $this->db->select('COUNT(*) AS EXISTE', false);
-            $this->db->from('sz_RangosCompras AS FXE ');
-            $this->db->where('FXE.Estilo', $Estilo);
+            $this->db->select('COUNT(*) AS EXISTE', false)
+                    ->from('sz_RangosCompras AS FXE ')
+                    ->where('FXE.Estilo', $Estilo);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -63,9 +120,7 @@ class rangos_model extends CI_Model {
 
     public function onModificar($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_RangosCompras", $DATA);
-            //print $str = $this->db->last_query();
+            $this->db->where('ID', $ID)->update("sz_RangosCompras", $DATA);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -73,10 +128,7 @@ class rangos_model extends CI_Model {
 
     public function onEliminar($ID) {
         try {
-            $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('Estilo', $ID);
-            $this->db->update("sz_RangosCompras");
-//            print $str = $this->db->last_query();
+            $this->db->set('Estatus', 'INACTIVO')->where('Estilo', $ID)->update("sz_RangosCompras");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -84,9 +136,7 @@ class rangos_model extends CI_Model {
 
     public function onEliminarRenglonDetalle($ID) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->delete("sz_RangosCompras");
-//            print $str = $this->db->last_query();
+            $this->db->where('ID', $ID)->delete("sz_RangosCompras");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -94,10 +144,9 @@ class rangos_model extends CI_Model {
 
     public function getFraccionEstiloByIDEstilo($ID) {
         try {
-            $this->db->select('U.Estilo, U.Fecha, U.Estatus', false);
-            $this->db->from('sz_RangosCompras AS U');
-            $this->db->where('U.Estilo', $ID);
-            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->select('U.Estilo, U.Fecha, U.Estatus', false)
+                    ->from('sz_RangosCompras AS U')->where('U.Estilo', $ID)
+                    ->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY

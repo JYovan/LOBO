@@ -6,31 +6,37 @@ class Rangos extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
-        $this->load->model('rangos_model');
-        $this->load->model('estilos_model');
-        $this->load->model('materiales_model');
+        $this->load->library('session')->model('rangos_model')->model('estilos_model')->model('materiales_model');
     }
 
     public function index() {
 
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vRangos');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vRangos')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
     public function getRecords() {
         try {
-            extract($this->input->post());
-            $data = $this->rangos_model->getRecords();
-            print json_encode($data);
+            print json_encode($this->rangos_model->getRecords());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getRecordByID() {
+        try {
+            print json_encode($this->rangos_model->getRecordByID($this->input->get('ID')));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getRecordsByID() {
+        try {
+            print json_encode($this->rangos_model->getRecordsByID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -54,7 +60,7 @@ class Rangos extends CI_Controller {
 
     public function getMaterialesByFamilia() {
         try {
-            print json_encode($this->materiales_model->getMaterialesByFamilia($this->input->get('Familia')));
+            print json_encode($this->rangos_model->getMaterialesByFamilia($this->input->get('Familia')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -86,12 +92,12 @@ class Rangos extends CI_Controller {
     public function onModificar() {
         try {
             $row = $this->input;
-            switch ($row->post('CELDA')) {
+            switch ($row->post('TIPO')) {
                 case 'SUELA':
                     $this->db->set('Suela', strtoupper($row->post('VALOR')))->where('ID', $row->post('ID'))->update('sz_RangosCompras');
                     break;
                 case 'PLANTA':
-                    $this->db->set('Planta', strtoupper($row->post('VALOR')))->where('ID', $row->post('ID'))->update('sz_RangosCompras');
+                    $this->db->set('Plantilla', strtoupper($row->post('VALOR')))->where('ID', $row->post('ID'))->update('sz_RangosCompras');
                     break;
                 case 'ENTRESUELA':
                     $this->db->set('Entresuela', strtoupper($row->post('VALOR')))->where('ID', $row->post('ID'))->update('sz_RangosCompras');
@@ -104,11 +110,9 @@ class Rangos extends CI_Controller {
 
     public function onEliminar() {
         try {
-            extract($this->input->post());
-            $this->rangos_model->onEliminar($ID);
+            $this->rangos_model->onEliminar($this->input->post('ID'));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
 }
