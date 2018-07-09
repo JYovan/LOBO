@@ -91,6 +91,107 @@
     var tblRegistrosDetalle = pnlControlesDetalle.find("#tblRegistrosDetalle tbody");
 
     $(document).ready(function () {
+        // Instance the tour
+        var tour = new Tour({
+            name: "tour",
+            steps: [
+                {
+                    smartPlacement: true,
+                    backdropContainer: 'body',
+                    backdropPadding: 5,
+                    placement: "auto",
+                    element: "#Estilo",
+                    title: "Estilo",
+                    content: "Esta lista desplegable se escoge el estilo"
+                },
+                {
+                    smartPlacement: true,
+                    backdropContainer: 'body',
+                    backdropPadding: 5,
+                    placement: "auto",
+                    element: "#btnDeshacer",
+                    title: "Deshacer",
+                    content: "Con este boton reviertes los controles generados."
+                },
+                {
+                    smartPlacement: true,
+                    backdropContainer: 'body',
+                    backdropPadding: 5,
+                    placement: "auto",
+                    element: "#btnReload",
+                    title: "Refrescar",
+                    content: "Permite actualizar los registros sin necesidad de actualizar completamente la página, con un performance excepcional."
+                },
+                {
+                    smartPlacement: true,
+                    backdropContainer: 'body',
+                    backdropPadding: 5,
+                    placement: "auto",
+                    element: "#btnHistorialDeControles",
+                    title: "Historial",
+                    content: "Muestra el historial de controles revertidos con información detallada."
+                }
+            ],
+            container: "body",
+            smartPlacement: true,
+            keyboard: true,
+            storage: window.localStorage,
+            debug: false,
+            backdrop: true,
+            backdropContainer: 'body',
+            backdropPadding: 0,
+            redirect: true,
+            orphan: false,
+            duration: false,
+            delay: false,
+            basePath: "",
+            afterGetState: function (key, value) {},
+            afterSetState: function (key, value) {},
+            afterRemoveState: function (key, value) {},
+            onStart: function (tour) {},
+            onEnd: function (tour) {
+                swal({
+                    title: "Recorrido finalizado",
+                    text: "En este momento ya es posible conocer a detalle que hace este módulo dentro del sistema.",
+                    icon: "success",
+                    buttons: {
+                        resumetour: {
+                            text: "Reiniciar recorrido",
+                            value: "resumetour"
+                        },
+                        endtour: {
+                            text: "Finalizar",
+                            value: "endtour"
+                        }
+                    }
+                }).then((value) => {
+                    switch (value) {
+                        case "resumetour":
+                            tour.init();
+                            tour.restart();
+                            break;
+                        case "endtour":
+                            swal.close();
+                            break;
+                    }
+                });
+            },
+            onShow: function (tour) {},
+            onShown: function (tour) {},
+            onHide: function (tour) {},
+            onHidden: function (tour) {},
+            onNext: function (tour) {},
+            onPrev: function (tour) {},
+            onPause: function (tour, duration) {},
+            onResume: function (tour, duration) {
+                console.log('RESUMIDO');
+            },
+            onRedirectError: function (tour) {}
+        });
+// Initialize the tour
+        tour.init();
+// Start the tour
+        tour.start();
         btnAgregarDetalle.click(function () {
             var Estilo = pnlDatos.find("[name='Estilo']");
             /*VALIDAR QUE EXISTA*/

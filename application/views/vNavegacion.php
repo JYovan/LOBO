@@ -77,7 +77,7 @@
             <br>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php echo $this->session->userdata('USERNAME') ?>
+                    <span class="fa fa-user"></span>        <?php echo $this->session->userdata('USERNAME') ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
@@ -90,69 +90,67 @@
             <br>
             <li class="nav-item dropdown " >
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Compras
+                    <span class="fa fa-shopping-cart"></span>       Compras
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php print base_url('Compras.rb') ?>">Compras</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Compras.rb') ?>"><span class="fa fa-cart-plus"></span>       Compras</a></li>
                     <div class="dropdown-divider" ></div>
-                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#mdlExplosionInsumos">Reporte Explosión</a></li>
+                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#mdlExplosionInsumos"><span class="fa fa-expand-arrows-alt"></span>      Reporte Explosión</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown " >
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ped y Prog
+                    <span class="fa fa-calendar-alt"></span>        Ped y Prog
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php print base_url('Pedidos.rb') ?>">Pedidos</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Programacion.rb') ?>">Programación</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('CerrarProg.rb') ?>">CerrarProg</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Pedidos.rb') ?>"><span class="fa fa-calendar-plus"></span>        Pedidos</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Programacion.rb') ?>"><span class="fa fa-calendar-check"></span>        Programación</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('CerrarProg.rb') ?>"><span class="fa fa-calendar-times"></span>        CerrarProg</a></li>
                     <div class="dropdown-divider" ></div>
-                    <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg.rb') ?>">Reportes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg.rb') ?>"><span class="fa fa-calendar"></span>        Reportes</a></li>
                 </ul>
             </li>
 
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Diseño y Desarrollo
+                    <span class="fa fa-edit"></span>        Diseño y Desarrollo
                 </a>
                 <ul class="dropdown-menu">
 <!--                    <li><a class="dropdown-item" href="<?php print base_url('MaterialesXCombinacion.rb') ?>">Materiales por Combinación</a></li>-->
-                    <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo.rb') ?>">Mano de Obra</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('FichaTecnica.rb') ?>">Ficha Técnica</a></li>
-                    <div class="dropdown-divider" ></div>
-                    <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes.rb') ?>">Reportes</a></li>
-
+                    <li><a class="dropdown-item" href="<?php print base_url('FraccionesXEstilo.rb') ?>"><span class="fa fa-hands-helping"></span>        Mano de Obra</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('FichaTecnica.rb') ?>"><span class="fa fa-id-card"></span>        Ficha Técnica</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="<?php print base_url('ReportesDisDes.rb') ?>"><span class="fa fa-file"></span>        Reportes</a></li>
                 </ul>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Catálogos
+                    <span class="fa fa-copy"></span>        Catálogos
                 </a>
-
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php print base_url('Clientes.rb') ?>">Clientes</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores.rb') ?>">Proveedores</a></li>
-                    <li><a class="dropdown-item" href="#">Almacenes</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Maquilas.rb') ?>">Maquilas</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Vendedores.rb') ?>">Vendedores</a></li>
-                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=BANCOS') ?>">Bancos</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Clientes.rb') ?>"><span class="fa fa-users"></span>        Clientes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Proveedores.rb') ?>"><span class="fa fa-truck"></span>        Proveedores</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="fa fa-box"></span>        Almacenes</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Maquilas.rb') ?>"><span class="fa fa-industry"></span>         Maquilas</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Vendedores.rb') ?>"><span class="fa fa-blind"></span>         Vendedores</a></li>
+                    <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=BANCOS') ?>"><span class="fa fa-piggy-bank"></span>         Bancos</a></li>
                     <li class="nav-item dropdown dropdown-submenu">
                         <a class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Materiales
+                            <span class="fa fa-puzzle-piece"></span>         Materiales
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>">Materiales</a></li>
-                            <li><a class="dropdown-item" href="<?php print base_url('Rangos.rb') ?>">Rangos</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>"><span class="fa fa-puzzle-piece"></span>           Materiales</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Rangos.rb') ?>"><span class="fa fa-ellipsis-h"></span>         Rangos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown dropdown-submenu">
                         <a class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Producción
+                            <span class="fa fa-chart-line"></span>         Producción
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="<?php print base_url('Lineas.rb') ?>">Lineas</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Lineas.rb') ?>"><span class="fa fa-lines"></span>         Lineas</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Estilos.rb') ?>">Estilos</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Combinaciones.rb') ?>">Combinaciones</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Series.rb') ?>">Series</a></li>
@@ -180,15 +178,14 @@
                     </li>
                 </ul>
             </li>
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Configuración
+                    <span class="fa fa-cogs"></span>         Configuración
                 </a>
                 <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
                     <li class="nav-item dropdown dropdown-submenu">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Usuarios
+                            <span class="fa fa-user-circle"></span>         Usuarios
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php print base_url('Usuarios.rb') ?>">Usuarios</a></li>
@@ -200,7 +197,7 @@
                     </li>
                     <li class="nav-item dropdown dropdown-submenu">
                         <a class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Generales
+                            <span class="fa fa-cog"></span>         Generales
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Generales.rb/?modulo=UNIDADES') ?>">Unidades</a></li>
