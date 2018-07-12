@@ -64,7 +64,7 @@
             <form id="frmNuevo">
                 <div class="row">
                     <div class="col-md-12 float-left">
-                        <legend class="float-left">Materiales</legend>
+                        <legend class="float-left">Material</legend>
                     </div>
                 </div>
                 <div class="row">
@@ -72,45 +72,15 @@
                         <input type="text" class="" id="ID" name="ID" readonly="">
                         <input type="text" class="" id="IdMagnus" name="IdMagnus" readonly="">
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-3">
                         <label for="Material">Material*</label>
                         <input type="text" maxlength="15" class="form-control form-control-sm" id="Material" name="Material" required >
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-6">
                         <label for="Descripcion">Descripción*</label>
                         <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" required >
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="UnidadCompra">Unidad de Compra*</label>
-                        <select class="form-control form-control-sm required"  name="UnidadCompra" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="UnidadConsumo">Unidad de Consumo*</label>
-                        <select class="form-control form-control-sm required"  name="UnidadConsumo" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="Familia">Familia*</label>
-                        <select class="form-control form-control-sm required"  name="Familia" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="col-sm">
-                        <label for="Departamento">Departamento*</label>
-                        <select class="form-control form-control-sm required"  name="Departamento" required="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-3">
                         <label for="Tipo">Tipo*</label>
                         <select class="form-control form-control-sm required"  name="Tipo" required="">
                             <option value=""></option>
@@ -120,40 +90,63 @@
                     </div>
                 </div>
                 <div class="row">
-
-                    <div class="col-sm">
-                        <label for="Minimo">Mínimo</label>
-                        <input type="text" class="form-control form-control-sm numbersOnly" id="Minimo" name="Minimo"  >
+                    <div class="col-sm-3">
+                        <label for="UnidadCompra">Unidad de Compra*</label>
+                        <select class="form-control form-control-sm required"  name="UnidadCompra" required="">
+                            <option value=""></option>
+                        </select>
                     </div>
-                    <div class="col-sm">
-                        <label for="Maximo">Máximo</label>
-                        <input type="text" class="form-control form-control-sm numbersOnly" id="Maximo" name="Maximo"  >
+                    <div class="col-sm-3">
+                        <label for="UnidadConsumo">Unidad de Consumo*</label>
+                        <select class="form-control form-control-sm required"  name="UnidadConsumo" required="">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Familia">Familia*</label>
+                        <select class="form-control form-control-sm required"  name="Familia" required="">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Departamento">Departamento*</label>
+                        <select class="form-control form-control-sm required"  name="Departamento" required="">
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
-
-                    <div class="col-sm">
+                    <div class="col-sm-3">
+                        <label for="Minimo">Mínimo</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly" id="Minimo" name="Minimo"  >
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Maximo">Máximo</label>
+                        <input type="text" class="form-control form-control-sm numbersOnly" id="Maximo" name="Maximo"  >
+                    </div>
+                    <div class="col-sm-3">
                         <label for="PrecioLista">Precio Lista</label>
                         <input type="text" class="form-control form-control-sm numbersOnly" id="PrecioLista" name="PrecioLista"  >
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-3">
                         <label for="PrecioTope">Precio Máximo</label>
                         <input type="text" class="form-control form-control-sm numbersOnly" id="PrecioTope" name="PrecioTope"  >
                     </div>
                 </div>
                 <div class="row">
-
-                    <div class="col-sm">
+                    <div class="col-sm-3">
                         <label for="FechaUltimoInventario">Fecha Último Inventario</label>
                         <input type="text" id="FechaUltimoInventario" name="FechaUltimoInventario" class="form-control form-control-sm notEnter" placeholder="XX/XX/XXXX">
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-3">
                         <label for="Existencia">Existencia</label>
                         <input type="number" class="form-control form-control-sm" id="Existencia" name="Existencia"  >
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
+                    <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <label for="Talla">Talla</label>
+                        <input type="number" class="form-control form-control-sm" id="Talla" name="Talla" placeholder="22.0" >
+                    </div>
+                    <div class="col-sm-3">
                         <label for="Estatus">Estatus*</label>
                         <select class="form-control form-control-sm required"  name="Estatus" required="">
                             <option value=""></option>
@@ -162,8 +155,7 @@
                         </select>
                     </div>
                 </div>
-                <br>
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-md-2 float-left">
                     </div>
                     <div class="col-md-7 float-right">
@@ -192,8 +184,19 @@
     var nuevo = true;
 
     $(document).ready(function () {
-        
+
         pnlDatos.find("#FechaUltimoInventario").inputmask({alias: "date"});
+
+        pnlDatos.find('[name="Familia"]').change(function () {
+            if (/SUELA/i.test($(this).text())) {
+                pnlDatos.find("#Talla").parent().removeClass("d-none");
+                pnlDatos.find("#Talla").removeClass("d-none");
+            } else {
+                pnlDatos.find("#Talla").addClass("d-none");
+                pnlDatos.find("#Talla").parent().addClass("d-none");
+            }
+        });
+
         btnGuardar.click(function () {
             isValid('pnlDatos');
             if (valido) {
@@ -400,16 +403,24 @@
                             ID: temp
                         }
                     }).done(function (data, x, jq) {
+                        var x = data[0];
                         pnlDatos.find("input").val("");
                         $.each(pnlDatos.find("select"), function (k, v) {
                             pnlDatos.find("select")[k].selectize.clear(true);
                         });
-                        $.each(data[0], function (k, v) {
+                        $.each(x, function (k, v) {
                             pnlDatos.find("[name='" + k + "']").val(v);
                             if (pnlDatos.find("[name='" + k + "']").is('select')) {
                                 pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
                             }
                         });
+                        if (/CBZ/i.test(x.Descripcion)) {
+                            pnlDatos.find("#Talla").parent().removeClass("d-none");
+                            pnlDatos.find("#Talla").removeClass("d-none");
+                        } else {
+                            pnlDatos.find("#Talla").addClass("d-none");
+                            pnlDatos.find("#Talla").parent().addClass("d-none");
+                        }
                         pnlTablero.addClass("d-none");
                         pnlDatos.removeClass('d-none');
                         $(':input:text:enabled:visible:first').focus();
@@ -423,7 +434,6 @@
                 }
             });
         }
-
     }
 
     function getDepartamentos() {

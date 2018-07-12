@@ -404,5 +404,13 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
+    public function getTallasCantidades() {
+        try {
+            $pedido_detalle = $this->pedidos_model->getCantidadesPedido(1);
+            $serie_detalle = $this->pedidos_model->getSeriePedido(1);
+            
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 }

@@ -6,22 +6,14 @@ class Materiales extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
-        $this->load->model('materiales_model');
-        $this->load->model('departamentos_model');
-        $this->load->model('generales_model');
+        $this->load->library('session')->model('materiales_model')->model('departamentos_model')->model('generales_model');
     }
 
     public function index() {
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vMateriales');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vMateriales')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
@@ -82,7 +74,8 @@ class Materiales extends CI_Controller {
                 'PrecioTope' => ($x->post('PrecioTope') !== NULL) ? $x->post('PrecioTope') : NULL,
                 'FechaUltimoInventario' => ($x->post('FechaUltimoInventario') !== NULL) ? $x->post('FechaUltimoInventario') : NULL,
                 'Existencia' => ($x->post('Existencia') !== NULL) ? $x->post('Existencia') : NULL,
-                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL
+                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL,
+                'Talla' => ($x->post('Talla') !== NULL && $x->post('Talla')!=='') ? $x->post('Talla') : NULL
             );
             $ID = $this->materiales_model->onAgregar($data);
 
@@ -155,7 +148,8 @@ class Materiales extends CI_Controller {
                 'PrecioTope' => ($x->post('PrecioTope') !== NULL) ? $x->post('PrecioTope') : NULL,
                 'FechaUltimoInventario' => ($x->post('FechaUltimoInventario') !== NULL) ? $x->post('FechaUltimoInventario') : NULL,
                 'Existencia' => ($x->post('Existencia') !== NULL) ? $x->post('Existencia') : NULL,
-                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL
+                'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL,
+                'Talla' => ($x->post('Talla') !== NULL && $x->post('Talla')!=='') ? $x->post('Talla') : NULL
             );
             $this->materiales_model->onModificar($x->post('ID'), $DATA);
 
@@ -178,5 +172,4 @@ class Materiales extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 }
