@@ -75,19 +75,20 @@ class Materiales extends CI_Controller {
                 'FechaUltimoInventario' => ($x->post('FechaUltimoInventario') !== NULL) ? $x->post('FechaUltimoInventario') : NULL,
                 'Existencia' => ($x->post('Existencia') !== NULL) ? $x->post('Existencia') : NULL,
                 'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL,
-                'Talla' => ($x->post('Talla') !== NULL && $x->post('Talla')!=='') ? $x->post('Talla') : NULL
+                'Talla' => ($x->post('Talla') !== NULL && $x->post('Talla') !== '') ? $x->post('Talla') : NULL
             );
             $ID = $this->materiales_model->onAgregar($data);
 
             /* AGREGAR A MAGNUS LOBO */
             $ClaveFinal = $x->post('Material');
+            $IDMU = $this->materiales_model->getUnidadMagnusByID($x->post('UnidadCompra'))[0]->IDM;
             $data = array('IdProducto' => ($x->post('Material') !== NULL) ? $ClaveFinal . '-M' : ''
                 , 'CodigoBarras' => ($x->post('Material') !== NULL) ? $ClaveFinal . '-M' : NULL
                 , 'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL
                 , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion')
                 , 'TipoProducto' => 'M', 'TipoGrupo' => 'N'
                 , 'IdTalla' => NULL, 'ClaveParteBase' => $ClaveFinal
-                , 'ClaveParteTalla' => '', 'IdUnidad' => $x->post('UnidadCompra')/* SE CAMBIO DE PAR A LA UNIDAD ESTABLECIDA EN MAGNUS */
+                , 'ClaveParteTalla' => '', 'IdUnidad' => ($IDMU !== NULL) ? $IDMU : 19/* SE CAMBIO DE PAR A LA UNIDAD ESTABLECIDA EN MAGNUS */
                 , 'Empaque' => 0.00, 'Peso' => 0.00
                 , 'Volumen' => 0.00, 'ManejaLotes' => 'F'
                 , 'TipoCosteo' => 'P', 'IdFamilia' => 2/* FAMILIA PARA MATERIA PRIMA */
@@ -149,7 +150,7 @@ class Materiales extends CI_Controller {
                 'FechaUltimoInventario' => ($x->post('FechaUltimoInventario') !== NULL) ? $x->post('FechaUltimoInventario') : NULL,
                 'Existencia' => ($x->post('Existencia') !== NULL) ? $x->post('Existencia') : NULL,
                 'Estatus' => ($x->post('Estatus') !== NULL) ? $x->post('Estatus') : NULL,
-                'Talla' => ($x->post('Talla') !== NULL && $x->post('Talla')!=='') ? $x->post('Talla') : NULL
+                'Talla' => ($x->post('Talla') !== NULL && $x->post('Talla') !== '') ? $x->post('Talla') : NULL
             );
             $this->materiales_model->onModificar($x->post('ID'), $DATA);
 
@@ -172,4 +173,5 @@ class Materiales extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }

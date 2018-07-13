@@ -364,7 +364,6 @@ class Pedidos extends CI_Controller {
         try {
             $rows = json_decode($this->input->post('rows'), false);
             foreach ($rows as $k => $v) {
-                print_r($v);
                 if ($this->input->post("SEMANA") !== '') {
                     $MAQ = $this->input->post("MAQUILA") !== '' ? $this->input->post("MAQUILA") : $v->MAQUILA;
                     $SEM = $this->input->post("SEMANA") !== '' ? $this->input->post("SEMANA") : $v->SEMANA;

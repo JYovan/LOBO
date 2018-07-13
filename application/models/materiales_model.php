@@ -137,4 +137,20 @@ class materiales_model extends CI_Model {
         }
     }
 
+    public function getUnidadMagnusByID($IDX) {
+        try {
+            $this->db->select('C.IdMagnus AS IDM', false)->from('sz_Catalogos AS C')->where('C.ID', $IDX);
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
 }

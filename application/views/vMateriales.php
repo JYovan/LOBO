@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-sm-3">
                         <label for="Material">Material*</label>
-                        <input type="text" maxlength="15" class="form-control form-control-sm" id="Material" name="Material" required >
+                        <input type="text" maxlength="15" class="form-control form-control-sm numbersOnly" id="Material" name="Material" required >
                     </div>
                     <div class="col-sm-6">
                         <label for="Descripcion">Descripción*</label>
