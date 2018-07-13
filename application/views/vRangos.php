@@ -47,6 +47,15 @@
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
+            <div class="col-sm-3 d-none" id="cTipo">
+                <label for="Tipo">Tipo*</label>
+                <select class="form-control form-control-sm " id="Tipo" name="Tipo">
+                    <option></option>
+                    <option value="1">1 SUELA</option>
+                    <option value="2">2 ENTRESUELA</option>
+                    <option value="3">3 PLANTA</option>
+                </select>
+            </div>
         </div>
         <div id="pnlControlesDetalle">
             <div class="row mt-4 pb-5">
@@ -56,12 +65,12 @@
                             <tr>
                                 <th class="text-info d-none">ID</th><!--0-->
                                 <th class="text-info">Talla</th><!--1-->
-                                <th>Suela</th><!--2-->
-                                <th>Entresuela</th><!--3-->
-                                <th>Planta</th><!--4-->
-                                <th class="d-none">vSuela</th><!--5-->
-                                <th class="d-none">vEntreSuela</th><!--6-->
-                                <th class="d-none">vPlanta</th><!--7-->
+                                <th>Material</th><!--2-->
+<!--                                <th>Entresuela</th>3
+                                <th>Planta</th>4-->
+                                <th class="d-none">vSuela</th><!--3-->
+                                <th class="d-none">vEntreSuela</th><!--4-->
+                                <th class="d-none">vPlanta</th><!--5-->
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -228,9 +237,10 @@
                             ).then(function () {
                         HoldOn.close();
                         Estilo[0].selectize.disable();
+                        pnlDatos.find("#cTipo").removeClass('d-none');
                         temp = Estilo.val();
-                        onObtenerRangosByID(Estilo.val());
                         nuevo = false;
+                        estatus = true;
                     });
                     swal('INFO', 'SE HAN AÑADIDO UN NUEVO REGISTRO', 'success');
                 }).fail(function (x, y, z) {
@@ -247,6 +257,22 @@
             if (nuevo) {
                 temp = $(this).val();
                 onComprobarExisteEstilo($(this).val());
+            }
+        });
+        pnlDatos.find("[name='Tipo']").change(function () {
+            HoldOn.open({theme: "sk-bounce", message: "CARGANDO DATOS..."});
+            switch ($(this).val()) {
+                case '1':
+                    onObtenerRangosSuelasByID(temp);
+                    break;
+                case '2':
+                    onObtenerRangosEntresuelaByID(temp);
+                    break;
+                case '3':
+                    onObtenerRangosPlantasByID(temp);
+                    break;
+                default:
+                    break;
             }
         });
         btnEliminar.click(function () {
@@ -287,6 +313,7 @@
             pnlDatos.find("input").val("");
             pnlControlesDetalle.find("input").val("");
             pnlControlesDetalle.removeClass('d-none');
+            pnlDatos.find("#cTipo").addClass('d-none');
             Estilo[0].selectize.enable();
             $.each(pnlDatos.find("select"), function (k, v) {
                 pnlDatos.find("select")[k].selectize.clear(true);
@@ -303,7 +330,6 @@
                 RegistrosDetalle.clear().draw();
             }
             nuevo = true;
-            estatus = false;
         });
         getRecords();
         getEstilos();
@@ -386,31 +412,29 @@
                 temp = parseInt(dtm.ID);
                 pnlDatos.removeClass("d-none");
                 pnlTablero.addClass("d-none");
-                if (temp !== 0 && temp !== undefined && temp > 0) {
-                    nuevo = false;
-                    HoldOn.open({
-                        theme: "sk-bounce",
-                        message: "CARGANDO DATOS..."
-                    });
-                    //OBTENER
-                    onObtenerRangosByID(temp);
-                } else {
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'DEBE DE ELEGIR UN REGISTRO', 'danger');
-                }
+                pnlDatos.find("#cTipo").removeClass('d-none');
+                //Obtener encabezado
+                $.getJSON(master_url + 'getRecordsByID', {ID: temp}).done(function (data, x, jq) {
+                    var dtm = data[0];
+                    pnlDatos.find("input").val("");
+                    Estilo[0].selectize.setValue(dtm.Estilo);
+                    Estilo[0].selectize.disable();
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                }).always(function () {
+                });
+
             });
         }
     }
     function onModificarRango(e) {
         $.post(master_url + 'onModificar', e).done(function (data, x, jq) {
-            console.log('OK MODIFICADO', e, " *,* ", data);
-            onNotify('<span class="fa fa-check fa-lg"></span>', 'SE HAN GUARDADO LOS CAMBIOS', 'success');
         }).fail(function (x, y, z) {
-            console.log(x.responsText);
+            swal('ERROR', 'NO SE MODIFICÓ EL RANGO', 'error');
         }).always(function () {
-
         });
     }
-    function onObtenerRangosByID(IDX) {
+    function onObtenerRangosPlantasByID(IDX) {
         $.getJSON(master_url + 'getRecordsByID', {ID: IDX}).done(function (data, x, jq) {
             var dtm = data[0];
             pnlDatos.find("input").val("");
@@ -423,29 +447,141 @@
                 rows += '<td class="d-none" style="width: 10%;">' + v.ID + '</td>';
                 rows += '<td class="text-info " style="width: 10%;">' + v.Talla + '</td>';
                 rows += '<td style="width: 30%">';
-                rows += '<select class="form-control form-control-sm" name="Suela" >';
+                rows += '<select class="form-control form-control-sm " name="Planta" >';
                 rows += '</select>';
                 rows += '</td>';
-                rows += '<td style="width: 30%">';
-                rows += '<select class="form-control form-control-sm" name="Entresuela" >';
-                rows += '</select>';
+                rows += '<td class="Suela d-none">';
                 rows += '</td>';
-                rows += '<td style="width: 30%">';
-                rows += '<select class="form-control form-control-sm" name="Planta" >';
-                rows += '</select>';
-                rows += '</td>';
-                rows += '<td class="Suela d-none">' + v.Suela;
-                rows += '</td>';
-                rows += '<td class="EntreSuela d-none">' + v.Entresuela;
+                rows += '<td class="EntreSuela d-none">';
                 rows += '</td>';
                 rows += '<td class="Planta d-none">' + v.Plantilla;
                 rows += '</td>';
                 rows += '</tr>';
             });
             tblRegistrosDetalle.html(rows);
-            tblRegistrosDetalle.find("select").selectize();
-//pnlDatos.find("[name='" + k + "']")[0].selectize.setValue(v);
-            var suelas = [], entresuelas = [], plantas = [];
+            tblRegistrosDetalle.find("select").selectize({
+                hideSelected: true,
+                openOnFocus: false
+            });
+            var plantas = [];
+            $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '50'}).done(function (s, x, jq) {
+                $.each(s, function (k, v) {
+                    plantas.push({text: v.Descripcion, value: v.ID});
+                });
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                //console.log("ENTRESUELAS\n", suelas);
+                $.each(tblRegistrosDetalle.find("tr"), function (k, r) {
+                    //ENTRESUELAS(VALORES Y EVENTOS)
+                    var row = $(r).find("td");
+                    var planta = row.eq(2).find("select");
+                    $.each(plantas, function (kk, vv) {
+                        planta[0].selectize.addOption(vv);
+                    });
+                    planta.change(function () {
+                        var row = $(this).parents('tr').find('td');
+                        onModificarRango({ID: row.eq(0).text(), TIPO: 'PLANTA', VALOR: $(this)[0].selectize.getValue()});
+
+                    });
+                    planta[0].selectize.setValue(row.eq(5).text());
+                    //FIN SUELAS(VALORES Y EVENTOS)
+                });
+            });
+            HoldOn.close();
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+        });
+    }
+    function onObtenerRangosEntresuelaByID(IDX) {
+        $.getJSON(master_url + 'getRecordsByID', {ID: IDX}).done(function (data, x, jq) {
+            var dtm = data[0];
+            pnlDatos.find("input").val("");
+            Estilo[0].selectize.setValue(dtm.Estilo);
+            Estilo[0].selectize.disable();
+            //ASIGNAR
+            var rows = '';
+            $.each(data.slice(0, data.length), function (k, v) {
+                rows += '<tr>';
+                rows += '<td class="d-none" style="width: 10%;">' + v.ID + '</td>';
+                rows += '<td class="text-info " style="width: 10%;">' + v.Talla + '</td>';
+                rows += '<td style="width: 30%">';
+                rows += '<select class="form-control form-control-sm " name="Entresuela" >';
+                rows += '</select>';
+                rows += '</td>';
+                rows += '<td class="Suela d-none">';
+                rows += '</td>';
+                rows += '<td class="EntreSuela d-none">' + v.Entresuela;
+                rows += '</td>';
+                rows += '<td class="Planta d-none">';
+                rows += '</td>';
+                rows += '</tr>';
+            });
+            tblRegistrosDetalle.html(rows);
+            tblRegistrosDetalle.find("select").selectize({
+                hideSelected: true,
+                openOnFocus: false
+            });
+            var entresuelas = [];
+            $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '52'}).done(function (s, x, jq) {
+                $.each(s, function (k, v) {
+                    entresuelas.push({text: v.Descripcion, value: v.ID});
+                });
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+            }).always(function () {
+                //console.log("ENTRESUELAS\n", suelas);
+                $.each(tblRegistrosDetalle.find("tr"), function (k, r) {
+                    //ENTRESUELAS(VALORES Y EVENTOS)
+                    var row = $(r).find("td");
+                    var entresuela = row.eq(2).find("select");
+                    $.each(entresuelas, function (kk, vv) {
+                        entresuela[0].selectize.addOption(vv);
+                    });
+                    entresuela.change(function () {
+
+                        var row = $(this).parents('tr').find('td');
+                        onModificarRango({ID: row.eq(0).text(), TIPO: 'ENTRESUELA', VALOR: $(this)[0].selectize.getValue()});
+
+                    });
+                    entresuela[0].selectize.setValue(row.eq(4).text());
+                    //FIN SUELAS(VALORES Y EVENTOS)
+                });
+            });
+            HoldOn.close();
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+        });
+    }
+    function onObtenerRangosSuelasByID(IDX) {
+        $.getJSON(master_url + 'getRecordsByID', {ID: IDX}).done(function (data, x, jq) {
+            pnlDatos.find("input").val("");
+            //ASIGNAR
+            var rows = '';
+            $.each(data.slice(0, data.length), function (k, v) {
+                rows += '<tr>';
+                rows += '<td class="d-none" style="width: 10%;">' + v.ID + '</td>';
+                rows += '<td class="text-info " style="width: 10%;">' + v.Talla + '</td>';
+                rows += '<td style="width: 30%">';
+                rows += '<select class="form-control form-control-sm " name="Suela" >';
+                rows += '</select>';
+                rows += '</td>';
+                rows += '<td class="Suela d-none">' + v.Suela;
+                rows += '</td>';
+                rows += '<td class="EntreSuela d-none">';
+                rows += '</td>';
+                rows += '<td class="Planta d-none">';
+                rows += '</td>';
+                rows += '</tr>';
+            });
+            tblRegistrosDetalle.html(rows);
+            tblRegistrosDetalle.find("select").selectize({
+                hideSelected: true,
+                openOnFocus: false
+            });
+            var suelas = [];
             $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '3'}).done(function (s, x, jq) {
                 $.each(s, function (k, v) {
                     suelas.push({text: v.Descripcion, value: v.ID});
@@ -454,76 +590,23 @@
                 console.log(x, y, z);
             }).always(function () {
                 //console.log("SUELAS\n", suelas);
-                $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '52'}).done(function (es, x, jq) {
-                    $.each(es, function (k, v) {
-                        entresuelas.push({text: v.Descripcion, value: v.ID});
+                $.each(tblRegistrosDetalle.find("tr"), function (k, r) {
+                    //SUELAS(VALORES Y EVENTOS)
+                    var row = $(r).find("td");
+                    var suela = row.eq(2).find("select");
+                    $.each(suelas, function (kk, vv) {
+                        suela[0].selectize.addOption(vv);
                     });
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    //console.log("ENTRESUELAS\n", entresuelas);
-                    $.getJSON(master_url + 'getMaterialesByFamilia', {Familia: '50'}).done(function (pl, x, jq) {
-                        $.each(pl, function (k, v) {
-                            plantas.push({text: v.Descripcion, value: v.ID});
-                        });
-                        //console.log('SUELAS: ', suelas)
-                        $.each(tblRegistrosDetalle.find("tr"), function (k, r) {
-                            //SUELAS(VALORES Y EVENTOS)
-                            var row = $(r).find("td");
-                            var suela = row.eq(2).find("select");
-                            $.each(suelas, function (kk, vv) {
-                                suela[0].selectize.addOption(vv);
-                            });
-                            suela.change(function () {
-                                if (estatus) {
-                                    var row = $(this).parents('tr').find('td');
-                                    onModificarRango({ID: row.eq(0).text(), TIPO: 'SUELA', VALOR: $(this)[0].selectize.getValue()});
-                                }
-                            });
-                            suela[0].selectize.setValue(row.eq(5).text());
-                            //FIN SUELAS(VALORES Y EVENTOS)
+                    suela.change(function () {
+                        var row = $(this).parents('tr').find('td');
+                        onModificarRango({ID: row.eq(0).text(), TIPO: 'SUELA', VALOR: $(this)[0].selectize.getValue()});
 
-                            //ENTRESUELAS(VALORES Y EVENTOS)
-                            var entresuela = row.eq(3).find("select");
-                            $.each(entresuelas, function (kk, vv) {
-                                entresuela[0].selectize.addOption(vv);
-                            });
-                            entresuela.change(function () {
-                                if (estatus) {
-                                    var row = $(this).parents('tr').find('td');
-                                    onModificarRango({ID: row.eq(0).text(), TIPO: 'ENTRESUELA', VALOR: $(this)[0].selectize.getValue()});
-                                }
-                            });
-                            entresuela[0].selectize.setValue(row.eq(6).text());
-                            //FIN ENTRESUELAS(VALORES Y EVENTOS)
-
-                            //PLANTAS(VALORES Y EVENTOS)
-                            var planta = row.eq(4).find("select");
-                            $.each(plantas, function (kk, vv) {
-                                planta[0].selectize.addOption(vv);
-                            });
-                            planta.change(function () {
-                                if (estatus) {
-                                    var row = $(this).parents('tr').find('td');
-                                    onModificarRango({ID: row.eq(0).text(), TIPO: 'PLANTA', VALOR: $(this)[0].selectize.getValue()});
-                                }
-                            });
-                            planta[0].selectize.setValue(row.eq(7).text());
-                            //FIN PLANTAS(VALORES Y EVENTOS)
-                        });
-                        pnlDatos.find("#Estilo")[0].selectize.focus();
-                        pnlTablero.addClass("d-none");
-                        pnlDetalle.removeClass('d-none');
-                        pnlControlesDetalle.removeClass('d-none');
-                        pnlDatos.removeClass('d-none');
-                    }).fail(function (x, y, z) {
-                        console.log(x, y, z);
-                    }).always(function () {
-                        HoldOn.close();
-                        estatus = true;
                     });
+                    suela[0].selectize.setValue(row.eq(3).text());
+                    //FIN SUELAS(VALORES Y EVENTOS)
                 });
             });
+            HoldOn.close();
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {

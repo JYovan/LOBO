@@ -286,6 +286,7 @@
   display: block;
   position: absolute;
   top: 50%;
+  cursor: pointer;
   right: 8px;
   margin-top: -3px;
   width: 0;

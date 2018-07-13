@@ -166,7 +166,6 @@
     var btnCancelar = pnlDatos.find("#btnCancelar");
     var btnEliminar = $("#btnEliminar");
     var Estilo = pnlDatos.find("#Estilo");
-    var tempDetalle = 0;
     var btnAgregarDetalle = $("#btnAgregarDetalle");
     var IdMovimiento = 0;
     var nuevo = true;

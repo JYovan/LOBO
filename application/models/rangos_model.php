@@ -142,22 +142,4 @@ class rangos_model extends CI_Model {
         }
     }
 
-    public function getFraccionEstiloByIDEstilo($ID) {
-        try {
-            $this->db->select('U.Estilo, U.Fecha, U.Estatus', false)
-                    ->from('sz_RangosCompras AS U')->where('U.Estilo', $ID)
-                    ->where_in('U.Estatus', 'ACTIVO');
-            $query = $this->db->get();
-            /*
-             * FOR DEBUG ONLY
-             */
-            $str = $this->db->last_query();
-//        print $str;
-            $data = $query->result();
-            return $data;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
 }

@@ -142,6 +142,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php print base_url('Materiales.rb') ?>"><span class="fa fa-puzzle-piece"></span>           Materiales</a></li>
+                            <li><a class="dropdown-item" href="<?php print base_url('Cabeceras.rb') ?>"><span class="fa fa-share-alt"></span>         Cabeceras</a></li>
                             <li><a class="dropdown-item" href="<?php print base_url('Rangos.rb') ?>"><span class="fa fa-ellipsis-h"></span>         Rangos</a></li>
                         </ul>
                     </li>
