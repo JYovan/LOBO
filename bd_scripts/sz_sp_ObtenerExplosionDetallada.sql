@@ -1,0 +1,89 @@
+USE P_LOBOSOLO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF EXISTS (	SELECT name 
+			FROM sysobjects
+			WHERE  name = 'sz_sp_ObtenerExplosionDetallada' AND
+			TYPE = 'P')
+	DROP PROCEDURE sz_sp_ObtenerExplosionDetallada
+GO
+CREATE PROCEDURE sz_sp_ObtenerExplosionDetallada 
+@dSEMANA INT ,
+@aSEMANA INT ,
+@dMAQUILA INT ,
+@aMAQUILA INT ,
+@AÑO INT
+
+AS
+BEGIN
+
+-- LIMPIAMOS TABLA TEMPORAL DE PEDIDOS VERTICAL
+
+IF OBJECT_ID (N'sz_PedidoDetalleTemp', N'U') IS NOT NULL 
+DROP TABLE P_LOBOSOLO.dbo.sz_PedidoDetalleTemp
+
+-- INSERTAR EN TABLA TEMPORAL DE PEDIDOS VERTICAL INDICANDO QUE NUMERO DE SEMANA ES
+SELECT   P.ID, Columna, Valor, P.Estilo, Combinacion, P.Pedido, convert(float,NULL) AS Talla
+INTO  P_LOBOSOLO.dbo.sz_PedidoDetalleTemp 
+FROM  sz_PedidosDetalle 
+UNPIVOT
+(
+       Valor
+       FOR Columna IN (C1, C2, C3, C4, C5, C6, 
+	   C7, C8, C9, C10, C11, C12, C13, C14,
+	   C15, C16, C17, C18, C19, C20, C21, C22)
+) AS P
+INNER JOIN  sz_Controles Con ON P.ID = Con.PedidoDetalle
+WHERE Con.ctSem BETWEEN @dSEMANA AND @aSEMANA
+AND Con.ctMaq BETWEEN @dMAQUILA AND @aMAQUILA
+AND Con.ctAno = @AÑO
+AND Con.Estatus = 'A'
+AND Con.Control IS NOT NULL
+
+
+
+
+-- DECLARAMOS VARIABLES QUE ALMACENARÁN DATOS DEL CURSOR
+DECLARE  @talla float, @columna int , @ID int,@ID_PEDIDO int
+-- DECLARAMOS EL CURSOR
+DECLARE LOBO_CURSOR CURSOR FOR 
+-- CONSULTA QUE NOS TRAERÁ LOS DATOS
+select s.valor, CONVERT(INT,REPLACE(S.columna,'T','')) AS columnaO ,PD.ID
+from sz_Seriestemp S
+LEFT JOIN sz_Estilos E on e.Serie = S.ID
+LEFT JOIN sz_PedidosDetalle PD on PD.Estilo = E.ID
+INNER JOIN  sz_Controles Con ON PD.ID = Con.PedidoDetalle
+WHERE Con.ctSem BETWEEN @dSEMANA AND @aSEMANA
+AND Con.ctMaq BETWEEN @dMAQUILA AND @aMAQUILA
+AND Con.ctAno = @AÑO
+AND Con.Estatus = 'A'
+AND Con.Control IS NOT NULL
+ORDER BY E.ID,columnaO ASC
+ 
+-- ABRIMOS EL CURSOR Y CONFORME EL RENGLON ALMACENAMOS EN LAS VARIABLES
+OPEN LOBO_CURSOR
+FETCH NEXT FROM LOBO_CURSOR into @talla, @columna,@ID
+ 
+-- REVISAMOS SI EXISTE UN RENGLON MÁS PARA SEGUIR ITERANDO
+WHILE @@FETCH_STATUS=0
+BEGIN
+-- ACCIONES
+-- print  @talla
+ 
+ UPDATE sz_PedidoDetalleTemp
+ SET Talla  = @talla
+ WHERE CONVERT(INT,REPLACE(columna,'C','')) = @columna
+ AND ID = @ID
+
+-- ALMACENAMOS LOS DATOS DEL SIGUIENTE RENGLON EN LAS VARIABLES
+FETCH NEXT FROM LOBO_CURSOR into @talla, @columna,@ID
+END
+-- CERRAMOS EL CURSOR CUANDO YA NO HAY MAS DATOS
+CLOSE LOBO_CURSOR
+-- DESTRUIMOS EL CURSOR
+Deallocate LOBO_CURSOR
+
+END
+GO
