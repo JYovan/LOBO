@@ -318,6 +318,7 @@
             $.each(pnlDatos.find("select"), function (k, v) {
                 pnlDatos.find("select")[k].selectize.clear(true);
             });
+            tblRegistrosDetalle.html('');
             $(':input:text:enabled:visible:first').focus();
             tblRegistrosDetalle.html('');
             nuevo = true;
@@ -406,6 +407,7 @@
 
             tblRegistrosX.find('tbody').on('dblclick', 'tr', function () {
                 nuevo = false;
+                tblRegistrosDetalle.html('');
                 tblRegistrosX.find("tbody tr").removeClass("success");
                 $(this).addClass("success");
                 var dtm = Registros.row(this).data();
@@ -413,6 +415,9 @@
                 pnlDatos.removeClass("d-none");
                 pnlTablero.addClass("d-none");
                 pnlDatos.find("#cTipo").removeClass('d-none');
+                $.each(pnlDatos.find("select"), function (k, v) {
+                    pnlDatos.find("select")[k].selectize.clear(true);
+                });
                 //Obtener encabezado
                 $.getJSON(master_url + 'getRecordsByID', {ID: temp}).done(function (data, x, jq) {
                     var dtm = data[0];

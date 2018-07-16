@@ -651,11 +651,11 @@
 </script>
 <style>
     .dropdown-item.active, .dropdown-item:active{
-        color: #fff !important; 
+        color: #fff !important;
     }
     a[class*="text-"]:hover, a a[class*="text-"]:focus{
-        color: #fff !important; 
-    } 
+        color: #fff !important;
+    }
     tr:hover td{
         background-color: #1b4f72;
         color: #fff;
@@ -665,14 +665,14 @@
         transition: all .2s ease-in-out;
     }
     td:hover {
-        position: relative; 
+        position: relative;
         background-color: #99cc00 !important;
         font-weight: bold;
         font-size: 12px;
         color:  #fff;
     }
 
-    td[title]:hover:after { 
+    td[title]:hover:after {
         text-align: center;
         content: attr(title);
         padding: 3px 5px 0px 5px;
@@ -682,58 +682,7 @@
         white-space: nowrap;
         z-index: 1;
         background: #0099cc;
-        color: #fff; 
+        color: #fff;
     }
-    .btn-primary{ 
-        /* padding: 30px 40px 30px 40px;
-         border-radius: 100px;*/
-        border-color:#232d38;
-        border-bottom-width: 10px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-    }
-    .btn-primary:active{
-        background-color: #2384c6;
-        border-top-width: 0px;
-        border-bottom-width: 0px;
-        margin: 10px 0px 0px 0px !important;  
-    }
-    .btn-danger{ 
-        /* padding: 30px 40px 30px 40px;
-         border-radius: 100px;*/
-        border-color: #c51f0f;
-        border-bottom-width: 10px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-    }
-    .btn-danger:active{
-        background-color: #2384c6;
-        border-top-width: 0px;
-        border-bottom-width: 0px;
-        margin: 10px 0px 0px 0px !important;  
-    }
-    .btn-info{ 
-        /* padding: 30px 40px 30px 40px;
-         border-radius: 100px;*/
-        border-color: #2384c6;
-        border-bottom-width: 10px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-    }
-    .btn-info:active{
-        background-color: #2384c6;
-        border-top-width: 0px;
-        border-bottom-width: 0px;
-        margin: 10px 0px 0px 0px !important;  
-    }
-    .btn-warning{ 
-        /* padding: 30px 40px 30px 40px;
-         border-radius: 100px;*/
-        border-color: #d08f29;
-        border-bottom-width: 10px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
-    }
-    .btn-warning:active{
-        background-color: #F39C12;
-        border-top-width: 0px;
-        border-bottom-width: 0px;
-        margin-top: 10px;  
-    }
+
 </style>

@@ -10,6 +10,182 @@ class compras_model extends CI_Model {
         parent::__construct();
     }
 
+    /* Explosiones desglosadas */
+
+    public function getExplosionDesglosadaBySem($dSem, $aSem, $dMaq, $aMaq, $ano) {
+        try {
+            $sql = "EXEC sz_sp_ObtenerExplosionDetallada " . $dSem . ", " . $aSem . "," . $dMaq . "," . $aMaq . "," . $ano . " ";
+            $query = $this->db->query($sql);
+            return $query->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getFamiliasExplosionDesglosada() {
+        try {
+            $sql = "SELECT CONVERT (VARCHAR(10),FAM.IValue) +' '+ FAM.SValue AS Familia, MAT.Familia AS IdFamilia
+FROM sz_PedidoDetalleTemp PDT
+INNER JOIN sz_RangosCompras RC ON RC.Estilo = PDT.Estilo
+AND RC.Talla = PDT.Talla
+AND RC.Suela IS NOT NULL
+AND  RC.Suela > 0
+INNER JOIN sz_Materiales MAT ON MAT.ID = RC.Suela
+INNER JOIN sz_Catalogos FAM ON FAM.ID = MAT.Familia
+GROUP BY FAM.IValue, FAM.SValue, MAT.Familia
+
+UNION
+
+SELECT  CONVERT (VARCHAR(10),FAM.IValue) +' '+ FAM.SValue AS Familia, MAT.Familia AS IdFamilia
+FROM sz_PedidoDetalleTemp PDT
+INNER JOIN sz_RangosCompras RC ON RC.Estilo = PDT.Estilo
+AND RC.Talla = PDT.Talla
+AND RC.Suela IS NOT NULL
+AND  RC.Suela > 0
+INNER JOIN sz_Materiales MAT ON MAT.ID = RC.Entresuela
+INNER JOIN sz_Catalogos FAM ON FAM.ID = MAT.Familia
+GROUP BY FAM.IValue, FAM.SValue, MAT.Familia
+ORDER BY Familia ";
+            $query = $this->db->query($sql);
+            return $query->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getCabecerosExplosionDesglosada() {
+        try {
+            $sql = "SELECT
+MAT_CAB.ID AS IdCabecera,
+MAT_CAB.Material,
+MAT_CAB.Descripcion,
+FAM.IValue,
+FAM.SValue,
+MAT.Familia AS IdFamilia
+FROM sz_PedidoDetalleTemp PDT
+INNER JOIN sz_RangosCompras RC ON RC.Estilo = PDT.Estilo
+AND RC.Talla = PDT.Talla
+AND RC.Suela IS NOT NULL
+AND  RC.Suela > 0
+INNER JOIN sz_Materiales MAT ON MAT.ID = RC.Suela
+INNER JOIN sz_Catalogos FAM ON FAM.ID = MAT.Familia
+INNER JOIN sz_Catalogos UN ON UN.ID = MAT.UnidadCompra
+INNER JOIN sz_Materiales MAT_CAB ON MAT_CAB.ID = MAT.Cabecera
+GROUP BY
+MAT_CAB.ID,
+MAT_CAB.Material,
+MAT_CAB.Descripcion,
+FAM.IValue,
+FAM.SValue,
+MAT.Familia
+
+UNION
+
+SELECT
+MAT_CAB.ID AS IdCabecera,
+MAT_CAB.Material,
+MAT_CAB.Descripcion,
+FAM.IValue,
+FAM.SValue,
+MAT.Familia AS IdFamilia
+FROM sz_PedidoDetalleTemp PDT
+INNER JOIN sz_RangosCompras RC ON RC.Estilo = PDT.Estilo
+AND RC.Talla = PDT.Talla
+AND RC.Suela IS NOT NULL
+AND  RC.Suela > 0
+INNER JOIN sz_Materiales MAT ON MAT.ID = RC.Entresuela
+INNER JOIN sz_Catalogos FAM ON FAM.ID = MAT.Familia
+INNER JOIN sz_Catalogos UN ON UN.ID = MAT.UnidadCompra
+INNER JOIN sz_Materiales MAT_CAB ON MAT_CAB.ID = MAT.Cabecera
+GROUP BY
+MAT_CAB.ID,
+MAT_CAB.Material,
+MAT_CAB.Descripcion,
+FAM.IValue,
+FAM.SValue,
+MAT.Familia";
+            $query = $this->db->query($sql);
+            return $query->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getArticulosExplosionDesglosada() {
+        try {
+            $sql = "select SUM(PDT.Valor) AS Explosion,
+MAT.Material,
+MAT.Descripcion,
+UN.SValue AS Unidad,
+MAT.Talla,
+MAT.PrecioLista,
+FAM.IValue,
+FAM.SValue,
+SUM(PDT.Valor) * MAT.PrecioLista AS Subtotal,
+MAT.Cabecera
+from sz_PedidoDetalleTemp PDT
+INNER JOIN sz_RangosCompras RC ON RC.Estilo = PDT.Estilo
+AND RC.Talla = PDT.Talla
+AND RC.Suela IS NOT NULL
+AND  RC.Suela > 0
+INNER JOIN sz_Materiales MAT ON MAT.ID = RC.Suela
+INNER JOIN sz_Catalogos FAM ON FAM.ID = MAT.Familia
+INNER JOIN sz_Catalogos UN ON UN.ID = MAT.UnidadCompra
+GROUP BY
+RC.Suela,
+MAT.Material,
+MAT.Descripcion,
+MAT.UnidadCompra,
+MAT.Talla,
+MAT.PrecioLista,
+FAM.IValue,
+FAM.SValue,
+UN.SValue,
+MAT.Cabecera
+
+UNION
+
+select SUM(PDT.Valor) AS Explosion,
+MAT.Material,
+MAT.Descripcion,
+UN.SValue AS Unidad,
+MAT.Talla,
+MAT.PrecioLista,
+FAM.IValue,
+FAM.SValue,
+SUM(PDT.Valor) * MAT.PrecioLista AS Subtotal,
+MAT.Cabecera
+from sz_PedidoDetalleTemp PDT
+INNER JOIN sz_RangosCompras RC ON RC.Estilo = PDT.Estilo
+AND RC.Talla = PDT.Talla
+AND RC.Suela IS NOT NULL
+AND  RC.Suela > 0
+INNER JOIN sz_Materiales MAT ON MAT.ID = RC.Entresuela
+INNER JOIN sz_Catalogos FAM ON FAM.ID = MAT.Familia
+INNER JOIN sz_Catalogos UN ON UN.ID = MAT.UnidadCompra
+GROUP BY
+RC.Suela,
+MAT.Material,
+MAT.Descripcion,
+MAT.UnidadCompra,
+MAT.Talla,
+MAT.PrecioLista,
+FAM.IValue,
+FAM.SValue,
+UN.SValue,
+MAT.Cabecera
+
+
+ORDER BY FAM.IValue, MAT.Descripcion";
+            $query = $this->db->query($sql);
+            return $query->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    /* Explosiones normales */
+
     public function getFamiliasExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano) {
         try {
             $this->db->select("CONVERT(VARCHAR(25),FAM.IValue)+' '+FAM.SValue AS Familia", false)

@@ -35,9 +35,11 @@
                             <label>Tipo Explosión</label>
                             <select class="form-control form-control-sm required" id="TipoE" name="TipoE" required="">
                                 <option value=""></option>
-                                <option value="1">PIEL Y FORRO</option>
-                                <option value="2">SUELA</option>
-                                <option value="3">INDIRECTOS</option>
+                                <option value="1">1 PIEL Y FORRO</option>
+                                <option value="2">2 SUELA</option>
+                                <option value="3">3 INDIRECTOS</option>
+                                <option value="4">4 SUELA (DESGLOSADO)</option>
+                                <option value="5">5 INDIRECTOS (DESGLOSADO)</option>
                             </select>
                         </div>
                     </div>
@@ -51,18 +53,30 @@
     </div>
 </div>
 <script>
+
     $(document).ready(function () {
+
+
 
         $('#mdlExplosionInsumos').on('shown.bs.modal', function () {
             $(':input:text:enabled:visible:first').focus();
         });
 
         $('#btnImprimirReporteExplosion').on("click", function () {
+            var Tipo = parseInt($('#TipoE').val());
+            var Reporte = '';
+
+            if (Tipo === 1 || Tipo === 2 || Tipo === 3) {
+                Reporte = 'index.php/ReportesCompras/onImprimirExplosion';
+            } else {
+                Reporte = 'index.php/ReportesCompras/onImprimirExplosionDesglosada';
+            }
+
             HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
             var frm = new FormData($('#mdlExplosionInsumos').find("#frmExplosionInsumos")[0]);
             frm.append('Ano', $('#Ano').val().substr(2));
             $.ajax({
-                url: base_url + 'index.php/ReportesCompras/onImprimirExplosion',
+                url: base_url + Reporte,
                 type: "POST",
                 cache: false,
                 contentType: false,
@@ -72,7 +86,7 @@
                 console.log(data);
                 if (data.length > 0) {
                     onNotify('<span class="fa fa-check fa-lg"></span>', 'REPORTE GENERADO', 'success');
-                    window.open(data+'?session='+'<?php print $_SESSION["USERNAME"]; ?>', '_blank');
+                    window.open(data + '?session=' + '<?php print $_SESSION["USERNAME"]; ?>', '_blank');
                 } else {
                     onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN DATOS PARA EL REPORTE', 'danger');
                 }
