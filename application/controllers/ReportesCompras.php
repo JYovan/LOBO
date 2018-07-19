@@ -37,9 +37,6 @@ class ReportesCompras extends CI_Controller {
                 case '4':
                     $Tipo = '******* SUELA *******';
                     break;
-                case '5':
-                    $Tipo = '******* INDIRECTOS *******';
-                    break;
             }
             $pdf->dMaquila = $dMaquila;
             $pdf->aMaquila = $aMaquila;

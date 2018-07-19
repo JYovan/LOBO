@@ -39,7 +39,6 @@
                                 <option value="2">2 SUELA</option>
                                 <option value="3">3 INDIRECTOS</option>
                                 <option value="4">4 SUELA (DESGLOSADO)</option>
-                                <option value="5">5 INDIRECTOS (DESGLOSADO)</option>
                             </select>
                         </div>
                     </div>
