@@ -1,29 +1,4 @@
 <!--MODAL FICHA TÉCNICA-->
-<div class="modal fade modal-fullscreen" id="mdlFichaTecnica" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TituloFichaTecnica">Ficha Técnica Estilo: <strong></strong></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-block">
-                            <div class="table-responsive" id="tblRegistrosFichaTecnica"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-raised btn-primary" data-dismiss="modal">ACEPTAR</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="card border-0 animated fadeIn" id="pnlTablero">
     <div class="card-body ">
         <div class="row">
@@ -118,7 +93,6 @@
                                         <option value="5">5 INT</option>
                                     </select>
                                 </div>
-
                             </div>
                         </form>
                     </div>
@@ -246,7 +220,13 @@
             <!--REGISTROS DETALLE-->
             <div class="" id="pnlDetalle">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" align="right">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" align="">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="x36" checked="">
+                            <label class="custom-control-label" for="x36">Lotes de 36</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" align="right">
                         <button type="button" id="btnModificarDetalle" name="btnModificarDetalle" class="btn btn-warning"  data-toggle="tooltip" data-placement="top" title="Cambiar">
                             <span class="fa fa-bolt fa-lg"></span>
                         </button>
@@ -394,6 +374,7 @@
         </div>
     </div>
 </div>
+
 <div class="dropdown-menu" style="font-size: 12px;" id='Menu'>
     <a class="dropdown-item" href="#" onclick="btnModificarDetalle.trigger('click')"><i class="fa fa-bolt fa-lg"></i> Modificar</a>
     <div class="dropdown-divider"></div>
@@ -426,12 +407,36 @@
                         <h3><span class="badge badge-pill badge-warning m-2">ESTILO - COLOR - SEMANA - MAQUILA</span></h3>
                     </div>
                     <div id="Afectados" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row animated flipInX">
-
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnAceptarMSD"><span class="fa fa-check fa-lg"></span>Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-fullscreen" id="mdlFichaTecnica" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloFichaTecnica">Ficha Técnica Estilo: <strong></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-block">
+                            <div class="table-responsive" id="tblRegistrosFichaTecnica"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-raised btn-primary" data-dismiss="modal">ACEPTAR</button>
             </div>
         </div>
     </div>
@@ -477,8 +482,7 @@
     var btnAceptarMSD = ModificarMSD.find("#btnAceptarMSD");
 
     var _animate_ = {enter: 'animated fadeInLeft', exit: 'animated fadeOutDown'}, _placement_ = {from: "bottom", align: "left"};
-    $(document).ready(function () {
-
+    $(document).ready(function () { 
         btnAceptarMSD.click(function () {
             var ctrls = [];
             $.each(tblPedidosDetalle.find("tbody tr:not(.Serie).selected"), function (k, v) {
@@ -715,6 +719,7 @@
             if ($.fn.DataTable.isDataTable('#tblPedidosDetalle')) {
                 PedidosDetalle.clear().draw();
             }
+            pnlDatos.find("[name='Folio']").prop('disabled', false);
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -1086,6 +1091,8 @@
                             }
                         });
                     });
+                    
+                    
                 });
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
@@ -1332,6 +1339,7 @@
         }
         HoldOn.close();
     }
+
     function getSerieXEstilo(Estilo) {
         $.getJSON(master_url + 'getSerieXEstilo', {Estilo: Estilo}).done(function (data, x, jq) {
             if (data.length > 0) {
@@ -1504,38 +1512,107 @@
                 if (Precio.val() !== '' && parseFloat(Precio.val()) > 0) {
                     var frm = new FormData();
                     var detalle = [];
+                    var limit = 36;
+                    var x36 = pnlDetalle.find("#x36")[0].checked;
                     $.each(rows.find("input.numbersOnly:enabled"), function () {
-                        var talla = rows.find("input").eq($(this).parent().index()).val();
+                        var a = $(this);
+                        var talla = rows.find("input").eq(a.parent().index()).val();
                         if (talla > 0) {
-                            var cant = parseInt($(this).val());
+                            var cant = parseInt(a.val());
                             if (cant > 0) {
-                                var registros = {
-                                    Pedido: idMov,
-                                    Estilo: Estilo.val(),
-                                    Combinacion: Combinacion.val(),
-                                    Posicion: $(this).attr("name"),
-                                    Cantidad: $(this).val(),
-                                    FechaEntrega: FechaEntrega.val(),
-                                    Maq: Maquila.val(),
-                                    Sem: Semana.val(),
-                                    Recio: Recio.val(),
-                                    Precio: Precio.val(),
-                                    Desc_Por: Desc.val(),
-                                    Observaciones: observaciones
-                                };
-                                detalle.push(registros);
+                                if (x36) {
+                                    var divisible = (a.val() / limit);//SIRVE PARA SABER SI TIENE MÁS DE DOS PARTES LA CANTIDAD INGRESADA QUE SUPEREN 1
+                                    if (divisible > 0) {
+                                        var acumulador = 36;
+                                        for (var i = 0; i < divisible; i++) {
+                                            if (acumulador < a.val()) {
+                                                var registros = {
+                                                    Pedido: idMov,
+                                                    Estilo: Estilo.val(),
+                                                    Combinacion: Combinacion.val(),
+                                                    Posicion: a.attr("name"),
+                                                    Cantidad: limit,
+                                                    FechaEntrega: FechaEntrega.val(),
+                                                    Maq: Maquila.val(),
+                                                    Sem: Semana.val(),
+                                                    Recio: Recio.val(),
+                                                    Precio: Precio.val(),
+                                                    Desc_Por: Desc.val(),
+                                                    Observaciones: observaciones,
+                                                    Proceso: 1
+                                                };
+                                            } else {
+                                                var registros = {
+                                                    Pedido: idMov,
+                                                    Estilo: Estilo.val(),
+                                                    Combinacion: Combinacion.val(),
+                                                    Posicion: a.attr("name"),
+                                                    Cantidad: (limit - acumulador) < 0 ? (a.val() - (acumulador - limit)) : (a.val() <= limit) ? parseInt(a.val()) : limit,
+                                                    FechaEntrega: FechaEntrega.val(),
+                                                    Maq: Maquila.val(),
+                                                    Sem: Semana.val(),
+                                                    Recio: Recio.val(),
+                                                    Precio: Precio.val(),
+                                                    Desc_Por: Desc.val(),
+                                                    Observaciones: observaciones,
+                                                    Proceso: 2
+                                                };
+                                            }
+                                            detalle.push(registros);
+                                            acumulador += 36;
+                                        }
+                                    } else {
+                                        var registros = {
+                                            Pedido: idMov,
+                                            Estilo: Estilo.val(),
+                                            Combinacion: Combinacion.val(),
+                                            Posicion: a.attr("name"),
+                                            Cantidad: a.val(),
+                                            FechaEntrega: FechaEntrega.val(),
+                                            Maq: Maquila.val(),
+                                            Sem: Semana.val(),
+                                            Recio: Recio.val(),
+                                            Precio: Precio.val(),
+                                            Desc_Por: Desc.val(),
+                                            Observaciones: observaciones,
+                                            Proceso: 3
+                                        };
+                                        detalle.push(registros);
+                                    }
+                                } else {
+                                    var registros = {
+                                        Pedido: idMov,
+                                        Estilo: Estilo.val(),
+                                        Combinacion: Combinacion.val(),
+                                        Posicion: a.attr("name"),
+                                        Cantidad: a.val(),
+                                        FechaEntrega: FechaEntrega.val(),
+                                        Maq: Maquila.val(),
+                                        Sem: Semana.val(),
+                                        Recio: Recio.val(),
+                                        Precio: Precio.val(),
+                                        Desc_Por: Desc.val(),
+                                        Observaciones: observaciones,
+                                        Proceso: 2
+                                    };
+                                    detalle.push(registros);
+                                }
                             }
                         }
                     });
                     frm.append('Detalle', JSON.stringify(detalle));
+                    console.log("\n * DETALLE *\n", detalle, "\n", x36, "\n");
                     $.ajax({
-                        url: master_url + 'onAgregarDetalle',
+                        url: master_url + ((x36) ? 'onAgregarDetalle36' : 'onAgregarDetalle'),
                         type: "POST",
                         cache: false,
                         contentType: false,
                         processData: false,
                         data: frm
                     }).done(function (data, x, jq) {
+                        console.log("\n", "* DETALLE *", "\n");
+                        console.log(data);
+                        console.log("\n", "* FIN DETALLE *", "\n");
                         getDetalleByID(idMov);
                         $("[name='Estilo']")[0].selectize.focus();
                         $("[name='Estilo']")[0].selectize.clear(true);
@@ -1741,15 +1818,24 @@
         border: 1px solid #fff;
     }
 
-    .btn-warning{
+    .btn-warning-3d  {
         border-color: #d08f29;
         border-bottom-width: 10px;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)!important;
     }
-    .btn-warning:active {
+    .btn-warning-3d:active {
         background-color: #F39C12;
         border-top-width: 0px;
         border-bottom-width: 0px;
         margin-top: 10px;
+    }
+    tr.selected td.NoHasStock{
+        color: #fff !important;
+        background-color: #d32f2f !important;
+    }
+
+    div.table-responsive tr:not(.Serie):hover > td:not(.HasStock):hover{
+        background-color: #0099cc !important;
+        color: #fff !important;
     }
 </style>

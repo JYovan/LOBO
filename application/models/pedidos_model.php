@@ -107,7 +107,38 @@ class pedidos_model extends CI_Model {
 
     public function onComprobarEstiloXCombinacion($ID, $E, $C) {
         try {
-            return $this->db->select("COUNT (*) AS EXISTE", false)->from('sz_PedidosDetalle AS PD')->where('PD.Pedido', $ID)->where('PD.Estilo', $E)->where('PD.Combinacion', $C)->get()->result();
+            return $this->db->select("COUNT (*) AS EXISTE", false)->from('sz_PedidosDetalle AS PD')->where('Pedido', $ID)->where('Estilo', $E)->where('Combinacion', $C)->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onComprobarCantidad($ID, $E, $C, $P) {
+        try {
+            return $this->db->select("TOP 1 SUM($P) AS x36", false)->from('sz_PedidosDetalle AS PD')
+                            ->where('Pedido', $ID)->where('Estilo', $E)->where('Combinacion', $C)->group_by(array('' . $P, 'ID'))
+                            ->order_by("ID", "ASC")->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onComprobarCantidadPorFila($ID, $E, $C, $P) {
+        try {
+            $this->db->select("TOP 1 "
+                    . "CASE "
+                    . "WHEN (C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) IS NULL THEN 0 "
+                    . "ELSE (C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) END AS x36", false)->from('sz_PedidosDetalle AS PD')
+                    ->where('Pedido', $ID)->where('Estilo', $E)->where('Combinacion', $C)
+                    ->where('(C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) < 37',null,false)
+                    ->group_by(array('ID', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C11', 'C12', 'C13', 'C14', 'C15', 'C16', 'C17', 'C18', 'C19', 'C20', 'C21', 'C22'))
+                    ->order_by("ID", "DESC");
+            $query = $this->db->get();
+            $str = $this->db->last_query();
+//            print "\n * SQL FOR $ID, $E, $C, $P * \n" . $str . "\n";
+            $data = $query->result();
+//            var_dump($data);
+            return $data;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -147,10 +178,13 @@ class pedidos_model extends CI_Model {
 
     public function onModificarDetalle($Pedido, $Estilo, $Color, $Posicion, $Cantidad) {
         try {
-            $DATA = array(
-                $Posicion => $Cantidad
-            );
-            $this->db->where('Estilo', $Estilo)->where('Combinacion', $Color)->where('Pedido', $Pedido)->update("sz_PedidosDetalle", $DATA);
+            $DATA = array($Posicion => $Cantidad);
+            $this->db->where('Estilo', $Estilo)
+                    ->where('Combinacion', $Color)
+                    ->where('Pedido', $Pedido)
+                    ->where('(C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) < 36', null, false)
+                    ->update("sz_PedidosDetalle", $DATA);
+//            print "\n + UPDATE + \n".$this->db->last_query()."\n";
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

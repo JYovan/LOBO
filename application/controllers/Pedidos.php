@@ -171,6 +171,32 @@ class Pedidos extends CI_Controller {
         }
     }
 
+    public function onAgregarDetalle36() {
+        try {
+            $Detalle = json_decode($this->input->post("Detalle"));
+            foreach ($Detalle as $key => $v) {
+                $data = array(
+                    'Pedido' => $v->Pedido,
+                    'FechaEntrega' => $v->FechaEntrega,
+                    'Maq' => $v->Maq,
+                    'Sem' => $v->Sem,
+                    'Ano' => Date('Y'),
+                    'Recio' => $v->Recio,
+                    'Precio' => $v->Precio,
+                    'Estilo' => $v->Estilo,
+                    'Desc_Por' => $v->Desc_Por,
+                    'Combinacion' => $v->Combinacion,
+                    'Observaciones' => $v->Observaciones,
+                    $v->Posicion => $v->Cantidad
+                );
+                $Existe = $this->pedidos_model->onComprobarEstiloXCombinacion($v->Pedido, $v->Estilo, $v->Combinacion);
+                $this->pedidos_model->onAgregarDetalle($data);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onAgregarDetalle() {
         try {
             $Detalle = json_decode($this->input->post("Detalle"));
@@ -191,8 +217,107 @@ class Pedidos extends CI_Controller {
                 );
                 $Existe = $this->pedidos_model->onComprobarEstiloXCombinacion($v->Pedido, $v->Estilo, $v->Combinacion);
                 if ($Existe[0]->EXISTE > 0) {
-                    $this->pedidos_model->onModificarDetalle($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion, $v->Cantidad);
+                    $DATA = array(
+                        $v->Posicion => $v->Cantidad
+                    );
+                    $this->db->where('Estilo', $v->Estilo)->where('Combinacion', $v->Combinacion)->where('Pedido', $v->Pedido)->update("sz_PedidosDetalle", $DATA);
                 } else {
+                    $this->pedidos_model->onAgregarDetalle($data);
+                }
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onAgregarDetallex() {
+        try {
+            $Detalle = json_decode($this->input->post("Detalle"));
+            foreach ($Detalle as $key => $v) {
+                $data = array(
+                    'Pedido' => $v->Pedido, 'FechaEntrega' => $v->FechaEntrega,
+                    'Maq' => $v->Maq, 'Sem' => $v->Sem,
+                    'Ano' => Date('Y'), 'Recio' => $v->Recio,
+                    'Precio' => $v->Precio, 'Estilo' => $v->Estilo,
+                    'Desc_Por' => $v->Desc_Por, 'Combinacion' => $v->Combinacion,
+                    'Observaciones' => $v->Observaciones, $v->Posicion => $v->Cantidad
+                );
+                $Existe = $this->pedidos_model->onComprobarEstiloXCombinacion($v->Pedido, $v->Estilo, $v->Combinacion);
+                if ($Existe[0]->EXISTE > 0) {
+
+                    $total_x_fila = $this->pedidos_model->onComprobarCantidadPorFila($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion);
+                    if (count($total_x_fila) > 0) {
+//                        $total_x_fila = $total_x_fila[0]->x36;
+//                        $total_x_fila_mas_lote = $total_x_fila + $v->Cantidad;
+//                        if ($v->Cantidad === 36 && $total_x_fila === 36) {
+                        $this->pedidos_model->onAgregarDetalle($data);
+//                        }
+//                        if ($v->Cantidad === 36 && $total_x_fila === 0) {
+//                            $this->pedidos_model->onAgregarDetalle($data);
+//                        }
+//                        if ($v->Cantidad < 36 && $total_x_fila < 37) {
+//                            $this->pedidos_model->onAgregarDetalle($data);
+//                        }
+//                        if ($total_x_fila < 36 && $total_x_fila_mas_lote <= 36) {
+//                            $nueva_cantidad = (36 - $total_x_fila );
+//                            $restante = $v->Cantidad - $nueva_cantidad;
+//                            $this->db->where('Estilo', $v->Estilo)->where('Combinacion', $v->Combinacion)->where('Pedido', $v->Pedido)
+//                                    ->where('(C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) < 36', null, false)
+//                                    ->update("sz_PedidosDetalle", array($v->Posicion => $nueva_cantidad));
+//                        }
+//                        
+//                        if ($total_x_fila < 36 && $total_x_fila_mas_lote > 36) {
+//                            $nueva_cantidad = (36 - $total_x_fila );
+//                            $restante = $v->Cantidad - $nueva_cantidad;
+//                            print "\n onModificarDetalle($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion, $v->Cantidad-$nueva_cantidad); $restante \n";
+//
+//                            $this->pedidos_model->onModificarDetalle($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion, $nueva_cantidad);
+//                            if ($restante > 0) {
+//                                $data[$v->Posicion] = $v->Cantidad - $nueva_cantidad;
+//                                $this->pedidos_model->onAgregarDetalle($data);
+//                                print "\n SE AGREGO UN RESTANTE DE $restante ($v->Cantidad - $nueva_cantidad)  \n";
+//                            }
+//                        }
+//                        /* PARA TODO LO QUE ES MENOR A 36 */
+//                        if ($total_x_fila < 37 && $total_x_fila_mas_lote < 37) {
+//                            print "\n onModificarDetalle($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion, $v->Cantidad); \n";
+//                            $this->pedidos_model->onModificarDetalle($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion, $v->Cantidad);
+//                        }
+                    }
+                } else {
+                    print "\n AGREGANDO 1, $v->Posicion , $v->Estilo, $v->Combinacion\n";
+                    $this->pedidos_model->onAgregarDetalle($data);
+                }
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onAgregarDetalleLimite() {
+        try {
+            $Detalle = json_decode($this->input->post("Detalle"));
+            foreach ($Detalle as $key => $v) {
+                $data = array(
+                    'Pedido' => $v->Pedido, 'FechaEntrega' => $v->FechaEntrega, 'Maq' => $v->Maq, 'Sem' => $v->Sem, 'Ano' => Date('Y'),
+                    'Recio' => $v->Recio, 'Precio' => $v->Precio, 'Estilo' => $v->Estilo, 'Desc_Por' => $v->Desc_Por,
+                    'Combinacion' => $v->Combinacion, 'Observaciones' => $v->Observaciones, $v->Posicion => $v->Cantidad
+                );
+                $Existe = $this->pedidos_model->onComprobarEstiloXCombinacion($v->Pedido, $v->Estilo, $v->Combinacion);
+                if ($Existe[0]->EXISTE > 0) {
+                    $total_x_fila = $this->pedidos_model->onComprobarCantidadPorFila($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion);
+                    if (count($total_x_fila) > 0) {
+                        $total_x_fila = $total_x_fila[0]->x36;
+                        if (count($total_x_fila) > 0 && $total_x_fila < 36) {
+                            print "\n * TOTAL POR FILA * $total_x_fila \n";
+                            $this->pedidos_model->onModificarDetalle($v->Pedido, $v->Estilo, $v->Combinacion, $v->Posicion, $v->Cantidad);
+                        }
+                        if ($total_x_fila < 36) {
+                            print "TOTAL POR FILA $total_x_fila, agregarle $v->Cantidad";
+                        }
+                    }
+                } else {
+                    print "\nAGREGANDO\n";
                     $this->pedidos_model->onAgregarDetalle($data);
                 }
             }
@@ -277,7 +402,7 @@ class Pedidos extends CI_Controller {
             $url = 'uploads/Pedidos/' . $this->input->get('ID') . '/PEDIDO_' . $this->input->get('ID') . '_' . Date('d') . '_' . Date('m') . '_' . Date('Y') . '.pdf';
 
             if (delete_files('uploads/Pedidos/' . $this->input->get('ID') . '/')) {
-
+                
             }
             $pdf->Output($url);
             print base_url() . $url;
@@ -403,11 +528,11 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
     public function getTallasCantidades() {
         try {
             $pedido_detalle = $this->pedidos_model->getCantidadesPedido(1);
             $serie_detalle = $this->pedidos_model->getSeriePedido(1);
-            
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
