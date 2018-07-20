@@ -100,6 +100,7 @@ class ReportesCompras extends CI_Controller {
                             '',
                             '',
                             ''));
+
                         $TotalEFamilias += $TotalEMaterial;
                         $TotalFamilias += $TotalMaterial;
                     }
@@ -121,8 +122,11 @@ class ReportesCompras extends CI_Controller {
                     '',
                     '',
                     ''));
+
                 $TotalEGeneral += $TotalEFamilias;
                 $TotalGeneral += $TotalFamilias;
+                $TotalFamilias = 0;
+                $TotalEFamilias = 0;
             }
             $pdf->SetX(5);
             $pdf->SetFont('Arial', 'B', 6.5);
@@ -135,14 +139,13 @@ class ReportesCompras extends CI_Controller {
                 'Totales por SEMANA MAQUILA:',
                 '',
                 '',
-                number_format($TotalEFamilias, 2, '.', ', '),
+                number_format($TotalEGeneral, 2, '.', ', '),
                 '',
-                "$ " . number_format($TotalFamilias, 2, '.', ', '),
+                "$ " . number_format($TotalGeneral, 2, '.', ', '),
                 '',
                 '',
                 ''));
-            $TotalEGeneral += $TotalEFamilias;
-            $TotalGeneral += $TotalFamilias;
+
 
 
             /* FIN RESUMEN */

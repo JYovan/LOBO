@@ -104,13 +104,15 @@ class Cabeceras extends CI_Controller {
 
             /* AGREGAR A MAGNUS LOBO */
             $ClaveFinal = $x->post('Material');
+            $IDMU = $this->cabeceras_model->getUnidadMagnusByID($x->post('UnidadCompra'))[0]->IDM;
             $data = array('IdProducto' => ($x->post('Material') !== NULL) ? $ClaveFinal . '-M' : ''
                 , 'CodigoBarras' => ($x->post('Material') !== NULL) ? $ClaveFinal . '-M' : NULL
                 , 'Descripcion' => ($x->post('Descripcion') !== NULL) ? $x->post('Descripcion') : NULL
                 , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion')
                 , 'TipoProducto' => 'M', 'TipoGrupo' => 'N'
                 , 'IdTalla' => NULL, 'ClaveParteBase' => $ClaveFinal
-                , 'ClaveParteTalla' => '', 'IdUnidad' => $x->post('UnidadCompra')/* SE CAMBIO DE PAR A LA UNIDAD ESTABLECIDA EN MAGNUS */
+                , 'ClaveParteTalla' => ''
+                , 'IdUnidad' => ($IDMU !== NULL) ? $IDMU : 19/* SE CAMBIO DE PAR A LA UNIDAD ESTABLECIDA EN MAGNUS */
                 , 'Empaque' => 0.00, 'Peso' => 0.00
                 , 'Volumen' => 0.00, 'ManejaLotes' => 'F'
                 , 'TipoCosteo' => 'P', 'IdFamilia' => 2/* FAMILIA PARA MATERIA PRIMA */

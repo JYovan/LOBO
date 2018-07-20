@@ -88,7 +88,8 @@ class Materiales extends CI_Controller {
                 , 'DescripcionLarga' => $ClaveFinal . " " . $x->post('Descripcion')
                 , 'TipoProducto' => 'M', 'TipoGrupo' => 'N'
                 , 'IdTalla' => NULL, 'ClaveParteBase' => $ClaveFinal
-                , 'ClaveParteTalla' => '', 'IdUnidad' => ($IDMU !== NULL) ? $IDMU : 19/* SE CAMBIO DE PAR A LA UNIDAD ESTABLECIDA EN MAGNUS */
+                , 'ClaveParteTalla' => ''
+                , 'IdUnidad' => ($IDMU !== NULL) ? $IDMU : 19/* SE CAMBIO DE PAR A LA UNIDAD ESTABLECIDA EN MAGNUS */
                 , 'Empaque' => 0.00, 'Peso' => 0.00
                 , 'Volumen' => 0.00, 'ManejaLotes' => 'F'
                 , 'TipoCosteo' => 'P', 'IdFamilia' => 2/* FAMILIA PARA MATERIA PRIMA */
