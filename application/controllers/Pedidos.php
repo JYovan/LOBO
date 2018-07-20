@@ -8,7 +8,7 @@ class Pedidos extends CI_Controller {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
         $this->load->library('session')->library('Myfpdf')
-                ->model('pedidos_model','pedidos')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
+                ->model('pedidos_model')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
                 ->model('generales_model')->model('listasdeprecios_model')
                 ->model('vendedores_model')->model('cerrarprog_model')->model('semanas_model');
         /* ->model('piezasymateriales_model'); */
