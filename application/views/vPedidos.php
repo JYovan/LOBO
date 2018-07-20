@@ -1840,6 +1840,18 @@
         color: #fff !important;
         background-color: #d32f2f !important;
     }
+    tr.selected td.Descuento{
+        color: #fff !important;
+        background-color: #F39C12 !important;
+    }
+    tr.selected td.Importe{
+        color: #fff !important;
+        background-color: #669900 !important;
+    }
+    tr.selected td.Pares{
+        color: #fff !important;
+        background-color: #0099cc !important;
+    }
 
     div.table-responsive tr:not(.Serie):hover > td:not(.HasStock):hover{
         background-color: #0099cc !important;
