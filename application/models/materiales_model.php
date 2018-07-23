@@ -27,10 +27,16 @@ class materiales_model extends CI_Model {
     public function getMateriales() {
         try {
             return $this->db->select("U.ID, U.Material, U.Material+'-'+U.Descripcion AS Descripcion ", false)
-                            ->from('sz_Materiales AS U')
-                            ->where_in('U.Estatus', 'ACTIVO')
-                            ->get()
-                            ->result();
+                            ->from('sz_Materiales AS U')->where_in('U.Estatus', 'ACTIVO')
+                            ->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getLastOneMaterial() {
+        try {
+            return $this->db->select("TOP 1 M.Material", false)->from('sz_Materiales AS M')->order_by('M.ID', 'DESC')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -152,5 +158,4 @@ class materiales_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
 }
