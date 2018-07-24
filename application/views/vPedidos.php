@@ -11,6 +11,7 @@
             </div>
         </div>
         <div class="card-block">
+            <div id="XContenedor" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
             <div id="Pedidos" class="table-responsive">
                 <table id="tblPedidos" class="table table-sm display " style="width:100%">
                     <thead>
@@ -34,14 +35,16 @@
     <div class="card border-0">
         <div class="card-body text-dark customBackground" >
             <div class="row">
-                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left">
-                    <h5>PEDIDO</h5>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 float-left">
+                    <h5>PEDIDO</h5>                           
                 </div>
-                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-right" align="right">
-                    <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm my-1" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
-                    <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
-                    <button type="button" class="btn btn-danger btn-sm btn-md my-1" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
-                    <button type="button" class="btn btn-primary btn-sm my-1" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 float-right" align="right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm my-1" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
+                        <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
+                        <button type="button" class="btn btn-danger btn-sm btn-md my-1" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
+                        <button type="button" class="btn btn-primary btn-sm my-1" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
+                    </div>
                 </div>
             </div>
             <div class="card border-0">
@@ -54,7 +57,7 @@
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="Folio">Folio*</label>
-                                    <input type="text" class="form-control form-control-sm numbersOnly " maxlength="10" id="Folio" name="Folio" required="">
+                                    <input type="text" class="form-control form-control-sm numbersOnly " maxlength="9" id="Folio" name="Folio" required="">
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="Cliente">Cliente* (F9) Actualizar</label>
@@ -482,7 +485,7 @@
     var btnAceptarMSD = ModificarMSD.find("#btnAceptarMSD");
 
     var _animate_ = {enter: 'animated fadeInLeft', exit: 'animated fadeOutDown'}, _placement_ = {from: "bottom", align: "left"};
-    $(document).ready(function () { 
+    $(document).ready(function () {
         btnAceptarMSD.click(function () {
             var ctrls = [];
             $.each(tblPedidosDetalle.find("tbody tr:not(.Serie).selected"), function (k, v) {
@@ -1029,8 +1032,15 @@
                     //FIN DETALLE X SERIE
                 });
                 $.each($('#tblPedidosDetalle > tbody tr'), function (k, v) {
+                    var event;
+                    if (isMobile) {
+                        $(this).find("td:eq(0)").touch();
+                        event = 'tap';
+                    } else {
+                        event = 'dblclick';
+                    }
                     //EN EL INDICE 2 (VISIBLE) SE ENCUENTRA LA MAQUILA
-                    $(this).find("td:not(.Serie):eq(2)").on('dblclick', function () {
+                    $(this).find("td:not(.Serie):eq(2)").on(event, function () {
                         var cell = $(this);
                         var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.text() + '" autofocus>';
                         cell.html(g).find("#Editor").focus().select();
@@ -1061,7 +1071,7 @@
                         });
                     });
                     //EN EL INDICE 3 (VISIBLE) SE ENCUENTRA LA SEMANA
-                    $(this).find("td:not(.Serie):eq(3)").on('dblclick', function () {
+                    $(this).find("td:not(.Serie):eq(3)").on(event, function () {
                         var cell = $(this);
                         var g = '<input id="Editor" type="text" class="form-control form-control-sm numbersOnly" maxlength="4" value="' + cell.text() + '" autofocus>';
                         cell.html(g).find("#Editor").focus().select();
@@ -1091,8 +1101,6 @@
                             }
                         });
                     });
-                    
-                    
                 });
             }).fail(function (x, y, z) {
                 console.log(x, y, z);
@@ -1832,6 +1840,18 @@
     tr.selected td.NoHasStock{
         color: #fff !important;
         background-color: #d32f2f !important;
+    }
+    tr.selected td.Descuento{
+        color: #fff !important;
+        background-color: #F39C12 !important;
+    }
+    tr.selected td.Importe{
+        color: #fff !important;
+        background-color: #669900 !important;
+    }
+    tr.selected td.Pares{
+        color: #fff !important;
+        background-color: #0099cc !important;
     }
 
     div.table-responsive tr:not(.Serie):hover > td:not(.HasStock):hover{

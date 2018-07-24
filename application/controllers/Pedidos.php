@@ -7,8 +7,8 @@ class Pedidos extends CI_Controller {
     public function __construct() {
         parent::__construct();
         date_default_timezone_set('America/Mexico_City');
-        $this->load->library('session')->library('Myfpdf');
-        $this->load->model('pedidos_model')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
+        $this->load->library('session')->library('Myfpdf')
+                ->model('pedidos_model')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
                 ->model('generales_model')->model('listasdeprecios_model')
                 ->model('vendedores_model')->model('cerrarprog_model')->model('semanas_model');
         /* ->model('piezasymateriales_model'); */
@@ -37,7 +37,7 @@ class Pedidos extends CI_Controller {
     }
 
     /*
-      public function getPiezasMatFichaTecnicaXEstiloXCombinacion() {
+      public function getPiezasMatFichaTecnicaXEstiloXCombinacion() {-
       try {
       $data = $this->piezasymateriales_model->getPiezasMatFichaTecnicaXEstiloXCombinacion($this->input->post('Estilo'), $this->input->post('Color'));
       print json_encode($data);
@@ -487,11 +487,12 @@ class Pedidos extends CI_Controller {
 
     public function onModificarMSD() {
         try {
-            $rows = json_decode($this->input->post('rows'), false);
+            $x = $this->input;
+            $rows = json_decode($x->post('rows'), false);
             foreach ($rows as $k => $v) {
-                if ($this->input->post("SEMANA") !== '') {
-                    $MAQ = $this->input->post("MAQUILA") !== '' ? $this->input->post("MAQUILA") : $v->MAQUILA;
-                    $SEM = $this->input->post("SEMANA") !== '' ? $this->input->post("SEMANA") : $v->SEMANA;
+                if ($x->post("SEMANA") !== '') {
+                    $MAQ = $x->post("MAQUILA") !== '' ? $x->post("MAQUILA") : $v->MAQUILA;
+                    $SEM = $x->post("SEMANA") !== '' ? $x->post("SEMANA") : $v->SEMANA;
                     $Y = substr(Date('Y'), 2);
                     $M = str_pad($MAQ, 2, '0', STR_PAD_LEFT);
                     $S = str_pad($SEM, 2, '0', STR_PAD_LEFT);
@@ -506,9 +507,9 @@ class Pedidos extends CI_Controller {
                     $this->db->set('ctSem', $S)->set('ctCons', $C)->set('Control', $Y . $S . $M . $C)->where('PedidoDetalle', $v->ID)->update('sz_Controles');
                     $this->db->set('Sem', $S)->where('ID', $v->ID)->update('sz_PedidosDetalle');
                 }
-                if ($this->input->post("MAQUILA") !== '') {
-                    $MAQ = $this->input->post("MAQUILA") !== '' ? $this->input->post("MAQUILA") : $v->MAQUILA;
-                    $SEM = $this->input->post("SEMANA") !== '' ? $this->input->post("SEMANA") : $v->SEMANA;
+                if ($x->post("MAQUILA") !== '') {
+                    $MAQ = $x->post("MAQUILA") !== '' ? $x->post("MAQUILA") : $v->MAQUILA;
+                    $SEM = $x->post("SEMANA") !== '' ? $x->post("SEMANA") : $v->SEMANA;
                     $Y = substr(Date('Y'), 2);
                     $M = str_pad($MAQ, 2, '0', STR_PAD_LEFT);
                     $S = str_pad($SEM, 2, '0', STR_PAD_LEFT);

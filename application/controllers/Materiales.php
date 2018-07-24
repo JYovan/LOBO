@@ -175,4 +175,11 @@ class Materiales extends CI_Controller {
         }
     }
 
+    public function getLastOneMaterial() {
+        try {
+            print json_encode($this->materiales_model->getLastOneMaterial());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 }

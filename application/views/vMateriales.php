@@ -289,6 +289,7 @@
             });
             $(':input:text:enabled:visible:first').focus();
             nuevo = true;
+            getLastOneMaterial();
         });
         btnCancelar.click(function () {
             pnlTablero.removeClass("d-none");
@@ -481,6 +482,21 @@
                 pnlDatos.find("[name='UnidadConsumo']")[0].selectize.addOption({text: v.SValue, value: v.ID});
                 pnlDatos.find("[name='UnidadCompra']")[0].selectize.addOption({text: v.SValue, value: v.ID});
             });
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
+
+    function getLastOneMaterial() {
+        $.getJSON(master_url + 'getLastOneMaterial').done(function (data, x, jq) {
+            console.log("\n", data, ", ", data.length, ", \n");
+            if (data.length > 0) {
+                var ultimo = (data[0].Material) + 1;
+                pnlDatos.find("#Material").val(parseInt(ultimo));
+                onNotify('', ultimo, 'success');
+            }
         }).fail(function (x, y, z) {
             console.log(x, y, z);
         }).always(function () {

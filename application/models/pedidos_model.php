@@ -80,8 +80,7 @@ class pedidos_model extends CI_Model {
                     . "'<span class=''fa fa-trash-alt'' "
                     . "onclick=''onEliminarDetalle('+      "
                     . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
-                    . ", S.ID AS Serie", false);
-            $this->db->from('sz_PedidosDetalle AS U')
+                    . ", S.ID AS Serie", false)->from('sz_PedidosDetalle AS U')
                     ->join('sz_Estilos AS E', 'U.Estilo = E.ID')->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID')
                     ->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID')->join('sz_series AS S', 'E.Serie = S.ID')
                     ->where('U.Pedido', $Pedido);
@@ -238,5 +237,4 @@ class pedidos_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
 }
