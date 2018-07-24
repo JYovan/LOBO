@@ -7,7 +7,7 @@ class ReportesCompras extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session')->model('compras_model')->helper('reportes_compras_helper')->helper('file')->helper('array');
+        $this->load->library('session')->model('reportes_compras_model')->helper('reportes_compras_helper')->helper('file')->helper('array');
     }
 
     public function index() {
@@ -21,7 +21,7 @@ class ReportesCompras extends CI_Controller {
 
     public function onImprimirExplosionDesglosada() {
         extract($this->input->post());
-        $cm = $this->compras_model;
+        $cm = $this->reportes_compras_model;
         //CREA TABLA TEMPORAL PARA REALIZAR EXPLOSIÓN
         $cm->getExplosionDesglosadaBySem($dSemana, $aSemana, $dMaquila, $aMaquila, $Ano);
         $Familias = $cm->getFamiliasExplosionDesglosada();
@@ -166,7 +166,7 @@ class ReportesCompras extends CI_Controller {
 
     public function onImprimirExplosion() {
         extract($this->input->post());
-        $cm = $this->compras_model;
+        $cm = $this->reportes_compras_model;
 
         $pares = $cm->getParesTotales($dSemana, $aSemana, $dMaquila, $aMaquila, $Ano)[0]->PARES;
         $Explocion = $cm->getExplosionInsumosByTipo($TipoE, $dMaquila, $aMaquila, $dSemana, $aSemana, $Ano);

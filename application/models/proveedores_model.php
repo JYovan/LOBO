@@ -27,6 +27,24 @@ class proveedores_model extends CI_Model {
         }
     }
 
+    public function getProveedores() {
+        try {
+            $this->db->select("P.ID AS ID, P.Clave +' '+ P.RazonSocial AS Nombre", false);
+            $this->db->from('sz_Proveedores AS P');
+            $this->db->where_in('P.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+            //print $str;
+            $data = $query->result();
+            return $data;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getMagnusID($ID) {
         try {
             $this->db->select("P.IDMAGNUS AS MAGNUS", false);
@@ -44,7 +62,7 @@ class proveedores_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function onComprobarProveedorXRFC($ID, $RFC) {
         try {
             $this->db->select("COUNT(P.ID) AS EXISTE", false);
