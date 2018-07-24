@@ -27,6 +27,14 @@ class clientes_model extends CI_Model {
         }
     }
 
+
+    public function getUID() {
+        try {
+            return $this->db->select("TOP 1 c.IdCliente AS ID", false)->from('Clientes AS c')->order_by('c.IdCliente', 'DESC')->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
     public function getClientes() {
         try {
             $this->db->select("U.ID, U.Clave+'-'+U.RazonSocial AS Nombre ", false);

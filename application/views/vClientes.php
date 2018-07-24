@@ -283,7 +283,7 @@
                                     HoldOn.close();
                                 });
                             } else {
-                                swal('ATENCIÓN', 'YA EXISTE UN PROVEEDOR CON ESTE RFC', 'warning');
+                                swal('ATENCIÓN', 'YA EXISTE UN CLIENTE CON ESTE RFC', 'warning');
                                 onBeep(2);
                             }
                         }).fail(function (x, y, z) {
@@ -305,7 +305,7 @@
                                     data: frm
                                 }).done(function (data, x, jq) {
                                     onBeep(4);
-                                    swal('ÉXITO', 'SE HAN AGREGADO EL CLIENTE', 'success');
+                                    swal('ÉXITO', 'SE HA AGREGADO EL CLIENTE', 'success');
                                     pnlDatos.find('#ID').val(data);
                                     nuevo = false;
                                     getRecords();

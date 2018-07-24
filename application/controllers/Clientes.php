@@ -71,9 +71,10 @@ class Clientes extends CI_Controller {
         try {
             $x = $this->input;
             /* AGREGAR EN MAGNUS */
+            $UID = $this->clientes_model->getUID();
             $data = array(
                 'Tipo' => 1,
-                'IdCliente' => ($x->post('Clave') !== NULL) ? $x->post('Clave') : NULL,
+                'IdCliente' => (count($UID) <= 0) ? 1 : ($UID[0]->ID + 1),
                 'IdPadre' => ($x->post('Clave') !== NULL) ? $x->post('Clave') : NULL,
                 'RFC' => ($x->post('RFC') !== NULL) ? $x->post('RFC') : NULL,
                 'Status' => ($x->post('Estatus') !== NULL) ? ($x->post('Estatus') === 'ACTIVO') ? 'A' : 'I' : NULL,

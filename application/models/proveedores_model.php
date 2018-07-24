@@ -45,6 +45,14 @@ class proveedores_model extends CI_Model {
         }
     }
 
+    public function getUID() {
+        try {
+            return $this->db->select("TOP 1 P.IdProveedor AS ID", false)->from('Proveedores AS P')->order_by('P.IdProveedor', 'DESC')->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getMagnusID($ID) {
         try {
             $this->db->select("P.IDMAGNUS AS MAGNUS", false);

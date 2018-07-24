@@ -59,8 +59,9 @@ class Proveedores extends CI_Controller {
     public function onAgregar() {
         try {
             $x = $this->input;
+            $UID = $this->proveedores_model->getUID(); 
             $data = array(
-                'IdProveedor' => ($x->post('Clave') !== NULL) ? $x->post('Clave') : '',
+                'IdProveedor' => (count($UID) <= 0) ? 1 : ($UID[0]->ID + 1),
                 'Status' => ($x->post('Estatus') !== NULL && $x->post('Estatus') === 'ACTIVO') ? 'A' : 'I',
                 'Nombre' => ($x->post('RazonSocial') !== NULL) ? $x->post('RazonSocial') : '',
                 'Direccion' => ($x->post('Direccion') !== NULL) ? $x->post('Direccion') : '',
