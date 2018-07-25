@@ -12,9 +12,8 @@ class clientes_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("C.ID AS ID, C.Clave AS CLAVE, C.RazonSocial as NOMBRE, C.RFC AS RFC, C.Telefono AS TELEFONO, C.Estatus AS ESTATUS ", false);
-            $this->db->from('sz_clientes AS C');
-            $this->db->where_in('C.Estatus', 'ACTIVO');
+            $this->db->select("C.ID AS ID, C.Clave AS CLAVE, C.RazonSocial as NOMBRE, C.RFC AS RFC, C.Telefono AS TELEFONO, C.Estatus AS ESTATUS ", false)
+                    ->from('sz_clientes AS C')->where_in('C.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -27,7 +26,6 @@ class clientes_model extends CI_Model {
         }
     }
 
-
     public function getUID() {
         try {
             return $this->db->select("TOP 1 c.IdCliente AS ID", false)->from('Clientes AS c')->order_by('c.IdCliente', 'DESC')->get()->result();
@@ -35,11 +33,10 @@ class clientes_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
     public function getClientes() {
         try {
-            $this->db->select("U.ID, U.Clave+'-'+U.RazonSocial AS Nombre ", false);
-            $this->db->from('sz_Clientes AS U');
-            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->select("U.ID, U.Clave+'-'+U.RazonSocial AS Nombre ", false)->from('sz_Clientes AS U')->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -56,9 +53,7 @@ class clientes_model extends CI_Model {
         try {
             return $this->db->select("V.ID, V.Clave+'-'+VRazonSocial AS Nombre ", false)
                             ->from('sz_Clientes AS V')
-                            ->where_in('V.Estatus', 'ACTIVO')
-                            ->get()
-                            ->result();
+                            ->where_in('V.Estatus', 'ACTIVO')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -66,10 +61,7 @@ class clientes_model extends CI_Model {
 
     public function getMagnusID($ID) {
         try {
-            $this->db->select("C.IDMAGNUS AS MAGNUS", false);
-            $this->db->from('sz_Clientes AS C');
-            $this->db->where_in('C.Estatus', 'ACTIVO');
-            $this->db->where('C.ID', $ID);
+            $this->db->select("C.IDMAGNUS AS MAGNUS", false)->from('sz_Clientes AS C')->where_in('C.Estatus', 'ACTIVO')->where('C.ID', $ID);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -84,9 +76,7 @@ class clientes_model extends CI_Model {
 
     public function getListaPrecioByCliente($ID) {
         try {
-            $this->db->select("C.ListaDePrecios AS Lista", false);
-            $this->db->from('sz_Clientes AS C');
-            $this->db->where('C.ID', $ID);
+            $this->db->select("C.ListaDePrecios AS Lista", false)->from('sz_Clientes AS C')->where('C.ID', $ID);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -101,11 +91,8 @@ class clientes_model extends CI_Model {
 
     public function getRegimenesFiscales() {
         try {
-            $this->db->select('U.ID, CONVERT(varchar(10), U.IValue)+\'-\'+U.SValue+\'-\'+U.Valor_Text AS SValue', false);
-            $this->db->from('sz_Catalogos AS U');
-            $this->db->where('U.FieldId', 'REGIMENES FISCALES');
-            $this->db->where_in('U.Estatus', 'ACTIVO');
-            $this->db->order_by("U.IValue", "ASC");
+            $this->db->select('U.ID, CONVERT(varchar(10), U.IValue)+\'-\'+U.SValue+\'-\'+U.Valor_Text AS SValue', false)
+                    ->from('sz_Catalogos AS U')->where('U.FieldId', 'REGIMENES FISCALES')->where_in('U.Estatus', 'ACTIVO')->order_by("U.IValue", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -121,9 +108,7 @@ class clientes_model extends CI_Model {
 
     public function getListasDePrecios() {
         try {
-            $this->db->select("LDP.ID, LDP.Descripcion AS Descripcion ", false);
-            $this->db->from('sz_ListaDePrecios AS LDP');
-            $this->db->where_in('LDP.Estatus', 'ACTIVO');
+            $this->db->select("LDP.ID, LDP.Descripcion AS Descripcion ", false)->from('sz_ListaDePrecios AS LDP')->where_in('LDP.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -162,8 +147,7 @@ class clientes_model extends CI_Model {
 
     public function onModificar($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Clientes", $DATA);
+            $this->db->where('ID', $ID)->update("sz_Clientes", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -172,8 +156,7 @@ class clientes_model extends CI_Model {
 
     public function onModificarMagnus($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("Clientes", $DATA);
+            $this->db->where('ID', $ID)->update("Clientes", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -182,9 +165,7 @@ class clientes_model extends CI_Model {
 
     public function onEliminar($ID) {
         try {
-            $this->db->set('Estatus', 'INACTIVO');
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Clientes");
+            $this->db->set('Estatus', 'INACTIVO')->where('ID', $ID)->update("sz_Clientes");
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -193,10 +174,7 @@ class clientes_model extends CI_Model {
 
     public function getClienteByID($ID) {
         try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_Clientes AS U');
-            $this->db->where('U.ID', $ID);
-            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->select('U.*', false)->from('sz_Clientes AS U')->where('U.ID', $ID)->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -212,9 +190,7 @@ class clientes_model extends CI_Model {
 
     public function onComprobarClienteXRFC($ID, $RFC) {
         try {
-            $this->db->select("COUNT(C.ID) AS EXISTE", false);
-            $this->db->from('sz_Clientes AS C');
-            $this->db->where_in('C.RFC', $RFC);
+            $this->db->select("COUNT(C.ID) AS EXISTE", false)->from('sz_Clientes AS C')->where_in('C.RFC', $RFC);
             if ($ID > 0) {
                 $this->db->where('C.ID <> ' . $ID, null, false);
             }
