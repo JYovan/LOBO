@@ -12,9 +12,8 @@ class proveedores_model extends CI_Model {
 
     public function getRecords() {
         try {
-            $this->db->select("P.ID AS ID, P.Clave AS CLAVE, P.RazonSocial AS PROVEEDOR, P.RFC AS RFC, CASE WHEN P.Estatus= 'ACTIVO' THEN CONCAT('<strong class=\"text-success\">','ACTIVO','</span>') ELSE 'INACTIVO' END  AS ESTATUS", false);
-            $this->db->from('sz_Proveedores AS P');
-            $this->db->where_in('P.Estatus', 'ACTIVO');
+            $this->db->select("P.ID AS ID, P.Clave AS CLAVE, P.RazonSocial AS PROVEEDOR, P.RFC AS RFC, CASE WHEN P.Estatus= 'ACTIVO' THEN CONCAT('<strong class=\"text-success\">','ACTIVO','</span>') ELSE 'INACTIVO' END  AS ESTATUS", false)
+                    ->from('sz_Proveedores AS P')->where_in('P.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -29,9 +28,7 @@ class proveedores_model extends CI_Model {
 
     public function getProveedores() {
         try {
-            $this->db->select("P.ID AS ID, P.Clave +' '+ P.RazonSocial AS Nombre", false);
-            $this->db->from('sz_Proveedores AS P');
-            $this->db->where_in('P.Estatus', 'ACTIVO');
+            $this->db->select("P.ID AS ID, P.Clave +' '+ P.RazonSocial AS Nombre", false)->from('sz_Proveedores AS P')->where_in('P.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -55,10 +52,7 @@ class proveedores_model extends CI_Model {
 
     public function getMagnusID($ID) {
         try {
-            $this->db->select("P.IDMAGNUS AS MAGNUS", false);
-            $this->db->from('sz_Proveedores AS P');
-            $this->db->where_in('P.Estatus', 'ACTIVO');
-            $this->db->where('P.ID', $ID);
+            $this->db->select("P.IDMAGNUS AS MAGNUS", false)->from('sz_Proveedores AS P')->where_in('P.Estatus', 'ACTIVO')->where('P.ID', $ID);
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -73,9 +67,7 @@ class proveedores_model extends CI_Model {
 
     public function onComprobarProveedorXRFC($ID, $RFC) {
         try {
-            $this->db->select("COUNT(P.ID) AS EXISTE", false);
-            $this->db->from('sz_Proveedores AS P');
-            $this->db->where_in('P.RFC', $RFC);
+            $this->db->select("COUNT(P.ID) AS EXISTE", false)->from('sz_Proveedores AS P')->where_in('P.RFC', $RFC);
             if ($ID > 0) {
                 $this->db->where('P.ID <> ' . $ID, null, false);
             }
@@ -95,10 +87,7 @@ class proveedores_model extends CI_Model {
     public function getRegimenesFiscales() {
         try {
             $this->db->select('C.ID, CONVERT(varchar(10), C.IValue)+\'-\'+C.SValue+\'-\'+C.Valor_Text AS SValue', false);
-            $this->db->from('sz_Catalogos AS C');
-            $this->db->where('C.FieldId', 'REGIMENES FISCALES');
-            $this->db->where_in('C.Estatus', 'ACTIVO');
-            $this->db->order_by("C.IValue", "ASC");
+            $this->db->from('sz_Catalogos AS C')->where('C.FieldId', 'REGIMENES FISCALES')->where_in('C.Estatus', 'ACTIVO')->order_by("C.IValue", "ASC");
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -114,10 +103,7 @@ class proveedores_model extends CI_Model {
 
     public function getProveedorByID($ID) {
         try {
-            $this->db->select("P.*", false);
-            $this->db->from('sz_Proveedores AS P');
-            $this->db->where('P.ID', $ID);
-            $this->db->where_in('P.Estatus', 'ACTIVO');
+            $this->db->select("P.*", false)->from('sz_Proveedores AS P')->where('P.ID', $ID)->where_in('P.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -156,8 +142,7 @@ class proveedores_model extends CI_Model {
 
     public function onModificar($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("sz_Proveedores", $DATA);
+            $this->db->where('ID', $ID)->update("sz_Proveedores", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -166,12 +151,10 @@ class proveedores_model extends CI_Model {
 
     public function onModificarMagnus($ID, $DATA) {
         try {
-            $this->db->where('ID', $ID);
-            $this->db->update("Proveedores", $DATA);
+            $this->db->where('ID', $ID)->update("Proveedores", $DATA);
 //            print $str = $this->db->last_query();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
 }
