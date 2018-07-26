@@ -36,7 +36,7 @@
         <div class="card-body text-dark customBackground" >
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 float-left">
-                    <h5>PEDIDO</h5>                           
+                    <h5>PEDIDO</h5>
                 </div>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 float-right" align="right">
                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -1301,6 +1301,9 @@
                     [0, 'desc']/*ID*/
                 ]
             });
+
+            $('#tblPedidos_filter input[type=search]').focus();
+
             tblPedidos.find('tbody').on('click', 'tr', function () {
                 tblPedidos.find("tbody tr").removeClass("success");
                 $(this).addClass("success");

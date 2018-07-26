@@ -280,7 +280,7 @@ ORDER BY FAM.IValue, MAT.Descripcion";
                     $this->db->where_in('FAM.IValue', array('1', '2'));
                     break;
                 case '2':
-                    $this->db->where_in('FAM.IValue', array('3'));
+                    $this->db->where_in('FAM.IValue', array('3', '50', '52'));
                     break;
                 case '3':
                     $this->db->where_not_in('FAM.IValue', array('1', '2', '3'));
@@ -331,7 +331,7 @@ ORDER BY FAM.IValue, MAT.Descripcion";
                     $this->db->where_in('FAM.IValue', array('1', '2'));
                     break;
                 case '2':
-                    $this->db->where_in('FAM.IValue', array('3'));
+                    $this->db->where_in('FAM.IValue', array('3', '50', '52'));
                     break;
                 case '3':
                     $this->db->where_not_in('FAM.IValue', array('1', '2', '3'));

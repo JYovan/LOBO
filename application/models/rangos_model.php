@@ -80,6 +80,7 @@ class rangos_model extends CI_Model {
                             ->where_in('U.Estatus', 'ACTIVO')
                             ->where_in('F.IValue', $Familia)
                             ->where('U.Descripcion NOT LIKE \'%**CBZ**%\'', null, false)
+                            ->where('U.Descripcion NOT LIKE \'%*CAB*%\'', null, false)
                             ->order_by('F.IValue', 'ASC')
                             ->get()
                             ->result();
