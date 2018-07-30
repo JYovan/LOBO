@@ -18,7 +18,7 @@ class compras_model extends CI_Model {
                                     . "FORMAT(convert(date, P.Fecha, 103), 'dd/MM/yyyy')   as 'Fecha', "
                                     . "C.Clave + '-'+C.RazonSocial AS 'Proveedor' ,"
                                     . "P.Grupo  'Grupo' ,"
-                                    . "P.Importe  'Importe' ,"
+                                    . "'$'+CONVERT(varchar, CAST(P.Importe AS money), 1) AS Importe , "
                                     . "P.Sem  'Semana' ,"
                                     . "P.Ano  'Ano' ,"
                                     . "US.Usuario AS 'Usuario' ", false)
@@ -27,6 +27,14 @@ class compras_model extends CI_Model {
                             ->join('sz_Usuarios AS US', 'P.Usuario = US.ID', 'left')
                             ->where_in('P.Estatus', array('ACTIVO'))
                             ->order_by("P.Folio", "ASC")->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getUID() {
+        try {
+            return $this->db->select("TOP 1 C.Folio AS UID", false)->from('sz_Compras AS C')->order_by('C.Folio', 'DESC')->get()->result();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -35,8 +35,7 @@ class Compras extends CI_Controller {
 
     public function getProveedores() {
         try {
-            $data = $this->proveedores_model->getProveedores();
-            print json_encode($data);
+            print json_encode($this->proveedores_model->getProveedores());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -44,9 +43,15 @@ class Compras extends CI_Controller {
 
     public function getRecords() {
         try {
-            extract($this->input->post());
-            $data = $this->compras_model->getRecords();
-            print json_encode($data);
+            print json_encode($this->compras_model->getRecords());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getUID() {
+        try {
+            print json_encode($this->compras_model->getUID());
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -54,8 +59,7 @@ class Compras extends CI_Controller {
 
     public function getCompraByID() {
         try {
-            $data = $this->compras_model->getCompraByID($this->input->get('ID'));
-            print json_encode($data);
+            print json_encode($this->compras_model->getCompraByID($this->input->get('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -63,8 +67,7 @@ class Compras extends CI_Controller {
 
     public function getDetalleCompraByID() {
         try {
-            $data = $this->compras_model->getDetalleCompraByID($this->input->post('ID'));
-            print json_encode($data);
+            print json_encode($this->compras_model->getDetalleCompraByID($this->input->post('ID')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -87,6 +90,50 @@ class Compras extends CI_Controller {
             );
             $ID = $this->compras_model->onAgregar($data);
             print $ID;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onAgregarDetalle() {
+        try {
+            $e = $this->input;
+            $stt = $e->post('Precio') * $e->post('Cantidad');
+            $this->db->insert("sz_ComprasDetalle", array(
+                'OrdenCompra' => $e->post('IDC'),
+                'Articulo' => $e->post('Articulo'),
+                'ArticuloT' => strtoupper($e->post('ArticuloT')),
+                'Cantidad' => $e->post('Cantidad'),
+                'Precio' => $e->post('Precio'),
+                'Subtotal' => $stt,
+                'FechaEntrega' => $e->post('FechaEntrega'),
+                'ConsignarA' => $e->post('ConsignarA'),
+                'Observaciones' => $e->post('Observaciones')
+            ));
+            $this->db->set('Importe', '(SELECT SUM(CD.Subtotal) FROM sz_ComprasDetalle AS CD WHERE CD.OrdenCompra = ' . $e->post('IDC') . ')', false)
+                    ->where('ID', $e->post('IDC'))->update('sz_Compras');
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function onModificarDetalle() {
+        try {
+            $x = $this->input;
+            $d = $this->db;
+            switch ($x->post('CELDA')) {
+                case 'CANTIDAD':
+                    $d->set('Cantidad', $x->post('VALOR'));
+                    $d->set('Subtotal', $x->post('SUBTOTAL'));
+                    break;
+                case 'PRECIO':
+                    $d->set('Precio', $x->post('VALOR'));
+                    $d->set('Subtotal', $x->post('SUBTOTAL'));
+                    break;
+            }
+            $d->where('ID', $x->post('ID'))->update('sz_ComprasDetalle');
+            $this->db->set('Importe', '(SELECT SUM(CD.Subtotal) FROM sz_ComprasDetalle AS CD WHERE CD.OrdenCompra = ' . $x->post('PARENT') . ')', false)
+                    ->where('ID', $x->post('PARENT'))->update('sz_Compras');
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

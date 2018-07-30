@@ -1,4 +1,3 @@
-<!--MODAL FICHA TÉCNICA-->
 <div class="card border-0 animated fadeIn" id="pnlTablero">
     <div class="card-body ">
         <div class="row">
@@ -11,7 +10,6 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="XContenedor" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
             <div id="Pedidos" class="table-responsive">
                 <table id="tblPedidos" class="table table-sm display " style="width:100%">
                     <thead>
@@ -1856,9 +1854,16 @@
         color: #fff !important;
         background-color: #0099cc !important;
     }
-
-    div.table-responsive tr:not(.Serie):hover > td:not(.HasStock):hover{
-        background-color: #0099cc !important;
-        color: #fff !important;
+    div.table-responsive tr:not(.Serie):hover > td:not(.HasStock){
+        color: #000 !important;
+        font-weight: bold !important;
+        /*box-shadow: inset 0 -2px 0 #0099cc;*/
+        box-shadow: inset 0 -2px 0 #0099cc;  
     }
+    div.table-responsive tr:not(.Serie):hover > td:not(.HasStock):hover{
+        color: #000 !important;
+        background-color: #fff !important;
+        font-weight: bold !important;
+        box-shadow: inset 0 -2px 0 #669900;   
+    }     
 </style>
