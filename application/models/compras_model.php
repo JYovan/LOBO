@@ -62,17 +62,21 @@ class compras_model extends CI_Model {
     public function getDetalleCompraByID($ID) {
         try {
             $this->db->select('CD.ID,'
+                    . 'CD.Articulo AS IdMat,'
                     . 'M.Material,'
                     . 'M.Descripcion,'
                     . 'CD.Cantidad,'
                     . 'CD.Precio,'
+                    . 'UM.SValue AS Unidad,'
                     . "CONCAT('$',CONVERT(varchar,CAST((CD.Subtotal) AS money), 1),'')  'Subtotal' ,"
                     . 'CD.FechaEntrega,'
+                    . 'CD.ConsignarA AS Consignar,'
                     . 'CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarCompraDetalleByID(\',CD.ID,\')">\',\'</span>\') AS Eliminar'
                     . '', false);
             $this->db->from('sz_ComprasDetalle AS CD');
             $this->db->join('sz_Compras AS C', 'C.ID= CD.OrdenCompra', 'left');
             $this->db->join('sz_Materiales AS M', 'M.ID = CD.Articulo', 'left');
+            $this->db->join('sz_Catalogos AS UM', 'M.UnidadCompra = UM.ID', 'left');
             $this->db->where('C.ID', $ID);
             $this->db->where_in('C.Estatus', 'ACTIVO');
             $query = $this->db->get();

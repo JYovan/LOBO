@@ -111,6 +111,18 @@ class materiales_model extends CI_Model {
         }
     }
 
+    public function getPrecioListaMaterial($ID) {
+        try {
+            return $this->db->select('U.PrecioLista AS Precio', false)
+                            ->from('sz_Materiales AS U')
+                            ->where('U.ID', $ID)
+                            ->where_in('U.Estatus', 'ACTIVO')
+                            ->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function onAgregarAlmacenMagnus($array) {
         try {
             $this->db->insert("Almacenproductos", $array);
@@ -158,4 +170,5 @@ class materiales_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
 }

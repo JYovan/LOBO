@@ -39,7 +39,7 @@
         <div class="card-body text-dark customBackground" >
             <div class="row">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left">
-                    <h5>COMPRA</h5>
+                    <h5>ORDEN COMPRA</h5>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-right" align="right">
                     <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
@@ -153,12 +153,15 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>IdMat</th>
                                 <th>Clave</th>
                                 <th>Descripción</th>
                                 <th>Cantidad</th>
+                                <th>Unidad</th>
                                 <th>Precio</th>
                                 <th>Subtotal</th>
                                 <th>FechaEntrega</th>
+                                <th>Consignar a:</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -169,8 +172,11 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
                                 <th>Total:</th>
                                 <th>$0.0</th>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -223,44 +229,68 @@
         pnlDatosDetalle.find("#btnAgregarDetalle").click(function () {
             var ID = pnlDatos.find("#ID").val();
             if (ID !== '' && parseInt(ID) > 0) {
-                var detalle = {
-                    IDC: ID,
-                    Articulo: pnlDatosDetalle.find("[name='Material']").val(),
-                    ArticuloT: pnlDatosDetalle.find("[name='Material']").text(),
-                    Precio: pnlDatosDetalle.find("[name='Precio']").val(),
-                    Cantidad: pnlDatosDetalle.find("[name='Cantidad']").val(),
-                    ConsignarA: pnlDatosDetalle.find("[name='ConsignarA']").val(),
-                    FechaEntrega: pnlDatosDetalle.find("[name='FechaEntrega']").val(),
-                    Observaciones: (observaciones !== '') ? observaciones : 'SO'
-                };
-                $.post(master_url + 'onAgregarDetalle', detalle).done(function (data) {
-                    console.log("\n * RESPUESTA DEL SERVIDOR * \n", data, "\n");
 
-                    ComprasDetalle.ajax.reload();
- 
+                /*COMPROBAR SI YA SE AGREGÓ*/
+                var existe = false;
+                if (pnlDetalle.find("#tblComprasDetalle tbody tr").length > 0) {
+                    console.log(ComprasDetalle.rows());
+                    ComprasDetalle.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                        var data = this.data();
+                        if (parseInt(data.IdMat) === parseInt(pnlDatosDetalle.find("[name='Material']").val())) {
+                            existe = true;
+                            return false;
+                        }
+                    });
+                }
+
+                if (!existe) {
+                    var detalle = {
+                        IDC: ID,
+                        Articulo: pnlDatosDetalle.find("[name='Material']").val(),
+                        ArticuloT: pnlDatosDetalle.find("[name='Material']").text(),
+                        Precio: pnlDatosDetalle.find("[name='Precio']").val(),
+                        Cantidad: pnlDatosDetalle.find("[name='Cantidad']").val(),
+                        ConsignarA: pnlDatosDetalle.find("[name='ConsignarA']").val(),
+                        FechaEntrega: pnlDatosDetalle.find("[name='FechaEntrega']").val(),
+                        Observaciones: (observaciones !== '') ? observaciones : 'SO'
+                    };
+                    $.post(master_url + 'onAgregarDetalle', detalle).done(function (data) {
+                        ComprasDetalle.ajax.reload();
+                        swal({
+                            title: "EXITO",
+                            text: "SE HA AGREGADO UN NUEVO REGISTRO",
+                            icon: "success",
+                            timer: 900
+                        }).then((willDelete) => {
+                            pnlDatosDetalle.find("input").val('');
+                            pnlDatosDetalle.find("[name='Material']")[0].selectize.clear(true);
+                            pnlDatosDetalle.find("[name='Material']")[0].selectize.focus();
+                            observaciones = '';
+                        });
+                    }).fail(function (x, y, z) {
+                        console.log(x, y, z);
+                    }).always(function () {
+                        HoldOn.close();
+                    });
+                } else {
                     swal({
-                        title: "EXITO",
-                        text: "SE HA AGREGADO UN NUEVO REGISTRO",
-                        icon: "success",
-                        timer: 900
+                        title: "ERROR",
+                        text: "YA SE HA AGREGADO ESTE ARTÍCULO",
+                        icon: "error",
+                        closeOnClickOutside: false,
+                        closeOnEsc: false
                     }).then((willDelete) => {
-                        pnlDatosDetalle.find("input").val('');
                         pnlDatosDetalle.find("[name='Material']")[0].selectize.clear(true);
                         pnlDatosDetalle.find("[name='Material']")[0].selectize.focus();
                         observaciones = '';
                     });
-                }).fail(function (x, y, z) {
-                    console.log(x, y, z);
-                }).always(function () {
-                    HoldOn.close();
-                });
+
+                }
             } else {
                 onBeep(2);
                 swal('INFO', 'DEBES GUARDAR EL MOVIMIENTO', 'warning');
             }
         });
-
-
         //Mascaras fechas
         pnlDatos.find("#Fecha").inputmask({alias: "date"});
         pnlDatos.find("#FechaEntrega").inputmask({alias: "date"});
@@ -268,6 +298,9 @@
             pnlDatosDetalle.find("[name='Material']")[0].selectize.clear(true);
             pnlDatosDetalle.find("[name='Material']")[0].selectize.clearOptions();
             getMaterialesRequeridos($(this).val());
+        });
+        pnlDatos.find("[name='Material']").change(function () {
+            getPrecioListaMaterial($(this).val());
         });
         //Evento botones
         btnGuardar.click(function () {
@@ -391,7 +424,12 @@
                         "searchable": false
                     },
                     {
-                        "targets": [4],
+                        "targets": [1],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [6],
                         "render": function (data, type, row) {
                             return '$' + $.number(parseFloat(data), 2, '.', ',');
                         }
@@ -399,25 +437,28 @@
                 ],
                 "columns": [
                     {"data": "ID"}, /*0*/
-                    {"data": "Material"}, //1,0
-                    {"data": "Descripcion"}, //2,1
-                    {"data": "Cantidad"}, //3,2
-                    {"data": "Precio"}, //4,3
-                    {"data": "Subtotal"}, //5,4
-                    {"data": "FechaEntrega"}, //6,5
-                    {"data": "Eliminar"} //7,6
+                    {"data": "IdMat"}, //1,0
+                    {"data": "Material"}, //2,1
+                    {"data": "Descripcion"}, //3,2
+                    {"data": "Cantidad"}, //4,3
+                    {"data": "Unidad"}, //5,4
+                    {"data": "Precio"}, //6,5
+                    {"data": "Subtotal"}, //7,6
+                    {"data": "FechaEntrega"}, //8,7
+                    {"data": "Consignar"}, //9,8
+                    {"data": "Eliminar"} //10,9
                 ],
                 "createdRow": function (row, data, index) {
                     var event;
                     if (isMobile) {
-                        $(this).find("td:eq(2)").touch();
                         $(this).find("td:eq(3)").touch();
+                        $(this).find("td:eq(5)").touch();
                         event = 'tap';
                     } else {
                         event = 'dblclick';
                     }
                     //PRECIO EVT
-                    $(row).find("td:eq(3)").on(event, function () {
+                    $(row).find("td:eq(5)").on(event, function () {
                         var input = '<input type="text" class="form-control form-control-sm numbersOnly" maxlength="10" name="Precio" autofocus>';
                         var exist = $(this).find("#Precio").val();
                         var celda = $(this);
@@ -435,12 +476,12 @@
                                 if (v !== '' && $.isNumeric(v)) {
                                     var precio_format = '$' + $.number(v, 2, '.', ',');
                                     celda.html(precio_format);
-                                    ComprasDetalle.cell(padre, 4).data(v).draw();
+                                    ComprasDetalle.cell(padre, 6).data(v).draw();
                                     var row = ComprasDetalle.row(padre).data();
                                     var precio = v;
                                     var cantidad = parseFloat(($(row.Cantidad).text() !== '') ? $(row.Cantidad).text() : row.Cantidad);
                                     var importe_total = cantidad * precio;
-                                    ComprasDetalle.cell(padre, 5).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                                    ComprasDetalle.cell(padre, 7).data('$' + $.number(importe_total, 2, '.', ',')).draw();
                                     //SHORT POST
                                     onEditarDetalleCompra({PARENT: IDX, ID: row.ID, CELDA: 'PRECIO', VALOR: precio, SUBTOTAL: importe_total});
                                 } else {
@@ -462,12 +503,12 @@
                                 if (v !== '' && $.isNumeric(v)) {
                                     var precio_format = '$' + $.number(v, 2, '.', ',');
                                     celda.html(precio_format);
-                                    ComprasDetalle.cell(padre, 4).data(v).draw();
+                                    ComprasDetalle.cell(padre, 6).data(v).draw();
                                     var row = ComprasDetalle.row(padre).data();
                                     var precio = v;
                                     var cantidad = parseFloat(($(row.Cantidad).text() !== '') ? $(row.Cantidad).text() : row.Cantidad);
                                     var importe_total = cantidad * precio;
-                                    ComprasDetalle.cell(padre, 5).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                                    ComprasDetalle.cell(padre, 7).data('$' + $.number(importe_total, 2, '.', ',')).draw();
                                     console.log('* ROW *');
                                     //SHORT POST
                                     onEditarDetalleCompra({PARENT: IDX, ID: row.ID, CELDA: 'PRECIO', VALOR: precio, SUBTOTAL: importe_total});
@@ -491,12 +532,12 @@
                                     if (v !== '' && $.isNumeric(v)) {
                                         var precio_format = '$' + $.number(v, 2, '.', ',');
                                         celda.html(precio_format);
-                                        ComprasDetalle.cell(padre, 4).data(v).draw();
+                                        ComprasDetalle.cell(padre, 6).data(v).draw();
                                         var row = ComprasDetalle.row(padre).data();
                                         var precio = v;
                                         var cantidad = parseFloat(($(row.Cantidad).text() !== '') ? $(row.Cantidad).text() : row.Cantidad);
                                         var importe_total = cantidad * precio;
-                                        ComprasDetalle.cell(padre, 5).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                                        ComprasDetalle.cell(padre, 7).data('$' + $.number(importe_total, 2, '.', ',')).draw();
                                         console.log('* ROW *');
                                         //SHORT POST
                                         onEditarDetalleCompra({PARENT: IDX, ID: row.ID, CELDA: 'PRECIO', VALOR: precio, SUBTOTAL: importe_total});
@@ -536,12 +577,12 @@
                                     if (v > 0) {
                                         var v = (input.val());
                                         celda.html(v);
-                                        ComprasDetalle.cell(padre, 3).data(v).draw();
+                                        ComprasDetalle.cell(padre, 4).data(v).draw();
                                         var row = ComprasDetalle.row(padre).data();
                                         var precio = row.Precio;
                                         var cantidad = parseFloat(($(row.Cantidad).text() !== '') ? $(row.Cantidad).text() : row.Cantidad);
                                         var importe_total = cantidad * precio;
-                                        ComprasDetalle.cell(padre, 5).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                                        ComprasDetalle.cell(padre, 7).data('$' + $.number(importe_total, 2, '.', ',')).draw();
                                         console.log('* ROW *');
                                         console.log(row);
                                         //SHORT POST
@@ -566,12 +607,12 @@
                                     var v = parseFloat(input.val());
                                     if ((v > 0)) {
                                         celda.html(v);
-                                        ComprasDetalle.cell(padre, 3).data(v).draw();
+                                        ComprasDetalle.cell(padre, 4).data(v).draw();
                                         var row = ComprasDetalle.row(padre).data();
                                         var precio = row.Precio;
                                         var cantidad = parseFloat(($(row.Cantidad).text() !== '') ? $(row.Cantidad).text() : row.Cantidad);
                                         var importe_total = cantidad * precio;
-                                        ComprasDetalle.cell(padre, 5).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                                        ComprasDetalle.cell(padre, 7).data('$' + $.number(importe_total, 2, '.', ',')).draw();
                                         console.log('* ROW *');
                                         console.log(row);
                                         //SHORT POST
@@ -598,12 +639,12 @@
                                         var v = parseFloat(input.val());
                                         if ((v > 0)) {
                                             celda.html(v);
-                                            ComprasDetalle.cell(padre, 3).data(v).draw();
+                                            ComprasDetalle.cell(padre, 4).data(v).draw();
                                             var row = ComprasDetalle.row(padre).data();
                                             var precio = row.Precio;
                                             var cantidad = parseFloat(($(row.Cantidad).text() !== '') ? $(row.Cantidad).text() : row.Cantidad);
                                             var importe_total = cantidad * precio;
-                                            ComprasDetalle.cell(padre, 5).data('$' + $.number(importe_total, 2, '.', ',')).draw();
+                                            ComprasDetalle.cell(padre, 7).data('$' + $.number(importe_total, 2, '.', ',')).draw();
                                             console.log('* ROW *');
                                             console.log(row);
                                             //SHORT POST
@@ -630,13 +671,13 @@
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api();//Get access to Datatable API
                     // Update footer
-                    var total = api.column(5).data().reduce(function (a, b) {
+                    var total = api.column(7).data().reduce(function (a, b) {
                         var ax = 0, bx = 0;
                         ax = $.isNumeric((a)) ? parseFloat(a) : 0;
                         bx = $.isNumeric(getNumberFloat(b)) ? getNumberFloat(b) : 0;
                         return  (ax + bx);
                     }, 0);
-                    $(api.column(5).footer()).html(api.column(5, {page: 'current'}).data().reduce(function (a, b) {
+                    $(api.column(7).footer()).html(api.column(7, {page: 'current'}).data().reduce(function (a, b) {
                         return '$' + $.number(parseFloat(total), 2, '.', ',');
                     }, 0));
                 },
@@ -657,18 +698,6 @@
                 "initComplete": function (x, y) {
                     HoldOn.close();
                 }
-            });
-            $.each($('#tblComprasDetalle > tbody tr'), function (k, v) {
-                var event;
-                if (isMobile) {
-                    $(this).find("td:eq(0)").touch();
-                    event = 'tap';
-                } else {
-                    event = 'dblclick';
-                }
-                $(this).find("td:eq(3)").on(event, function () {
-                    console.log('ok 3');
-                });
             });
         }
     }
@@ -815,7 +844,6 @@
             }
         });
     }
-
     function onGuardarObservaciones() {
         swal({
             text: 'Observaciones',
@@ -829,7 +857,6 @@
             pnlDatosDetalle.find("#btnAgregarDetalle").focus();
         });
     }
-
     function getUID() {
         $.getJSON(master_url + 'getUID').done(function (data, x, jq) {
             if (data.length > 0) {
@@ -842,18 +869,22 @@
             HoldOn.close();
         });
     }
+    function getPrecioListaMaterial(Material) {
+        $.getJSON(master_url + 'getPrecioListaMaterial', {Material: Material}).done(function (data, x, jq) {
+            if (data.length > 0) {
+                var precio = parseFloat(data[0].Precio);
+                pnlDatosDetalle.find("[name='Precio']").val(precio);
+                pnlDatosDetalle.find("[name='Precio']").select();
+            }
+        }).fail(function (x, y, z) {
+            console.log(x, y, z);
+        }).always(function () {
+            HoldOn.close();
+        });
+    }
     function onEditarDetalleCompra(x) {
-        console.log("\n . . . Editando . . . \n", x);
         $.post(master_url + 'onModificarDetalle', x).done(function (data) {
-            console.log(data);
-            swal({
-                title: "EXITO!",
-                text: "SE HAN GUARDADO LOS CAMBIOS",
-                type: "success",
-                icon: 'success',
-                timer: 900
-            });
-            getRecords();
+            Compras.ajax.reload();
         }).fail(function (x, y, z) {
             console.log(x, x.responseText);
         });
@@ -878,30 +909,30 @@
     }
     div.table-responsive tbody tr:hover td{
         color: #000 !important;
-        font-weight: bold !important; 
+        font-weight: bold !important;
         background-color: #fff !important;
-        box-shadow: inset 0 -1px 0 #0099cc; 
+        box-shadow: inset 0 -1px 0 #0099cc;
     }
-    div.table-responsive tbody tr:hover td:hover{ 
+    div.table-responsive tbody tr:hover td:hover{
         box-shadow: inset 0 -2px 0 #0099cc;
     }
     tbody tr.selected td{
         color: #fff !important;
         background-color: #0099cc !important;
     }
-    div.table-responsive tbody tr:not(.Serie) > td:not(.HasStock){ 
+    div.table-responsive tbody tr:not(.Serie) > td:not(.HasStock){
         -webkit-transition: all 0.25s ease-in-out;
-        transition: all 0.25s ease-in-out;  
-    } 
+        transition: all 0.25s ease-in-out;
+    }
     div.table-responsive tbody tr:not(.Serie):hover > td:not(.HasStock){
         color: #000 !important;
         font-weight: bold !important;
-        box-shadow: inset 0 -2px 0 #666666;   
-    } 
+        box-shadow: inset 0 -2px 0 #666666;
+    }
     div.table-responsive tbody tr:not(.Serie):hover > td:not(.HasStock):hover{
         color: #000 !important;
         background-color: #fff !important;
         font-weight: bold !important;
-        box-shadow: inset 0 -3px 0 #669900 !important;   
-    }     
+        box-shadow: inset 0 -3px 0 #669900 !important;
+    }
 </style>

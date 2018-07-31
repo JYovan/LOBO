@@ -9,6 +9,7 @@ class Compras extends CI_Controller {
         $this->load->library('session');
         $this->load->model('compras_model');
         $this->load->model('proveedores_model');
+        $this->load->model('materiales_model');
     }
 
     public function index() {
@@ -52,6 +53,14 @@ class Compras extends CI_Controller {
     public function getUID() {
         try {
             print json_encode($this->compras_model->getUID());
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function getPrecioListaMaterial() {
+        try {
+            print json_encode($this->materiales_model->getPrecioListaMaterial($this->input->get('Material')));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
