@@ -226,43 +226,48 @@
 
     $(document).ready(function () {
         $('#btnImprimir').on("click", function () {
-            HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
-            var frm = new FormData();
-            frm.append('ID', pnlDatos.find('#ID').val());
-            $.ajax({
-                url: master_url + 'getReporteCompra',
-                type: "POST",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: frm
-            }).done(function (data, x, jq) {
-                console.log(data);
-                if (data.length > 0) {
-                    window.open(data, '_blank');
-                    swal({
-                        title: "EXITO",
-                        text: "SE HA GENERADO EL REPORTE CON EXITO",
-                        icon: "success"
-                    }).then((willDelete) => {
+            var IDC = pnlDatos.find('#ID').val();
+            if (IDC !== '') {
+                HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+                var frm = new FormData();
+                frm.append('ID', IDC);
+                $.ajax({
+                    url: master_url + 'getReporteCompra',
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: frm
+                }).done(function (data, x, jq) {
+                    console.log(data);
+                    if (data.length > 0) {
+                        window.open(data, '_blank');
+                        swal({
+                            title: "EXITO",
+                            text: "SE HA GENERADO EL REPORTE CON EXITO",
+                            icon: "success"
+                        }).then((willDelete) => {
 
-                    });
-                } else {
-                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN DATOS PARA EL REPORTE', 'danger');
-                    swal({
-                        title: "ATENCIÓN",
-                        text: "HA OCURRIDO UN PROBLEMA CON EL REPORTE",
-                        icon: "warning"
-                    }).then((willDelete) => {
+                        });
+                    } else {
+                        onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN DATOS PARA EL REPORTE', 'danger');
+                        swal({
+                            title: "ATENCIÓN",
+                            text: "HA OCURRIDO UN PROBLEMA CON EL REPORTE",
+                            icon: "warning"
+                        }).then((willDelete) => {
 
-                    });
-                }
-                HoldOn.close();
-            }).fail(function (x, y, z) {
-                console.log(x, y, z);
-                HoldOn.close();
-            }).always(function () {
-            });
+                        });
+                    }
+                    HoldOn.close();
+                }).fail(function (x, y, z) {
+                    console.log(x, y, z);
+                    HoldOn.close();
+                }).always(function () {
+                });
+            } else {
+                swal('ATENCIÓN', 'DEBE DE GUARDAR LA COMPRA, PARA PODER GENERAR EL REPORTE', 'warning');
+            }
         });
         pnlDatosDetalle.find("#btnAgregarDetalle").click(function () {
             var ID = pnlDatos.find("#ID").val();
