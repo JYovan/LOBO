@@ -1,28 +1,20 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH . "/third_party/fpdf17/fpdf.php";
 
 class Compras extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('session');
-        $this->load->model('compras_model');
-        $this->load->model('proveedores_model');
-        $this->load->model('materiales_model');
+        $this->load->library('session')->model('compras_model')->model('proveedores_model')->model('materiales_model')->helper('reportes_compras_helper');
     }
 
     public function index() {
-
         if (session_status() === 2 && isset($_SESSION["LOGGED"])) {
-            $this->load->view('vEncabezado');
-            $this->load->view('vNavegacion');
-            $this->load->view('vCompras');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vNavegacion')->view('vCompras')->view('vFooter');
         } else {
-            $this->load->view('vEncabezado');
-            $this->load->view('vSesion');
-            $this->load->view('vFooter');
+            $this->load->view('vEncabezado')->view('vSesion')->view('vFooter');
         }
     }
 
@@ -182,6 +174,73 @@ class Compras extends CI_Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+
+    public function getReporteCompra() {
+        $rows = $this->compras_model->getReporteCompraByID($this->input->post('ID'));
+        $pdf = new FPDF_COMPRAS('L', 'mm', array(215.9, 279.4));
+        $r = $rows[0];
+        $pdf->OrdenCompra = $r->OrdenCompra;
+        $pdf->Proveedor = $r->NombreProv;
+        $pdf->ConsignarA = $r->ConsignarA;
+        $pdf->Observaciones = $r->Observaciones;
+        $pdf->Fecha = $r->Fecha;
+        $pdf->Borders = 0;
+
+        $pdf->AddPage();
+        $pdf->SetAutoPageBreak(true, 35/* ALTO DEL FOOTER */);
+        $pdf->SetX(5);
+        $pdf->SetFont('Arial', 'B', 6.5);
+        $anchos = array(15/* 0 */, 12/* 1 */, 103/* 2 */, 15/* 3 */, 20/* 4 */, 13/* 5 */, 19/* 6 */, 10/* 7 */, 17/* 8 */, 17/* 9 */, 29/* 10 */);
+        $aligns = array('C', 'C', 'L', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C');
+        $Cantidades = 0;
+        $Subtotales = 0;
+        foreach ($rows as $k => $v) {
+            $pdf->SetFont('Arial', '', 6.5);
+            $pdf->SetAligns($aligns);
+            $pdf->SetWidths($anchos);
+            //for ($index = 0; $index < 10; $index++) {//PRUEBAS
+            $pdf->Row(array(
+                number_format($v->Cantidad, 2, '.', ', '), /* 0 */
+                $v->Unidad, /* 1 */
+                $v->Descripcion, /* 2 */
+                "$ " . number_format($v->Precio, 2, '.', ', '), /* 3 */
+                "$ " . number_format($v->Subtotal, 2, '.', ', '), /* 4 */
+                $v->Semana, /* 5 */
+                $v->ClaveArticulo, /* 6 */
+                $v->Maquila, /* 7 */
+                '', '',
+                $v->FechaEntrega));
+            $pdf->Line(5, $pdf->GetY(), 275, $pdf->GetY());
+            $Cantidades += $v->Cantidad;
+            $Subtotales += $v->Subtotal;
+            // }//PRUEBAS
+        }
+        $pdf->Borders = 0;
+        $pdf->SetX(5);
+        $pdf->SetFont('Arial', 'B', 6.5); 
+        $pdf->SetAligns(array('C', 'R', 'C'));
+        $pdf->SetWidths(array(15/* 0 */, 130/* 1 */, 20/* 2 */));
+        if ($r->FR === 2) {
+            $pdf->Row(array(number_format($Cantidades, 2, '.', ', '), 'Subtotal ', "$ " . number_format($Subtotales, 2, '.', ', ')));
+            $pdf->Row(array('', 'I.V.A.', "$ " . number_format($Subtotales * .16, 2, '.', ', ')));
+            $pdf->Row(array('', 'TOTAL', "$ " . number_format($Subtotales * 1.16, 2, '.', ', ')));
+        } else {
+            $pdf->Row(array(number_format($Cantidades, 2, '.', ', '), 'TOTAL ', "$ " . number_format($Subtotales, 2, '.', ', ')));
+        }
+        /* FIN RESUMEN */
+        $path = 'uploads/Reportes/OrdenDeCompra';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $file_name = "Compra_" . date("dmYhis");
+        $url = $path . '/' . $file_name . '.pdf';
+        /* Borramos el archivo anterior */
+        if (delete_files('uploads/Reportes/OrdenDeCompra/')) {
+            /* ELIMINA LA EXISTENCIA DE CUALQUIER ARCHIVO EN EL DIRECTORIO */
+        }
+        $pdf->Output($url);
+        print base_url() . $url;
     }
 
 }

@@ -42,7 +42,7 @@
                     <h5>ORDEN COMPRA</h5>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-right" align="right">
-                    <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
+                    <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimir"><span class="fa fa-print"></span> IMPRIMIR</button>
                     <button type="button" class="btn btn-danger btn-sm btn-md my-1" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
                     <button type="button" class="btn btn-primary btn-sm my-1" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
                 </div>
@@ -225,7 +225,45 @@
     var tblComprasDetalle = $("#tblComprasDetalle"), ComprasDetalle;
 
     $(document).ready(function () {
+        $('#btnImprimir').on("click", function () {
+            HoldOn.open({theme: 'sk-bounce', message: 'ESPERE...'});
+            var frm = new FormData();
+            frm.append('ID', pnlDatos.find('#ID').val());
+            $.ajax({
+                url: master_url + 'getReporteCompra',
+                type: "POST",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: frm
+            }).done(function (data, x, jq) {
+                console.log(data);
+                if (data.length > 0) {
+                    window.open(data, '_blank');
+                    swal({
+                        title: "EXITO",
+                        text: "SE HA GENERADO EL REPORTE CON EXITO",
+                        icon: "success"
+                    }).then((willDelete) => {
 
+                    });
+                } else {
+                    onNotify('<span class="fa fa-exclamation fa-lg"></span>', 'NO EXISTEN DATOS PARA EL REPORTE', 'danger');
+                    swal({
+                        title: "ATENCIÓN",
+                        text: "HA OCURRIDO UN PROBLEMA CON EL REPORTE",
+                        icon: "warning"
+                    }).then((willDelete) => {
+
+                    });
+                }
+                HoldOn.close();
+            }).fail(function (x, y, z) {
+                console.log(x, y, z);
+                HoldOn.close();
+            }).always(function () {
+            });
+        });
         pnlDatosDetalle.find("#btnAgregarDetalle").click(function () {
             var ID = pnlDatos.find("#ID").val();
             if (ID !== '' && parseInt(ID) > 0) {
@@ -233,7 +271,6 @@
                 /*COMPROBAR SI YA SE AGREGÓ*/
                 var existe = false;
                 if (pnlDetalle.find("#tblComprasDetalle tbody tr").length > 0) {
-                    console.log(ComprasDetalle.rows());
                     ComprasDetalle.rows().every(function (rowIdx, tableLoop, rowLoop) {
                         var data = this.data();
                         if (parseInt(data.IdMat) === parseInt(pnlDatosDetalle.find("[name='Material']").val())) {

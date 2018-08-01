@@ -59,6 +59,34 @@ class compras_model extends CI_Model {
         }
     }
 
+    public function getReporteCompraByID($ID) {
+        try {
+            $this->db->select("CO.Folio AS OrdenCompra, CO.Estatus, CO.Fecha, PROV.Clave AS ClaveProv, 
+                PROV.RazonSocial AS NombreProv, COD.Observaciones AS Observaciones, 
+                COD.ConsignarA AS ConsignarA, COD.Cantidad, UN.SValue AS Unidad, 
+                MAT.Material AS ClaveArticulo, MAT.Descripcion, 
+                ISNULL(CONVERT(varchar(10) ,MAT.Talla),' ')  Talla, COD.Precio, 
+                COD.Precio *  COD.Cantidad AS Subtotal, CO.Sem AS Semana, 
+                CO.Maq AS Maquila, COD.FechaEntrega, CO.Tp AS FR", false)
+                    ->from('sz_Compras CO')
+                    ->join('sz_ComprasDetalle COD', 'CO.ID = COD.OrdenCompra')
+                    ->join('sz_Proveedores PROV', 'CO.Proveedor = PROV.ID')
+                    ->join('sz_Materiales MAT', 'COD.Articulo = MAT.ID')
+                    ->join('sz_Catalogos UN', 'MAT.UnidadCompra = UN.ID')
+                    ->where('CO.ID', $ID);
+            $this->db->where_in('CO.Estatus', 'ACTIVO');
+            $query = $this->db->get();
+            /*
+             * FOR DEBUG ONLY
+             */
+            $str = $this->db->last_query();
+//        print $str; 
+            return $query->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getDetalleCompraByID($ID) {
         try {
             $this->db->select('CD.ID,'
