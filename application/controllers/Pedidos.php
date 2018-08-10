@@ -10,7 +10,7 @@ class Pedidos extends CI_Controller {
         $this->load->library('session')->library('Myfpdf')
                 ->model('pedidos_model')->model('estilos_model')->model('clientes_model')->model('combinaciones_model')
                 ->model('generales_model')->model('listasdeprecios_model')
-                ->model('vendedores_model')->model('cerrarprog_model')->model('semanas_model');
+                ->model('vendedores_model')->model('cerrarprog_model')->model('semanas_model')->helper('pedido_helper');
         /* ->model('piezasymateriales_model'); */
     }
 
@@ -368,31 +368,89 @@ class Pedidos extends CI_Controller {
 
     public function ImprimirPedido() {
         try {
-            $pdf = new FPDF('P', 'mm', array(235, 297));
+            $pdf = new FPDF_PEDIDO('L', 'mm', array(215.9, 279.4));
+            $encabezado = $this->pedidos_model->getInformacionPedidoByID($this->input->get('ID'));
+            $detalle = $this->pedidos_model->getDetalleByID($this->input->get('ID'));
+            $series = $this->pedidos_model->getSerieXDetalleByID($this->input->get('ID'));
+            $info = $encabezado[0];
+            $pdf->setCliente($info->Cliente);
+            $pdf->setAgente($info->Agente);
+            $pdf->setPedido($info->Folio);
+            $pdf->setFecha($info->FechaPedido);
             $pdf->AddPage();
-            $image = "lsbck.png";
-            $pdf->Image('img/' . $image, /* LEFT */ 5, 5/* TOP */, /* ANCHO */ 35, /* ALTO */ 17.5);
-            $pdf->SetFont('Arial', 'B', 16);
-            /* ENCABEZADO */
-            //TITULO
-            $pdf->SetY(5);
-            $pdf->SetX(40);
-            $pdf->Cell(/* ANCHO */225, 7.5/* ALTO */, 'PEDIDOX'/* CONTENIDO */, 0/* BORDE 0 = N, 1 = Y */, 0/* SALTO LN */, 'L'/* ALINEACION */, false/* RELLENO */);
-            $pdf->Rect(40/* POS EN X */, 5/* POS EN Y */, 190/* ANCHO */, 7.5/* ALTO */, 'D');
-
-            /* FIN ENCABEZADO */
-            /* DETALLE */
-
-            /* SUB DETALLE */
-            /* FIN SUB DETALLE */
-
-            /* FIN DETALLE */
-
-            /* PIE */
-
-            /* FIN PIE */
-
-
+            $pdf->SetAutoPageBreak(true, 10/* ALTO DEL FOOTER */);
+            $anchos = array();
+            array_push($anchos, 11); //ESTILO
+            array_push($anchos, 10); //COLOR
+            array_push($anchos, 8); //SEM
+            array_push($anchos, 8); //MAQ
+            for ($i = 1; $i < 22; $i++) {
+                array_push($anchos, 7.5);
+            }
+            array_push($anchos, 10); //PARES
+            array_push($anchos, 16); //PRECIO
+            array_push($anchos, 20); //IMPORTE
+            array_push($anchos, 15); //DESC
+            array_push($anchos, 14); //ENTREGA
+            $aligns = array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C');
+            $pdf->Borders = 1;
+            $PARES = 0;
+            $IMPORTE = 0;
+            $DESCUENTO = 0;
+            $TOTAL = 0;
+            foreach ($series as $k => $v) {
+                $pdf->SetFillColor(225, 225, 234);
+                $pdf->Filled = 1;
+                $pdf->SetFont('Arial', '', 6.5);
+                $pdf->SetAligns($aligns);
+                $pdf->SetWidths($anchos);
+                $e = array();
+                array_push($e, "Estilo"); //0
+                array_push($e, "Color"); //1
+                array_push($e, "Sem"); //2
+                array_push($e, "Maq"); //2
+                for ($i = 1; $i < 22; $i++) {
+                    array_push($e, $v->{"T$i"});
+                }
+                array_push($e, "Pares"); //
+                array_push($e, "Precio");
+                array_push($e, "Importe");
+                array_push($e, "Desc");
+                array_push($e, "Entrega");
+                $pdf->Row($e);
+                $dx = array();
+                $pdf->Filled = 0;
+                foreach ($detalle as $dk => $dv) {
+                    if ($dv->Serie === $v->ID) {
+                        array_push($dx, $dv->Estilo);
+                        array_push($dx, $dv->Color);
+                        array_push($dx, $dv->Sem);
+                        array_push($dx, $dv->Maq);
+                        for ($i = 1; $i < 22; $i++) {
+                            array_push($dx, ($dv->{"C$i"} === 0) ? '-' : $dv->{"C$i"});
+                        }
+                        array_push($dx, $dv->{"Pares"}); //
+                        array_push($dx, $dv->{"Precio"});
+                        array_push($dx, $dv->{"Importe"});
+                        array_push($dx, $dv->{"Desc"});
+                        array_push($dx, $dv->{"Entrega"});
+                        $pdf->SetFont('Arial', '', 6.5);
+                        $pdf->SetAligns($aligns);
+                        $pdf->SetWidths($anchos);
+                        $pdf->Row($dx); 
+                        $PARES = $PARES + $dv->{"Pares"};
+                        $IMPORTE = $IMPORTE + $dv->{"ImporteSF"};
+                        $DESCUENTO = $DESCUENTO + $dv->{"Desc"};
+                        $dx = array();
+                    }
+                }
+            }
+            $pdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C'));
+            $pdf->SetWidths(array(181.5, 20, 22, 22, 24));
+            $pdf->Filled = 1;
+            $pdf->Row(array('', 'PARES ', 'IMPORTE', 'DESCUENTO', 'TOTAL'));
+            $pdf->Filled = 0;
+            $pdf->Row(array('', $PARES, '$' . number_format($IMPORTE, 2, '.', ','), '$' . number_format($DESCUENTO, 2, '.', ', '), '$' . number_format($IMPORTE - $DESCUENTO, 2, '.', ', ')));
             if (!file_exists('uploads/Pedidos')) {
                 mkdir('uploads/Pedidos', 0777, true);
             }
@@ -400,7 +458,6 @@ class Pedidos extends CI_Controller {
                 mkdir('uploads/Pedidos/' . $this->input->get('ID'), 0777, true);
             }
             $url = 'uploads/Pedidos/' . $this->input->get('ID') . '/PEDIDO_' . $this->input->get('ID') . '_' . Date('d') . '_' . Date('m') . '_' . Date('Y') . '.pdf';
-
             if (delete_files('uploads/Pedidos/' . $this->input->get('ID') . '/')) {
                 
             }
@@ -538,4 +595,5 @@ class Pedidos extends CI_Controller {
             echo $exc->getTraceAsString();
         }
     }
+
 }

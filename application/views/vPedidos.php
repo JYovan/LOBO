@@ -37,12 +37,10 @@
                     <h5>PEDIDO</h5>
                 </div>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 float-right" align="right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm my-1" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
-                        <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
-                        <button type="button" class="btn btn-danger btn-sm btn-md my-1" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
-                        <button type="button" class="btn btn-primary btn-sm my-1" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
-                    </div>
+                    <button type="button" onclick="onAbrirModalFichaTecnica()" class="btn btn-warning btn-sm my-1" ><span class="fa fa-list-alt"></span> FICHA TÉCNICA</button>
+                    <button type="button" onclick="" class="btn btn-info btn-sm btn-md my-1" id="btnImprimirPedido"><span class="fa fa-print"></span> IMPRIMIR</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-md my-1" id="btnCancelar"><span class="fa fa-window-close"></span> SALIR</button>
+                    <button type="button" class="btn btn-primary btn-sm my-1" id="btnGuardar"><span class="fa fa-save"></span> GUARDAR</button>
                 </div>
             </div>
             <div class="card border-0">
@@ -51,7 +49,7 @@
                         <form id="frmNuevo">
                             <div class="row">
                                 <div class="d-none">
-                                    <input type="text" class="" id="ID" name="ID"  >
+                                    <input type="text" class="" id="ID" name="ID">
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                     <label for="Folio">Folio*</label>
@@ -444,6 +442,27 @@
 </div>
 
 <!--SCRIPT-->
+
+<div id="mdlPedidoReporte" class="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var master_url = base_url + 'index.php/Pedidos/';
     var pnlDatos = $("#pnlDatos");
@@ -574,6 +593,7 @@
             });
             return false; //blocks default Webbrowser right click menu
         });
+
         btnImprimirPedido.click(function () {
             if (temp > 0) {
                 HoldOn.open({
@@ -581,8 +601,33 @@
                     theme: 'sk-cube'
                 });
                 $.get(master_url + 'ImprimirPedido', {ID: temp}).done(function (data) {
+                    console.log(data);
                     onBeep(1);
-                    window.open(data, '_blank');
+//                    window.open(data, '_blank');
+                    $.fancybox.open({
+                        src: data,
+                        type: 'iframe',
+                        opts: {
+                            afterShow: function (instance, current) {
+                                console.info('done!');
+                            },
+                            iframe: {
+                                // Iframe template
+                                tpl: '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen allowtransparency="true" src=""></iframe>',
+                                preload: true,
+                                // Custom CSS styling for iframe wrapping element
+                                // You can use this to set custom iframe dimensions
+                                css: {
+                                    width: "100%",
+                                    height: "100%"
+                                },
+                                // Iframe tag attributes
+                                attr: {
+                                    scrolling: "auto"
+                                }
+                            }
+                        }
+                    });
                 }).fail(function (x, y, z) {
                     console.log(x, y, z);
                 }).always(function () {
@@ -1856,6 +1901,7 @@
     }
     div.table-responsive tr:not(.Serie):hover > td:not(.HasStock){
         color: #000 !important;
+        background-color: #fff !important;
         font-weight: bold !important;
         /*box-shadow: inset 0 -2px 0 #0099cc;*/
         box-shadow: inset 0 -2px 0 #0099cc;  
