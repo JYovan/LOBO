@@ -105,7 +105,6 @@
             $('.money').maskMoney({prefix: '$', allowNegative: false, thousands: ',', decimal: '.', affixesStay: false});
             // $(".btn").addClass("animated shake");
             $("table.display").DataTable(tableOptions);
-            $('table').css('display', 'block');
             $('[data-toggle="tooltip"]').tooltip();
             $('[data-toggle="popover"]').popover();
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

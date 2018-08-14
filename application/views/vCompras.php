@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="Compras" class="table-responsive">
+            <div id="Compras" class="row">
                 <table id="tblCompras" class="table table-sm display " style="width:100%">
                     <thead>
                         <tr>
@@ -36,7 +36,7 @@
 <!--GUARDAR-->
 <div class="d-none" id="pnlDatos">
     <div class="card border-0">
-        <div class="card-body text-dark customBackground" >
+        <div class="card-body text-dark " >
             <div class="row">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left">
                     <h5>ORDEN COMPRA</h5>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <label for="Proveedor">Proveedor* (F9) Actualizar</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <select class="form-control form-control-sm required" id="Proveedor" name="Proveedor" >
                                         <option value=""></option>
                                     </select>
@@ -126,9 +126,10 @@
                                 <label for="ConsignarA">Consignar a:</label>
                                 <input type="text" class="form-control form-control-sm " name="ConsignarA" maxlength="59">
                             </div>
+
                             <div class="col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
                                 <label for="FechaEntrega">Fec Entrega*</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <input type="text" class="form-control form-control-sm required notEnter" id="FechaEntrega" name="FechaEntrega" >
                                     <div class="input-group-prepend">
                                         <span onclick="onGuardarObservaciones()" class="input-group-text text-dark" data-toggle="tooltip" data-placement="top" title="Observaciones"><i class="fa fa-comment-alt"></i></span>
@@ -149,7 +150,7 @@
             <!--REGISTROS DETALLE-->
             <div class="" id="pnlDetalle">
                 <div class="table-responsive row">
-                    <table id="tblComprasDetalle" class="table table-sm hover display" style="width:100%">
+                    <table id="tblComprasDetalle" class="table table-sm" style="width:100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -932,49 +933,3 @@
         });
     }
 </script>
-<style>
-    /*https://codepen.io/sdthornton/pen/wBZdXq*/
-    /*https://codepen.io/sevilayha/pen/IdGKH*/
-    .btn{
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    }
-    .btn:hover {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    }
-    .card {
-        background-color: transparent !important;
-    }
-    .card-header{
-        cursor: pointer;
-        color: #fff !important;
-        background-color: transparent !important;
-    }
-    div.table-responsive tbody tr:hover td{
-        color: #000 !important;
-        font-weight: bold !important;
-        background-color: #fff !important;
-        box-shadow: inset 0 -1px 0 #0099cc;
-    }
-    div.table-responsive tbody tr:hover td:hover{
-        box-shadow: inset 0 -2px 0 #0099cc;
-    }
-    tbody tr.selected td{
-        color: #fff !important;
-        background-color: #0099cc !important;
-    }
-    div.table-responsive tbody tr:not(.Serie) > td:not(.HasStock){
-        -webkit-transition: all 0.25s ease-in-out;
-        transition: all 0.25s ease-in-out;
-    }
-    div.table-responsive tbody tr:not(.Serie):hover > td:not(.HasStock){
-        color: #000 !important;
-        font-weight: bold !important;
-        box-shadow: inset 0 -2px 0 #666666;
-    }
-    div.table-responsive tbody tr:not(.Serie):hover > td:not(.HasStock):hover{
-        color: #000 !important;
-        background-color: #fff !important;
-        font-weight: bold !important;
-        box-shadow: inset 0 -3px 0 #669900 !important;
-    }
-</style>

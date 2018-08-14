@@ -10,8 +10,8 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="Clientes" class="table-responsive table-sm">
-                <table id="tblClientes" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
+            <div id="Clientes" class="row">
+                <table id="tblClientes" class="table table-sm display" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>

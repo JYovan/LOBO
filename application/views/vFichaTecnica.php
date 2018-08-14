@@ -865,17 +865,7 @@
     .bold-text{
         font-weight: bold;
     }
-    tr:hover td{
-        background-color: #000 !important;
-        color: #fff !important;
-    }
-    td:hover {
-        position: relative;
-        background-color: #ffcc00 !important;
-        font-weight: bold;
-        font-size: 12px;
-        color:  #000 !important;
-    }
+
     /*    .overlay{
             background-color: #000 !important;
         }

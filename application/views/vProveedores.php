@@ -9,8 +9,8 @@
             </div>
         </div>
         <div class="card-block">
-            <div id="Proveedores" class="table-responsive table-sm">
-                <table id="tblProveedores" class="table table-bordered table-striped table-hover display row-border hover order-column" style="width:100%">
+            <div id="Proveedores" class="row">
+                <table id="tblProveedores" class="table table-sm display" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
