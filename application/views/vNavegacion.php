@@ -23,18 +23,17 @@
         left: 0;
         background-color: rgba(13, 25, 41, 0.95);
         overflow-x: hidden;
-        transition: 0.1s;
+        transition: 0.3s;
     }
     .overlay-content {
         position: relative;
         top: 5%;
         width: 100%;
-        margin-top: 5px;
+        margin-top: 5px;    
+        margin-left: 10px;
     }
     .overlay a:hover,
-    .overlay a:focus {
-        background-color: transparent !important;
-        color: #00ccff !important;
+    .overlay a:focus { 
     }
 
     .overlay .closebtn {
@@ -50,28 +49,31 @@
         -webkit-transition: all .2s ease-in-out;
         transition: all .2s ease-in-out;
     }
-    li a:hover {
+    li a:hover , a.dropdown-item:hover{
+        color: #fff !important;
         -webkit-transform: scale(1.15);
-        transform: scale(1.15);
-        margin-left: 25px !important;
+        transform: scale(1.15); 
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)!important;
+        border-radius: 10px;
     }
-    .neon{
-        color: #fff !important;
+    .dropdown-item:hover, .dropdown-item:focus {
+        color: #fff;
+        text-decoration: none;
+        background-color: #3F51B5;
+    } 
+    .overlay a.dropdown-toggle:hover, .overlay a.dropdown-toggle:focus{ 
+        background-color: #E91E63;/*ROSA*/
+        background-color: #7CB342;/*VERDE*/
+        padding-top: 6px;
+        padding-bottom: 6px;
+        padding-right: 8px;  
+        padding-left: 8px;  
     }
-
-    .overlay a.neon:hover{
-        background-color: transparent !important;
-        color: #fff !important;
-        -webkit-animation: neon 1.5s ease-in-out infinite alternate;
-        -moz-animation: neon 1.5s ease-in-out infinite alternate;
-        animation: neon 1.5s ease-in-out infinite alternate;
-    }
-
 
 </style>
 <div id="myNav" class="overlay">
     <a class="closebtn " onclick="closeNav()">&times;</a>
-    <div class="overlay-content navbar ">
+    <div class="overlay-content navbar">
         <ul class=" navbar-nav mr-auto">
             <img src="<?php print base_url(); ?>img/logo_mediano.png" width="160">
             <br>
@@ -83,13 +85,13 @@
                     <a class="dropdown-item" href="#" onclick="onCambiarContrasena();">Cambiar Contraseña</a>
                     <a class="dropdown-item" href="#">Reportar un problema</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item neon" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
+                    <a class="dropdown-item" href="<?php print base_url('Login/onSalir'); ?>">Salir</a>
                 </div>
             </li>
-            <div class="dropdown-divider"></div>
-            <br>
+            <div class="dropdown-divider my-2"></div>
+            <li><input id="NavSearch" type="text" class="form-control" placeholder="BUSCAR... "></li>
             <li class="nav-item dropdown " >
-                <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="fa fa-shopping-cart"></span>       Compras
                 </a>
                 <ul class="dropdown-menu">
@@ -110,8 +112,6 @@
                     <li><a class="dropdown-item" href="<?php print base_url('ReportesPedProg.rb') ?>"><span class="fa fa-calendar"></span>        Reportes</a></li>
                 </ul>
             </li>
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="fa fa-edit"></span>        Diseño y Desarrollo
@@ -236,10 +236,10 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#myNav > li:not(ul)').click(function (event) {
+        $('#myNav > li:not(ul), #myNav > li > input:focus').click(function (event) {
             event.stopPropagation();
         });
     });
-</script>
+</script> 
 <?php
 $this->load->view('vReporteExplosion');
