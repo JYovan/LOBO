@@ -42,45 +42,46 @@ class pedidos_model extends CI_Model {
     public function getDetalleByID($Pedido) {
         try {
             $this->db->select('U.ID AS ID, '
-                    . 'U.Estilo AS IdEstilo, '
-                    . 'U.Combinacion AS IdColor, '
-                    . "E.Clave AS Estilo, "
-                    . "E.Descripcion AS EstiloD, "
-                    . "C.Clave AS Color, "
-                    . "C.Descripcion AS ColorD, "
-                    . "U.Sem AS Sem,"
-                    . "U.Maq AS Maq,"
-                    . "CASE WHEN C1 <= 0 THEN '-' ELSE C1 END AS C1, "
-                    . "C2, "
-                    . "C3, "
-                    . "C4, "
-                    . "C5, "
-                    . "C6, "
-                    . "C7, "
-                    . "C8, "
-                    . "C9, "
-                    . "C10, "
-                    . "C11, "
-                    . "C12, "
-                    . "C13, "
-                    . "C14, "
-                    . "C15, "
-                    . "C16, "
-                    . "C17, "
-                    . "C18, "
-                    . "C19, "
-                    . "C20, "
-                    . "C21, "
-                    . "C22,"
-                    . "(C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS Pares,"
-                    . "'$'+CONVERT(varchar, CAST(U.Precio AS money), 1) AS Precio , "
-                    . "'$'+CONVERT(varchar, CAST(U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS money), 1) AS Importe , "
-                    . "'$'+CONVERT(varchar, CAST(  (U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22)) * (ISNULL(Desc_Por,0)/100)  AS money), 1) AS 'Desc',"
-                    . "U.FechaEntrega AS Entrega,"
-                    . "'<span class=''fa fa-trash-alt'' "
-                    . "onclick=''onEliminarDetalle('+      "
-                    . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
-                    . ", S.ID AS Serie", false)->from('sz_PedidosDetalle AS U')
+                            . 'U.Estilo AS IdEstilo, '
+                            . 'U.Combinacion AS IdColor, '
+                            . "E.Clave AS Estilo, "
+                            . "E.Descripcion AS EstiloD, "
+                            . "C.Clave AS Color, "
+                            . "C.Descripcion AS ColorD, "
+                            . "U.Sem AS Sem,"
+                            . "U.Maq AS Maq,"
+                            . "CASE WHEN C1 <= 0 THEN '-' ELSE C1 END AS C1, "
+                            . "C2, "
+                            . "C3, "
+                            . "C4, "
+                            . "C5, "
+                            . "C6, "
+                            . "C7, "
+                            . "C8, "
+                            . "C9, "
+                            . "C10, "
+                            . "C11, "
+                            . "C12, "
+                            . "C13, "
+                            . "C14, "
+                            . "C15, "
+                            . "C16, "
+                            . "C17, "
+                            . "C18, "
+                            . "C19, "
+                            . "C20, "
+                            . "C21, "
+                            . "C22,"
+                            . "(C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS Pares,"
+                            . "'$'+CONVERT(varchar, CAST(U.Precio AS money), 1) AS Precio , "
+                            . "'$'+CONVERT(varchar, CAST(U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22) AS money), 1) AS Importe , "
+                            . "  (U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22))  AS ImporteSF , "
+                            . "'$'+CONVERT(varchar, CAST(  (U.Precio* (C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22)) * (ISNULL(Desc_Por,0)/100)  AS money), 1) AS 'Desc',"
+                            . "U.FechaEntrega AS Entrega,"
+                            . "'<span class=''fa fa-trash-alt'' "
+                            . "onclick=''onEliminarDetalle('+      "
+                            . "REPLACE(LTRIM(REPLACE(U.ID, '0', ' ')), ' ', '0') +')  ''></span>' AS '-' "
+                            . ", S.ID AS Serie", false)->from('sz_PedidosDetalle AS U')
                     ->join('sz_Estilos AS E', 'U.Estilo = E.ID')->join('sz_Combinaciones AS C', 'U.Combinacion = C.ID')
                     ->join('sz_Pedidos AS PE', 'U.Pedido = PE.ID')->join('sz_series AS S', 'E.Serie = S.ID')
                     ->where('U.Pedido', $Pedido);
@@ -125,11 +126,11 @@ class pedidos_model extends CI_Model {
     public function onComprobarCantidadPorFila($ID, $E, $C, $P) {
         try {
             $this->db->select("TOP 1 "
-                    . "CASE "
-                    . "WHEN (C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) IS NULL THEN 0 "
-                    . "ELSE (C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) END AS x36", false)->from('sz_PedidosDetalle AS PD')
+                            . "CASE "
+                            . "WHEN (C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) IS NULL THEN 0 "
+                            . "ELSE (C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) END AS x36", false)->from('sz_PedidosDetalle AS PD')
                     ->where('Pedido', $ID)->where('Estilo', $E)->where('Combinacion', $C)
-                    ->where('(C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) < 37',null,false)
+                    ->where('(C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11 + C12 + C13 + C14 + C15 + C16 + C17 + C18 + C19 + C20 + C21 + C22) < 37', null, false)
                     ->group_by(array('ID', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C11', 'C12', 'C13', 'C14', 'C15', 'C16', 'C17', 'C18', 'C19', 'C20', 'C21', 'C22'))
                     ->order_by("ID", "DESC");
             $query = $this->db->get();
@@ -213,6 +214,27 @@ class pedidos_model extends CI_Model {
         }
     }
 
+    public function getInformacionPedidoByID($ID) {
+        try {
+            return $this->db->select("P.ID, ISNULL(P.Folio,'') AS Folio ,"
+                                    . "(CASE WHEN  P.Estatus ='ACTIVO' "
+                                    . "THEN CONCAT('<span class=''badge badge-info'' style=''font-size: 15px;'' >','EN FIRME','</span>') "
+                                    . "WHEN  P.Estatus ='FINALIZADO' "
+                                    . "THEN CONCAT('<span class=''badge badge-success'' style=''font-size: 15px;''>','FACTURADO','</span>') "
+                                    . "END) AS Estatus ,"
+                                    . "C.Clave + '-'+C.RazonSocial AS 'Cliente' ,"
+                                    . "FORMAT(convert(date, P.FechaPedido, 103), 'dd/MM/yyyy') AS FechaPedido, "
+                                    . "US.Usuario AS Usuario, "
+                                    . "V.Nombre AS Agente", false)
+                            ->from('sz_Pedidos AS P')
+                            ->join('sz_Clientes AS C', 'P.Cliente = C.ID', 'left')->join('sz_Usuarios AS US', 'P.Usuario = US.ID', 'left')
+                            ->join('Vendedores AS V', 'V.IdVendedor = P.Agente', 'left')
+                            ->where_in('P.ID', array($ID))->get()->result();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function getPedidoEncabezadoDetalleByID($ID) {
         try {
             return $this->db->select('U.*', false)->from('sz_Pedidos AS U')->where('U.ID', $ID)->get()->result();
@@ -237,4 +259,5 @@ class pedidos_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
+
 }

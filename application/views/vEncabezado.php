@@ -81,6 +81,10 @@
         <!-- BOOTSTRAP TOUR JS -->
         <link href="<?php echo base_url(); ?>js/bootstrap-tour-master/build/css/bootstrap-tour.min.css" rel="stylesheet">
         <script src="<?php echo base_url(); ?>js/bootstrap-tour-master/build/js/bootstrap-tour.js"></script>
+        
+        <!--FancyBoxJS-->
+        <link rel="stylesheet" href="<?php echo base_url("js/fancybox/dist/jquery.fancybox.min.css"); ?>" />
+        <script src="<?php echo base_url("js/fancybox/dist/jquery.fancybox.min.js"); ?>"></script>  
 
         <!-- Custom scripts for this template -->
         <script src="<?php echo base_url(); ?>js/scripts.js"></script>

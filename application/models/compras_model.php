@@ -42,10 +42,7 @@ class compras_model extends CI_Model {
 
     public function getCompraByID($ID) {
         try {
-            $this->db->select('U.*', false);
-            $this->db->from('sz_Compras AS U');
-            $this->db->where('U.ID', $ID);
-            $this->db->where_in('U.Estatus', 'ACTIVO');
+            $this->db->select('U.*', false)->from('sz_Compras AS U')->where('U.ID', $ID)->where_in('U.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -101,12 +98,9 @@ class compras_model extends CI_Model {
                     . 'CD.ConsignarA AS Consignar,'
                     . 'CONCAT(\'<span class="fa fa-trash fa-lg" onclick="onEliminarCompraDetalleByID(\',CD.ID,\')">\',\'</span>\') AS Eliminar'
                     . '', false);
-            $this->db->from('sz_ComprasDetalle AS CD');
-            $this->db->join('sz_Compras AS C', 'C.ID= CD.OrdenCompra', 'left');
-            $this->db->join('sz_Materiales AS M', 'M.ID = CD.Articulo', 'left');
-            $this->db->join('sz_Catalogos AS UM', 'M.UnidadCompra = UM.ID', 'left');
-            $this->db->where('C.ID', $ID);
-            $this->db->where_in('C.Estatus', 'ACTIVO');
+            $this->db->from('sz_ComprasDetalle AS CD')
+                    ->join('sz_Compras AS C', 'C.ID= CD.OrdenCompra', 'left')->join('sz_Materiales AS M', 'M.ID = CD.Articulo', 'left')
+                    ->join('sz_Catalogos AS UM', 'M.UnidadCompra = UM.ID', 'left')->where('C.ID', $ID)->where_in('C.Estatus', 'ACTIVO');
             $query = $this->db->get();
             /*
              * FOR DEBUG ONLY
@@ -186,5 +180,4 @@ class compras_model extends CI_Model {
             echo $exc->getTraceAsString();
         }
     }
-
 }
